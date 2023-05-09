@@ -173,5 +173,6 @@ await serve(req => new Response(
         "Issue",
       ),
     ),
+    p("Contact us: ", Link("tao@vanjs.org", "mailto:tao@vanjs.org")),
   )
 }

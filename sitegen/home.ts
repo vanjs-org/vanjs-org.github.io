@@ -92,5 +92,6 @@ van.add(document.body, Counter())
         "Issue",
       ),
     ),
+    p("Contact us: ", Link("tao@vanjs.org", "mailto:tao@vanjs.org")),
   )
 }
