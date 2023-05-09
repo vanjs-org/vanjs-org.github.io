@@ -1,0 +1,6 @@
+{
+  "deno.enablePaths": [
+    "sitegen/",
+    "code/shell.ts"
+  ]
+}
