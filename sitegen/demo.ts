@@ -710,18 +710,7 @@ const Console = () => div({class: "console"}, Input({id: 1}))
     p({
       id: "jsfiddle-js-console",
       "data-prefix": "const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags",
-      "data-suffix": `const Snippet = str => {
-  const copyToClipboard = e => {
-    navigator.clipboard.writeText(str)
-    const msgDom = e.target.parentNode.appendChild(van.tags.i("Copied!"))
-    setTimeout(() => msgDom.remove(), 1000)
-  }
-  return str.includes("\\n") ? div(
-    van.tags.a({onclick: copyToClipboard}, "📋"), pre(str),
-  ) : span(
-    code(str), van.tags.a({onclick: copyToClipboard}, "📋")
-  )
-}
+      "data-suffix": `const Snippet = str => str.includes("\\n") ? pre(str) : code(str)
 
 google.charts.load('current', {packages: ['corechart']})
 google.charts.setOnLoadCallback(() =>

@@ -592,18 +592,7 @@ const Input = ({id}) =&gt; {
 }
 
 const Console = () =&gt; div({class: "console"}, Input({id: 1}))
-</code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p id="jsfiddle-js-console" data-prefix="const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags" data-suffix="const Snippet = str => {
-  const copyToClipboard = e => {
-    navigator.clipboard.writeText(str)
-    const msgDom = e.target.parentNode.appendChild(van.tags.i(&quot;Copied!&quot;))
-    setTimeout(() => msgDom.remove(), 1000)
-  }
-  return str.includes(&quot;\n&quot;) ? div(
-    van.tags.a({onclick: copyToClipboard}, &quot;📋&quot;), pre(str),
-  ) : span(
-    code(str), van.tags.a({onclick: copyToClipboard}, &quot;📋&quot;)
-  )
-}
+</code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p id="jsfiddle-js-console" data-prefix="const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags" data-suffix="const Snippet = str => str.includes(&quot;\n&quot;) ? pre(str) : code(str)
 
 google.charts.load('current', {packages: ['corechart']})
 google.charts.setOnLoadCallback(() =>
