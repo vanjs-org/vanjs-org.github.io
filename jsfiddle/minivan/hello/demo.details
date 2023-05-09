@@ -4,5 +4,6 @@ authors:
   - Tao Xin
 resources:
   - https://vanjs.org/code/mini-van-latest.nomodule.min.js
+panel_js: 2
 ...
 */

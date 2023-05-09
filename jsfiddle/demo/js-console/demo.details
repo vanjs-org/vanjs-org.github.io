@@ -5,5 +5,6 @@ authors:
 resources:
   - https://vanjs.org/code/van-latest.nomodule.min.js
   - https://www.gstatic.com/charts/loader.js
+panel_js: 2
 ...
 */

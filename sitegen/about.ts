@@ -44,7 +44,7 @@ export default (doc: HTMLDocument) => {
       li("A browser-based test suite, with 20+ test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)"),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li("A Deno test suite for ", Symbol("van-plate"), " mode, covering Deno integration."),
-      li("The entire site of vanjs.org was generated with ", MiniVan(), " with TypeScript files defining all web pages."),
+      li("The entire site of vanjs.org was generated with ", MiniVan(), " with TypeScript files defining all web pages. Source code can be found ", Link("here", "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/sitegen"), "."),
     ),
     H2("A Note on Coding Styles"),
     p("The sample code snippets throughout this website follow a minimalist approach when it comes to coding styles. When readability is not impacted, we are leaning towards the choice that leads to more concise code, with the belief that brevity and simlicity generally make the code easier to read and write. This means that we're consciously choosing certain coding styles throughout this website: such as omitting optional semicolons, naked if statements, usage of ternary operator when appropriate, etc."),
