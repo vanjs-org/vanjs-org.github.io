@@ -682,9 +682,11 @@ const Input = ({id}) => {
   const run = () => {
     textareaDom.setAttribute("readonly", true)
     runDom.disabled = true
-    van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
+    const newTextreaDom = van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
       .appendChild(Input({id: id + 1}))
-      .querySelector("textarea").focus()
+      .querySelector("textarea")
+    newTextreaDom.focus()
+    setTimeout(() => newTextreaDom.scrollIntoView(), 10)
   }
   const runDom = button({class: "run", onclick: run}, "Run")
   const onkeydown = async e => {
