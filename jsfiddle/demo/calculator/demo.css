@@ -1,0 +1,86 @@
+html { height: 100%; }
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  font-family: sans-serif;
+  height: 100%;
+}
+
+@media (min-width: 400px) and (min-height: 400px) {
+  html { font-size: 20px; }
+}
+
+@media (min-width: 500px) and (min-height: 500px) {
+  html { font-size: 30px; }
+}
+
+@media (min-width: 600px) and (min-height: 600px) {
+  html { font-size: 40px; }
+}
+
+@media (min-width: 800px) and (min-height: 800px) {
+  html { font-size: 50px; }
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+#display {
+  background-color: #858694;
+  color: white;
+  text-align: right;
+  font-weight: 200;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+#display > div {
+  font-size: 2.5rem;
+  padding: 0.2rem 0.7rem 0.1rem 0.5rem;
+}
+
+#panel {
+  background-color: #858694;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+}
+
+#panel > div {
+  width: 100%;
+  margin-bottom: 1px;
+  flex: 1 0 auto;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.button {
+  display: inline-flex;
+  width: 25%;
+  flex: 1 0 auto;
+}
+
+.button.wide { width: 50%; }
+
+.button button {
+  background-color: #e0e0e0;
+  border: 0;
+  font-size: 1.5rem;
+  margin: 0 1px 0 0;
+  flex: 1 0 auto;
+  padding: 0;
+}
+
+.button:last-child button {
+  margin-right: 0;
+  background-color: #f5923e;
+  color: white;
+}

@@ -1,0 +1,41 @@
+body { max-width: 960px; }
+
+.row {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.left {
+  width: 60px;
+  text-align: right;
+}
+
+.run {
+  display: none;
+  margin: 9px;
+}
+
+@media (max-width: 450px), (pointer:none), (pointer:coarse) {
+  .break { width: 100%; }
+  .run { display: unset; }
+}
+
+.right { flex-grow: 1; }
+
+.right textarea, .right table {
+  margin: 11px;
+  border-width: 1px;
+  box-sizing: border-box;
+  font: 15px monospace;
+  width: 100%;
+}
+
+.right pre, .right .chart { margin: 12px; }
+
+a { cursor: pointer ;}
+
+table { border-collapse: collapse; }
+
+th, td { border: 1px solid black; }
+
+.err { color: red; }

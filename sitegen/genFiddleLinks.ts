@@ -2,8 +2,8 @@ import van from "./mini-van.js"
 import { DOMParser, Element } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
-const jsFiddleRoot = "/Users/xintao/learn-jsfiddle"
-const ghPath = "alexander-xin/learn-jsfiddle/tree/master"
+const jsFiddleRoot = "/Users/xintao/org/vanjs-org.github.io/jsfiddle"
+const ghPath = "vanjs-org/vanjs-org.github.io/tree/master/jsfiddle"
 
 const mkdirIfNotExist = (dir: string) => {
   try {
