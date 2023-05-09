@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html><head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanJS - Convert HTML Snippet to 🍦VanJS Code</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-64 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"><a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a><a href="/start" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Getting Started</a><a href="/tutorial" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tutorial</a><a href="/demo" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanJS by Example</a><a href="/convert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white current">Convert HTML to VanJS</a><a href="/minivan" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Mini-Van</a><a href="/advanced" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Advanced Topics</a><a href="/about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar">Convert HTML to VanJS</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-right:40px;">
+      <div id="page">
+        <div id="content"><h1 class="w3-xxlarge">Convert HTML Snippet to 🍦VanJS Code</h1><p id="converter"></p></div>
+        <aside id="toc"></aside>
+      </div>
+    </div>
+    <!-- !FOOTER! -->
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
+      <p class="w3-right">Powered by
+        <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a>,
+        <a href="/" title="VanJS" target="_blank" class="w3-hover-opacity">VanJS</a>, and
+        <a href="/minivan" title="Mini-Van" target="_blank" class="w3-hover-opacity">Mini-Van</a>
+      </p>
+    </div>
+    <script>
+      // Script to open and close sidebar
+      const w3_open = () => {
+        document.getElementById("mySidebar").style.display = "block"
+        document.getElementById("myOverlay").style.display = "block"
+      }
+
+      const w3_close = () => {
+        document.getElementById("mySidebar").style.display = "none"
+        document.getElementById("myOverlay").style.display = "none"
+      }
+
+      // Track the current toc item
+      const trackToc = () => {
+        const allHeadings = [...document.querySelectorAll("h2,h3")]
+        const currentHeading = allHeadings.find(h => h.getBoundingClientRect().top >= 0)
+          ?? allHeadings[allHeadings.length - 1]
+        for (const e of document.querySelectorAll("#toc li a"))
+          if (e.href.split("#")[1] === currentHeading?.id)
+            e.classList.add("w3-opacity"); else
+            e.classList.remove("w3-opacity")
+      }
+      trackToc()
+      document.addEventListener("scroll", trackToc)
+      addEventListener("resize", trackToc)
+    </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module">import van from "/code/van-latest.min.js"
+
+const {code, div, h5, input, pre, textarea} = van.tags
+
+const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
+  key : `"${key}"`
+
+const attrsToVanCode = dom => dom.attributes.length > 0 ?
+  `{${[...dom.attributes].map(
+    a => `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
+    .join(", ")}}${dom.childNodes.length > 0 ? "," : ""}` : ""
+
+const filterChild = (childNodes, {skipEmptyText}) =>
+  [...childNodes].filter(c =>
+    !skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue))
+
+const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+
+const domToVanCode = (dom,
+  {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
+  tagsUsed) => {
+  const prefix = " ".repeat(indent)
+  const suffix = skipTrailingComma ? "" : ","
+  if (dom.nodeName === "#text")
+    return [`${prefix}${JSON.stringify(dom.nodeValue)}${suffix}`]
+  const lowerCaseTagName = dom.nodeName.toLowerCase()
+  tagsUsed.add(lowerCaseTagName)
+  if (lowerCaseTagName === "pre") skipEmptyText = false
+  return [
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
+    ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =>
+      domToVanCode(
+        c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
+        tagsUsed)),
+    `${prefix})${suffix}`,
+  ]
+}
+
+const Converter = ({initInput}) => {
+  const oninput = () => {
+    textareaDom.rows = Math.max(numRows(textareaDom.value) + 2, 5)
+    const containerDom = div()
+    containerDom.innerHTML = textareaDom.value
+    const tagsUsed = new Set;
+    const childNodes = filterChild(containerDom.childNodes,
+      {skipEmptyText: skipEmptyTextDom.checked})
+    const lines = childNodes.flatMap(c =>
+      domToVanCode(c, {
+        indentLevel: parseInt(indentInputDom.value),
+        skipEmptyText: skipEmptyTextDom.checked,
+        skipTrailingComma: childNodes.length <= 1
+      }, tagsUsed))
+    const sortedTags = [...tagsUsed].sort()
+    tagsCode.val = `const {${sortedTags.join(", ")}} = tags`
+    domCode.val = lines.join("\n")
+    setTimeout(() => Prism.highlightAll(), 5)
+  }
+
+  const textareaDom = textarea(
+    {rows: 5, oninput, style: "width: 100%;"}, initInput)
+  const indentInputDom = input(
+    {type: "number", min: "1", max: "8", value: "2", oninput})
+  const skipEmptyTextDom = input({type: "checkbox", oninput})
+  const tagsCode = van.state(""), domCode = van.state("")
+
+  // Trigger the UI update after initialization
+  textareaDom.dispatchEvent(new Event("input"))
+  return div(
+    h5("Paste your HTML snippet here:"),
+    textareaDom,
+    "Indent level: ", indentInputDom, " ",
+    skipEmptyTextDom, "Skip empty text",
+    h5("Declaring tag functions:"),
+    van.bind(tagsCode, c => div(pre(code({ class: "language-js" }, c)))),
+    h5("Building the DOM tree:"),
+    van.bind(domCode, c => div(pre(code({ class: "language-js" }, c)))),
+  )
+}
+
+const converter = Converter({
+  initInput: `<div><p>👋Hello</p><ul><li>🗺️World</li><li><a href="https://vanjs.org/">🍦VanJS</a></li></ul></div>`})
+document.getElementById("converter").appendChild(converter)
+</script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script class="inline"></script>
+  
+
+</body></html>

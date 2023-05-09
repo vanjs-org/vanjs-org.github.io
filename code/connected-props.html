@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Connected Properties Demo</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script type="module">
+      import van from "./van-latest.min.js"
+
+      const {div, input, p} = van.tags
+      
+      const ConnectedProps = () => {
+        const value = van.state("")
+        return div(
+          div(input({type: "text", value, oninput: e => value.val = e.target.value})),
+          div(input({type: "text", value, oninput: e => value.val = e.target.value})),
+          div(input({type: "text", value, oninput: e => value.val = e.target.value})),
+        )
+      }
+
+      van.add(document.body,
+        p("The value of the 3 input boxes below are always kept in sync, regardless which box you're changing:"),
+        ConnectedProps(),
+      )
+    </script>
+  </body>
+</html>

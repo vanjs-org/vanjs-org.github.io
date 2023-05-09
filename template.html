@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanJS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-64 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar"></span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-right:40px;">
+      <div id="page">
+        <div id="content"></div>
+        <aside id="toc"></aside>
+      </div>
+    </div>
+    <!-- !FOOTER! -->
+    <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px">
+      <p class="w3-right">Powered by
+        <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+          class="w3-hover-opacity">w3.css</a>,
+        <a href="/" title="VanJS" target="_blank"
+        class="w3-hover-opacity">VanJS</a>, and
+        <a href="/minivan" title="Mini-Van" target="_blank"
+        class="w3-hover-opacity">Mini-Van</a>
+      </p>
+    </div>
+    <script>
+      // Script to open and close sidebar
+      const w3_open = () => {
+        document.getElementById("mySidebar").style.display = "block"
+        document.getElementById("myOverlay").style.display = "block"
+      }
+
+      const w3_close = () => {
+        document.getElementById("mySidebar").style.display = "none"
+        document.getElementById("myOverlay").style.display = "none"
+      }
+
+      // Track the current toc item
+      const trackToc = () => {
+        const allHeadings = [...document.querySelectorAll("h2,h3")]
+        const currentHeading = allHeadings.find(h => h.getBoundingClientRect().top >= 0)
+          ?? allHeadings[allHeadings.length - 1]
+        for (const e of document.querySelectorAll("#toc li a"))
+          if (e.href.split("#")[1] === currentHeading?.id)
+            e.classList.add("w3-opacity"); else
+            e.classList.remove("w3-opacity")
+      }
+      trackToc()
+      document.addEventListener("scroll", trackToc)
+      addEventListener("resize", trackToc)
+    </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script class="inline"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Input with Auto Completion</title>
+    <meta charset="UTF-8">
+    <style>
+      .root { display: flex; }
+
+      textarea {
+        width: 300px;
+        height: 135px;
+      }
+
+      .suggestion {
+        width: 200px;
+        padding: 1px 2px 1px 5px;
+      }
+
+      .text-row { display: table-row; }
+
+      .text-row.selected {
+      	background-color: blue;
+	      color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module" src="auto-complete-stateful-dom-func.js"></script>
+  </body>
+</html>

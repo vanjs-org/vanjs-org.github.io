@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Index</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script type="module">
+      import van from "./mini-van-latest.min.js"
+
+      const {h1, ul, li, a} = van.tags
+
+      const pages = [
+        {"Hello": ["hello", "hello-nomodule", "hello-mini", "hello-mini-nomodule"]},
+        "static", 
+        {"Counters": ["simple-counter", "advanced-counter"]},
+        "connected-props",
+        "hello-fun",
+        "calculator",
+        {"TODO List": ["todo-procedural", "todo-functional"]},
+        "json-inspector",
+        "json-csv-table-viewer",
+        "convert-to-van",
+        {"Auto Complete": ["auto-complete-stateful-dom-func", "auto-complete-derived-props"]},
+        "console",
+      ]
+
+      const ListItem = o => {
+        if (typeof o === "string") return li(a({href: `${o}.html`}, `${o}.html`))
+        const [[k, v]] = Object.entries(o)
+        return li(
+          k,
+          ul(v.map(it => ListItem(it))),
+        )
+      }
+
+      van.add(document.body,
+        h1("Cool 🍦VanJS Demos to Show"),
+        ul(pages.map(page => ListItem(page))),
+      )
+    </script>
+  </body>
+</html>

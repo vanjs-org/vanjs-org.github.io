@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Hello</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script type="text/javascript" src="van-latest.nomodule.min.js"></script>
+    <script>
+      const {a, div, li, p, ul} = van.tags
+
+      // Reusable components can be just pure vanilla JavaScript functions.
+      // Here we capitalize the first letter to follow React conventions.
+      const Hello = () => div(
+        p("👋Hello"),
+        ul(
+          li("🗺️World"),
+          li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+        ),
+      )
+
+      van.add(document.body, Hello())
+    </script>
+  </body>
+</html>
