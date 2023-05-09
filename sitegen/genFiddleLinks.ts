@@ -60,7 +60,7 @@ const process = (path: string) => {
     }
 
     add(dom,
-      a({href: join("https://jsfiddle.net/gh/get/library/pure", ghPath, subdir)},
+      a({href: "https://jsfiddle.net/gh/get/library/pure/" + join(ghPath, subdir)},
         "Try on jsfiddle",
       ),
     )
