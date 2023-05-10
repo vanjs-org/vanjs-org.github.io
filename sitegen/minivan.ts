@@ -43,7 +43,7 @@ export default (doc: HTMLDocument) => {
   )
 
   return div({id: "content"},
-    H1(MiniVan(), ": A Minimalist Template Engine for DOM Generation, Working for Both Client-side and Server-side Rendering"),
+    H1(MiniVan(), ": A Minimalist Template Engine for Client/Server-side Rendering"),
     p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.5kB in the minized bundle size, ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
