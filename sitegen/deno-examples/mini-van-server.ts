@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.2.5/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.2.6/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)
