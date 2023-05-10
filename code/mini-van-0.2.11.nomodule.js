@@ -15,10 +15,7 @@
     };
     return _result;
   };
-  var mini_van_default = {
-    "vanWithDoc": vanWithDoc,
-    ...vanWithDoc(typeof window !== "undefined" ? window : null)
-  };
+  var mini_van_default = { "vanWithDoc": vanWithDoc, ...vanWithDoc(window?.document) };
 
   // mini-van.forbundle.js
   window.van = mini_van_default;

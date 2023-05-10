@@ -25,5 +25,4 @@ let vanWithDoc = doc => {
   return _result
 }
 
-export default {"vanWithDoc": vanWithDoc,
-  ...vanWithDoc(typeof window !== "undefined" ? window : null)}
+export default {"vanWithDoc": vanWithDoc, ...vanWithDoc(window?.document)}

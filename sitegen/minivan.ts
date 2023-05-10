@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, div, p, path, svg, table, tbody, th, thead, tr} = tags
 
-  const {BI, Download, DownloadRow, H1, H2, H3, Html, Js, Link, MiniVan, Symbol, SymLink, Ts, VanJS} = common(doc)
+  const {BI, Download, DownloadRow, H1, H2, H3, Html, Js, Link, MiniVan, Shell, Symbol, SymLink, Ts, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/mini-van.version")
 
@@ -69,7 +69,7 @@ van.add(document.body, Hello())
     H2("Server-Side: Deno Integration"),
     p(MiniVan(), " can be used on the server side as a template engine to render dynamic web content for HTTP servers. If you use Deno, the integration is fairly straightforward."),
     p("There are 2 modes for server-side integration: ", Symbol("van-plate"), " mode (based on text templating, thus doesn't need the DOM dependency), and ", Symbol("mini-van"), " mode (based on DOM, thus needs the DOM dependency)."),
-    H3(Symbol("van-plate"), " mode"),
+    H3({id: "deno-van-plate"}, Symbol("van-plate"), " mode"),
     p("In ", Symbol("van-plate"), " mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:"),
     Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import van from "https://deno.land/x/minivan@${version}/src/van-plate.js"
@@ -103,7 +103,7 @@ await serve(req => new Response(
     p("As illustrated in the example, ", Symbol("render"), " method can be called on the object returned from the ", SymLink("tag function", "/tutorial#api-tags"), " to generate a ", Symbol("string"), " that can be   used for serving."),
     p(Symbol("van.html"), " is a helper function defined in ", Symbol("van-plate.js"), " that is equivalent to:",
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).render()`)),
-    H3(Symbol("mini-van"), " mode"),
+    H3({id: "deno-mini-van"}, Symbol("mini-van"), " mode"),
     p("The behavior in ", Symbol("mini-van"), " mode is similar to the behavior in browser context. i.e.: DOM objects will be created by ", SymLink("tag functions", "/tutorial#api-tags"), ". As Deno doesn't have the built-in support for DOM objects, you need to provide a 3rd-party ", Symbol("Document"), " object before integrating with ", MiniVan(), " in this mode."),
     p("There are multiple 3rd-party options for the ", Symbol("Document"), " object. In the example below, we will demonstrate the integration with the help of ", Link("deno-dom", "https://deno.com/manual@v1.28.1/advanced/jsx_dom/deno_dom"), ":"),
     Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
@@ -142,6 +142,82 @@ await serve(req => new Response(
 `),
     p("Similar to ", Symbol("van-plate"), " mode, we have a helper function ", Symbol("html"), " defined in ", Symbol("mini-van.js"), " which is equivalent to:"),
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).outerHTML`),
+    H2("Server-Side: Node.js Integration"),
+    p("Similarly, ", MiniVan(), " can work with Node.js as well, in both ", Symbol("van-plate"), " mode and ", Symbol("mini-van"), " mode."),
+    H3("Install"),
+    Shell("npm install mini-van-plate"),
+    H3({id: "node-van-plate"}, Symbol("van-plate"), " mode"),
+    p("Sample code:"),
+    Js(`import http from "node:http"
+import van from "mini-van-plate/van-plate"
+
+const {a, body, li, p, ul} = van.tags
+
+const hostname = '127.0.0.1'
+const port = 8080
+
+console.log("Testing DOM rendering...")
+// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` in the console
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.end(van.html(
+    body(
+      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ))
+})
+
+server.listen(port, hostname, () =>
+  console.log(\`Server running at http://\${hostname}:\${port}/\`))
+`),
+    H3({id: "node-mini-van"}, Symbol("mini-van"), " mode"),
+    p("Likewise, ", MiniVan(), " mode needs a 3rd-party DOM library to provide the ", Symbol("Document"), " object. We will show an example with the integration of ", SymLink("jsdom", "https://github.com/jsdom/jsdom"), "."),
+    p("First, install ", Symbol("jsdom")),
+    Shell("npm install jsdom"),
+    p("Sample code:"),
+    Js(`import http from "node:http"
+import jsdom from "jsdom"
+import van from "mini-van-plate"
+
+const dom = new jsdom.JSDOM("")
+const {html, tags} = van.vanWithDoc(dom.window.document)
+const {a, body, li, p, ul} = tags
+
+const hostname = '127.0.0.1'
+const port = 8080
+
+console.log("Testing DOM rendering...")
+const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
+// anchorDom is an HTMLAnchorElement
+// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` printed in the console
+console.log(anchorDom.outerHTML)
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.end(html(
+    body(
+      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
+      p("👋Hello"),
+      ul(
+        li("🗺️World"),
+        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+      ),
+    ),
+  ))
+})
+
+server.listen(port, hostname, () =>
+  console.log(\`Server running at http://\${hostname}:\${port}/\`))
+`),
     H2("Client-Side: Getting Started"),
     p("To get started on the client side, download the latest version ", Download(`mini-van-${version}.min.js`), " and add the line below to your script:"),
     Js(`import van from "./mini-van-${version}.min.js"`),

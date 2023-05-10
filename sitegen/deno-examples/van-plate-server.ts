@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import van from "https://deno.land/x/minivan@0.2.10/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.3.0/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
