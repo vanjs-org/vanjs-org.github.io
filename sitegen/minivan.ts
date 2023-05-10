@@ -82,8 +82,7 @@ van.add(document.body, Hello())
     H3(Symbol("van-plate"), " mode"),
     p("In ", Symbol("van-plate"), " mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:"),
     Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-// TODO: change it to https path after publishing mini-van to deno land
-import van from "../van-plate.js"
+import van from "https://deno.land/x/minivan@${version}/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
@@ -119,8 +118,7 @@ await serve(req => new Response(
     p("There are multiple 3rd-party options for the ", Symbol("Document"), " object. In the example below, we will demonstrate the integration with the help of ", Link("deno-dom", "https://deno.com/manual@v1.28.1/advanced/jsx_dom/deno_dom"), ":"),
     Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-// TODO: change it to https path after publishing mini-van to deno land
-import van from "../mini-van.js"
+import van from "https://deno.land/x/minivan@${version}/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags, html} = van.vanWithDoc(document)

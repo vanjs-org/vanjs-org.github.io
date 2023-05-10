@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-// TODO change it to https path after publishing mini-van to deno land
-import van from "../van-plate.js"
+import van from "https://deno.land/x/minivan@0.2.5/src/van-plate.js"
 
 const {a, body, li, p, ul} = van.tags
 
