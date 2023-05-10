@@ -61,10 +61,13 @@ a {
 #toc {
   flex: 30%;
   margin-left: 35px;
+  min-width: 240px;
   max-width: 280px;
   position: sticky;
   align-self: flex-start;
-  top: 0;
+  overflow-y: scroll;
+  top: 40px;
+  height: calc(100vh - 40px);
 }
 
 #toc > ul {
@@ -217,6 +220,7 @@ textarea {
 
   #page {
     margin-top: 80px;
+    height: calc(100vh - 80px);
   }
 
   #toc {
