@@ -65,7 +65,7 @@ a {
   max-width: 280px;
   position: sticky;
   align-self: flex-start;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 40px;
   height: calc(100vh - 40px);
 }
