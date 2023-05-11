@@ -1,6 +1,6 @@
 const {button, pre, span} = van.tags
 
-const StopWatch = () => {
+const Stopwatch = () => {
   const elapsed = van.state("0.00")
   let id
   const start = () => id = id || setInterval(() =>
@@ -14,4 +14,4 @@ const StopWatch = () => {
   )
 }
 
-van.add(document.body, StopWatch())
+van.add(document.body, Stopwatch())

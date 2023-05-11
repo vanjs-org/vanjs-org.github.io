@@ -151,6 +151,28 @@ const CounterSet = () => {
       "data-prefix": "const {button, div} = van.tags",
       "data-suffix": "van.add(document.body, CounterSet())",
     }),
+    H2("Stopwatch"),
+    p("This is a ", Symbol("Stopwatch App"), ", similar to the ", SymLink("Timer App", "/tutorial#timer-app"), " shown in the tutorial:"),
+    Js(`const Stopwatch = () => {
+  const elapsed = van.state("0.00")
+  let id
+  const start = () => id = id || setInterval(() =>
+    elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+  return span(
+    pre({style: "display: inline;"}, elapsed, "s "),
+    button({onclick: start}, "Start"),
+    button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
+    button({onclick: () =>
+      (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+  )
+}
+`),
+    p(Demo(), " ", span({id: "demo-stopwatch"})),
+    p({
+      id: "jsfiddle-stopwatch",
+      "data-prefix": "const {button, pre, span} = van.tags",
+      "data-suffix": "van.add(document.body, Stopwatch())",
+    }),
     H2("TODO List"),
     p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration of native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
     p("Below is an example of building a ", Symbol("TODO List"), " in a completely procedural way:"),

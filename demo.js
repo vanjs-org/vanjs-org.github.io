@@ -119,6 +119,26 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
 }
 
 {
+  const {button, pre, span} = van.tags
+
+  const Stopwatch = () => {
+    const elapsed = van.state("0.00")
+    let id
+    const start = () => id = id || setInterval(() =>
+      elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+    return span(
+      pre({style: "display: inline;"}, elapsed, "s "),
+      button({onclick: start}, "Start"),
+      button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
+      button({onclick: () =>
+        (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+    )
+  }
+
+  van.add(document.getElementById("demo-stopwatch"), Stopwatch())
+}
+
+{
   const TodoItem = ({text}) => div(
     input({type: "checkbox", onchange: e =>
       e.target.closest("div").querySelector("span").style["text-decoration"] =

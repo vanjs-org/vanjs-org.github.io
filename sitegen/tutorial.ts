@@ -179,27 +179,29 @@ van.add(document.body, incrementBtn, resetBtn, dom1, dom2, dom3, dom4)
     p("Once ", Symbol("State"), " objects are created, we can bind them to DOM nodes in various ways to make your UI reactive to state changes."),
     H3({id: "state-typed-child"}, Symbol("State"), " objects as child nodes"),
     p(Symbol("State"), " objects can be used as child nodes in ", SymLink("tag functions", "#api-tags"), " and ", SymLink("van.add", "#api-add"), ", like the ", SymLink("Counter", "/#code-counter"), " example shown in the home page. For a ", Symbol("State"), " object used as a child node, its value needs to be primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"),  "), and a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it. The content of the created ", Symbol("Text node"), " will be always in sync with the value of the state."),
-    p("The following code shows how to build a simple stopwatch with this feature:"),
-Js(`const {button, pre, span} = van.tags
+    p({id: "timer-app"}, "The following code shows how to build a simple timer with this feature:"),
+Js(`const {button, span} = van.tags
 
-const StopWatch = () => {
-  const elapsed = van.state("0.00")
-  let id
-  const start = () => id = id || setInterval(() =>
-    elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const Timer = ({totalSecs}) => {
+  const secs = van.state(totalSecs);
   return span(
-    pre({style: "display: inline;"}, elapsed, "s "),
-    button({onclick: start}, "Start"),
-    button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
-    button({onclick: () =>
-      (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+    secs, "s ",
+    button({onclick: async () => {
+      while (secs.val > 0) await sleep(1000), --secs.val
+      setTimeout(() => {
+        alert("⏰: Time is up")
+        secs.val = totalSecs
+      }, 10)
+    }}, "Start"),
   )
 }
 
-van.add(document.body, StopWatch())`
-),
-    p(Demo(), " ", span({id: "demo-stopwatch"})),
-    p({id: "jsfiddle-stopwatch"}),
+van.add(document.body, Timer({totalSecs: 5}))
+`),
+    p(Demo(), " ", span({id: "demo-timer"})),
+    p({id: "jsfiddle-timer"}),
     H3({id: "state-typed-prop"}, Symbol("State"), " objects as properties"),
     p(Symbol("State"), " objects can be used as properties of HTML elements. Similar to ", Symbol("State"), "-based child nodes, the value of the properties will be always in sync with the value of the respective states. When ", Symbol("State"), " objects are used as properties, you need to make sure that the values of the states are always valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
     p("The following code demonstrates 2 ", SymLink("text inputs", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"), " whose values are always in sync:"),

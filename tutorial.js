@@ -31,25 +31,47 @@ import van from "/code/van-latest.min.js"
 }
 
 {
-  const {button, pre, span} = van.tags
+  const {button, span} = van.tags
 
-  const StopWatch = () => {
-    const elapsed = van.state("0.00")
-    let id
-    const start = () =>
-      id = id || setInterval(() =>
-        elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const Timer = ({totalSecs}) => {
+    const secs = van.state(totalSecs);
     return span(
-      pre({style: "display: inline;"}, elapsed, "s "),
-      button({onclick: start}, "Start"),
-      button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
-      button({onclick: () =>
-        (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+      secs, "s ",
+      button({onclick: async () => {
+        while (secs.val > 0) await sleep(1000), --secs.val
+        setTimeout(() => {
+          alert("⏰: Time is up")
+          secs.val = totalSecs
+        }, 10)
+      }}, "Start"),
     )
   }
 
-  van.add(document.getElementById("demo-stopwatch"), StopWatch())
+  van.add(document.getElementById("demo-timer"), Timer({totalSecs: 5}))
 }
+
+// {
+//   const {button, pre, span} = van.tags
+
+//   const StopWatch = () => {
+//     const elapsed = van.state("0.00")
+//     let id
+//     const start = () =>
+//       id = id || setInterval(() =>
+//         elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+//     return span(
+//       pre({style: "display: inline;"}, elapsed, "s "),
+//       button({onclick: start}, "Start"),
+//       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
+//       button({onclick: () =>
+//         (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+//     )
+//   }
+
+//   van.add(document.getElementById("demo-stopwatch"), StopWatch())
+// }
 
 {
   const {input, span} = van.tags
