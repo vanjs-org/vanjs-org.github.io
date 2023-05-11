@@ -179,7 +179,7 @@ van.add(document.body, incrementBtn, resetBtn, dom1, dom2, dom3, dom4)
     p("Once ", Symbol("State"), " objects are created, we can bind them to DOM nodes in various ways to make your UI reactive to state changes."),
     H3({id: "state-typed-child"}, Symbol("State"), " objects as child nodes"),
     p(Symbol("State"), " objects can be used as child nodes in ", SymLink("tag functions", "#api-tags"), " and ", SymLink("van.add", "#api-add"), ", like the ", SymLink("Counter", "/#code-counter"), " example shown in the home page. For a ", Symbol("State"), " object used as a child node, its value needs to be primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"),  "), and a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it. The content of the created ", Symbol("Text node"), " will be always in sync with the value of the state."),
-    p({id: "timer-app"}, "The following code shows how to build a simple timer with this feature:"),
+    p("The following code shows how to build a simple timer with this feature:"),
 Js(`const {button, span} = van.tags
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

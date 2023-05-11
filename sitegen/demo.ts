@@ -152,7 +152,7 @@ const CounterSet = () => {
       "data-suffix": "van.add(document.body, CounterSet())",
     }),
     H2("Stopwatch"),
-    p("This is a ", Symbol("Stopwatch App"), ", similar to the ", SymLink("Timer App", "/tutorial#timer-app"), " shown in the tutorial:"),
+    p("This is a ", Symbol("Stopwatch App"), ", similar to the ", SymLink("Timer App", "/tutorial#state-typed-child"), " shown in the tutorial:"),
     Js(`const Stopwatch = () => {
   const elapsed = van.state("0.00")
   let id

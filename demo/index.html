@@ -124,7 +124,7 @@ const CounterSet = () =&gt; {
     ),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-counter-advanced"></p><p id="jsfiddle-counter-advanced" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, CounterSet())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/counter-advanced">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stopwatch"><a class="self-link" href="#stopwatch">Stopwatch</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is a <code class="symbol">Stopwatch App</code>, similar to the <code class="symbol"><a href="/tutorial#timer-app" class="w3-hover-opacity">Timer App</a></code> shown in the tutorial:</p><pre><code class="language-js">const Stopwatch = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-counter-advanced"></p><p id="jsfiddle-counter-advanced" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, CounterSet())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/counter-advanced">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stopwatch"><a class="self-link" href="#stopwatch">Stopwatch</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is a <code class="symbol">Stopwatch App</code>, similar to the <code class="symbol"><a href="/tutorial#state-typed-child" class="w3-hover-opacity">Timer App</a></code> shown in the tutorial:</p><pre><code class="language-js">const Stopwatch = () =&gt; {
   const elapsed = van.state("0.00")
   let id
   const start = () =&gt; id = id || setInterval(() =&gt;
