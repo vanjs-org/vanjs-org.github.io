@@ -6,6 +6,11 @@ body {font-size:16px;}
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 }
 
+#content {
+  color: black;
+  background-color: white;
+}
+
 pre[class*=language-], pre[class*=language-].line-numbers>code {
   /* If using the font-family below, the line numbers and code won't align horizontally,
   I don't know why and how to get them aligned. */
