@@ -110,10 +110,9 @@ const Timer = ({totalSecs}) =&gt; {
     secs, "s ",
     button({onclick: async () =&gt; {
       while (secs.val &gt; 0) await sleep(1000), --secs.val
-      setTimeout(() =&gt; {
-        alert("⏰: Time is up")
-        secs.val = totalSecs
-      }, 10)
+      await sleep(10) // Wait briefly for DOM update
+      alert("⏰: Time is up")
+      secs.val = totalSecs
     }}, "Start"),
   )
 }
@@ -278,10 +277,9 @@ van.add(document.body, EditableList())
       secs, "s ",
       button({onclick: async () => {
         while (secs.val > 0) await sleep(1000), --secs.val
-        setTimeout(() => {
-          alert("⏰: Time is up")
-          secs.val = totalSecs
-        }, 10)
+        await sleep(10) // Wait briefly for DOM update
+        alert("⏰: Time is up")
+        secs.val = totalSecs
       }}, "Start"),
     )
   }

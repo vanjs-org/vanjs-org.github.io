@@ -190,10 +190,9 @@ const Timer = ({totalSecs}) => {
     secs, "s ",
     button({onclick: async () => {
       while (secs.val > 0) await sleep(1000), --secs.val
-      setTimeout(() => {
-        alert("⏰: Time is up")
-        secs.val = totalSecs
-      }, 10)
+      await sleep(10) // Wait briefly for DOM update
+      alert("⏰: Time is up")
+      secs.val = totalSecs
     }}, "Start"),
   )
 }
