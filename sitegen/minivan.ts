@@ -236,6 +236,8 @@ server.listen(port, hostname, () =>
       Link("github.com/vanjs-org/mini-van", "https://github.com/vanjs-org/mini-van"),
     ),
     H2("Support & Feedback"),
+    p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/mini-van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
+    p("We're looking for the 1.0 milestone (commitment to API stability) soon, your precious feedback will be greatly appreciated. You can submit your feedback by creating issues with the link below:"),
     p(
       a({class: "github-button", href: "https://github.com/vanjs-org/mini-van", "data-icon": "octicon-star", "aria-label": "Star vanjs-org/van on GitHub"},
         "Star",
