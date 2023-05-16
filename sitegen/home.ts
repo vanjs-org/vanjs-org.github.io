@@ -32,6 +32,7 @@ van.add(document.body, Hello())
       id: "jsfiddle-hello",
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
     }),
+    p("You can convert any HTML snippet into ", VanJS(), " code with our online ", Link("converter", "/convert"), "."),
     p({id: "code-counter"}, VanJS(), " helps you manage state and UI binding as well, with a more natural API:"),
     Js(`const Counter = () => {
   const counter = van.state(0)
@@ -71,7 +72,6 @@ van.add(document.body, Counter())
       li("Download and ", Link("Get Started", "/start")),
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo")),
-      li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
     ),
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},
