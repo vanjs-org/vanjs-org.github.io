@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <title>Diff App</title>
+    <meta charset="UTF-8">
+    <style>
+      .row {
+        display: flex;
+      }
+
+      .column {
+        width: 500px;
+      }
+
+      .column textarea {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      .add {
+        background-color: #FFC4C1;
+      }
+
+      .remove {
+        background-color: #B5EFDB;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="diff.min.js"></script>
+    <script type="text/javascript" src="van-0.11.9.nomodule.min.js"></script>
+    <script>
+      const {button, div, span, textarea} = van.tags
+
+      const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+
+      const Result = diff => div({style: "white-space: pre-wrap;"}, diff.map(d =>
+        span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+      )
+
+      const DiffApp = () => {
+        const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
+        const oldTextDom = textarea({oninput}), newTextDom = textarea({oninput})
+        const diff = van.state([])
+        return div({class: "row"},
+          div({class: "column"},
+            oldTextDom,
+          ),
+          div({class: "column"},
+            newTextDom,
+            button({onclick: () => diff.val = Diff.diffWords(newTextDom.value, oldTextDom.value)},
+              "Diff",
+            ),
+            van.bind(diff, Result),
+          ),
+        )
+      }
+
+      document.body.appendChild(DiffApp())
+    </script>
+  </body>
+</html>
