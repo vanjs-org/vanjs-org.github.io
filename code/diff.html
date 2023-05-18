@@ -14,9 +14,12 @@
         width: 100%;
       }
 
-      .add { background-color: #FFC4C1; }
+      .add { background-color: #B5EFDB; }
 
-      .remove { background-color: #B5EFDB; }
+      .remove {
+        background-color: #FFC4C1;
+        text-decoration: line-through;
+      }
     </style>
   </head>
   <body>
@@ -39,7 +42,7 @@
           div({class: "column"}, oldTextDom),
           div({class: "column"},
             newTextDom,
-            button({onclick: () => diff.val = Diff.diffWords(newTextDom.value, oldTextDom.value)},
+            button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
               "Diff",
             ),
             van.bind(diff, Result),
