@@ -5,26 +5,18 @@
     <title>Diff App</title>
     <meta charset="UTF-8">
     <style>
-      .row {
-        display: flex;
-      }
+      .row { display: flex; }
 
-      .column {
-        width: 500px;
-      }
+      .column { width: 500px; }
 
       .column textarea {
         box-sizing: border-box;
         width: 100%;
       }
 
-      .add {
-        background-color: #FFC4C1;
-      }
+      .add { background-color: #FFC4C1; }
 
-      .remove {
-        background-color: #B5EFDB;
-      }
+      .remove { background-color: #B5EFDB; }
     </style>
   </head>
   <body>
@@ -44,9 +36,7 @@
         const oldTextDom = textarea({oninput}), newTextDom = textarea({oninput})
         const diff = van.state([])
         return div({class: "row"},
-          div({class: "column"},
-            oldTextDom,
-          ),
+          div({class: "column"}, oldTextDom),
           div({class: "column"},
             newTextDom,
             button({onclick: () => diff.val = Diff.diffWords(newTextDom.value, oldTextDom.value)},
