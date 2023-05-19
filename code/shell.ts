@@ -48,12 +48,13 @@ const serveHttp = async (conn: Deno.Conn, req: Request) => {
   const url = new URL(req.url)
   if (req.method === "GET") {
     if (getCookies(req.headers)["SessionId"] !== sessionId)
-      return new Response(
-        `<form action="/login" method="post">
-  Paste the key from console: <input type="password", name="key" autofocus>
-  <input type="submit" value="Log In"></form>`,
-        {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
-      )
+      if (url.pathname === "/cwd") return new Response("", {status: 200}); else
+        return new Response(
+          `<form action="/login" method="post">
+    Paste the key from console: <input type="password", name="key" autofocus>
+    <input type="submit" value="Log In"></form>`,
+          {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
+        )
     if (url.pathname === "/cwd") return new Response(cwd, {status: 200})
     if (url.pathname.startsWith("/open")) return new Response(
       await readFileOrError(url.pathname.slice(5)), {status: 200})
@@ -97,7 +98,7 @@ const serveHttp = async (conn: Deno.Conn, req: Request) => {
         stderr: "piped",
       }).spawn()
       const stdinWriter = p.stdin.getWriter()
-      await stdinWriter.write(encoder.encode(cmd + ";pwd"))
+      await stdinWriter.write(encoder.encode(cmd + ";echo;pwd"))
       await stdinWriter.close()
       const output = await p.output()
       const lines = decoder.decode(output.stdout).trim().split("\n")

@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, b, div, i, img, iframe, li, ol, p, span, table, tbody, td, th, thead, tr} = tags
 
-  const {Demo, Download, H1, H2, H3, Html, Js, Link, Shell, Symbol, SymLink, Ts, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, HtmlFile, Js, Link, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -563,7 +563,10 @@ const filterChild = (childNodes, {skipEmptyText}) =>
   [...childNodes].filter(c =>
     !skipEmptyText || c.nodeName !== "#text" || /\\S/.test(c.nodeValue))
 
-const numRows = s => (s.match(/\\n/g)?.length ?? 0) + 1
+const autoGrow = e => {
+  e.style.height = "5px"
+  e.style.height = e.scrollHeight + "px"
+}
 
 const domToVanCode = (dom,
   {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
@@ -587,7 +590,7 @@ const domToVanCode = (dom,
 
 const Converter = ({initInput}) => {
   const oninput = () => {
-    textareaDom.rows = Math.max(numRows(textareaDom.value) + 2, 5)
+    autoGrow(textareaDom)
     const containerDom = div()
     containerDom.innerHTML = textareaDom.value
     const tagsUsed = new Set;
@@ -605,15 +608,14 @@ const Converter = ({initInput}) => {
     setTimeout(() => Prism.highlightAll(), 5)
   }
 
-  const textareaDom = textarea(
-    {rows: 5, oninput, style: "width: 100%;"}, initInput)
+  const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
   const indentInputDom = input(
     {type: "number", min: "1", max: "8", value: "2", oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
   // Trigger the UI update after initialization
-  textareaDom.dispatchEvent(new Event("input"))
+  setTimeout(() => textareaDom.dispatchEvent(new Event("input")))
   return div(
     h5("Paste your HTML snippet here:"),
     textareaDom,
@@ -700,6 +702,11 @@ const Output = ({id, expr}) => div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e => {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) => {
   const run = () => {
     textareaDom.setAttribute("readonly", true)
@@ -717,10 +724,8 @@ const Input = ({id}) => {
       run()
     }
   }
-  const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s => (s.match(/\\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, \`In[\${id}]:\`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),
@@ -778,298 +783,9 @@ google.charts.setOnLoadCallback(() =>
     H3("Deployment Steps"),
     p("1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from ", Link("deno.com", "https://deno.com/runtime"), "."),
     p("2. Copy the code below, and save it into ", Symbol("shell.ts"), ", under the same directory of ", Symbol(`van-${version}.min.js`), ". Alternatively, you can directly download the file with the link here: ", Download("shell.ts"), "."),
-    Ts(`import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
-import { resolve, dirname, fromFileUrl, join } from "https://deno.land/std@0.184.0/path/mod.ts"
-
-const moduleDir = resolve(dirname(fromFileUrl(import.meta.url)))
-
-const port = Number(Deno.args[0] ?? 8000)
-
-const encoder = new TextEncoder()
-const decoder = new TextDecoder()
-let cwd = Deno.cwd()
-
-const genKey = () => {
-  const buf = new Uint8Array(25)
-  crypto.getRandomValues(buf)
-  // Uint8Array.map doesn't support callbackFn that returns string in Deno
-  const parts: string[] = []
-  for (const b of buf) parts.push(b.toString(16))
-  return parts.join("")
-}
-
-const key = genKey()
-let sessionId = "to generate"
-
-const tree = async (path: string) => {
-  const result = {
-    path,
-    dirs: <string[]>[],
-    files: <string[]>[],
-  }
-  for await (const f of Deno.readDir(path))
-    if (!f.name.startsWith(".") && !f.isSymlink)
-      (f.isFile ? result.files : result.dirs).push(f.name)
-  return result
-}
-
-const readFileOrError = async (path: string) => {
-  try {
-    return await Deno.readTextFile(path)
-  } catch (e) {
-    return e.message + "\\n" + e.stack
-  }
-}
-
-const serveHttp = async (conn: Deno.Conn, req: Request) => {
-  if ((<Deno.NetAddr>conn.remoteAddr).hostname !== "127.0.0.1")
-    return new Response(
-      "Only local requests are allowed for security purposes", {status: 403})
-  const url = new URL(req.url)
-  if (req.method === "GET") {
-    if (getCookies(req.headers)["SessionId"] !== sessionId)
-      return new Response(
-        \`<form action="/login" method="post">
-  Paste the key from console: <input type="password", name="key" autofocus>
-  <input type="submit" value="Log In"></form>\`,
-        {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
-      )
-    if (url.pathname === "/cwd") return new Response(cwd, {status: 200})
-    if (url.pathname.startsWith("/open")) return new Response(
-      await readFileOrError(url.pathname.slice(5)), {status: 200})
-    if (url.pathname.endsWith(".js")) return new Response(
-      await Deno.readTextFile(join(moduleDir, url.pathname)), {
-        status: 200,
-        headers: {"content-type": "application/javascript; charset=utf-8"},
-      },
-    )
-    if (url.pathname !== "/shell.html") Response.redirect("/shell.html", 302)
-    return new Response(await Deno.readTextFile(join(moduleDir, "shell.html")), {
-      status: 200,
-      headers: {"content-type": "text/html; charset=utf-8"},
-    })
-  }
-  if (req.method === "POST") {
-    if (url.pathname === "/login") {
-      if ((await req.formData()).get("key") !== key)
-        return new Response("Key mismatch", {status: 403})
-      const response = new Response(
-        "", {
-          status: 303,
-          headers: new Headers({"Location": "/shell.html"})
-        }
-      )
-      setCookie(response.headers, {name: "SessionId", value: sessionId = genKey()})
-      return response
-    }
-    if (getCookies(req.headers)["SessionId"] !== sessionId)
-      return Response.json({
-        stderr: "Expired session ID, please reload this page to relogin:"})
-
-    const cmd = await req.text()
-    try {
-      if (cmd === "tree") return Response.json(
-        {tree: await tree(url.searchParams.get("path") ?? cwd)})
-      const p = new Deno.Command("sh", {
-        cwd,
-        stdin: "piped",
-        stdout: "piped",
-        stderr: "piped",
-      }).spawn()
-      const stdinWriter = p.stdin.getWriter()
-      await stdinWriter.write(encoder.encode(cmd + ";pwd"))
-      await stdinWriter.close()
-      const output = await p.output()
-      const lines = decoder.decode(output.stdout).trim().split("\\n")
-      const stdout = lines.slice(0, -1).join("\\n")
-      cwd = lines[lines.length - 1].trim()
-
-      return Response.json({stdout, stderr: decoder.decode(output.stderr)})
-    } catch (e) {
-      return Response.json({stderr: e.message + "\\n" + e.stack})
-    }
-  }
-  return new Response("Unsupported HTTP method", {status: 404})
-}
-
-const serveConn = async (conn: Deno.Conn) => {
-  for await (const reqEvent of Deno.serveHttp(conn))
-    (async () => reqEvent.respondWith(await serveHttp(conn, reqEvent.request)))()
-}
-
-console.log(\`Visit http://localhost:\${port} in your browser\`)
-console.log("When prompted, paste the key below:")
-console.log(key + "\\n")
-console.log("%cFor security purposes, DO NOT share the key with anyone else",
-  "color: red; font-weight: bold")
-for await (const conn of Deno.listen({port})) serveConn(conn)
-`),
+    TsFile("code/shell.ts"),
     p("3. Copy the code below, and save it into ", Symbol("shell.html"), ", under the same directory of ", Symbol("shell.ts"), ". After this step, your working directory should have 3 files: ", Symbol("shell.ts"), ", ", Symbol("shell.html"), " and ", Symbol(`van-${version}.min.js`), ". Alternatively, you can directly download the file with the link here: ", Download("shell.html"), "."),
-    Html(`<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
-    <title>A Simple Web-based Shell</title>
-    <meta charset="UTF-8">
-    <style>
-      .row { display: flex; }
-
-      .left {
-        width: 60px;
-        text-align: right;
-      }
-
-      .right { width: 800px; }
-
-      .cwd {
-        margin: 12px 0 0 13px;
-        font-weight: bold;
-      }
-
-      .tree {
-        margin: 12px;
-        white-space: pre;
-      }
-
-      .tree a { cursor: pointer; }
-
-      .right input, .right textarea, .right table {
-        margin: 11px;
-        border-width: 1px;
-        box-sizing: border-box;
-        font: 15px monospace;
-        width: 100%;
-      }
-
-      .err, .warning { color: red; }
-
-      .warning { font-weight: bold; }
-
-      .hide { display: none; }
-
-      table { border-collapse: collapse }
-
-      th, td { border: 1px solid black; }
-    </style>
-  </head>
-  <body>
-    <script type="module">
-      import van from "./van-${version}.min.js"
-
-      const {a, div, i, input, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
-
-      const numRows = s => (s.match(/\\n/g)?.length ?? 0) + 1
-
-      const Text = (s, isErr = false) =>
-        textarea({rows: numRows(s), readonly: true, class: isErr ? "err" : ""}, s)
-
-      // Special handling for the output result of \`ps ...\` - displaying a table
-      // instead of raw text.
-      const Table = s => {
-        const lines = s.trim().split("\\n"), header = lines[0].split(/\\s+/), nCols = header.length
-        return table(
-          thead(tr(header.map(h => th(h)))),
-          tbody(lines.slice(1).map(row => {
-            // The last column for the output of \`ps ...\` (which is COMMAND),
-            // might contain spaces, thus we will split the row by whitespaces
-            // first, and join all the trailing columns together.
-            const cols = row.split(/\\s+/)
-            return tr(
-              [...cols.slice(0, nCols - 1), cols.slice(nCols - 1).join(" ")].map(c => td(c)))
-          })),
-        )
-      }
-
-      // Special handling for command \`tree\` - displaying a tree view of the
-      // current directory.
-      const Tree = ({path, dirs, files, indent = ""}) => div(
-        dirs.map(d => {
-          const icon = van.state("📁 ")
-          const expand = async () => {
-            icon.val = "📂 "
-            // No-op with clicking before subdirectory is fetched and rendered
-            onclick.val = null
-            const {tree, stderr} = await fetch(
-              "/?path=" + encodeURIComponent(path + "/" + d),
-              {method: "POST", body: "tree"}).then(r => r.json())
-            const treeDom = result.appendChild(tree ?
-              Tree({...tree, indent: indent + "    "}) : div({class: "err"}, indent + stderr))
-            onclick.val = () => (treeDom.remove(), onclick.val = expand, icon.val = "📁 ")
-          }
-          const onclick = van.state(expand)
-          const result = div(indent, a({onclick}, icon, d))
-          return result
-        }),
-        files.map(f => div(
-          indent + "📄 ",
-          a({href: "/open" + encodeURI(path + "/" + f), target: "_blank"}, f),
-        )),
-      )
-
-      const Output = ({id, stdout, stderr, tree, isPsCmd}) => div({class: "row"},
-        pre({class: "left"}, \`Out[\${id}]:\`),
-        div({class: "right"},
-          stdout ? (isPsCmd ? Table(stdout) : Text(stdout)) : [],
-          stderr ? Text(stderr, true) : [],
-          tree ? div({class: "tree"},
-            div(i("You can click folders to expand/collapse")),
-            Tree(tree),
-          ) : [],
-        ),
-      )
-
-      const Input = ({id, cwd}) => {
-        let historyId = id
-        const onkeydown = async e => {
-          if (e.key === "Enter") {
-            e.preventDefault()
-            e.target.setAttribute("readonly", true)
-            const {stdout, stderr, tree} =
-              await fetch("/", {method: "POST", body: e.target.value}).then(r => r.json())
-            van.add(document.body, Output({id, stdout, stderr, tree,
-              isPsCmd: e.target.value.trim().split(" ")[0] === "ps"}))
-            van.add(document.body, Input({
-              id: id + 1,
-              cwd: await fetch("/cwd").then(r => r.text()),
-            })).lastElementChild.querySelector("input").focus()
-          } else if (e.key === "ArrowUp" && historyId > 1) {
-            e.target.value = document.getElementById(--historyId).value
-            const length = e.target.value.length
-            setTimeout(() => e.target.setSelectionRange(length, length))
-          } else if (e.key === "ArrowDown" && historyId < id) {
-            e.target.value = document.getElementById(++historyId).value
-            const length = e.target.value.length
-            setTimeout(() => e.target.setSelectionRange(length, length))
-          }
-        }
-        return [
-          div({class: "row"},
-            pre({class: "left"}),
-            div({class: "right"}, pre({class: "cwd"}, cwd + "$")),
-          ),
-          div({class: "row"},
-            pre({class: "left"}, \`In[\${id}]:\`),
-            div({class: "right"},
-              input({id, type: "text",
-                placeholder: 'Try "ls -l", "ps au", "tree", "cd <dir>", etc.', onkeydown}),
-            ),
-          ),
-        ]
-      }
-
-      const Shell = ({cwd}) => div(
-        div("⚠️ Please avoid commands that takes long time to execute."),
-        div({class: "warning"}, "BE CAREFUL, commands will be executed on your computer and are IRREVERSIBLE."),
-        div("Enter some shell command and press ↵ to execute (Use ↑ and ↓ to navigate through the command history):"),
-        Input({id: 1, cwd})
-      )
-
-      fetch("/cwd").then(r => r.text()).then(cwd =>
-        document.body.appendChild(Shell({cwd})).querySelector("input").focus())
-    </script>
-  </body>
-</html>
-`),
+    HtmlFile("code/shell.html"),
     p("4. Run the command below under your working directory:"),
     p(i("You can append a custom port number to the end. By default, port 8000 will be chosen.")),
     Shell("deno run --allow-net --allow-run --allow-read shell.ts"),

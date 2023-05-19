@@ -27,7 +27,7 @@ const extractCss = (htmlFile: string) => {
 }
 
 const process = (path: string) => {
-  const file = join(path, "index.html")
+  const file = path ? path + ".html" : "index.html"
   console.log(`Generating jsfiddle links for ${file}...`)
   const doc = new DOMParser().parseFromString(Deno.readTextFileSync(file), "text/html")!
   const {add, tags} = van.vanWithDoc(doc)
@@ -67,6 +67,8 @@ const process = (path: string) => {
   }
 
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
+  // Backward compatible for URLs that end with "/".
+  if (path) Deno.copyFileSync(file, join(path, "index.html"))
 }
 
 process("")

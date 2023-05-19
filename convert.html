@@ -80,7 +80,10 @@ const filterChild = (childNodes, {skipEmptyText}) =>
   [...childNodes].filter(c =>
     !skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue))
 
-const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+const autoGrow = e => {
+  e.style.height = "5px"
+  e.style.height = e.scrollHeight + "px"
+}
 
 const domToVanCode = (dom,
   {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
@@ -104,7 +107,7 @@ const domToVanCode = (dom,
 
 const Converter = ({initInput}) => {
   const oninput = () => {
-    textareaDom.rows = Math.max(numRows(textareaDom.value) + 2, 5)
+    autoGrow(textareaDom)
     const containerDom = div()
     containerDom.innerHTML = textareaDom.value
     const tagsUsed = new Set;
@@ -122,15 +125,14 @@ const Converter = ({initInput}) => {
     setTimeout(() => Prism.highlightAll(), 5)
   }
 
-  const textareaDom = textarea(
-    {rows: 5, oninput, style: "width: 100%;"}, initInput)
+  const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
   const indentInputDom = input(
     {type: "number", min: "1", max: "8", value: "2", oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
   // Trigger the UI update after initialization
-  textareaDom.dispatchEvent(new Event("input"))
+  setTimeout(() => textareaDom.dispatchEvent(new Event("input")))
   return div(
     h5("Paste your HTML snippet here:"),
     textareaDom,

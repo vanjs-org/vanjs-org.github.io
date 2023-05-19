@@ -28,7 +28,10 @@
     <script>
       const {button, div, input, span, textarea} = van.tags
 
-      const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+      const autoGrow = e => {
+        e.target.style.height = "5px"
+        e.target.style.height = e.target.scrollHeight + "px"
+      }
 
       const Result = ({diff, skipAdd, skipRemove}) => div({style: "white-space: pre-wrap;"},
         diff.filter(d => !(skipAdd && d.added || skipRemove && d.removed)).map(d =>
@@ -36,8 +39,8 @@
       )
 
       const DiffApp = () => {
-        const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
-        const oldTextDom = textarea({rows: 3, oninput}), newTextDom = textarea({rows: 3, oninput})
+        const oldTextDom = textarea({oninput: autoGrow})
+        const newTextDom = textarea({oninput: autoGrow})
         const diff = van.state([])
         const showMerged = van.state(true)
         return div(

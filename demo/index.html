@@ -447,7 +447,10 @@ const filterChild = (childNodes, {skipEmptyText}) =&gt;
   [...childNodes].filter(c =&gt;
     !skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue))
 
-const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
+const autoGrow = e =&gt; {
+  e.style.height = "5px"
+  e.style.height = e.scrollHeight + "px"
+}
 
 const domToVanCode = (dom,
   {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
@@ -471,7 +474,7 @@ const domToVanCode = (dom,
 
 const Converter = ({initInput}) =&gt; {
   const oninput = () =&gt; {
-    textareaDom.rows = Math.max(numRows(textareaDom.value) + 2, 5)
+    autoGrow(textareaDom)
     const containerDom = div()
     containerDom.innerHTML = textareaDom.value
     const tagsUsed = new Set;
@@ -489,15 +492,14 @@ const Converter = ({initInput}) =&gt; {
     setTimeout(() =&gt; Prism.highlightAll(), 5)
   }
 
-  const textareaDom = textarea(
-    {rows: 5, oninput, style: "width: 100%;"}, initInput)
+  const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
   const indentInputDom = input(
     {type: "number", min: "1", max: "8", value: "2", oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
   // Trigger the UI update after initialization
-  textareaDom.dispatchEvent(new Event("input"))
+  setTimeout(() =&gt; textareaDom.dispatchEvent(new Event("input")))
   return div(
     h5("Paste your HTML snippet here:"),
     textareaDom,
@@ -579,6 +581,11 @@ const Output = ({id, expr}) =&gt; div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e =&gt; {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) =&gt; {
   const run = () =&gt; {
     textareaDom.setAttribute("readonly", true)
@@ -596,10 +603,8 @@ const Input = ({id}) =&gt; {
       run()
     }
   }
-  const oninput = e =&gt; e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),
@@ -636,7 +641,7 @@ google.charts.setOnLoadCallback(() =>
     )),
     Console()
   ).querySelector(&quot;textarea&quot;).focus()
-)" data-details="demo-js-console.details" data-css-file="code/console.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
+)" data-details="demo-js-console.details" data-css-file="code/console.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts" data-file="code/shell.ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
 import { resolve, dirname, fromFileUrl, join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
 const moduleDir = resolve(dirname(fromFileUrl(import.meta.url)))
@@ -686,12 +691,13 @@ const serveHttp = async (conn: Deno.Conn, req: Request) =&gt; {
   const url = new URL(req.url)
   if (req.method === "GET") {
     if (getCookies(req.headers)["SessionId"] !== sessionId)
-      return new Response(
-        `&lt;form action="/login" method="post"&gt;
-  Paste the key from console: &lt;input type="password", name="key" autofocus&gt;
-  &lt;input type="submit" value="Log In"&gt;&lt;/form&gt;`,
-        {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
-      )
+      if (url.pathname === "/cwd") return new Response("", {status: 200}); else
+        return new Response(
+          `&lt;form action="/login" method="post"&gt;
+    Paste the key from console: &lt;input type="password", name="key" autofocus&gt;
+    &lt;input type="submit" value="Log In"&gt;&lt;/form&gt;`,
+          {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
+        )
     if (url.pathname === "/cwd") return new Response(cwd, {status: 200})
     if (url.pathname.startsWith("/open")) return new Response(
       await readFileOrError(url.pathname.slice(5)), {status: 200})
@@ -735,7 +741,7 @@ const serveHttp = async (conn: Deno.Conn, req: Request) =&gt; {
         stderr: "piped",
       }).spawn()
       const stdinWriter = p.stdin.getWriter()
-      await stdinWriter.write(encoder.encode(cmd + ";pwd"))
+      await stdinWriter.write(encoder.encode(cmd + ";echo;pwd"))
       await stdinWriter.close()
       const output = await p.output()
       const lines = decoder.decode(output.stdout).trim().split("\n")
@@ -761,7 +767,7 @@ console.log(key + "\n")
 console.log("%cFor security purposes, DO NOT share the key with anyone else",
   "color: red; font-weight: bold")
 for await (const conn of Deno.listen({port})) serveConn(conn)
-</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html" data-file="code/shell.html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;💻&lt;/text&gt;&lt;/svg&gt;"&gt;
@@ -814,10 +820,11 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
 
       const {a, div, i, input, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
 
-      const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
-
-      const Text = (s, isErr = false) =&gt;
-        textarea({rows: numRows(s), readonly: true, class: isErr ? "err" : ""}, s)
+      const Text = (s, isErr = false) =&gt; {
+        const dom = textarea({readonly: true, class: isErr ? "err" : ""}, s)
+        setTimeout(() =&gt; dom.style.height = dom.scrollHeight + "px")
+        return dom
+      }
 
       // Special handling for the output result of `ps ...` - displaying a table
       // instead of raw text.
@@ -1448,13 +1455,20 @@ const Output = ({id, expr}) => div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e => {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) => {
   const run = () => {
     textareaDom.setAttribute("readonly", true)
     runDom.disabled = true
-    van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
+    const newTextDom = van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
       .appendChild(Input({id: id + 1}))
-      .querySelector("textarea").focus()
+      .querySelector("textarea")
+    newTextDom.focus()
+    setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
   }
   const runDom = button({class: "run", onclick: run}, "Run")
   const onkeydown = async e => {
@@ -1463,10 +1477,8 @@ const Input = ({id}) => {
       run()
     }
   }
-  const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),

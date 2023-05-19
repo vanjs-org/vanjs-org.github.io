@@ -84,6 +84,10 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     if (!(e instanceof Deno.errors.NotFound)) throw e
   }
 
+  for (const node of doc.querySelectorAll("code[data-file]")) {
+    const dom = <Element>node
+    dom.innerText = Deno.readTextFileSync(dom.getAttribute("data-file")!)
+  }
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
 }
 

@@ -70,6 +70,11 @@ const Output = ({id, expr}) => div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e => {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) => {
   const run = () => {
     textareaDom.setAttribute("readonly", true)
@@ -87,10 +92,8 @@ const Input = ({id}) => {
       run()
     }
   }
-  const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),

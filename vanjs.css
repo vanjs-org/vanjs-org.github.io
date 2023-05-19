@@ -168,6 +168,7 @@ a {
 
 #demo-js-console .right textarea, #demo-js-console .right table {
   margin: 5px;
+  margin-top: 11px;
   margin-right: 0px;
   border-width: 1px;
   box-sizing: border-box;
@@ -177,6 +178,7 @@ a {
 
 #demo-js-console .right pre, #demo-js-console .right .chart {
   margin: 6px;
+  margin-top: 12px;
 }
 
 [id^=jsfiddle-] {
@@ -210,6 +212,7 @@ th, td {
 textarea {
   font: unset;
   font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+  resize: none;
 }
 
 @media (max-width: 800px) {

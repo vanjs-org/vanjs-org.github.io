@@ -40,7 +40,7 @@
     li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
   ),
 )
-</code></pre><p><b>Demo:</b></p><p id="demo-hello"></p><p id="jsfiddle-hello" data-prefix="const {a, div, li, p, ul} = van.tags" data-suffix="van.add(document.body, Hello())"></p><p>This is the funnier <code class="symbol">Hello</code>&nbsp;program shown in <a href="/start" class="w3-hover-opacity">Getting Started</a> page:</p><pre><code class="language-js">const sleep = ms =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms))
+</code></pre><p><b>Demo:</b></p><p id="demo-hello"></p><p id="jsfiddle-hello" data-prefix="const {a, div, li, p, ul} = van.tags" data-suffix="van.add(document.body, Hello())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/hello">Try on jsfiddle</a></p><p>This is the funnier <code class="symbol">Hello</code>&nbsp;program shown in <a href="/start" class="w3-hover-opacity">Getting Started</a> page:</p><pre><code class="language-js">const sleep = ms =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms))
 
 const Run = ({sleepMs}) =&gt; {
   const headingSpaces = van.state(40), trailingUnderscores = van.state(0)
@@ -69,7 +69,7 @@ const Hello = () =&gt; {
     button({onclick: () =&gt; van.add(dom, Run({sleepMs: 2}))}, "Hello 🚀"),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-hello-fun"></p><p id="jsfiddle-hello-fun" data-prefix="const {button, div, pre} = van.tags" data-suffix="van.add(document.body, Hello())"></p><h2 class="w3-xxlarge w3-text-red" id="dom-composition-and-manipulation"><a class="self-link" href="#dom-composition-and-manipulation">DOM Composition and Manipulation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Even without state and state binding, you can build interactive web pages thanks to <b>VanJS</b>'s flexible API for DOM composition and manipulation: <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag functions</a></code> and <code class="symbol"><a href="/tutorial#api-add" class="w3-hover-opacity">van.add</a></code>. Check out the example below:</p><pre><code class="language-js">const StaticDom = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-hello-fun"></p><p id="jsfiddle-hello-fun" data-prefix="const {button, div, pre} = van.tags" data-suffix="van.add(document.body, Hello())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/hello-fun">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="dom-composition-and-manipulation"><a class="self-link" href="#dom-composition-and-manipulation">DOM Composition and Manipulation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Even without state and state binding, you can build interactive web pages thanks to <b>VanJS</b>'s flexible API for DOM composition and manipulation: <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag functions</a></code> and <code class="symbol"><a href="/tutorial#api-add" class="w3-hover-opacity">van.add</a></code>. Check out the example below:</p><pre><code class="language-js">const StaticDom = () =&gt; {
   const dom = div(
     div(
       button("Dummy Button"),
@@ -86,7 +86,7 @@ const Hello = () =&gt; {
   )
   return dom
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-static"></p><p id="jsfiddle-static" data-prefix="const {a, button, div, h1} = van.tags" data-suffix="van.add(document.body, StaticDom())"></p><h2 class="w3-xxlarge w3-text-red" id="counter"><a class="self-link" href="#counter">Counter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The <code class="symbol">Counter App</code> is a good illustration on how to leverage <a href="/tutorial#states" class="w3-hover-opacity">States</a> to make your application reactive. This is the program shown in the <a href="/" class="w3-hover-opacity">Home</a> page:</p><pre><code class="language-js">const Counter = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-static"></p><p id="jsfiddle-static" data-prefix="const {a, button, div, h1} = van.tags" data-suffix="van.add(document.body, StaticDom())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/static">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="counter"><a class="self-link" href="#counter">Counter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The <code class="symbol">Counter App</code> is a good illustration on how to leverage <a href="/tutorial#states" class="w3-hover-opacity">States</a> to make your application reactive. This is the program shown in the <a href="/" class="w3-hover-opacity">Home</a> page:</p><pre><code class="language-js">const Counter = () =&gt; {
   const counter = van.state(0)
   return span(
     "❤️ ", counter, " ",
@@ -94,7 +94,7 @@ const Hello = () =&gt; {
     button({onclick: () =&gt; --counter.val}, "👎"),
   )
 }
-</code></pre><p><b>Demo:</b> <span id="demo-counter-simple"></span></p><p id="jsfiddle-counter-simple" data-prefix="const {button, span} = van.tags" data-suffix="van.add(document.body, Counter())"></p><p>This is a slightly advanced version of <code class="symbol">Counter App</code>:</p><pre><code class="language-js">const buttonStyleList = [
+</code></pre><p><b>Demo:</b> <span id="demo-counter-simple"></span></p><p id="jsfiddle-counter-simple" data-prefix="const {button, span} = van.tags" data-suffix="van.add(document.body, Counter())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/counter-simple">Try on jsfiddle</a></p><p>This is a slightly advanced version of <code class="symbol">Counter App</code>:</p><pre><code class="language-js">const buttonStyleList = [
   ["👆", "👇"],
   ["👍", "👎"],
   ["🔼", "🔽"],
@@ -124,7 +124,7 @@ const CounterSet = () =&gt; {
     ),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-counter-advanced"></p><p id="jsfiddle-counter-advanced" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, CounterSet())"></p><h2 class="w3-xxlarge w3-text-red" id="stopwatch"><a class="self-link" href="#stopwatch">Stopwatch</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is a <code class="symbol">Stopwatch App</code>, similar to the <code class="symbol"><a href="/tutorial#state-typed-child" class="w3-hover-opacity">Timer App</a></code> shown in the tutorial:</p><pre><code class="language-js">const Stopwatch = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-counter-advanced"></p><p id="jsfiddle-counter-advanced" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, CounterSet())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/counter-advanced">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stopwatch"><a class="self-link" href="#stopwatch">Stopwatch</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is a <code class="symbol">Stopwatch App</code>, similar to the <code class="symbol"><a href="/tutorial#state-typed-child" class="w3-hover-opacity">Timer App</a></code> shown in the tutorial:</p><pre><code class="language-js">const Stopwatch = () =&gt; {
   const elapsed = van.state("0.00")
   let id
   const start = () =&gt; id = id || setInterval(() =&gt;
@@ -137,7 +137,7 @@ const CounterSet = () =&gt; {
       (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
   )
 }
-</code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p id="jsfiddle-stopwatch" data-prefix="const {button, pre, span} = van.tags" data-suffix="van.add(document.body, Stopwatch())"></p><h2 class="w3-xxlarge w3-text-red" id="todo-list"><a class="self-link" href="#todo-list">TODO List</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>As an <b>unopinionated</b> framework, <b>VanJS</b> supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration of native DOM API (it's easy to do with <b>VanJS</b> as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to <a href="/tutorial#state-binding" class="w3-hover-opacity">State Binding</a>. You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem.</p><p>Below is an example of building a <code class="symbol">TODO List</code> in a completely procedural way:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; div(
+</code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p id="jsfiddle-stopwatch" data-prefix="const {button, pre, span} = van.tags" data-suffix="van.add(document.body, Stopwatch())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/stopwatch">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="todo-list"><a class="self-link" href="#todo-list">TODO List</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>As an <b>unopinionated</b> framework, <b>VanJS</b> supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration of native DOM API (it's easy to do with <b>VanJS</b> as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to <a href="/tutorial#state-binding" class="w3-hover-opacity">State Binding</a>. You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem.</p><p>Below is an example of building a <code class="symbol">TODO List</code> in a completely procedural way:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; div(
   input({type: "checkbox", onchange: e =&gt;
     e.target.closest("div").querySelector("span").style["text-decoration"] =
       e.target.checked ? "line-through" : ""
@@ -155,7 +155,7 @@ const TodoList = () =&gt; {
   return dom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-procedural"></p><p id="jsfiddle-todo-procedural" data-prefix="const {a, button, div, input, span} = van.tags" data-suffix="van.add(document.body, TodoList())" data-css="a { cursor: pointer; }
-"></p><p>Alternatively, you can use a functional/reactive way to build <code class="symbol">TODO Item</code>s:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; {
+"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-procedural">Try on jsfiddle</a></p><p>Alternatively, you can use a functional/reactive way to build <code class="symbol">TODO Item</code>s:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; {
   const done = van.state(false), deleted = van.state(false)
   return van.bind(deleted,
     d =&gt; d ? null : div(
@@ -174,7 +174,7 @@ const TodoList = () =&gt; {
   return dom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-functional"></p><p id="jsfiddle-todo-functional" data-prefix="const {a, button, div, input, span, strike} = van.tags" data-suffix="van.add(document.body, TodoList())" data-css="a { cursor: pointer; }
-"></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
+"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
   const displayNum = van.state(0)
   let lhs = null, op = null, rhs = 0
 
@@ -225,7 +225,7 @@ const TodoList = () =&gt; {
     ),
   )
 }
-</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p id="jsfiddle-calculator" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, Calculator())" data-css-file="code/calculator.css"></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>156</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>more than 100 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
+</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p id="jsfiddle-calculator" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, Calculator())" data-css-file="code/calculator.css"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>156</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>more than 100 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
   const resultDom = div()
 
   const jsonRadioDom = input({type: "radio", checked: inputType === "json",
@@ -278,7 +278,7 @@ const TodoList = () =&gt; {
 </code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p id="jsfiddle-table-viewer" data-prefix="const {button, input, div, label, pre, table, tbody, td, textarea, th, thead, tr} = van.tags" data-suffix="van.add(document.body, TableViewer({
   inputText: `[{&quot;id&quot;:1,&quot;name&quot;:&quot;John Doe&quot;,&quot;email&quot;:&quot;john.doe@example.com&quot;,&quot;age&quot;:35,&quot;country&quot;:&quot;USA&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;Jane Smith&quot;,&quot;email&quot;:&quot;jane.smith@example.com&quot;,&quot;age&quot;:28,&quot;country&quot;:&quot;Canada&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;Bob Johnson&quot;,&quot;email&quot;:&quot;bob.johnson@example.com&quot;,&quot;age&quot;:42,&quot;country&quot;:&quot;Australia&quot;}]`,
   inputType: &quot;json&quot;,
-}))" data-css-file="code/json-csv-table-viewer.html"></p><h2 class="w3-xxlarge w3-text-red" id="json-inspector"><a class="self-link" href="#json-inspector">JSON Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is another example of leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a> - to build a tree view for inspecting JSON data:</p><pre><code class="language-js">const ListItem = ({key, value, indent = 0}) =&gt; {
+}))" data-css-file="code/json-csv-table-viewer.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="json-inspector"><a class="self-link" href="#json-inspector">JSON Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is another example of leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a> - to build a tree view for inspecting JSON data:</p><pre><code class="language-js">const ListItem = ({key, value, indent = 0}) =&gt; {
   const hide = van.state(key !== "")
   const style = {deps: [hide], f: hide =&gt; hide ? "display: none" : ""}
   let valueDom
@@ -321,7 +321,7 @@ const JsonInspector = ({initInput}) =&gt; {
     van.bind(json, json =&gt; json ? ListItem({key: "", value: json}) : ""),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-json-inspector"></p><p id="jsfiddle-json-inspector" data-prefix="const {a, b, button, div, pre, span, textarea} = van.tags" data-suffix="van.add(document.body, JsonInspector({initInput: `{&quot;name&quot;:&quot;John Doe&quot;,&quot;age&quot;:30,&quot;email&quot;:&quot;johndoe@example.com&quot;,&quot;address&quot;:{&quot;street&quot;:&quot;123 Main St&quot;,&quot;city&quot;:&quot;Anytown&quot;,&quot;state&quot;:&quot;CA&quot;,&quot;zip&quot;:&quot;12345&quot;},&quot;phone_numbers&quot;:[{&quot;type&quot;:&quot;home&quot;,&quot;number&quot;:&quot;555-1234&quot;},{&quot;type&quot;:&quot;work&quot;,&quot;number&quot;:&quot;555-5678&quot;}]}`}))"></p><h2 class="w3-xxlarge w3-text-red" id="auto-complete"><a class="self-link" href="#auto-complete">Textarea with Autocomplete</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" class="w3-hover-opacity">textarea</a></code> with autocomplete support. This implementation leverages <a href="/tutorial#stateful-binding" class="w3-hover-opacity">Stateful DOM binding</a> to optimize the performance of DOM tree rendering:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">interface SuggestionListProps {
+</code></pre><p><b>Demo:</b></p><p id="demo-json-inspector"></p><p id="jsfiddle-json-inspector" data-prefix="const {a, b, button, div, pre, span, textarea} = van.tags" data-suffix="van.add(document.body, JsonInspector({initInput: `{&quot;name&quot;:&quot;John Doe&quot;,&quot;age&quot;:30,&quot;email&quot;:&quot;johndoe@example.com&quot;,&quot;address&quot;:{&quot;street&quot;:&quot;123 Main St&quot;,&quot;city&quot;:&quot;Anytown&quot;,&quot;state&quot;:&quot;CA&quot;,&quot;zip&quot;:&quot;12345&quot;},&quot;phone_numbers&quot;:[{&quot;type&quot;:&quot;home&quot;,&quot;number&quot;:&quot;555-1234&quot;},{&quot;type&quot;:&quot;work&quot;,&quot;number&quot;:&quot;555-5678&quot;}]}`}))"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/json-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="auto-complete"><a class="self-link" href="#auto-complete">Textarea with Autocomplete</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" class="w3-hover-opacity">textarea</a></code> with autocomplete support. This implementation leverages <a href="/tutorial#stateful-binding" class="w3-hover-opacity">Stateful DOM binding</a> to optimize the performance of DOM tree rendering:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">interface SuggestionListProps {
   readonly candidates: readonly string[]
   readonly selectedIndex: number
 }
@@ -447,7 +447,10 @@ const filterChild = (childNodes, {skipEmptyText}) =&gt;
   [...childNodes].filter(c =&gt;
     !skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue))
 
-const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
+const autoGrow = e =&gt; {
+  e.style.height = "5px"
+  e.style.height = e.scrollHeight + "px"
+}
 
 const domToVanCode = (dom,
   {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
@@ -471,7 +474,7 @@ const domToVanCode = (dom,
 
 const Converter = ({initInput}) =&gt; {
   const oninput = () =&gt; {
-    textareaDom.rows = Math.max(numRows(textareaDom.value) + 2, 5)
+    autoGrow(textareaDom)
     const containerDom = div()
     containerDom.innerHTML = textareaDom.value
     const tagsUsed = new Set;
@@ -489,15 +492,14 @@ const Converter = ({initInput}) =&gt; {
     setTimeout(() =&gt; Prism.highlightAll(), 5)
   }
 
-  const textareaDom = textarea(
-    {rows: 5, oninput, style: "width: 100%;"}, initInput)
+  const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
   const indentInputDom = input(
     {type: "number", min: "1", max: "8", value: "2", oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
   // Trigger the UI update after initialization
-  textareaDom.dispatchEvent(new Event("input"))
+  setTimeout(() =&gt; textareaDom.dispatchEvent(new Event("input")))
   return div(
     h5("Paste your HTML snippet here:"),
     textareaDom,
@@ -579,6 +581,11 @@ const Output = ({id, expr}) =&gt; div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e =&gt; {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) =&gt; {
   const run = () =&gt; {
     textareaDom.setAttribute("readonly", true)
@@ -596,10 +603,8 @@ const Input = ({id}) =&gt; {
       run()
     }
   }
-  const oninput = e =&gt; e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),
@@ -636,7 +641,7 @@ google.charts.setOnLoadCallback(() =>
     )),
     Console()
   ).querySelector(&quot;textarea&quot;).focus()
-)" data-details="demo-js-console.details" data-css-file="code/console.html"></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
+)" data-details="demo-js-console.details" data-css-file="code/console.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts" data-file="code/shell.ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
 import { resolve, dirname, fromFileUrl, join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
 const moduleDir = resolve(dirname(fromFileUrl(import.meta.url)))
@@ -686,12 +691,13 @@ const serveHttp = async (conn: Deno.Conn, req: Request) =&gt; {
   const url = new URL(req.url)
   if (req.method === "GET") {
     if (getCookies(req.headers)["SessionId"] !== sessionId)
-      return new Response(
-        `&lt;form action="/login" method="post"&gt;
-  Paste the key from console: &lt;input type="password", name="key" autofocus&gt;
-  &lt;input type="submit" value="Log In"&gt;&lt;/form&gt;`,
-        {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
-      )
+      if (url.pathname === "/cwd") return new Response("", {status: 200}); else
+        return new Response(
+          `&lt;form action="/login" method="post"&gt;
+    Paste the key from console: &lt;input type="password", name="key" autofocus&gt;
+    &lt;input type="submit" value="Log In"&gt;&lt;/form&gt;`,
+          {status: 200, headers: {"content-type": "text/html; charset=utf-8"}},
+        )
     if (url.pathname === "/cwd") return new Response(cwd, {status: 200})
     if (url.pathname.startsWith("/open")) return new Response(
       await readFileOrError(url.pathname.slice(5)), {status: 200})
@@ -735,7 +741,7 @@ const serveHttp = async (conn: Deno.Conn, req: Request) =&gt; {
         stderr: "piped",
       }).spawn()
       const stdinWriter = p.stdin.getWriter()
-      await stdinWriter.write(encoder.encode(cmd + ";pwd"))
+      await stdinWriter.write(encoder.encode(cmd + ";echo;pwd"))
       await stdinWriter.close()
       const output = await p.output()
       const lines = decoder.decode(output.stdout).trim().split("\n")
@@ -761,7 +767,7 @@ console.log(key + "\n")
 console.log("%cFor security purposes, DO NOT share the key with anyone else",
   "color: red; font-weight: bold")
 for await (const conn of Deno.listen({port})) serveConn(conn)
-</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.9.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html" data-file="code/shell.html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;💻&lt;/text&gt;&lt;/svg&gt;"&gt;
@@ -814,10 +820,11 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
 
       const {a, div, i, input, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
 
-      const numRows = s =&gt; (s.match(/\n/g)?.length ?? 0) + 1
-
-      const Text = (s, isErr = false) =&gt;
-        textarea({rows: numRows(s), readonly: true, class: isErr ? "err" : ""}, s)
+      const Text = (s, isErr = false) =&gt; {
+        const dom = textarea({readonly: true, class: isErr ? "err" : ""}, s)
+        setTimeout(() =&gt; dom.style.height = dom.scrollHeight + "px")
+        return dom
+      }
 
       // Special handling for the output result of `ps ...` - displaying a table
       // instead of raw text.
@@ -1448,13 +1455,20 @@ const Output = ({id, expr}) => div({class: "row"},
   div({class: "right"}, ValueView(expr)),
 )
 
+const autoGrow = e => {
+  e.target.style.height = "5px"
+  e.target.style.height = e.target.scrollHeight + "px"
+}
+
 const Input = ({id}) => {
   const run = () => {
     textareaDom.setAttribute("readonly", true)
     runDom.disabled = true
-    van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
+    const newTextDom = van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
       .appendChild(Input({id: id + 1}))
-      .querySelector("textarea").focus()
+      .querySelector("textarea")
+    newTextDom.focus()
+    setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
   }
   const runDom = button({class: "run", onclick: run}, "Run")
   const onkeydown = async e => {
@@ -1463,10 +1477,8 @@ const Input = ({id}) => {
       run()
     }
   }
-  const oninput = e => e.target.rows = Math.max(numRows(e.target.value), 3)
-  const textareaDom = textarea({id, type: "text", rows: 3,
-    placeholder: 'Enter JS expression here:', onkeydown, oninput})
-  const numRows = s => (s.match(/\n/g)?.length ?? 0) + 1
+  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+    rows: 1, placeholder: 'Enter JS expression here:'})
   return div({class: "row"},
     pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
     div({class: "right"}, textareaDom),

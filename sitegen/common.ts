@@ -84,9 +84,13 @@ export default (doc: HTMLDocument) => {
 
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),
 
+    TsFile: (file: string) => pre(code({class: "language-ts", "data-file": file})),
+
     Shell: (text: string) => pre(code({class: "language-shell"}, text)),
 
     Html: (text: string) => pre(code({class: "language-html"}, text)),
+
+    HtmlFile: (file: string) => pre(code({class: "language-html", "data-file": file})),
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
