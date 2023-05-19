@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html><head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanJS (Vanilla JavaScript) - Advanced Topics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-16 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"><a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a><a href="/start" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Getting Started</a><a href="/tutorial" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tutorial</a><a href="/demo" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanJS by Example</a><a href="/convert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Convert HTML to VanJS</a><a href="/minivan" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Mini-Van</a><a href="/advanced" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white current">Advanced Topics</a><a href="/about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar">Advanced Topics</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-right:40px;">
+      <div id="page">
+        <div id="content"><h1 class="w3-xxlarge"><b>VanJS</b>: Advanced Topics</h1><h2 class="w3-xxlarge w3-text-red" id="dom-attributes-vs-properties"><a class="self-link" href="#dom-attributes-vs-properties">DOM Attributes vs. Properties</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>In <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag functions</a></code>, while assigning values from <code class="symbol">props</code>&nbsp;parameter to the created HTML element, there are 2 options of doing it: via <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes" class="w3-hover-opacity">HTML attributes</a></code> (<code class="language-js">dom.setAttribute(&lt;key&gt;, &lt;value&gt;)</code>), or via the properties of the created HTML element (<code class="language-js">dom[&lt;key&gt;] = &lt;value&gt;</code>). <b>VanJS</b> follows a consistent rule that makes sense for most use cases regarding which option to choose: when the property exists in a given <code class="symbol">&lt;key&gt;</code> for the specific element type, we will assign the value via property, otherwise we will assign the value via attribute.</p><p>For instance, <code class="language-js">input({type: "text", value: "Hello 🍦VanJS"})</code> will create an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text" class="w3-hover-opacity">input box</a> with <code class="symbol">Hello 🍦VanJS</code> as the value of the <code class="symbol">value</code> property, while <code class="language-js">div({"data-index": 1})</code> will create the tag: <code class="language-html">&lt;div data-index="1"&gt;&lt;/div&gt;</code>.</p><p>There is a simple way to check if the property exists for a given <code class="symbol">&lt;key&gt;</code> of a specific element type: in the newly created object <code class="symbol">dom</code> of that element type (e.g.: created via <code class="language-js">document.createElement(&lt;tagName&gt;)</code>), check if the value of <code class="language-js">dom[&lt;key&gt;]</code> is <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined" class="w3-hover-opacity">undefined</a></code>. If the value is <code class="symbol">undefined</code>, that means the property doesn't exist for the specific element type and <b>VanJS</b> will assign the value via <code class="symbol">setAttribute</code>, otherwise <b>VanJS</b> will assign the value via property. Note that, even if the initial property value of certain <code class="symbol">&lt;key&gt;</code> is <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null" class="w3-hover-opacity">null</a></code>, the property is considered exist for <code class="symbol">&lt;key&gt;</code>. For instance, all <code class="symbol">on...</code> handlers are initialized to <code class="symbol">null</code> when the element object is created.</p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-ts">const renderPre = van.state(false)
+const text = van.state("Text")
+const TextLine = (renderPre: boolean) =&gt;
+  (renderPre ? pre : div)(
+    van.bind(text, t =&gt; `--${t}--`),
+  )
+const dom = div(van.bind(renderPre, TextLine))</code></pre><p>In this piece of code, we have created an element <code class="symbol">dom</code>, whose only child binds to a <code class="symbol">boolean</code> state - <code class="symbol">renderPre</code>, which determines whether <code class="symbol">dom</code> has a <code class="symbol">&lt;pre&gt;</code> or <code class="symbol">&lt;div&gt;</code> child element. Inside the child element, the underlying text binds to a <code class="symbol">string</code> state - <code class="symbol">text</code>. Whenever the value of <code class="symbol">renderPre</code> is toggled, a new version of the DOM tree will be generated, and we will add a new binding from <code class="symbol">text</code> state to the text node of the newly created DOM tree.</p><p>Without proper garbage collection implemented, <code class="symbol">text</code>&nbsp;state will eventually be bound to many text nodes after <code class="symbol">renderPre</code> is toggled many times. All the of bindings, except the most recently added one, are actually obsolete, as they bind the <code class="symbol">text</code> state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a <code class="symbol">State</code>&nbsp;object holds reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing <a href="https://en.wikipedia.org/wiki/Memory_leak" class="w3-hover-opacity">memory leaks</a>.</p><p>Garbage collection is implemented in <b>VanJS</b>&nbsp;to resolve the issue. There are 2 ways a garbage collection activity can be triggered:</p><ol><li><b>Periodic recycling:</b> periodically, <b>VanJS</b>&nbsp;will scan all <code class="symbol">State</code> objects that have new bindings added recently, and remove all the bindings to a disconnected DOM element. i.e.: <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected" class="w3-hover-opacity">isConnected</a></code>&nbsp;property is <code class="symbol">false</code>.</li><li><b>Pre-rendering recycling:</b> before <b>VanJS</b> re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all the bindings to a disconnected DOM element.</li></ol><h3 class="w3-large w3-text-red" id="avoid-your-bindings-to-be-gc-ed-unexpectedly"><a class="self-link" href="#avoid-your-bindings-to-be-gc-ed-unexpectedly">Avoid your bindings to be GC-ed unexpectedly</a></h3><p>There are some general guidelines to follow to avoid your bindings being garbage collected unexpectedly:</p><ol><li>Please complete the construction of the DOM tree and connect the newly constructed DOM tree to the <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/document" class="w3-hover-opacity">document</a></code> object before making any state changes. Otherwise, the bindings to yet-to-be-connected DOM elements will be garbage collected.</li><li>DOM tree construction needs to be synchronous. i.e.: you shouldn't have any suspension point while building the DOM tree (e.g.: <code class="symbol">await</code> something in an <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function" class="w3-hover-opacity">async function</a></code>). Otherwise, periodic recycling might be scheduled in the middle of the suspension point which can cause bindings to yet-to-be-connected DOM elements being garbage collected.</li></ol><h3 class="w3-large w3-text-red" id="onnew-listeners-are-not-subject-to-gc"><a class="self-link" href="#onnew-listeners-are-not-subject-to-gc"><code class="symbol">onnew</code> listeners are not subject to GC</a></h3><p>Note that, the garbage collection in <b>VanJS</b> only removes obsolete bindings. It doesn't apply to event handers registered via <code class="symbol">onnew</code> method. For instance, the code below still suffers from memory leaks:</p><pre><code class="language-ts">const renderPre = van.state(false)
+const text = van.state("Text")
+const TextLine = (renderPre: boolean) =&gt; {
+  const expandedText = van.state("--Text--")
+  text.onnew(t =&gt; expandedText.val = `--${t}--`)
+  return (renderPre ? pre : div)(expandedText)
+}
+const dom = div(van.bind(renderPre, TextLine))
+</code></pre><p>In this example, whenever the generation function <code class="symbol">TextLine</code> is called, a new <code class="symbol">State</code> object will be created and subscribe to the change of the <code class="symbol">text</code> state. Because every event handler registered via <code class="symbol">onnew</code> holds the reference to local <code class="symbol">State</code> variable <code class="symbol">expandedText</code>, the instances of <code class="symbol">expandedText</code> variable will not be GC-ed by JavaScript runtime even when they are no longer being actively used.</p><p>To avoid memory leaks caused by <code class="symbol">onnew</code>, in the generation function of the <code class="symbol">van.bind</code> call, you shall NEVER register event handlers via <code class="symbol">onnew</code> method for <code class="symbol">State</code> objects defined outside the scope of generation function.</p></div>
+        <aside id="toc"><ul><li><a href="#dom-attributes-vs-properties" class="w3-hover-opacity">DOM Attributes vs. Properties</a></li><li><a href="#gc" class="w3-hover-opacity">Garbage Collection</a><ul><li><a href="#avoid-your-bindings-to-be-gc-ed-unexpectedly" class="w3-hover-opacity">Avoid your bindings to be GC-ed unexpectedly</a></li><li><a href="#onnew-listeners-are-not-subject-to-gc" class="w3-hover-opacity">onnew listeners are not subject to GC</a></li></ul></li></ul></aside>
+      </div>
+    </div>
+    <script>
+      // Script to open and close sidebar
+      const w3_open = () => {
+        document.getElementById("mySidebar").style.display = "block"
+        document.getElementById("myOverlay").style.display = "block"
+      }
+
+      const w3_close = () => {
+        document.getElementById("mySidebar").style.display = "none"
+        document.getElementById("myOverlay").style.display = "none"
+      }
+
+      // Track the current toc item
+      const trackToc = () => {
+        const allHeadings = [...document.querySelectorAll("h2,h3")]
+        const currentHeading = allHeadings.find(h => h.getBoundingClientRect().top >= 0)
+          ?? allHeadings[allHeadings.length - 1]
+        for (const e of document.querySelectorAll("#toc li a"))
+          if (e.href.split("#")[1] === currentHeading?.id)
+            e.classList.add("w3-opacity"); else
+            e.classList.remove("w3-opacity")
+      }
+      trackToc()
+      document.addEventListener("scroll", trackToc)
+      addEventListener("resize", trackToc)
+    </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script class="inline"></script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+  
+
+</body></html>
