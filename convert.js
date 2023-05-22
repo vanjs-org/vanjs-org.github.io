@@ -11,8 +11,8 @@ const attrsToVanCode = dom => dom.attributes.length > 0 ?
     .join(", ")}}${dom.childNodes.length > 0 ? "," : ""}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =>
-  [...childNodes].filter(c =>
-    !skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue))
+  [...childNodes].filter(c => (c.nodeType === 1 || c.nodeType === 3) &&
+    (!skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue)))
 
 const autoGrow = e => {
   e.style.height = "5px"
