@@ -201,7 +201,12 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
       name: "inputType", value: "json"})
     const csvRadioDom = input({type: "radio", checked: inputType === "csv",
       name: "inputType", value: "csv"})
-    const textAreaDom = textarea({rows: 8, style: "width: 100%;"}, inputText)
+    const autoGrow = e => {
+      e.style.height = "5px"
+      e.style.height = (e.scrollHeight + 5) + "px"
+    }
+    const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
+    setTimeout(() => autoGrow(textareaDom), 10)
 
     const tableFromJson = text => {
       const json = JSON.parse(text)
@@ -223,7 +228,7 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
     const showTable = () => {
       try {
         let {head, data} = jsonRadioDom.checked ?
-          tableFromJson(textAreaDom.value) : tableFromCsv(textAreaDom.value)
+          tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
         resultDom.firstChild?.remove()
         van.add(resultDom, table(
           thead(tr(head.map(h => th(h)))),
@@ -237,7 +242,7 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
 
     const dom = div(
       div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
-      div(textAreaDom),
+      div(textareaDom),
       div(button({onclick: showTable}, "Show Table")),
       pre({class: "err"}),
       resultDom,
@@ -276,7 +281,12 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
   }
 
   const JsonInspector = ({initInput}) => {
-    const textareaDom = textarea({rows: 6, style: "width: 100%;"}, initInput)
+    const autoGrow = e => {
+      e.style.height = "5px"
+      e.style.height = (e.scrollHeight + 5) + "px"
+    }
+    const textareaDom = textarea({oninput: e => autoGrow(e.target)}, initInput)
+    setTimeout(() => autoGrow(textareaDom), 10)
     const errmsg = van.state(""), json = van.state(null)
 
     const inspect = () => {

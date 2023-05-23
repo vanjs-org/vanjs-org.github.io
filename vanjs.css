@@ -120,6 +120,10 @@ a {
   max-height: 500px;
 }
 
+#demo-table-viewer textarea, #demo-json-inspector textarea {
+  width: 100%;
+}
+
 [id^=demo-auto-complete-] .root { display: flex; }
 
 [id^=demo-auto-complete-] textarea {

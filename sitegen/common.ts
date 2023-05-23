@@ -80,6 +80,8 @@ export default (doc: HTMLDocument) => {
 
     Js: (text: string) => pre(code({class: "language-js"}, text)),
 
+    JsFile: (file: string) => pre(code({class: "language-js", "data-file": file})),
+
     InlineJs: (text: string) => code({class: "language-js"}, text),
 
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),

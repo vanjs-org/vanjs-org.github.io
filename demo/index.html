@@ -234,14 +234,19 @@ const TodoList = () =&gt; {
     ),
   )
 }
-</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p id="jsfiddle-calculator" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, Calculator())" data-css-file="code/calculator.css"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>156</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>more than 100 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
+</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p id="jsfiddle-calculator" data-prefix="const {button, div} = van.tags" data-suffix="van.add(document.body, Calculator())" data-css-file="code/calculator.css"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>156</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>more than 100 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js" data-file="table-viewer.code.js">const TableViewer = ({inputText, inputType}) =&gt; {
   const resultDom = div()
 
   const jsonRadioDom = input({type: "radio", checked: inputType === "json",
     name: "inputType", value: "json"})
   const csvRadioDom = input({type: "radio", checked: inputType === "csv",
     name: "inputType", value: "csv"})
-  const textAreaDom = textarea({rows: 10, cols: 80}, inputText)
+  const autoGrow = e =&gt; {
+    e.style.height = "5px"
+    e.style.height = (e.scrollHeight + 5) + "px"
+  }
+  const textareaDom = textarea({oninput: e =&gt; autoGrow(e.target)}, inputText)
+  setTimeout(() =&gt; autoGrow(textareaDom), 10)
 
   const tableFromJson = text =&gt; {
     const json = JSON.parse(text)
@@ -263,7 +268,7 @@ const TodoList = () =&gt; {
   const showTable = () =&gt; {
     try {
       let {head, data} = jsonRadioDom.checked ?
-        tableFromJson(textAreaDom.value) : tableFromCsv(textAreaDom.value)
+        tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
       resultDom.firstChild?.remove()
       van.add(resultDom, table(
         thead(tr(head.map(h =&gt; th(h)))),
@@ -277,7 +282,7 @@ const TodoList = () =&gt; {
 
   const dom = div(
     div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
-    div(textAreaDom),
+    div(textareaDom),
     div(button({onclick: showTable}, "Show Table")),
     pre({class: "err"}),
     resultDom,
@@ -287,7 +292,7 @@ const TodoList = () =&gt; {
 </code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p id="jsfiddle-table-viewer" data-prefix="const {button, input, div, label, pre, table, tbody, td, textarea, th, thead, tr} = van.tags" data-suffix="van.add(document.body, TableViewer({
   inputText: `[{&quot;id&quot;:1,&quot;name&quot;:&quot;John Doe&quot;,&quot;email&quot;:&quot;john.doe@example.com&quot;,&quot;age&quot;:35,&quot;country&quot;:&quot;USA&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;Jane Smith&quot;,&quot;email&quot;:&quot;jane.smith@example.com&quot;,&quot;age&quot;:28,&quot;country&quot;:&quot;Canada&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;Bob Johnson&quot;,&quot;email&quot;:&quot;bob.johnson@example.com&quot;,&quot;age&quot;:42,&quot;country&quot;:&quot;Australia&quot;}]`,
   inputType: &quot;json&quot;,
-}))" data-css-file="code/json-csv-table-viewer.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="json-inspector"><a class="self-link" href="#json-inspector">JSON Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is another example of leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a> - to build a tree view for inspecting JSON data:</p><pre><code class="language-js">const ListItem = ({key, value, indent = 0}) =&gt; {
+}))" data-css-file="code/json-csv-table-viewer.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="json-inspector"><a class="self-link" href="#json-inspector">JSON Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is another example of leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a> - to build a tree view for inspecting JSON data:</p><pre><code class="language-js" data-file="json-inspector.code.js">const ListItem = ({key, value, indent = 0}) =&gt; {
   const hide = van.state(key !== "")
   const style = {deps: [hide], f: hide =&gt; hide ? "display: none" : ""}
   let valueDom
@@ -311,7 +316,12 @@ const TodoList = () =&gt; {
 }
 
 const JsonInspector = ({initInput}) =&gt; {
-  const textareaDom = textarea({rows: 5, cols: 80}, initInput)
+  const autoGrow = e =&gt; {
+    e.style.height = "5px"
+    e.style.height = (e.scrollHeight + 5) + "px"
+  }
+  const textareaDom = textarea({oninput: e =&gt; autoGrow(e.target)}, initInput)
+  setTimeout(() =&gt; autoGrow(textareaDom), 10)
   const errmsg = van.state(""), json = van.state(null)
 
   const inspect = () =&gt; {
@@ -1175,7 +1185,12 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
       name: "inputType", value: "json"})
     const csvRadioDom = input({type: "radio", checked: inputType === "csv",
       name: "inputType", value: "csv"})
-    const textAreaDom = textarea({rows: 8, style: "width: 100%;"}, inputText)
+    const autoGrow = e => {
+      e.style.height = "5px"
+      e.style.height = (e.scrollHeight + 5) + "px"
+    }
+    const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
+    setTimeout(() => autoGrow(textareaDom), 10)
 
     const tableFromJson = text => {
       const json = JSON.parse(text)
@@ -1197,7 +1212,7 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
     const showTable = () => {
       try {
         let {head, data} = jsonRadioDom.checked ?
-          tableFromJson(textAreaDom.value) : tableFromCsv(textAreaDom.value)
+          tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
         resultDom.firstChild?.remove()
         van.add(resultDom, table(
           thead(tr(head.map(h => th(h)))),
@@ -1211,7 +1226,7 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
 
     const dom = div(
       div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
-      div(textAreaDom),
+      div(textareaDom),
       div(button({onclick: showTable}, "Show Table")),
       pre({class: "err"}),
       resultDom,
@@ -1250,7 +1265,12 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
   }
 
   const JsonInspector = ({initInput}) => {
-    const textareaDom = textarea({rows: 6, style: "width: 100%;"}, initInput)
+    const autoGrow = e => {
+      e.style.height = "5px"
+      e.style.height = (e.scrollHeight + 5) + "px"
+    }
+    const textareaDom = textarea({oninput: e => autoGrow(e.target)}, initInput)
+    setTimeout(() => autoGrow(textareaDom), 10)
     const errmsg = van.state(""), json = van.state(null)
 
     const inspect = () => {

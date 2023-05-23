@@ -5,6 +5,12 @@
     <title>JSON Inspector</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      textarea {
+        width: 100%;
+        max-width: 700px;
+      }
+    </style>
   </head>
   <body>
     <script type="module">
@@ -36,7 +42,12 @@
       }
 
       const JsonInspector = ({initInput}) => {
-        const textareaDom = textarea({rows: 5, cols: 80}, initInput)
+        const autoGrow = e => {
+          e.style.height = "5px"
+          e.style.height = (e.scrollHeight + 5) + "px"
+        }
+        const textareaDom = textarea({oninput: e => autoGrow(e.target)}, initInput)
+        setTimeout(() => autoGrow(textareaDom), 10)
         const errmsg = van.state(""), json = van.state(null)
 
         const inspect = () => {

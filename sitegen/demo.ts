@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, b, div, i, img, iframe, li, ol, p, span, table, tbody, td, th, thead, tr} = tags
 
-  const {Demo, Download, H1, H2, H3, HtmlFile, Js, Link, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -303,57 +303,7 @@ const TodoList = () => {
     p("As you can see, not only ", VanJS(), " is ", b("more than 100 times"), " smaller than React, apps built with ", VanJS(), " also tends to be slimmer."),
     H2({id: "table-viewer"}, "JSON/CSV Table Viewer"),
     p("The following code implements a ", Symbol("Table Viewer"), " for JSON/CSV-based data by leveraging ", Link("functional-style DOM tree building", "/tutorial#fun-dom"), ":"),
-    Js(`const TableViewer = ({inputText, inputType}) => {
-  const resultDom = div()
-
-  const jsonRadioDom = input({type: "radio", checked: inputType === "json",
-    name: "inputType", value: "json"})
-  const csvRadioDom = input({type: "radio", checked: inputType === "csv",
-    name: "inputType", value: "csv"})
-  const textAreaDom = textarea({rows: 10, cols: 80}, inputText)
-
-  const tableFromJson = text => {
-    const json = JSON.parse(text)
-    const head = Object.keys(json[0])
-    return {
-      head,
-      data: json.map(row => head.map(h => row[h]))
-    }
-  }
-
-  const tableFromCsv = text => {
-    const lines = text.split("\\n").filter(l => l.length > 0)
-    return {
-      head: lines[0].split(","),
-      data: lines.slice(1).map(l => l.split(",")),
-    }
-  }
-
-  const showTable = () => {
-    try {
-      let {head, data} = jsonRadioDom.checked ?
-        tableFromJson(textAreaDom.value) : tableFromCsv(textAreaDom.value)
-      resultDom.firstChild?.remove()
-      van.add(resultDom, table(
-        thead(tr(head.map(h => th(h)))),
-        tbody(data.map(row => tr(row.map(col => td(col))))),
-      ))
-      dom.querySelector(".err").innerText = ""
-    } catch (e) {
-      dom.querySelector(".err").innerText = e.message
-    }
-  }
-
-  const dom = div(
-    div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
-    div(textAreaDom),
-    div(button({onclick: showTable}, "Show Table")),
-    pre({class: "err"}),
-    resultDom,
-  )
-  return dom
-}
-`),
+    JsFile("table-viewer.code.js"),
     p(Demo()),
     p({id: "demo-table-viewer"}),
     p({
@@ -367,50 +317,7 @@ const TodoList = () => {
     }),
     H2({id: "json-inspector"}, "JSON Inspector"),
     p("This is another example of leveraging ", Link("functional-style DOM tree building", "/tutorial#fun-dom"), " - to build a tree view for inspecting JSON data:"),
-    Js(`const ListItem = ({key, value, indent = 0}) => {
-  const hide = van.state(key !== "")
-  const style = {deps: [hide], f: hide => hide ? "display: none" : ""}
-  let valueDom
-  if (typeof value !== "object") valueDom = value
-  else valueDom = div({style},
-    Object.entries(value).map(([k, v]) =>
-      ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
-  )
-  return (key ? div : pre)(
-    " ".repeat(indent),
-    key ? (
-      typeof valueDom !== "object" ? ["🟰 ", b(\`\${key}: \`)] :
-        a({onclick: () => hide.val = !hide.val, style: "cursor: pointer"},
-          van.bind(hide, hide => hide ? "➕ " : "➖ "),
-          b(\`\${key}: \`),
-          van.bind(hide, hide => hide ? "…" : ""),
-        )
-    ) : [],
-    valueDom,
-  )
-}
-
-const JsonInspector = ({initInput}) => {
-  const textareaDom = textarea({rows: 5, cols: 80}, initInput)
-  const errmsg = van.state(""), json = van.state(null)
-
-  const inspect = () => {
-    try {
-      json.val = JSON.parse(textareaDom.value)
-      errmsg.val = ""
-    } catch (e) {
-      errmsg.val = e.message
-    }
-  }
-
-  return div(
-    div(textareaDom),
-    div(button({onclick: inspect}, "Inspect")),
-    pre({style: "color: red"}, errmsg),
-    van.bind(json, json => json ? ListItem({key: "", value: json}) : ""),
-  )
-}
-`),
+    JsFile("json-inspector.code.js"),
     p(Demo()),
     p({id: "demo-json-inspector"}),
     p({

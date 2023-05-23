@@ -1,5 +1,3 @@
-const {button, input, div, label, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
-
 const TableViewer = ({inputText, inputType}) => {
   const resultDom = div()
 
@@ -55,8 +53,3 @@ const TableViewer = ({inputText, inputType}) => {
   )
   return dom
 }
-
-van.add(document.body, TableViewer({
-  inputText: `[{"id":1,"name":"John Doe","email":"john.doe@example.com","age":35,"country":"USA"},{"id":2,"name":"Jane Smith","email":"jane.smith@example.com","age":28,"country":"Canada"},{"id":3,"name":"Bob Johnson","email":"bob.johnson@example.com","age":42,"country":"Australia"}]`,
-  inputType: "json",
-}))

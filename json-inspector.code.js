@@ -1,5 +1,3 @@
-const {a, b, button, div, pre, span, textarea} = van.tags
-
 const ListItem = ({key, value, indent = 0}) => {
   const hide = van.state(key !== "")
   const style = {deps: [hide], f: hide => hide ? "display: none" : ""}
@@ -48,5 +46,3 @@ const JsonInspector = ({initInput}) => {
     van.bind(json, json => json ? ListItem({key: "", value: json}) : ""),
   )
 }
-
-van.add(document.body, JsonInspector({initInput: `{"name":"John Doe","age":30,"email":"johndoe@example.com","address":{"street":"123 Main St","city":"Anytown","state":"CA","zip":"12345"},"phone_numbers":[{"type":"home","number":"555-1234"},{"type":"work","number":"555-5678"}]}`}))

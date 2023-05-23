@@ -11,6 +11,11 @@
       table { border-collapse: collapse; }
 
       table, th, td { border: 1px solid black; }
+
+      textarea {
+        width: 100%;
+        max-width: 700px;
+      }
     </style>
   </head>
   <body>
@@ -26,7 +31,12 @@
           name: "inputType", value: "json"})
         const csvRadioDom = input({type: "radio", checked: inputType === "csv",
           name: "inputType", value: "csv"})
-        const textAreaDom = textarea({rows: 10, cols: 80}, inputText)
+        const autoGrow = e => {
+          e.style.height = "5px"
+          e.style.height = (e.scrollHeight + 5) + "px"
+        }
+        const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
+        setTimeout(() => autoGrow(textareaDom), 10)
 
         const tableFromJson = text => {
           const json = JSON.parse(text)
@@ -48,7 +58,7 @@
         const showTable = () => {
           try {
             let {head, data} = jsonRadioDom.checked ?
-              tableFromJson(textAreaDom.value) : tableFromCsv(textAreaDom.value)
+              tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
             resultDom.firstChild?.remove()
             van.add(resultDom, table(
               thead(tr(head.map(h => th(h)))),
@@ -62,7 +72,7 @@
 
         const dom = div(
           div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
-          div(textAreaDom),
+          div(textareaDom),
           div(button({onclick: showTable}, "Show Table")),
           pre({class: "err"}),
           resultDom,
