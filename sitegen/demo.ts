@@ -565,7 +565,7 @@ const filterChild = (childNodes, {skipEmptyText}) =>
 
 const autoGrow = e => {
   e.style.height = "5px"
-  e.style.height = e.scrollHeight + "px"
+  e.style.height = (e.scrollHeight + 5) + "px"
 }
 
 const domToVanCode = (dom,
@@ -704,7 +704,7 @@ const Output = ({id, expr}) => div({class: "row"},
 
 const autoGrow = e => {
   e.target.style.height = "5px"
-  e.target.style.height = e.target.scrollHeight + "px"
+  e.target.style.height = (e.target.scrollHeight + 5) + "px"
 }
 
 const Input = ({id}) => {

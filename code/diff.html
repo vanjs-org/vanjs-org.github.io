@@ -30,7 +30,7 @@
 
       const autoGrow = e => {
         e.target.style.height = "5px"
-        e.target.style.height = e.target.scrollHeight + "px"
+        e.target.style.height = (e.target.scrollHeight + 5) + "px"
       }
 
       const Result = ({diff, skipAdd, skipRemove}) => div({style: "white-space: pre-wrap;"},

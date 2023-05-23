@@ -458,7 +458,7 @@ const filterChild = (childNodes, {skipEmptyText}) =&gt;
 
 const autoGrow = e =&gt; {
   e.style.height = "5px"
-  e.style.height = e.scrollHeight + "px"
+  e.style.height = (e.scrollHeight + 5) + "px"
 }
 
 const domToVanCode = (dom,
@@ -592,7 +592,7 @@ const Output = ({id, expr}) =&gt; div({class: "row"},
 
 const autoGrow = e =&gt; {
   e.target.style.height = "5px"
-  e.target.style.height = e.target.scrollHeight + "px"
+  e.target.style.height = (e.target.scrollHeight + 5) + "px"
 }
 
 const Input = ({id}) =&gt; {
@@ -831,7 +831,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
 
       const Text = (s, isErr = false) =&gt; {
         const dom = textarea({readonly: true, class: isErr ? "err" : ""}, s)
-        setTimeout(() =&gt; dom.style.height = dom.scrollHeight + "px")
+        setTimeout(() =&gt; dom.style.height = (dom.scrollHeight + 5) + "px")
         return dom
       }
 
@@ -1466,7 +1466,7 @@ const Output = ({id, expr}) => div({class: "row"},
 
 const autoGrow = e => {
   e.target.style.height = "5px"
-  e.target.style.height = e.target.scrollHeight + "px"
+  e.target.style.height = (e.target.scrollHeight + 5) + "px"
 }
 
 const Input = ({id}) => {
