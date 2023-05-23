@@ -537,7 +537,7 @@ const Converter = ({initInput}) => {
 `),
     p("You can try it out with ", Link("this link", "/convert"), "."),
     H2("Jupyter-like JavaScript Console"),
-    p("Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in ", b("less than 100 lines"), " of code with ", VanJS(), ". The JavaScript console supports drawing tables (with the technique similar to ", Link("Table Viewer", "#table-viewer"), "), inspecting objects in a tree view (with the technique similar to ", Link("Json Inspector", "#json-inspector") , ") and plotting (with the integration of ", Link("Google Charts", "https://developers.google.com/chart"), ")."),
+    p("Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in ", b("~100 lines"), " of code with ", VanJS(), ". The JavaScript console supports drawing tables (with the technique similar to ", Link("Table Viewer", "#table-viewer"), "), inspecting objects in a tree view (with the technique similar to ", Link("Json Inspector", "#json-inspector") , ") and plotting (with the integration of ", Link("Google Charts", "https://developers.google.com/chart"), ")."),
     p("Here is the implementation:"),
     Js(`const toDataArray = data => {
   const hasPrimitive = !data.every(r => typeof r === "object")
