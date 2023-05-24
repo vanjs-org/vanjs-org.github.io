@@ -174,7 +174,7 @@ const CounterSet = () => {
       "data-suffix": "van.add(document.body, Stopwatch())",
     }),
     H2("TODO List"),
-    p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration of native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
+    p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
     p("Below is an example of building a ", Symbol("TODO List"), " in a completely procedural way:"),
     Js(`const TodoItem = ({text}) => div(
   input({type: "checkbox", onchange: e =>
@@ -202,7 +202,7 @@ const TodoList = () => {
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n"
     }),
-    p("Alternatively, you can use a functional/reactive way to build ", Symbol("TODO Item"), "s:"),
+    p("Alternatively, you can use a functional/reactive way to build ", Symbol("TODO Items"), ":"),
     Js(`const TodoItem = ({text}) => {
   const done = van.state(false), deleted = van.state(false)
   return van.bind(deleted,
