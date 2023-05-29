@@ -14,7 +14,7 @@ export default (doc: HTMLDocument) => {
     H1(VanJS(), ": Learning by Example"),
     p("Despite being an ", b("ultra-lightweight"), " UI framework, ", VanJS(), " allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with ", VanJS(), "."),
     H2("Community Examples"),
-    p("In addition to the official ", VanJS(), " examples below, there are also sample apps from ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
+    p("Besides the official ", VanJS(), " examples below, there are also sample apps from ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
       li(Link("@artydev", "https://github.com/artydev"), "'s ", VanJS(), " Series: ", Link("dev.to/artydev/series/23075", "https://dev.to/artydev/series/23075"), "."),
     ),
