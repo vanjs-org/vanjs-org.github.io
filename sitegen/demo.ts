@@ -709,7 +709,7 @@ google.charts.setOnLoadCallback(() =>
       li("Please be aware that any commands you run in the web-based shell are the real commands executed on your computer. Thus don't try dangerous stuff as they are IRREVERSIBLE."),
     ),
     H2("Community Examples"),
-    p("Besides the official ", VanJS(), " examples, there are also sample apps from ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
+    p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
       li(Link("@artydev", "https://github.com/artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075"), "."),
     ),
