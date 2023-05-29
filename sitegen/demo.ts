@@ -13,11 +13,7 @@ export default (doc: HTMLDocument) => {
   return div({id: "content"},
     H1(VanJS(), ": Learning by Example"),
     p("Despite being an ", b("ultra-lightweight"), " UI framework, ", VanJS(), " allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with ", VanJS(), "."),
-    H2("Community Examples"),
-    p("Besides the official ", VanJS(), " examples below, there are also sample apps from ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
-    ul(
-      li(Link("@artydev", "https://github.com/artydev"), "'s ", VanJS(), " Series: ", Link("dev.to/artydev/series/23075", "https://dev.to/artydev/series/23075"), "."),
-    ),
+    p("See also ", Link("Community Examples", "#community-examples"), "."),
     H2("Hello World!"),
     p("This is the ", Symbol("Hello World"), " program shown in the ", Link("Home", "/"), " page:"),
     Js(`const Hello = () => div(
@@ -711,6 +707,11 @@ google.charts.setOnLoadCallback(() =>
       li("Before using the web-based shell in your browser, you need to login with the key printed in the console of ", Symbol("shell.ts"), " server first. The key is generated randomly every time the server restarts. You should never share the key to other people."),
       li("You're advised to shut down the ", Symbol("shell.ts"), " server when you're not using the shell to further reduce the risk of unauthorized access to your shell with the leaked key. Next time, when the server restarts, any browser access needs the login with the new key generated randomly."),
       li("Please be aware that any commands you run in the web-based shell are the real commands executed on your computer. Thus don't try dangerous stuff as they are IRREVERSIBLE."),
+    ),
+    H2("Community Examples"),
+    p("Besides the official ", VanJS(), " examples below, there are also sample apps from ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
+    ul(
+      li(Link("@artydev", "https://github.com/artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075"), "."),
     ),
   )
 }
