@@ -98,5 +98,7 @@ export default (doc: HTMLDocument) => {
 
     Download,
     DownloadRow,
+
+    User: (id: string) => Link("@" + id, "https://github.com/" + id),
   }
 }

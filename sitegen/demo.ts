@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, b, div, i, img, iframe, li, ol, p, span, table, tbody, td, th, thead, tr, ul} = tags
 
-  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, Ts, TsFile, User, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -711,7 +711,8 @@ google.charts.setOnLoadCallback(() =>
     H2("Community Examples"),
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
-      li(Link("@artydev", "https://github.com/artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075"), "."),
+      li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075"), "."),
+      li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc"), "."),
     ),
   )
 }
