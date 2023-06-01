@@ -63,7 +63,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   console.log(`Rendering ${file}...`)
 
   let docTitle = title
-  if (title === "Home") docTitle = "A 1.2kB Reactive UI Framework without JSX"
+  if (title === "Home") docTitle = "A Scripting Way to Build UI"
   if (title === "Mini-Van")
     doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"; else
     doc.querySelector("title")!.innerText += " - " + docTitle

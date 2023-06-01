@@ -6,14 +6,15 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, b, blockquote, br, div, i, li, p, path, span, svg, ul} = tags
 
-  const {BI, Demo, H1, H2, H3, Js, Link, Symbol, VanJS} = common(doc)
+  const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Symbol, VanJS} = common(doc)
 
   const Quote = ({text, source}: {text: string, source: string}) =>
     blockquote(i(text, br(), br(), "-- " + source))
 
   return div({id: "content"},
     H1(VanJS(), ": A 1.2kB Grab 'n Go Reactive UI Framework without React/JSX"),
-    p((VanJS()), " (abbr. ", b("Van"), "illa ", b("J"), "ava", b("S"), "cript) is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels a lot like React. Check-out the ", Symbol("Hello World"), " code below:"),
+    blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
+    p((VanJS()), " (abbr. ", b("Van"), "illa ", b("J"), "ava", b("S"), "cript) is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
 const Hello = () => div(
@@ -33,7 +34,7 @@ van.add(document.body, Hello())
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
     }),
     p("You can convert any HTML snippet into ", VanJS(), " code with our online ", Link("converter", "/convert"), "."),
-    p({id: "code-counter"}, VanJS(), " helps you manage state and UI binding as well, with a more natural API:"),
+    p({id: "code-counter"}, VanJS(), " helps you manage states and UI bindings as well, with a more natural API:"),
     Js(`const Counter = () => {
   const counter = van.state(0)
   return span(
@@ -51,7 +52,6 @@ van.add(document.body, Counter())
       "data-prefix": "const {button, span} = van.tags",
     }),
     H2("Why VanJS?"),
-    p(VanJS(), " has the vision to be the ", Link(b("scripting language"), "/about#story"), " for UI, just like ", Symbol("bash"), " is the scripting language for terminal. ", VanJS(), " empowers frontend engineers, backend engineers, system engineers, data scientists, and anyone else to build comprehensive user interfaces. You can code with ", VanJS(), " anywhere, any time, and on any device – ", i("even on your smartphone! 👏👏👏")),
     H3("Reactive Programming without React/JSX"),
     p("Declarative DOM tree composition, reusable components, reactive state binding - ", VanJS(), " offers every good aspect that React does, but without the need of React, JSX, transpiling, virtual DOM, or any hidden logic. Everything is built with simple JavaScript functions and DOM."),
     H3("Grab 'n Go"),
@@ -73,7 +73,7 @@ van.add(document.body, Counter())
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo")),
       li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
-      li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan")),
+      li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
     ),
     H2("Source Code"),
