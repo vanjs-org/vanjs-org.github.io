@@ -17,13 +17,13 @@ const Converter = () => {
       onclick: () => {
         const date = tsToDate(Number(inputDom.value))
         dateStrDom?.remove()
-        dateStrDom = resultDom.appendChild(div(
+        dateStrDom = resultDom.appendChild(p(
           div(date.toString()),
           div(b("GMT: "), date.toGMTString()),
         ))
       }
     }, "Convert"),
-    div(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+    p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
   )
   return resultDom
 }
