@@ -273,7 +273,7 @@ const TodoList = () => {
     p({id: "demo-epoch-converter"}),
     p({
       id: "jsfiddle-epoch-converter",
-      "data-prefix": "const {div, li, p, ul} = van.tags",
+      "data-prefix": "const {b, button, div, i, input, p} = van.tags",
       "data-suffix": "van.add(document.body, Converter())",
     }),
     H2("Keyboard Event Inspector"),

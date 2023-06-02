@@ -1,4 +1,4 @@
-const {div, li, p, ul} = van.tags
+const {b, button, div, i, input, p} = van.tags
 
 const tsToDate = ts => {
   if (ts < 1e10) return new Date(ts * 1e3)
