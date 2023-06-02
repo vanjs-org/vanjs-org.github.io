@@ -1,0 +1,11 @@
+.label {
+  width: 80px;
+  font-weight: bold;
+}
+
+.value { width: 80px; }
+
+.label, .value {
+  font: monospace;
+  display: inline-block;
+}
