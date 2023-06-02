@@ -711,8 +711,10 @@ google.charts.setOnLoadCallback(() =>
     H2("Community Examples"),
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
-      li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075"), "."),
-      li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc"), "."),
+      li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
+      li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc")),
+      li(User("FredericHeem"), "'s ", Link("multi-page app starter kit under 5kB", "https://github.com/FredericHeem/van-kit")),
+      li(User("FredericHeem"), "'s ", Link("VanJS playground with Vite", "https://github.com/FredericHeem/van-playground")),
     ),
   )
 }
