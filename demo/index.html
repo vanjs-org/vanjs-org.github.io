@@ -287,7 +287,7 @@ const DiffApp = () =&gt; {
     div({class: "row"}, van.bind(diff, Result)),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p id="jsfiddle-diff-simple" data-prefix="const {button, div, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p id="jsfiddle-diff-simple" data-details="demo-diff.details" data-prefix="const {button, div, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
   const displayNum = van.state(0)
   let lhs = null, op = null, rhs = 0
 
