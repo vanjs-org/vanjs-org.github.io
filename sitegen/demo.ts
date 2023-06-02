@@ -274,7 +274,7 @@ const TodoList = () => {
     p({
       id: "jsfiddle-epoch-converter",
       "data-prefix": "const {div, li, p, ul} = van.tags",
-      "data-suffix": "van.add(document.body, EvenNumbers({N: 20}))",
+      "data-suffix": "van.add(document.body, Converter())",
     }),
     H2("Keyboard Event Inspector"),
     p("Below is an application to inspect all relevant key codes in keyboard ", SymLink("keydown", "https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event"), " events:"),

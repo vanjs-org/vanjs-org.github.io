@@ -30,4 +30,4 @@ const Converter = () => {
   return resultDom
 }
 
-van.add(document.body, EvenNumbers({N: 20}))
+van.add(document.body, Converter())
