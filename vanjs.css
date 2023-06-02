@@ -112,6 +112,37 @@ a {
   padding: 0.5em 0.5em;
 }
 
+#demo-key-inspector .label {
+  width: 80px;
+  font-weight: bold;
+}
+
+#demo-key-inspector .value { width: 80px; }
+
+#demo-key-inspector .label, .value {
+  font: monospace;
+  display: inline-block;
+}
+
+#demo-diff-simple .row { display: flex; }
+
+#demo-diff-simple .column {
+  width: 500px;
+  margin: 2px;
+}
+
+#demo-diff-simple .column textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#demo-diff-simple .add { background-color: #B5EFDB; }
+
+#demo-diff-simple .remove {
+  background-color: #FFC4C1;
+  text-decoration: line-through;
+}
+
 #demo-calculator {
   background-color: unset;
   padding: unset;

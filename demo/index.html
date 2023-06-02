@@ -146,7 +146,25 @@ const CounterSet = () =&gt; {
       (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
   )
 }
-</code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p id="jsfiddle-stopwatch" data-prefix="const {button, pre, span} = van.tags" data-suffix="van.add(document.body, Stopwatch())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/stopwatch">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="todo-list"><a class="self-link" href="#todo-list">TODO List</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>As an <b>unopinionated</b> framework, <b>VanJS</b> supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with <b>VanJS</b> as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to <a href="/tutorial#state-binding" class="w3-hover-opacity">State Binding</a>. You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem.</p><p>Below is an example of building a <code class="symbol">TODO List</code> in a completely procedural way:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; div(
+</code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p id="jsfiddle-stopwatch" data-prefix="const {button, pre, span} = van.tags" data-suffix="van.add(document.body, Stopwatch())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/stopwatch">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="list"><a class="self-link" href="#list">List</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>As an <b>unopinionated</b> framework, <b>VanJS</b> supports multiple programming paradigms. You can construct the DOM tree in an imperative way (modifying the DOM tree via <code class="symbol"><a href="/tutorial#api-add" class="w3-hover-opacity">van.add</a></code>), or in a functional/declarative way.</p><p>Below is an example of building a list even numbers in <code class="symbol">1..N</code>, using an imperative way:</p><pre><code class="language-js">const EvenNumbers = ({N}) =&gt; {
+  const listDom = ul()
+  for (let i = 1; i &lt;= N; ++i)
+    if (i % 2 === 0)
+      van.add(listDom, li(i))
+
+  return div(
+    p("List of even numbers in 1.." + N + ":"),
+    listDom,
+  )
+}</code></pre><p id="jsfiddle-list-imperative" data-prefix="const {div, li, p, ul} = van.tags" data-suffix="van.add(document.body, EvenNumbers({N: 20}))"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/list-imperative">Try on jsfiddle</a></p><p>Alternatively, you can build a list of even numbers in <code class="symbol">1..N</code>, using a functional/declarative way:</p><pre><code class="language-js">const EvenNumbers = ({N}) =&gt; div(
+  p("List of even numbers in 1.." + N + ":"),
+  ul(
+    Array.from({length: N}, (_, i) =&gt; i + 1)
+      .filter(i =&gt; i % 2 === 0)
+      .map(i =&gt; li(i)),
+  ),
+)
+</code></pre><p id="jsfiddle-list-declarative" data-prefix="const {div, li, p, ul} = van.tags" data-suffix="van.add(document.body, EvenNumbers({N: 20}))"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/list-declarative">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="todo-list"><a class="self-link" href="#todo-list">TODO List</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Similarly, to build reactive applications, you can build in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with <b>VanJS</b> as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to <a href="/tutorial#state-binding" class="w3-hover-opacity">State Binding</a>. You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem.</p><p>Below is an example of building a <code class="symbol">TODO List</code> in a completely procedural way:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; div(
   input({type: "checkbox", onchange: e =&gt;
     e.target.closest("div").querySelector("span").style["text-decoration"] =
       e.target.checked ? "line-through" : ""
@@ -183,7 +201,93 @@ const TodoList = () =&gt; {
   return dom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-functional"></p><p id="jsfiddle-todo-functional" data-prefix="const {a, button, div, input, span, strike} = van.tags" data-suffix="van.add(document.body, TodoList())" data-css="a { cursor: pointer; }
-"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
+"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="epoch-timestamp-converter"><a class="self-link" href="#epoch-timestamp-converter">Epoch Timestamp Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an application which converts a Unix epoch timestamp into a human-readable datetime string:</p><pre><code class="language-js" data-file="epoch-converter.code.js">const tsToDate = ts =&gt; {
+  if (ts &lt; 1e10) return new Date(ts * 1e3)
+  if (ts &lt; 1e13) return new Date(ts)
+  if (ts &lt; 1e16) return new Date(ts / 1e3)
+  return new Date(ts / 1e6)
+}
+
+const Converter = () =&gt; {
+  const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
+  setInterval(() =&gt; ++nowTs.val, 1000)
+  const inputDom = input({type: "text", size: 25, value: nowTs.val})
+  let dateStrDom
+  const resultDom = div(
+    div(b("Now: "), nowTs),
+    inputDom, " ",
+    button({
+      onclick: () =&gt; {
+        const date = tsToDate(Number(inputDom.value))
+        dateStrDom?.remove()
+        dateStrDom = resultDom.appendChild(div(
+          div(date.toString()),
+          div(b("GMT: "), date.toGMTString()),
+        ))
+      }
+    }, "Convert"),
+    div(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+  )
+  return resultDom
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-epoch-converter"></p><p id="jsfiddle-epoch-converter" data-prefix="const {div, li, p, ul} = van.tags" data-suffix="van.add(document.body, EvenNumbers({N: 20}))"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/epoch-converter">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="keyboard-event-inspector"><a class="self-link" href="#keyboard-event-inspector">Keyboard Event Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an application to inspect all relevant key codes in keyboard <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event" class="w3-hover-opacity">keydown</a></code> events:</p><pre><code class="language-js" data-file="key-inspector.code.js">const Label = text =&gt; span({class: "label"}, text)
+const Value = text =&gt; span({class: "value"}, text)
+
+const Inspector = () =&gt; {
+  const keyStates = {
+    key: van.state(""),
+    code: van.state(""),
+    which: van.state(""),
+    keyCode: van.state(""),
+    ctrlKey: van.state(false),
+    metaKey: van.state(false),
+    altKey: van.state(false),
+    shiftKey: van.state(false),
+  }
+
+  const Result = prop =&gt; span(Label(prop + ": "), Value(keyStates[prop]))
+
+  const onkeydown = e =&gt; {
+    e.preventDefault()
+    Object.entries(keyStates).forEach(([k, v]) =&gt; v.val = e[k])
+  }
+
+  return div(
+    div(input({placeholder: "Focus here and press keys…", onkeydown,
+      style: "width: 260px"})),
+    div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
+    div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-key-inspector"></p><p id="jsfiddle-key-inspector" data-prefix="const {div, input, span} = van.tags" data-suffix="van.add(document.body, Inspector())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/key-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="diff"><a class="self-link" href="#diff">Diff</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Here is a <code class="symbol">Diff App</code> that compares 2 pieces of text (very handy tool to check how your text is revised by <code class="symbol">ChatGPT</code> 🙂):</p><pre><code class="language-js" data-file="diff-simple.code.js">const autoGrow = e =&gt; {
+  e.target.style.height = "5px"
+  e.target.style.height = (e.target.scrollHeight + 5) + "px"
+}
+
+const Result = diff =&gt; div({class: "column", style: "white-space: pre-wrap;"},
+  diff.map(d =&gt;
+    span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+)
+
+const DiffApp = () =&gt; {
+  const oldTextDom = textarea({oninput: autoGrow, rows: 1})
+  const newTextDom = textarea({oninput: autoGrow, rows: 1})
+  const diff = van.state([])
+  return div(
+    div({class: "row"},
+      div({class: "column"}, oldTextDom),
+      div({class: "column"}, newTextDom),
+    ),
+    div({class: "row"},
+      button(
+        {onclick: () =&gt; diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
+        "Diff",
+      ),
+    ),
+    div({class: "row"}, van.bind(diff, Result)),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p id="jsfiddle-diff-simple" data-prefix="const {button, div, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
   const displayNum = van.state(0)
   let lhs = null, op = null, rhs = 0
 
@@ -952,7 +1056,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>4. Run the command below under your working directory:</p><p><i>You can append a custom port number to the end. By default, port 8000 will be chosen.</i></p><pre><code class="language-shell">deno run --allow-net --allow-run --allow-read shell.ts</code></pre><p>5. You can visit the web-based shell with the URL printed in the console output of <code class="symbol">deno run</code>. In your first visit, it will ask you to login, you need to paste the random key printed from the console to proceed.</p><p>6. After login, you will be able to see and use the web-based shell.</p><h3 class="w3-large w3-text-red" id="security-considerations"><a class="self-link" href="#security-considerations">Security Considerations</a></h3><p>This program allows web access to your OS shell, which elevates the privilege to a level that you would not normally get with your browser. Here are the extra measures we're taking to ensure the security of your local computer:</p><ol><li>Only local connection to your <code class="symbol">shell.ts</code> server is allowed.</li><li>Before using the web-based shell in your browser, you need to login with the key printed in the console of <code class="symbol">shell.ts</code> server first. The key is generated randomly every time the server restarts. You should never share the key to other people.</li><li>You're advised to shut down the <code class="symbol">shell.ts</code> server when you're not using the shell to further reduce the risk of unauthorized access to your shell with the leaked key. Next time, when the server restarts, any browser access needs the login with the new key generated randomly.</li><li>Please be aware that any commands you run in the web-based shell are the real commands executed on your computer. Thus don't try dangerous stuff as they are IRREVERSIBLE.</li></ol><h2 class="w3-xxlarge w3-text-red" id="community-examples"><a class="self-link" href="#community-examples">Community Examples</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Besides the official <b>VanJS</b> examples, there are also sample apps from the great <b>VanJS</b> community. Below is a curated list (contact <a href="mailto:tao@vanjs.org" class="w3-hover-opacity">tao@vanjs.org</a> to add yours):</p><ul><li><a href="https://github.com/artydev" class="w3-hover-opacity">@artydev</a>'s <a href="https://dev.to/artydev/series/23075" class="w3-hover-opacity"><b>VanJS</b> Series</a></li><li><a href="https://github.com/enpitsuLin" class="w3-hover-opacity">@enpitsuLin</a>'s <a href="https://github.com/enpitsuLin/vanjs-todomvc" class="w3-hover-opacity">TODO app</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-kit" class="w3-hover-opacity">multi-page app starter kit under 5kB</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-playground" class="w3-hover-opacity">VanJS playground with Vite</a></li></ul></div>
-        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">JSON/CSV Table Viewer</a></li><li><a href="#json-inspector" class="w3-hover-opacity">JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-to-vanjs-code-converter" class="w3-hover-opacity">HTML to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-shell" class="w3-hover-opacity">An Improved Unix Shell</a><ul><li><a href="#deployment-steps" class="w3-hover-opacity">Deployment Steps</a></li><li><a href="#security-considerations" class="w3-hover-opacity">Security Considerations</a></li></ul></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
+        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">JSON/CSV Table Viewer</a></li><li><a href="#json-inspector" class="w3-hover-opacity">JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-to-vanjs-code-converter" class="w3-hover-opacity">HTML to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-shell" class="w3-hover-opacity">An Improved Unix Shell</a><ul><li><a href="#deployment-steps" class="w3-hover-opacity">Deployment Steps</a></li><li><a href="#security-considerations" class="w3-hover-opacity">Security Considerations</a></li></ul></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
       </div>
     </div>
     <script>
@@ -984,7 +1088,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
     <script type="text/javascript" src="/prism.js"></script>
     <script type="module">import van from "/code/van-latest.min.js"
 
-const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
+const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 {
   const Hello = () => div(
@@ -1166,6 +1270,74 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
   }
 
   van.add(document.getElementById("demo-todo-functional"), TodoList())
+}
+
+{
+  const tsToDate = ts => {
+    if (ts < 1e10) return new Date(ts * 1e3)
+    if (ts < 1e13) return new Date(ts)
+    if (ts < 1e16) return new Date(ts / 1e3)
+    return new Date(ts / 1e6)
+  }
+
+  const Converter = () => {
+    const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
+    setInterval(() => ++nowTs.val, 1000)
+    const inputDom = input({type: "text", size: 25, value: nowTs.val})
+    let dateStrDom
+    const resultDom = div(
+      div(b("Now: "), nowTs),
+      inputDom, " ",
+      button({
+        onclick: () => {
+          const date = tsToDate(Number(inputDom.value))
+          dateStrDom?.remove()
+          dateStrDom = resultDom.appendChild(p(
+            div(date.toString()),
+            div(b("GMT: "), date.toGMTString()),
+          ))
+        }
+      }, "Convert"),
+      p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+    )
+    return resultDom
+  }
+
+  van.add(document.getElementById("demo-epoch-converter"), Converter())
+}
+
+{
+  const Label = text => span({class: "label"}, text)
+  const Value = text => span({class: "value"}, text)
+
+  const Inspector = () => {
+    const keyStates = {
+      key: van.state(""),
+      code: van.state(""),
+      which: van.state(""),
+      keyCode: van.state(""),
+      ctrlKey: van.state(false),
+      metaKey: van.state(false),
+      altKey: van.state(false),
+      shiftKey: van.state(false),
+    }
+
+    const Result = prop => span(Label(prop + ": "), Value(keyStates[prop]))
+
+    const onkeydown = e => {
+      e.preventDefault()
+      Object.entries(keyStates).forEach(([k, v]) => v.val = e[k])
+    }
+
+    return div(
+      div(input({placeholder: "Focus here and press keys…", onkeydown,
+        style: "width: 260px"})),
+      div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
+      div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
+    )
+  }
+
+  van.add(document.getElementById("demo-key-inspector"), Inspector())
 }
 
 {
@@ -1411,153 +1583,188 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
 }
 </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
     <script class="inline">const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
-const toDataArray = data => {
-  const hasPrimitive = !data.every(r => typeof r === "object")
-  const keys = [...new Set(
-    data.flatMap(r => typeof r === "object" ? Object.keys(r) : []))]
-  return [
-    (hasPrimitive ? ["Value"] : []).concat(keys),
-    ...data.map(r =>
-      (typeof r === "object" ? (hasPrimitive ? [""] : []) : [r]).concat(
-        keys.map(k => r[k] ?? "")
-      )),
-  ]
-}
+{
+  const autoGrow = e => {
+    e.target.style.height = "5px"
+    e.target.style.height = (e.target.scrollHeight + 5) + "px"
+  }
 
-const table = data => {
-  const dataArray = toDataArray(data)
-  return van.tags.table(
-    thead(tr(th("(index)"), dataArray[0].map(k => th(k)))),
-    tbody(dataArray.slice(1).map((r, i) => tr(td(i), r.map(c => td(c))))),
+  const Result = diff => div({class: "column", style: "white-space: pre-wrap;"},
+    diff.map(d =>
+      span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
   )
+
+  const DiffApp = () => {
+    const oldTextDom = textarea({oninput: autoGrow, rows: 1})
+    const newTextDom = textarea({oninput: autoGrow, rows: 1})
+    const diff = van.state([])
+    return div(
+      div({class: "row"},
+        div({class: "column"}, oldTextDom),
+        div({class: "column"}, newTextDom),
+      ),
+      div({class: "row"},
+        button(
+          {onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
+          "Diff",
+        ),
+      ),
+      div({class: "row"}, van.bind(diff, Result)),
+    )
+  }
+
+  van.add(document.getElementById("demo-diff-simple"), DiffApp())
 }
 
-const plot = (data, chartType, options) => {
-  if (data[0].constructor === Object) data = toDataArray(data)
-  else if (typeof data[0] === "number")
-    data = [["", "Value"], ...data.map((d, i) => [i + 1, d])]
-  const dom = div({class: "chart"})
-  setTimeout(() => new google.visualization[chartType](dom).draw(
-    google.visualization.arrayToDataTable(data), options))
-  return dom
-}
+{
+  const toDataArray = data => {
+    const hasPrimitive = !data.every(r => typeof r === "object")
+    const keys = [...new Set(
+      data.flatMap(r => typeof r === "object" ? Object.keys(r) : []))]
+    return [
+      (hasPrimitive ? ["Value"] : []).concat(keys),
+      ...data.map(r =>
+        (typeof r === "object" ? (hasPrimitive ? [""] : []) : [r]).concat(
+          keys.map(k => r[k] ?? "")
+        )),
+    ]
+  }
 
-const Tree = ({obj, indent = ""}) =>
-  (indent ? div : pre)(Object.entries(obj).map(([k, v]) => {
-    if (v?.constructor !== Object && !Array.isArray(v))
-      return div(indent + "🟰 ", van.tags.b(k + ": "), v)
-    const icon = van.state("➕ ")
-    const suffix = van.state(" {…}")
-    const show = () => {
-      const treeDom = result.appendChild(Tree({obj: v, indent: indent + "  "}))
-      icon.val = "➖ "
-      suffix.val = ""
-      onclick.val = () => {
-        treeDom.remove()
-        onclick.val = show
-        icon.val = "➕ "
-        suffix.val = " {…}"
+  const table = data => {
+    const dataArray = toDataArray(data)
+    return van.tags.table(
+      thead(tr(th("(index)"), dataArray[0].map(k => th(k)))),
+      tbody(dataArray.slice(1).map((r, i) => tr(td(i), r.map(c => td(c))))),
+    )
+  }
+
+  const plot = (data, chartType, options) => {
+    if (data[0].constructor === Object) data = toDataArray(data)
+    else if (typeof data[0] === "number")
+      data = [["", "Value"], ...data.map((d, i) => [i + 1, d])]
+    const dom = div({class: "chart"})
+    setTimeout(() => new google.visualization[chartType](dom).draw(
+      google.visualization.arrayToDataTable(data), options))
+    return dom
+  }
+
+  const Tree = ({obj, indent = ""}) =>
+    (indent ? div : pre)(Object.entries(obj).map(([k, v]) => {
+      if (v?.constructor !== Object && !Array.isArray(v))
+        return div(indent + "🟰 ", van.tags.b(k + ": "), v)
+      const icon = van.state("➕ ")
+      const suffix = van.state(" {…}")
+      const show = () => {
+        const treeDom = result.appendChild(Tree({obj: v, indent: indent + "  "}))
+        icon.val = "➖ "
+        suffix.val = ""
+        onclick.val = () => {
+          treeDom.remove()
+          onclick.val = show
+          icon.val = "➕ "
+          suffix.val = " {…}"
+        }
+      }
+      const onclick = van.state(show)
+      const result = div(indent, van.tags.a({onclick}, icon, van.tags.b(k + ":"), suffix))
+      return result
+    }))
+
+  const ValueView = expr => {
+    try {
+      const value = eval(`(${expr})`)
+      if (value instanceof Element) return value
+      if (value?.constructor === Object || Array.isArray(value)) return Tree({obj: value})
+      return pre(String(value))
+    } catch (e) {
+      return pre({class: "err"}, e.message + "\n" + e.stack)
+    }
+  }
+
+  const Output = ({id, expr}) => div({class: "row"},
+    pre({class: "left"}, `Out[${id}]:`),
+    div({class: "break"}),
+    div({class: "right"}, ValueView(expr)),
+  )
+
+  const autoGrow = e => {
+    e.target.style.height = "5px"
+    e.target.style.height = (e.target.scrollHeight + 5) + "px"
+  }
+
+  const Input = ({id}) => {
+    const run = () => {
+      textareaDom.setAttribute("readonly", true)
+      runDom.disabled = true
+      const newTextDom = van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
+        .appendChild(Input({id: id + 1}))
+        .querySelector("textarea")
+      newTextDom.focus()
+      setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
+    }
+    const runDom = button({class: "run", onclick: run}, "Run")
+    const onkeydown = async e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault()
+        run()
       }
     }
-    const onclick = van.state(show)
-    const result = div(indent, van.tags.a({onclick}, icon, van.tags.b(k + ":"), suffix))
-    return result
-  }))
-
-const ValueView = expr => {
-  try {
-    const value = eval(`(${expr})`)
-    if (value instanceof Element) return value
-    if (value?.constructor === Object || Array.isArray(value)) return Tree({obj: value})
-    return pre(String(value))
-  } catch (e) {
-    return pre({class: "err"}, e.message + "\n" + e.stack)
+    const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
+      rows: 1, placeholder: 'Enter JS expression here:'})
+    return div({class: "row"},
+      pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
+      div({class: "right"}, textareaDom),
+    )
   }
-}
 
-const Output = ({id, expr}) => div({class: "row"},
-  pre({class: "left"}, `Out[${id}]:`),
-  div({class: "break"}),
-  div({class: "right"}, ValueView(expr)),
-)
+  const Console = () => div({class: "console"}, Input({id: 1}))
 
-const autoGrow = e => {
-  e.target.style.height = "5px"
-  e.target.style.height = (e.target.scrollHeight + 5) + "px"
-}
-
-const Input = ({id}) => {
-  const run = () => {
-    textareaDom.setAttribute("readonly", true)
-    runDom.disabled = true
-    const newTextDom = van.add(textareaDom.closest(".console"), Output({id, expr: textareaDom.value}))
-      .appendChild(Input({id: id + 1}))
-      .querySelector("textarea")
-    newTextDom.focus()
-    setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
+  const Snippet = str => {
+    const copyToClipboard = e => navigator.clipboard.writeText(str)
+      .then(() => {
+        const msgDom = e.target.parentNode.appendChild(van.tags.i("Copied!"))
+        setTimeout(() => msgDom.remove(), 1000)
+      }, e => e.target.parentNode.appendChild(van.tags.i("Copy failed: " + e.message)))
+    return str.includes("\n") ? div(
+      van.tags.a({onclick: copyToClipboard}, "📋"), pre(str),
+    ) : span(
+      code(str), van.tags.a({onclick: copyToClipboard}, "📋")
+    )
   }
-  const runDom = button({class: "run", onclick: run}, "Run")
-  const onkeydown = async e => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-      e.preventDefault()
-      run()
-    }
-  }
-  const textareaDom = textarea({id, type: "text", onkeydown, oninput: autoGrow,
-    rows: 1, placeholder: 'Enter JS expression here:'})
-  return div({class: "row"},
-    pre({class: "left"}, `In[${id}]:`), runDom, div({class: "break"}),
-    div({class: "right"}, textareaDom),
-  )
-}
 
-const Console = () => div({class: "console"}, Input({id: 1}))
-
-const Snippet = str => {
-  const copyToClipboard = e => navigator.clipboard.writeText(str)
-    .then(() => {
-      const msgDom = e.target.parentNode.appendChild(van.tags.i("Copied!"))
-      setTimeout(() => msgDom.remove(), 1000)
-    }, e => e.target.parentNode.appendChild(van.tags.i("Copy failed: " + e.message)))
-  return str.includes("\n") ? div(
-    van.tags.a({onclick: copyToClipboard}, "📋"), pre(str),
-  ) : span(
-    code(str), van.tags.a({onclick: copyToClipboard}, "📋")
+  google.charts.load('current', {packages: ['corechart']})
+  google.charts.setOnLoadCallback(() =>
+    van.add(document.getElementById("demo-js-console"),
+      div("JavaScript Console. Please enter JS expression here, and type ⌘ + ↵ or ^ + ↵ to evaluate:"),
+      div("You can assign variables in format like 'x = 3 + 5'."),
+      p("Try the following commands:", ul(
+        li(Snippet("{a: 1, b: {c: 2, d: 3}}")),
+        li(Snippet("table([{a: 1, b: 2}, {b: 2, c: 3}])")),
+        li("Any valid JSON string, e.g.: ", Snippet('{"name":"John","pets":[{"name":"Fluffy","species":"cat"},{"name":"Buddy","species":"dog"}]}')),
+        li(Snippet('plot([2, 5, 3], "LineChart")')),
+        li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
+        li("The chart shown in the home page:", Snippet(`plot([
+    ['Framework', 'Size', {role: 'style'}, {role: 'annotation'}],
+    ['VanJS', 1.2, '#f44336', 'VanJS-0.11.10 1.2kB'],
+    ['Preact', 10.8, '#b7b7b7', 'Preact-10.13.1 10.8kB'],
+    ['jQuery', 88.2, '#b7b7b7', 'jQuery-3.6.4 88.2kB'],
+    ['ReactDom', 130.5, '#b7b7b7', 'ReactDom-18.2.0 130.5kB'],
+    ['Angular', 180.9, '#b7b7b7', 'Angular-1.8.3 180.9kB'],
+  ], "BarChart", {
+    legend: {position: "none"},
+    hAxis: {gridlines: {count: 0}, textPosition: "none"},
+    annotations: {alwaysOutside: true},
+  })`)),
+        li("More chart types supported in ", van.tags.a({href: "https://developers.google.com/chart/interactive/docs"}, "Google Charts")),
+      )),
+      Console()
+    )
   )
-}
-
-google.charts.load('current', {packages: ['corechart']})
-google.charts.setOnLoadCallback(() =>
-  van.add(document.getElementById("demo-js-console"),
-    div("JavaScript Console. Please enter JS expression here, and type ⌘ + ↵ or ^ + ↵ to evaluate:"),
-    div("You can assign variables in format like 'x = 3 + 5'."),
-    p("Try the following commands:", ul(
-      li(Snippet("{a: 1, b: {c: 2, d: 3}}")),
-      li(Snippet("table([{a: 1, b: 2}, {b: 2, c: 3}])")),
-      li("Any valid JSON string, e.g.: ", Snippet('{"name":"John","pets":[{"name":"Fluffy","species":"cat"},{"name":"Buddy","species":"dog"}]}')),
-      li(Snippet('plot([2, 5, 3], "LineChart")')),
-      li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
-      li("The chart shown in the home page:", Snippet(`plot([
-  ['Framework', 'Size', {role: 'style'}, {role: 'annotation'}],
-  ['VanJS', 1.2, '#f44336', 'VanJS-0.11.10 1.2kB'],
-  ['Preact', 10.8, '#b7b7b7', 'Preact-10.13.1 10.8kB'],
-  ['jQuery', 88.2, '#b7b7b7', 'jQuery-3.6.4 88.2kB'],
-  ['ReactDom', 130.5, '#b7b7b7', 'ReactDom-18.2.0 130.5kB'],
-  ['Angular', 180.9, '#b7b7b7', 'Angular-1.8.3 180.9kB'],
-], "BarChart", {
-  legend: {position: "none"},
-  hAxis: {gridlines: {count: 0}, textPosition: "none"},
-  annotations: {alwaysOutside: true},
-})`)),
-      li("More chart types supported in ", van.tags.a({href: "https://developers.google.com/chart/interactive/docs"}, "Google Charts")),
-    )),
-    Console()
-  )
-)
-</script>
+}</script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
   

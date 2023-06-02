@@ -9,7 +9,7 @@
     <script type="module">
       import van from "./van-latest.min.js"
 
-      const {b, button, div, i, input} = van.tags
+      const {b, button, div, i, input, p} = van.tags
 
       const tsToDate = ts => {
         if (ts < 1e10) return new Date(ts * 1e3)
@@ -30,13 +30,13 @@
             onclick: () => {
               const date = tsToDate(Number(inputDom.value))
               dateStrDom?.remove()
-              dateStrDom = resultDom.appendChild(div(
+              dateStrDom = resultDom.appendChild(p(
                 div(date.toString()),
                 div(b("GMT: "), date.toGMTString()),
               ))
             }
           }, "Convert"),
-          div(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+          p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
         )
         return resultDom
       }

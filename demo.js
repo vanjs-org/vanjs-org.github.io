@@ -1,6 +1,6 @@
 import van from "/code/van-latest.min.js"
 
-const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
+const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 {
   const Hello = () => div(
@@ -182,6 +182,74 @@ const {a, b, button, div, input, label, li, p, pre, span, strike, table, tbody, 
   }
 
   van.add(document.getElementById("demo-todo-functional"), TodoList())
+}
+
+{
+  const tsToDate = ts => {
+    if (ts < 1e10) return new Date(ts * 1e3)
+    if (ts < 1e13) return new Date(ts)
+    if (ts < 1e16) return new Date(ts / 1e3)
+    return new Date(ts / 1e6)
+  }
+
+  const Converter = () => {
+    const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
+    setInterval(() => ++nowTs.val, 1000)
+    const inputDom = input({type: "text", size: 25, value: nowTs.val})
+    let dateStrDom
+    const resultDom = div(
+      div(b("Now: "), nowTs),
+      inputDom, " ",
+      button({
+        onclick: () => {
+          const date = tsToDate(Number(inputDom.value))
+          dateStrDom?.remove()
+          dateStrDom = resultDom.appendChild(p(
+            div(date.toString()),
+            div(b("GMT: "), date.toGMTString()),
+          ))
+        }
+      }, "Convert"),
+      p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+    )
+    return resultDom
+  }
+
+  van.add(document.getElementById("demo-epoch-converter"), Converter())
+}
+
+{
+  const Label = text => span({class: "label"}, text)
+  const Value = text => span({class: "value"}, text)
+
+  const Inspector = () => {
+    const keyStates = {
+      key: van.state(""),
+      code: van.state(""),
+      which: van.state(""),
+      keyCode: van.state(""),
+      ctrlKey: van.state(false),
+      metaKey: van.state(false),
+      altKey: van.state(false),
+      shiftKey: van.state(false),
+    }
+
+    const Result = prop => span(Label(prop + ": "), Value(keyStates[prop]))
+
+    const onkeydown = e => {
+      e.preventDefault()
+      Object.entries(keyStates).forEach(([k, v]) => v.val = e[k])
+    }
+
+    return div(
+      div(input({placeholder: "Focus here and press keys…", onkeydown,
+        style: "width: 260px"})),
+      div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
+      div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
+    )
+  }
+
+  van.add(document.getElementById("demo-key-inspector"), Inspector())
 }
 
 {

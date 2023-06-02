@@ -29,7 +29,7 @@ export default (doc: HTMLDocument) => {
     p({
       id: "jsfiddle-hello",
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
-      "data-suffix": "van.add(document.body, Hello())"
+      "data-suffix": "van.add(document.body, Hello())",
     }),
     p("This is the funnier ", Symbol("Hello"), " program shown in ", Link("Getting Started", "/start"), " page:"),
     Js(`const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -67,7 +67,7 @@ const Hello = () => {
     p({
       id: "jsfiddle-hello-fun",
       "data-prefix": "const {button, div, pre} = van.tags",
-      "data-suffix": "van.add(document.body, Hello())"
+      "data-suffix": "van.add(document.body, Hello())",
     }),
     p("An alternative implementation by ", Link("@stephenhandley", "https://github.com/stephenhandley"), " can be found ", Link("here", "https://github.com/vanjs-org/van/discussions/20"), "."),
     H2("DOM Composition and Manipulation"),
@@ -175,8 +175,42 @@ const CounterSet = () => {
       "data-prefix": "const {button, pre, span} = van.tags",
       "data-suffix": "van.add(document.body, Stopwatch())",
     }),
+    H2("List"),
+    p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can construct the DOM tree in an imperative way (modifying the DOM tree via ", SymLink("van.add", "/tutorial#api-add"), "), or in a functional/declarative way."),
+    p("Below is an example of building a list even numbers in ", Symbol("1..N"), ", using an imperative way:"),
+    Js(`const EvenNumbers = ({N}) => {
+  const listDom = ul()
+  for (let i = 1; i <= N; ++i)
+    if (i % 2 === 0)
+      van.add(listDom, li(i))
+
+  return div(
+    p("List of even numbers in 1.." + N + ":"),
+    listDom,
+  )
+}`),
+    p({
+      id: "jsfiddle-list-imperative",
+      "data-prefix": "const {div, li, p, ul} = van.tags",
+      "data-suffix": "van.add(document.body, EvenNumbers({N: 20}))",
+    }),
+    p("Alternatively, you can build a list of even numbers in ", Symbol("1..N"), ", using a functional/declarative way:"),
+    Js(`const EvenNumbers = ({N}) => div(
+  p("List of even numbers in 1.." + N + ":"),
+  ul(
+    Array.from({length: N}, (_, i) => i + 1)
+      .filter(i => i % 2 === 0)
+      .map(i => li(i)),
+  ),
+)
+`),
+    p({
+      id: "jsfiddle-list-declarative",
+      "data-prefix": "const {div, li, p, ul} = van.tags",
+      "data-suffix": "van.add(document.body, EvenNumbers({N: 20}))",
+    }),
     H2("TODO List"),
-    p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can build your application in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
+    p("Similarly, to build reactive applications, you can build in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
     p("Below is an example of building a ", Symbol("TODO List"), " in a completely procedural way:"),
     Js(`const TodoItem = ({text}) => div(
   input({type: "checkbox", onchange: e =>
@@ -202,7 +236,7 @@ const TodoList = () => {
       id: "jsfiddle-todo-procedural",
       "data-prefix": "const {a, button, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
-      "data-css": "a { cursor: pointer; }\n"
+      "data-css": "a { cursor: pointer; }\n",
     }),
     p("Alternatively, you can use a functional/reactive way to build ", Symbol("TODO Items"), ":"),
     Js(`const TodoItem = ({text}) => {
@@ -230,7 +264,37 @@ const TodoList = () => {
       id: "jsfiddle-todo-functional",
       "data-prefix": "const {a, button, div, input, span, strike} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
-      "data-css": "a { cursor: pointer; }\n"
+      "data-css": "a { cursor: pointer; }\n",
+    }),
+    H2("Epoch Timestamp Converter"),
+    p("Below is an application which converts a Unix epoch timestamp into a human-readable datetime string:"),
+    JsFile("epoch-converter.code.js"),
+    p(Demo()),
+    p({id: "demo-epoch-converter"}),
+    p({
+      id: "jsfiddle-epoch-converter",
+      "data-prefix": "const {div, li, p, ul} = van.tags",
+      "data-suffix": "van.add(document.body, EvenNumbers({N: 20}))",
+    }),
+    H2("Keyboard Event Inspector"),
+    p("Below is an application to inspect all relevant key codes in keyboard ", SymLink("keydown", "https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event"), " events:"),
+    JsFile("key-inspector.code.js"),
+    p(Demo()),
+    p({id: "demo-key-inspector"}),
+    p({
+      id: "jsfiddle-key-inspector",
+      "data-prefix": "const {div, input, span} = van.tags",
+      "data-suffix": "van.add(document.body, Inspector())",
+    }),
+    H2("Diff"),
+    p("Here is a ", Symbol("Diff App"), " that compares 2 pieces of text (very handy tool to check how your text is revised by ", Symbol("ChatGPT"), " 🙂):"),
+    JsFile("diff-simple.code.js"),
+    p(Demo()),
+    p({id: "demo-diff-simple"}),
+    p({
+      id: "jsfiddle-diff-simple",
+      "data-prefix": "const {button, div, span, textarea} = van.tags",
+      "data-suffix": "document.body.appendChild(DiffApp())",
     }),
     H2("Calculator"),
     p("The code below implements a ", Symbol("Calculator App"), " similar to the one that you are using on your smartphones:"),
@@ -456,7 +520,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
     p(Demo()),
     p({id: "demo-auto-complete-derived-props"}),
     p({id: "jsfiddle-auto-complete-derived-props"},
-    a({href: "https://jsfiddle.net/h8utdb7g/5/"}, "Try on jsfiddle"),
+      a({href: "https://jsfiddle.net/h8utdb7g/5/"}, "Try on jsfiddle"),
     ),
     H2("HTML to VanJS Code Converter"),
     p("The converter that converts HTML snippet to ", VanJS(), " code, is also implemented with ", VanJS(), ":"),
