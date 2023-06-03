@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {div, p, table, tbody, th, thead, tr} = tags
 
-  const {Demo, Download, DownloadRow, H1, H2, Html, Js, Symbol, VanJS} = common(doc)
+  const {Demo, Download, DownloadRow, H1, H2, H3, Html, Js, Link, Symbol, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -98,7 +98,14 @@ van.add(document.body, Hello())
     p({id: "demo-hello-fun"}),
     p({id: "jsfiddle-hello-fun"}),
     H2({id: "download-table"}, "Download Table"),
-    p("You can find all relevant ", VanJS(), " files to download in the table below:"),
+    p("The current version of ", VanJS(), " is ", Symbol(version), " . You can find all relevant ", VanJS(), " files to download in the table below:"),
     DownloadTable({version}),
+    H2("Historical Versions"),
+    H3("0.11.10"),
+    p(Link("Announcement", "https://github.com/vanjs-org/van/discussions/6")),
+    DownloadTable({version: "0.11.10"}),
+    H3("0.11.9 (First Public Release)"),
+    p("This is the first public release of ", VanJS(), ". See the ", Link("announcement", "https://www.linkedin.com/posts/tao-xin-64234920_github-vanjs-orgvan-vanjs-an-ultra-lightweight-activity-7062813716383219713-CI4O"), "."),
+    DownloadTable({version: "0.11.9"}),
   )
 }

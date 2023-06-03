@@ -1,4 +1,4 @@
-const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
+const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 {
   const autoGrow = e => {
@@ -31,6 +31,89 @@ const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, 
   }
 
   van.add(document.getElementById("demo-diff-simple"), DiffApp())
+}
+
+{
+  const autoGrow = e => {
+    e.target.style.height = "5px"
+    e.target.style.height = (e.target.scrollHeight + 5) + "px"
+  }
+
+  const Line = ({diff, skipAdd, skipRemove}) => div(
+    {class: "column", style: "white-space: pre-wrap;"},
+    diff.filter(d => !(skipAdd && d.added || skipRemove && d.removed)).map(d =>
+      span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+  )
+
+  const DiffLine = (oldLine, newLine, showMerged) => {
+    const diff = Diff.diffWords(oldLine, newLine)
+    return div({class: "row" + (showMerged ? " merged" : "")},
+      showMerged ?
+        Line({diff}) : [Line({diff, skipAdd: true}), Line({diff, skipRemove: true})],
+    )
+  }
+
+  const DiffApp = () => {
+    const oldTextDom = textarea({oninput: autoGrow, rows: 1})
+    const newTextDom = textarea({oninput: autoGrow, rows: 1})
+    const diff = van.state([])
+    const showMerged = van.state(true)
+    return div(
+      div({class: "row"},
+        div({class: "column"}, oldTextDom),
+        div({class: "column"}, newTextDom),
+      ),
+      div({class: "row"},
+        button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
+          "Diff",
+        ),
+        input({type: "checkbox", checked: showMerged,
+          oninput: e => showMerged.val = e.target.checked}),
+        "show merged result"
+      ),
+      van.bind(diff, showMerged, (diff, showMerged) => {
+        const resultDom = div()
+        for (let i = 0; i < diff.length; ) {
+          let line
+          if (diff[i].added && diff[i + 1].removed) {
+            line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+            i += 2
+          } else if (diff[i].removed && diff[i + 1].added) {
+            line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+            i += 2
+          } else if (diff[i].added) {
+            line = showMerged ? div({class: "merged add row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+            ) : div({class: "row"},
+              div({class: "column"}),
+              div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+            )
+            ++i
+          } else if (diff[i].removed) {
+            line = showMerged ? div({class: "merged remove row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+            ) : div({class: "row"},
+              div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+            )
+            ++i
+          } else {
+            line = div({class: "row", style: "white-space: pre-wrap;"},
+              showMerged ? div({class: "merged column"}, diff[i].value) :
+                [
+                  div({class: "column"}, diff[i].value),
+                  div({class: "column"}, diff[i].value),
+                ],
+            )
+            ++i
+          }
+          van.add(resultDom, line)
+        }
+        return resultDom
+      })
+    )
+  }
+
+  van.add(document.getElementById("demo-diff"), DiffApp())
 }
 
 {
@@ -162,7 +245,7 @@ const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, 
         li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
         li("The chart shown in the home page:", Snippet(`plot([
     ['Framework', 'Size', {role: 'style'}, {role: 'annotation'}],
-    ['VanJS', 1.2, '#f44336', 'VanJS-0.11.10 1.2kB'],
+    ['VanJS', 1.2, '#f44336', 'VanJS-0.11.11 1.2kB'],
     ['Preact', 10.8, '#b7b7b7', 'Preact-10.13.1 10.8kB'],
     ['jQuery', 88.2, '#b7b7b7', 'jQuery-3.6.4 88.2kB'],
     ['ReactDom', 130.5, '#b7b7b7', 'ReactDom-18.2.0 130.5kB'],

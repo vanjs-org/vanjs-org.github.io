@@ -60,7 +60,7 @@
           div({class: "row"},
             button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
               "Diff",
-            ), " ",
+            ),
             input({type: "checkbox", checked: showMerged,
               oninput: e => showMerged.val = e.target.checked}),
             "show merged result"

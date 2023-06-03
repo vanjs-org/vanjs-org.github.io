@@ -201,7 +201,20 @@ const TodoList = () =&gt; {
   return dom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-functional"></p><p id="jsfiddle-todo-functional" data-prefix="const {a, button, div, input, span, strike} = van.tags" data-suffix="van.add(document.body, TodoList())" data-css="a { cursor: pointer; }
-"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="epoch-timestamp-converter"><a class="self-link" href="#epoch-timestamp-converter">Epoch Timestamp Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an application which converts a Unix epoch timestamp into a human-readable datetime string:</p><pre><code class="language-js" data-file="epoch-converter.code.js">const tsToDate = ts =&gt; {
+"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stargazers"><a class="self-link" href="#stargazers">Stargazers</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code can show the number of stars for a Github repo, and a list of most recent stargazers:</p><pre><code class="language-js" data-file="stars.code.js">const Stars = async repo =&gt; {
+  const repoJson = await fetch(`https://api.github.com/repos/${repo}`).then(r =&gt; r.json())
+  const pageNum = Math.floor((repoJson.stargazers_count - 1) / 100) + 1
+  const starsJson = await fetch(
+    `https://api.github.com/repos/${repo}/stargazers?per_page=100&amp;page=${pageNum}`)
+    .then(r =&gt; r.json())
+  return div(
+    p(repoJson.stargazers_count, " ⭐️:"),
+    ul(
+      starsJson.reverse().map(u =&gt; li(a({href: u.html_url}, u.login))),
+    ),
+  )
+}
+</code></pre><p><a href="code/stars" class="w3-hover-opacity">Try it out here</a></p><p id="jsfiddle-starts" data-prefix="const {a, div, li, p, ul} = van.tags" data-suffix="van.add(document.body, await Stars(&quot;vanjs-org/van&quot;))"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/starts">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="epoch-timestamp-converter"><a class="self-link" href="#epoch-timestamp-converter">Epoch Timestamp Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an application which converts a Unix epoch timestamp into a human-readable datetime string:</p><pre><code class="language-js" data-file="epoch-converter.code.js">const tsToDate = ts =&gt; {
   if (ts &lt; 1e10) return new Date(ts * 1e3)
   if (ts &lt; 1e13) return new Date(ts)
   if (ts &lt; 1e16) return new Date(ts / 1e3)
@@ -259,7 +272,7 @@ const Inspector = () =&gt; {
     div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-key-inspector"></p><p id="jsfiddle-key-inspector" data-prefix="const {div, input, span} = van.tags" data-suffix="van.add(document.body, Inspector())" data-css-file="code/key-inspector.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/key-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="diff"><a class="self-link" href="#diff">Diff</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Here is a <code class="symbol">Diff App</code> that compares 2 pieces of text (very handy tool to check how your text is revised by <code class="symbol">ChatGPT</code> 🙂):</p><pre><code class="language-js" data-file="diff-simple.code.js">const autoGrow = e =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-key-inspector"></p><p id="jsfiddle-key-inspector" data-prefix="const {div, input, span} = van.tags" data-suffix="van.add(document.body, Inspector())" data-css-file="code/key-inspector.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/key-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="diff"><a class="self-link" href="#diff">Diff</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Here is a <code class="symbol">Diff App</code> with the integration of <code class="symbol"><a href="https://github.com/kpdecker/jsdiff" class="w3-hover-opacity">jsdiff</a></code>. The app can compare 2 pieces of text (very handy tool to check how your text is revised by <code class="symbol">ChatGPT</code> 🙂):</p><pre><code class="language-js" data-file="diff-simple.code.js">const autoGrow = e =&gt; {
   e.target.style.height = "5px"
   e.target.style.height = (e.target.scrollHeight + 5) + "px"
 }
@@ -287,7 +300,85 @@ const DiffApp = () =&gt; {
     div({class: "row"}, van.bind(diff, Result)),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p id="jsfiddle-diff-simple" data-details="demo-diff.details" data-prefix="const {button, div, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())" data-css-file="code/diff-simple.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p id="jsfiddle-diff-simple" data-details="demo-diff.details" data-prefix="const {button, div, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())" data-css-file="code/diff-simple.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><p>Here is a more advanced <code class="symbol">Diff App</code> that supports side-by-side and line-by-line comparison:</p><pre><code class="language-js" data-file="diff.code.js">const autoGrow = e =&gt; {
+  e.target.style.height = "5px"
+  e.target.style.height = (e.target.scrollHeight + 5) + "px"
+}
+
+const Line = ({diff, skipAdd, skipRemove}) =&gt; div(
+  {class: "column", style: "white-space: pre-wrap;"},
+  diff.filter(d =&gt; !(skipAdd &amp;&amp; d.added || skipRemove &amp;&amp; d.removed)).map(d =&gt;
+    span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+)
+
+const DiffLine = (oldLine, newLine, showMerged) =&gt; {
+  const diff = Diff.diffWords(oldLine, newLine)
+  return div({class: "row" + (showMerged ? " merged" : "")},
+    showMerged ?
+      Line({diff}) : [Line({diff, skipAdd: true}), Line({diff, skipRemove: true})],
+  )
+}
+
+const DiffApp = () =&gt; {
+  const oldTextDom = textarea({oninput: autoGrow, rows: 1})
+  const newTextDom = textarea({oninput: autoGrow, rows: 1})
+  const diff = van.state([])
+  const showMerged = van.state(true)
+  return div(
+    div({class: "row"},
+      div({class: "column"}, oldTextDom),
+      div({class: "column"}, newTextDom),
+    ),
+    div({class: "row"},
+      button({onclick: () =&gt; diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
+        "Diff",
+      ),
+      input({type: "checkbox", checked: showMerged,
+        oninput: e =&gt; showMerged.val = e.target.checked}),
+      "show merged result"
+    ),
+    van.bind(diff, showMerged, (diff, showMerged) =&gt; {
+      const resultDom = div()
+      for (let i = 0; i &lt; diff.length; ) {
+        let line
+        if (diff[i].added &amp;&amp; diff[i + 1].removed) {
+          line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+          i += 2
+        } else if (diff[i].removed &amp;&amp; diff[i + 1].added) {
+          line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+          i += 2
+        } else if (diff[i].added) {
+          line = showMerged ? div({class: "merged add row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+          ) : div({class: "row"},
+            div({class: "column"}),
+            div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+          )
+          ++i
+        } else if (diff[i].removed) {
+          line = showMerged ? div({class: "merged remove row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+          ) : div({class: "row"},
+            div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+          )
+          ++i
+        } else {
+          line = div({class: "row", style: "white-space: pre-wrap;"},
+            showMerged ? div({class: "merged column"}, diff[i].value) :
+              [
+                div({class: "column"}, diff[i].value),
+                div({class: "column"}, diff[i].value),
+              ],
+          )
+          ++i
+        }
+        van.add(resultDom, line)
+      }
+      return resultDom
+    })
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-diff"></p><p id="jsfiddle-diff-simple" data-prefix="const {button, div, input, span, textarea} = van.tags" data-suffix="document.body.appendChild(DiffApp())" data-css-file="code/diff.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
   const displayNum = van.state(0)
   let lhs = null, op = null, rhs = 0
 
@@ -750,7 +841,7 @@ google.charts.setOnLoadCallback(() =>
       li(Snippet('plot([{Year:&quot;2020&quot;,Sales:1000,Expenses:400},{Year:&quot;2021&quot;,Sales:1170,Expenses:460},{Year:&quot;2022&quot;,Sales:660,Expenses:1120},{Year:&quot;2023&quot;,Sales:1030,Expenses:540}], &quot;LineChart&quot;, {legend:{position:&quot;bottom&quot;}})')),
       li(&quot;The chart shown in the home page:&quot;, Snippet(`plot([
   ['Framework', 'Size', {role: 'style'}, {role: 'annotation'}],
-  ['VanJS', 1.2, '#f44336', 'VanJS-0.11.10 1.2kB'],
+  ['VanJS', 1.2, '#f44336', 'VanJS-0.11.11 1.2kB'],
   ['Preact', 10.8, '#b7b7b7', 'Preact-10.13.1 10.8kB'],
   ['jQuery', 88.2, '#b7b7b7', 'jQuery-3.6.4 88.2kB'],
   ['ReactDom', 130.5, '#b7b7b7', 'ReactDom-18.2.0 130.5kB'],
@@ -764,7 +855,7 @@ google.charts.setOnLoadCallback(() =>
     )),
     Console()
   ).querySelector(&quot;textarea&quot;).focus()
-)" data-details="demo-js-console.details" data-css-file="code/console.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.10.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts" data-file="code/shell.ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
+)" data-details="demo-js-console.details" data-css-file="code/console.html"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.11.11.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;">shell.ts</a></code>.</p><pre><code class="language-ts" data-file="code/shell.ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
 import { resolve, dirname, fromFileUrl, join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
 const moduleDir = resolve(dirname(fromFileUrl(import.meta.url)))
@@ -890,7 +981,7 @@ console.log(key + "\n")
 console.log("%cFor security purposes, DO NOT share the key with anyone else",
   "color: red; font-weight: bold")
 for await (const conn of Deno.listen({port})) serveConn(conn)
-</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.10.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html" data-file="code/shell.html">&lt;!DOCTYPE html&gt;
+</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.11.11.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;">shell.html</a></code>.</p><pre><code class="language-html" data-file="code/shell.html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;💻&lt;/text&gt;&lt;/svg&gt;"&gt;
@@ -939,7 +1030,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
   &lt;/head&gt;
   &lt;body&gt;
     &lt;script type="module"&gt;
-      import van from "./van-0.11.10.min.js"
+      import van from "./van-0.11.11.min.js"
 
       const {a, div, i, input, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
 
@@ -1056,7 +1147,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>4. Run the command below under your working directory:</p><p><i>You can append a custom port number to the end. By default, port 8000 will be chosen.</i></p><pre><code class="language-shell">deno run --allow-net --allow-run --allow-read shell.ts</code></pre><p>5. You can visit the web-based shell with the URL printed in the console output of <code class="symbol">deno run</code>. In your first visit, it will ask you to login, you need to paste the random key printed from the console to proceed.</p><p>6. After login, you will be able to see and use the web-based shell.</p><h3 class="w3-large w3-text-red" id="security-considerations"><a class="self-link" href="#security-considerations">Security Considerations</a></h3><p>This program allows web access to your OS shell, which elevates the privilege to a level that you would not normally get with your browser. Here are the extra measures we're taking to ensure the security of your local computer:</p><ol><li>Only local connection to your <code class="symbol">shell.ts</code> server is allowed.</li><li>Before using the web-based shell in your browser, you need to login with the key printed in the console of <code class="symbol">shell.ts</code> server first. The key is generated randomly every time the server restarts. You should never share the key to other people.</li><li>You're advised to shut down the <code class="symbol">shell.ts</code> server when you're not using the shell to further reduce the risk of unauthorized access to your shell with the leaked key. Next time, when the server restarts, any browser access needs the login with the new key generated randomly.</li><li>Please be aware that any commands you run in the web-based shell are the real commands executed on your computer. Thus don't try dangerous stuff as they are IRREVERSIBLE.</li></ol><h2 class="w3-xxlarge w3-text-red" id="community-examples"><a class="self-link" href="#community-examples">Community Examples</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Besides the official <b>VanJS</b> examples, there are also sample apps from the great <b>VanJS</b> community. Below is a curated list (contact <a href="mailto:tao@vanjs.org" class="w3-hover-opacity">tao@vanjs.org</a> to add yours):</p><ul><li><a href="https://github.com/artydev" class="w3-hover-opacity">@artydev</a>'s <a href="https://dev.to/artydev/series/23075" class="w3-hover-opacity"><b>VanJS</b> Series</a></li><li><a href="https://github.com/enpitsuLin" class="w3-hover-opacity">@enpitsuLin</a>'s <a href="https://github.com/enpitsuLin/vanjs-todomvc" class="w3-hover-opacity">TODO app</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-kit" class="w3-hover-opacity">multi-page app starter kit under 5kB</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-playground" class="w3-hover-opacity">VanJS playground with Vite</a></li></ul></div>
-        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">JSON/CSV Table Viewer</a></li><li><a href="#json-inspector" class="w3-hover-opacity">JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-to-vanjs-code-converter" class="w3-hover-opacity">HTML to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-shell" class="w3-hover-opacity">An Improved Unix Shell</a><ul><li><a href="#deployment-steps" class="w3-hover-opacity">Deployment Steps</a></li><li><a href="#security-considerations" class="w3-hover-opacity">Security Considerations</a></li></ul></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
+        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#stargazers" class="w3-hover-opacity">Stargazers</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">JSON/CSV Table Viewer</a></li><li><a href="#json-inspector" class="w3-hover-opacity">JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-to-vanjs-code-converter" class="w3-hover-opacity">HTML to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-shell" class="w3-hover-opacity">An Improved Unix Shell</a><ul><li><a href="#deployment-steps" class="w3-hover-opacity">Deployment Steps</a></li><li><a href="#security-considerations" class="w3-hover-opacity">Security Considerations</a></li></ul></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
       </div>
     </div>
     <script>
@@ -1585,7 +1676,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
-    <script class="inline">const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
+    <script class="inline">const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 {
   const autoGrow = e => {
@@ -1618,6 +1709,89 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
   }
 
   van.add(document.getElementById("demo-diff-simple"), DiffApp())
+}
+
+{
+  const autoGrow = e => {
+    e.target.style.height = "5px"
+    e.target.style.height = (e.target.scrollHeight + 5) + "px"
+  }
+
+  const Line = ({diff, skipAdd, skipRemove}) => div(
+    {class: "column", style: "white-space: pre-wrap;"},
+    diff.filter(d => !(skipAdd && d.added || skipRemove && d.removed)).map(d =>
+      span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+  )
+
+  const DiffLine = (oldLine, newLine, showMerged) => {
+    const diff = Diff.diffWords(oldLine, newLine)
+    return div({class: "row" + (showMerged ? " merged" : "")},
+      showMerged ?
+        Line({diff}) : [Line({diff, skipAdd: true}), Line({diff, skipRemove: true})],
+    )
+  }
+
+  const DiffApp = () => {
+    const oldTextDom = textarea({oninput: autoGrow, rows: 1})
+    const newTextDom = textarea({oninput: autoGrow, rows: 1})
+    const diff = van.state([])
+    const showMerged = van.state(true)
+    return div(
+      div({class: "row"},
+        div({class: "column"}, oldTextDom),
+        div({class: "column"}, newTextDom),
+      ),
+      div({class: "row"},
+        button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
+          "Diff",
+        ),
+        input({type: "checkbox", checked: showMerged,
+          oninput: e => showMerged.val = e.target.checked}),
+        "show merged result"
+      ),
+      van.bind(diff, showMerged, (diff, showMerged) => {
+        const resultDom = div()
+        for (let i = 0; i < diff.length; ) {
+          let line
+          if (diff[i].added && diff[i + 1].removed) {
+            line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+            i += 2
+          } else if (diff[i].removed && diff[i + 1].added) {
+            line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+            i += 2
+          } else if (diff[i].added) {
+            line = showMerged ? div({class: "merged add row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+            ) : div({class: "row"},
+              div({class: "column"}),
+              div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+            )
+            ++i
+          } else if (diff[i].removed) {
+            line = showMerged ? div({class: "merged remove row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+            ) : div({class: "row"},
+              div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+            )
+            ++i
+          } else {
+            line = div({class: "row", style: "white-space: pre-wrap;"},
+              showMerged ? div({class: "merged column"}, diff[i].value) :
+                [
+                  div({class: "column"}, diff[i].value),
+                  div({class: "column"}, diff[i].value),
+                ],
+            )
+            ++i
+          }
+          van.add(resultDom, line)
+        }
+        return resultDom
+      })
+    )
+  }
+
+  van.add(document.getElementById("demo-diff"), DiffApp())
 }
 
 {
@@ -1749,7 +1923,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
         li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
         li("The chart shown in the home page:", Snippet(`plot([
     ['Framework', 'Size', {role: 'style'}, {role: 'annotation'}],
-    ['VanJS', 1.2, '#f44336', 'VanJS-0.11.10 1.2kB'],
+    ['VanJS', 1.2, '#f44336', 'VanJS-0.11.11 1.2kB'],
     ['Preact', 10.8, '#b7b7b7', 'Preact-10.13.1 10.8kB'],
     ['jQuery', 88.2, '#b7b7b7', 'jQuery-3.6.4 88.2kB'],
     ['ReactDom', 130.5, '#b7b7b7', 'ReactDom-18.2.0 130.5kB'],

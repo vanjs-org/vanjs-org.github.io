@@ -143,6 +143,26 @@ a {
   text-decoration: line-through;
 }
 
+#demo-diff .row { display: flex; }
+
+#demo-diff .column {
+  width: 500px;
+  margin: 2px;
+}
+
+#demo-diff .column textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#demo-diff .add { background-color: #B5EFDB; }
+#demo-diff .remove { background-color: #FFC4C1; }
+#demo-diff .merged .remove { text-decoration: line-through; }
+
+#demo-diff input[type=checkbox] {
+  margin: 0 3px 0 4px;
+}
+
 #demo-calculator {
   background-color: unset;
   padding: unset;

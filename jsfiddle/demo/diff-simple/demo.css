@@ -11,8 +11,5 @@
 }
 
 .add { background-color: #B5EFDB; }
-
-.remove {
-  background-color: #FFC4C1;
-  text-decoration: line-through;
-}
+.remove { background-color: #FFC4C1; }
+.merged .remove { text-decoration: line-through; }

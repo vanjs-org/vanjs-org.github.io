@@ -1,5 +1,3 @@
-const {button, div, input, span, textarea} = van.tags
-
 const autoGrow = e => {
   e.target.style.height = "5px"
   e.target.style.height = (e.target.scrollHeight + 5) + "px"
@@ -78,5 +76,3 @@ const DiffApp = () => {
     })
   )
 }
-
-document.body.appendChild(DiffApp())
