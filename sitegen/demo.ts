@@ -313,7 +313,8 @@ const TodoList = () => {
     p(Demo()),
     p({id: "demo-diff"}),
     p({
-      id: "jsfiddle-diff-simple",
+      id: "jsfiddle-diff",
+      "data-details": "demo-diff.details",
       "data-prefix": "const {button, div, input, span, textarea} = van.tags",
       "data-suffix": "document.body.appendChild(DiffApp())",
       "data-css-file": "code/diff.html",
