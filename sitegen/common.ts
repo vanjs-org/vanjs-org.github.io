@@ -26,7 +26,7 @@ export default (doc: HTMLDocument) => {
     return a({href, class: "w3-hover-opacity"}, children)
   }
 
-  const Symbol = (child: ChildDom) => code({class: "symbol"}, child)
+  const Symbol = (...child: ChildDom[]) => code({class: "symbol"}, child)
 
   const Download = (file: string) =>
     Symbol(a({href: "/code/" + file, download: file, style: "white-space: nowrap;"}, file))

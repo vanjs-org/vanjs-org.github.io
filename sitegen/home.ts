@@ -76,6 +76,7 @@ van.add(document.body, Counter())
       li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
       li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
+      li(Link("How did ", VanJS(), " get its name?", "/about#name")),
     ),
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},

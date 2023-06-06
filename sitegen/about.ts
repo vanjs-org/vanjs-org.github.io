@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, i, img, li, p, ul} = tags
 
-  const {H1, H2, Link, MiniVan, Symbol, VanJS} = common(doc)
+  const {H1, H2, Js, Link, MiniVan, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
@@ -49,5 +49,34 @@ export default (doc: HTMLDocument) => {
     H2({id: "coding-style"}, "A Note on Coding Styles"),
     p("The sample code snippets throughout this website follow a minimalist approach when it comes to coding styles. When readability is not impacted, we are leaning towards the choice that leads to more concise code, with the belief that brevity and simplicity generally make the code easier to read and write. This means that we're consciously choosing certain coding styles throughout this website: such as omitting optional semicolons, naked if statements, usage of ternary operator when appropriate, etc."),
     p("On the other hand, we acknowledge that different people might hold a somewhat different opinion regarding certain coding style choices, and some are among hotly debated issues among programmers. We understand the arguments from the other side that certain coding styles, might occasionally lead to slightly more misleading error messages for incorrect implementation in limited situations. As an ", b("unopinionated"), " framework, ", VanJS(), " doesn't take side on coding styles. If some style in the sample code doesn't align with your personal preference or your team's common practice, feel free to make the corresponding styling changes after copy/past-ing the sample code."),
+    H2({id: "name"}, "How Did ", VanJS(), " Get Its Name?"),
+    p(VanJS(), " is short for ", b("Van"), "illa ", b("J"), "ava", b("S"), "ript, which is a metaphor that ", VanJS(), " provides an abbreviated way to write Vanilla JavaScript code. Meanwhile, the logo of ", VanJS(), " is a symbolic vanilla icecream, which means ", VanJS(), " = ", b("Vanilla"), " JavaScript + syntax ", b("Sugar"), "."),
+    p("Under the hood, ", VanJS(), " stays truthful to Vanilla JavaScript as close as possible, as there is no transpiling, virtual DOM or any hidden logic. ", VanJS(), " code can be translated to Vanilla JavaScript code in a very straightforward way. For instance, the following ", VanJS(), " code:"),
+    Js(`a({href: "https://vanjs.org"}, "🍦 VanJS")`),
+    p("is just an abbreviated/sugared form of following code in Vanilla Javascript:"),
+    Js(`const anchorDom = document.createElement("a")
+anchorDom.href = "https://vanjs.org"
+anchorDom.appendChild(new Text("🍦 VanJS"))
+`),
+    p("whereas"),
+    Js(`ul(
+  li("🗺️World"),
+  li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
+)
+`),
+    p("is an abbreviated/sugared form of:"),
+    Js(`const listDom = document.createElement("ul")
+
+const itemDom1 = document.createElement("li")
+itemDom1.appendChild(new Text("🗺️World"))
+listDom.appendChild(itemDom1)
+
+const itemDom2 = document.createElement("li")
+const anchorDom = document.createElement("a")
+anchorDom.href = "https://vanjs.org"
+anchorDom.appendChild(new Text("🍦 VanJS"))
+itemDom2.appendChild(anchorDom)
+listDom.appendChild(itemDom2)
+`),
   )
 }
