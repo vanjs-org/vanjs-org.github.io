@@ -720,9 +720,9 @@ const Converter = ({initInput}) =&gt; {
     "Indent level: ", indentInputDom, " ",
     skipEmptyTextDom, "Skip empty text",
     h5("Declaring tag functions:"),
-    van.bind(tagsCode, c =&gt; div(pre(code({ class: "language-js" }, c)))),
+    van.bind(tagsCode, c =&gt; div(pre(code({class: "language-js"}, c)))),
     h5("Building the DOM tree:"),
-    van.bind(domCode, c =&gt; div(pre(code({ class: "language-js" }, c)))),
+    van.bind(domCode, c =&gt; div(pre(code({class: "language-js"}, c)))),
   )
 }
 </code></pre><p>You can try it out with <a href="/convert" class="w3-hover-opacity">this link</a>.</p><h2 class="w3-xxlarge w3-text-red" id="jupyter-like-javascript-console"><a class="self-link" href="#jupyter-like-javascript-console">Jupyter-like JavaScript Console</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in <b>~100 lines</b> of code with <b>VanJS</b>. The JavaScript console supports drawing tables (with the technique similar to <a href="#table-viewer" class="w3-hover-opacity">Table Viewer</a>), inspecting objects in a tree view (with the technique similar to <a href="#json-inspector" class="w3-hover-opacity">Json Inspector</a>) and plotting (with the integration of <a href="https://developers.google.com/chart" class="w3-hover-opacity">Google Charts</a>).</p><p>Here is the implementation:</p><pre><code class="language-js">const toDataArray = data =&gt; {
