@@ -701,7 +701,7 @@ const Converter = ({initInput}) =&gt; {
         skipTrailingComma: childNodes.length &lt;= 1
       }, tagsUsed))
     const sortedTags = [...tagsUsed].sort()
-    tagsCode.val = `const {${sortedTags.join(", ")}} = tags`
+    tagsCode.val = `const {${sortedTags.join(", ")}} = van.tags`
     domCode.val = lines.join("\n")
     setTimeout(() =&gt; Prism.highlightAll(), 5)
   }
