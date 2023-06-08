@@ -34,14 +34,14 @@ export default (doc: HTMLDocument) => {
     p("We're hoping to achieve ", VanJS(), " ", Symbol("1.0"), " soon, which will mean the commitment to API stability. Meanwhile, as a new UI framework, we put heavy focus on the reliability of the framework."),
     p("For every single release of ", VanJS(), ", below is the list of tests that will be run through:"),
     ul(
-      li("A browser-based test suite, with 200+ test cases, covering different versions of ", VanJS(), " files (", Symbol(".min.js"), ", ", Symbol(".debug.js"), ", ", Symbol(".nomodule.min.js"), ", etc.), including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), ", as well as error messages shown in the debug mode."),
+      li("A browser-based test suite, with ~300 test cases, covering different versions of ", VanJS(), " files (", Symbol(".min.js"), ", ", Symbol(".debug.js"), ", ", Symbol(".nomodule.min.js"), ", etc.), including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), ", as well as error messages shown in the debug mode."),
       li("Examples used in ", Link("VanJS tutorial", "/tutorial"), " are also covered in the browser-based test suite."),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li(Link("Sample applications", "/demo"), " will keep working in every single ", VanJS(), " release, including applications implemented in TypeScript (which covers TypeScript integration)."),
     ),
     p("For every single release of ", MiniVan(), ", below is the list of tests that will be run through:"),
     ul(
-      li("A browser-based test suite, with 20+ test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)"),
+      li("A browser-based test suite, with ~30 test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)"),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li("A Deno test suite for ", Symbol("van-plate"), " mode, covering Deno integration."),
       li("The entire site of vanjs.org was generated with ", MiniVan(), " with TypeScript files defining all web pages. Source code can be found ", Link("here", "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/sitegen"), "."),

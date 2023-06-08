@@ -12,7 +12,7 @@ export default (doc: HTMLDocument) => {
     blockquote(i(text, br(), br(), "-- " + source))
 
   return div({id: "content"},
-    H1(VanJS(), ": A 1.2kB Grab 'n Go Reactive UI Framework without React/JSX"),
+    H1(VanJS(), ": A 1.3kB Grab 'n Go Reactive UI Framework without React/JSX"),
     p("📣 ", Link(VanJS(), " 0.11.11 released →", "https://github.com/vanjs-org/van/discussions/44")),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     p((VanJS()), " is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
@@ -58,7 +58,7 @@ van.add(document.body, Counter())
     H3("Grab 'n Go"),
     p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no 3rd-party dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
     H3("Ultra-Lightweight"),
-    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the bundled size of ", VanJS(), " is just 1.2kB, which is ", b("more than 100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
+    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the bundled size of ", VanJS(), " is just 1.3kB, which is ", b("more than 100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
     p({id: "size-comp"}),
     Quote({
       text: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.",
@@ -67,7 +67,7 @@ van.add(document.body, Counter())
     H3("TypeScript Support"),
     p(VanJS(), " provides first-class support for TypeScript. Simply download the corresponding ", Symbol(".d.ts"), " file along with your ", Symbol(".js") ," file, and you'll be able to take advantage of type-checking, IntelliSense, large-scale refactoring provided by your preferred development environment. Refer to the ", Link("Download Table", "/start#download-table"), " to find the right ", Symbol(".d.ts"), " file to work with."),
     H3("Easy to Learn"),
-    p(VanJS(), " puts heavy emphasis on the simplicity of the framework. There are only 4 exported functions in the API and feels a lot like React. Because of that, the ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
+    p(VanJS(), " puts heavy emphasis on the simplicity of the framework. There are only 5 exported functions in the API and feels a lot like React. Because of that, the ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
     H2("Want to Learn More?"),
     ul(
       li("Download and ", Link("Get Started", "/start")),

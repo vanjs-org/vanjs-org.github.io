@@ -1,6 +1,29 @@
 import van from "/code/van-latest.min.js"
 
 {
+  const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+
+  const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
+    circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
+    circle({cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
+    circle({cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
+    path({"d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent"}),
+  )
+
+  van.add(document.getElementById("demo-smiley"), Smiley())
+}
+
+{
+  const {math, mi, mn, mo, mrow, msup} = van.tagsNS("http://www.w3.org/1998/Math/MathML")
+
+  const Euler = () => math(
+    msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"),
+  )
+
+  van.add(document.getElementById("demo-euler"), Euler())
+}
+
+{
   const {button, div, input, sup} = van.tags
 
   // Create a new State object with init value 1
@@ -129,6 +152,39 @@ import van from "/code/van-latest.min.js"
   }
 
   van.add(document.getElementById("demo-sorted-list"), SortedList())
+}
+
+{
+  const {button, span} = van.tags
+
+  const Button = ({color, text, onclick}) => button({
+    style: {deps: [color], f: color => `background-color: ${color};`},
+    onclick,
+  }, text)
+
+  const App = () => {
+    const colorState = van.state("green")
+    const textState = van.state("Turn Red")
+
+    const turnRed = () => {
+      colorState.val = "red"
+      textState.val = "Turn Green"
+      onclickState.val = turnGreen
+    }
+    const turnGreen = () => {
+      colorState.val = "green"
+      textState.val = "Turn Red"
+      onclickState.val = turnRed
+    }
+    const onclickState = van.state(turnRed)
+
+    return span(
+      Button({color: "yellow", text: "Click Me", onclick: () => alert("Clicked")}), " ",
+      Button({color: colorState, text: textState, onclick: onclickState}),
+    )
+  }
+
+  van.add(document.getElementById("demo-nonstate-deps"), App())
 }
 
 {

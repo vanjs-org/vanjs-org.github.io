@@ -8,7 +8,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, li, p, span, table, tbody, td, tr, ul} = tags
 
-  const {Demo, H1, H2, H3, InlineJs, Js, Link, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
 
   interface ApiTableProps {
     readonly signature: string
@@ -63,6 +63,39 @@ van.add(document.body, Hello())
         children: ["caller can provide 0 or more children as arguments to represent the child nodes of the created HTML element. Each child can be a valid DOM node, a primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"), "), a primitive-valued ", Symbol("State"), " object, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. We will explain the behavior of ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " in State Binding section below. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not declare an existing DOM node in the current document as the child node of the newly created element."],
       },
       returns: ["The ", SymLink("HTMLDivElement", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement"), " object just created."],
+    }),
+    H3("SVG and MathML Support"),
+    p("HTML elements with ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), " can be created via ", SymLink("van.tagsNS", "#api-tagsns"), ", a variant of ", Symbol("van.tags"), " that allows you to specify the ", Symbol("namespaceURI"), " of the created elements. Here is an example of composing the SVG DOM tree with ", Symbol("van.tagsNS"), ":"),
+    Js(`const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+
+const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
+  circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
+  circle({cx: "16", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
+  circle({cx: "34", cy: "20", "r": "2", stroke: "black", "stroke-width": "2", fill: "black"}),
+  path({"d": "M 15 30 Q 25 40, 35 30", stroke: "black", "stroke-width": "2", fill: "transparent"}),
+)
+
+van.add(document.body, Smiley())
+`),
+    p(Demo(), " ", span({id: "demo-smiley"})),
+    p({id: "jsfiddle-smiley"}),
+    p("Similarly, math formulas can be created with ", SymLink("MathML", "https://developer.mozilla.org/en-US/docs/Web/MathML/Element"), " elements via ", Symbol("van.tagsNS"), ":"),
+    Js(`const {math, mi, mn, mo, mrow, msup} = van.tagsNS("http://www.w3.org/1998/Math/MathML")
+
+const Euler = () => math(
+  msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"),
+)
+
+van.add(document.body, Euler())
+`),
+    p(Demo(), " ", span({id: "demo-euler"})),
+    p({id: "jsfiddle-euler"}),
+    H3({id: "api-tagsns"}, "API reference: ", Symbol("van.tagsNS")),
+    ApiTable({
+      signature: "van.tagsNS(namespaceURI) => <the created tags object for elements with specified namespaceURI>",
+      description: ["Creates a tags ", SymLink("Proxy", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"), " object similar to ", SymLink("van.tags", "#api-tags"), " for elements with specified ", Symbol("namespaceURI"), "."],
+      parameters: {namespaceURI: ["a string for the ", Symbol("namespaceURI"), " property of elements created via tag fucntions."]},
+      returns: "The created tags object.",
     }),
     H3({id: "api-add"}, "API reference: ", Symbol("van.add")),
     p(Symbol("van.add"), " fucntion is similar to tag functions described above. Instead of creating a new HTML element with specified properties and children, ", Symbol("van.add"), " function mutates its first argument (which is an existing ", SymLink("Element node", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement"), ") by appending 0 or more children with ", SymLink("appendChild", "https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild"), " calls:"),
@@ -221,7 +254,7 @@ van.add(document.body, ConnectedProps())
     H3({id: "state-derived-prop"}, Symbol("State"), "-derived properties"),
     p(Symbol("State"), "-derived property is a more advanced way to bind a property of an HTML element with one or more underlying ", Symbol("State"), " objects. To use ", Symbol("State"), "-derived properties, you need to provide an object with the following fields as the value in ", Symbol("props"), " argument while calling to a ", SymLink("tag function", "#api-tags"), ":"),
     ul(
-      li(Symbol(b("deps")), " - an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of one or more ", Symbol("State"), " objects."),
+      li(Symbol(b("deps")), " - an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of one or more dependencies."),
       li(Symbol(b("f")), " - a ", Symbol("function"), " that takes the values of states in ", Symbol(b("deps")), " as parameters. The return value of ", Symbol(b("f")), " should always be valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
     ),
     p("The example below is a live font size and color preview implemented with this feature:"),
@@ -276,15 +309,20 @@ van.add(document.body, SortedList())
     H3({id: "api-bind"}, "API reference: ", Symbol("van.bind")),
     ApiTable({
       signature: "van.bind(dep1, dep2, ..., depN, f) => <the created DOM node>",
-      description: ["Creates a DOM node that binds to dependency states: ", Symbol("dep1"), ", ", Symbol("dep2"), ", ..., ", Symbol("depN"), ". Whenever the values of these states change, the generation function - ", Symbol("f"), ", will be called to update the DOM tree."],
+      description: ["Creates a DOM node that binds to dependencies: ", Symbol("dep1"), ", ", Symbol("dep2"), ", ..., ", Symbol("depN"), ". Whenever the values of these states change, the generation function - ", Symbol("f"), ", will be called to update the DOM tree."],
       parameters: {
-        deps: li(Symbol(b("dep1")), ", ", Symbol(b("dep2")), ", ..., ", Symbol(b("depN")), " - the dependency states bound to the DOM node."),
-        f: ["The generation function, with signature ", InlineJs("f(v1, v2, ..., vN, [dom, oldV1, oldV2, ..., oldVN]) => <primitive, DOM node, null or undefined>"), ". Whenever any value of ", Symbol("dep1"), ", ", Symbol("dep2"), ", ..., ", Symbol("depN"), " changes, ", Symbol("f"), " will be called and returns the new version of the DOM node based on new values of the dependency states. Optionally, ", Symbol("f"), " can take ", Symbol("dom"), " (the current version of the bound DOM node) and ", Symbol("oldV1"), ", ", Symbol("oldV2"), ", ...,", Symbol("oldVN"), " (the old values of the dependency states) as additional parameters to enable ", Link("Stateful binding", "#stateful-binding"), ", which might sometimes choose to mutate existing DOM node instead of generating a new one as an optimization. When ", Symbol("f"), " returns a primitive, a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created based on its content. When ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependency states."],
+        deps: li(Symbol(b("dep1")), ", ", Symbol(b("dep2")), ", ..., ", Symbol(b("depN")), " - the dependencies bound to the DOM node."),
+        f: ["The generation function, with signature ", InlineJs("f(v1, v2, ..., vN, [dom, oldV1, oldV2, ..., oldVN]) => <primitive, DOM node, null or undefined>"), ". Whenever any value of ", Symbol("dep1"), ", ", Symbol("dep2"), ", ..., ", Symbol("depN"), " changes, ", Symbol("f"), " will be called and returns the new version of the DOM node based on new values of the dependencies. Optionally, ", Symbol("f"), " can take ", Symbol("dom"), " (the current version of the bound DOM node) and ", Symbol("oldV1"), ", ", Symbol("oldV2"), ", ...,", Symbol("oldVN"), " (the old values of the dependencies) as additional parameters to enable ", Link("Stateful binding", "#stateful-binding"), ", which might sometimes choose to mutate existing DOM node instead of generating a new one as an optimization. When ", Symbol("f"), " returns a primitive, a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created based on its content. When ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."],
       },
-      returns: ["The created DOM node that binds to dependency states."],
+      returns: ["The created DOM node that binds to dependencies."],
   }),
+    H3("Polymorphism between ", Symbol("State"), " and non-", Symbol("State"), " dependencies"),
+    p("State-derived properties and ", Symbol("van.bind"), " can accept both ", Symbol("State"), " and non-", Symbol("State"), " objects as dependency arguments. This polymorphism makes it handy to build reusable components where users can specify both state and non-state property values. Non-state dependencies behave the same way as state dependencies whose ", Symbol("val"), " properties never change. Below is an example of a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be both state and non-state objects:"),
+    JsFile("nonstate-deps.code.js"),
+    p(Demo(), span({id: "demo-nonstate-deps"})),
+    p({id: "jsfiddle-nonstate-deps"}),
     H3("Removing a DOM node"),
-    p("As noted in the API reference above, when generation function ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependency states."),
+    p("As noted in the API reference above, when generation function ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."),
     p("The following code illustrates how to build an editable list with this features:"),
     Js(`const {a, button, div, input, li, ul} = van.tags
 
@@ -315,7 +353,7 @@ van.add(document.body, EditableList())
       "data-css": "a { cursor: pointer; }\n",
     }),
     H3({id: "stateful-binding"}, "Stateful binding"),
-    p("While dealing with state updates, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of dependency states. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered."),
+    p("While dealing with state updates, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of its dependencies. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered."),
     p("The following code is a snippet of the ", Link("auto-complete application", "/demo#auto-complete"), " which leverages this feature to optimize:"),
     Js(`const suggestionList = van.bind(candidates, selectedIndex,
   (candidates, selectedIndex, dom, oldCandidates, oldSelectedIndex) => {
@@ -345,6 +383,7 @@ van.add(document.body, EditableList())
     p("Below is the list of all top-level APIs in ", VanJS(), ":"),
     ul(
       li(SymLink("van.tags", "#api-tags")),
+      li(SymLink("van.tagsNS", "#api-tagsns")),
       li(SymLink("van.add", "#api-add")),
       li(SymLink("van.state", "#api-state")),
       li(SymLink("van.bind", "#api-bind")),
