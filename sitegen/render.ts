@@ -9,6 +9,7 @@ import demo from "./demo.ts"
 import convert from "./convert.ts"
 import minivan from "./minivan.ts"
 import advanced from "./advanced.ts"
+import media from "./media.ts"
 import about from "./about.ts"
 
 const templateStr = Deno.readTextFileSync("template.html")
@@ -30,6 +31,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["Convert HTML to VanJS", "convert"],
     ["Mini-Van", "minivan"],
     ["Advanced Topics", "advanced"],
+    ["Media Mentions", "media"],
     ["About", "about"],
   ]
 
@@ -116,6 +118,10 @@ Deno.copyFileSync("minivan.html", "minivan/index.html")
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
 // Backward compatible for URLs that end with "/".
 Deno.copyFileSync("advanced.html", "advanced/index.html")
+
+renderPage(media, "media", "media.html", "Media Mentions")
+// Backward compatible for URLs that end with "/".
+Deno.copyFileSync("media.html", "media/index.html")
 
 renderPage(about, "about", "about.html", "About")
 // Backward compatible for URLs that end with "/".
