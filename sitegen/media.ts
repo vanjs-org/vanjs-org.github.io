@@ -31,6 +31,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://us3.campaign-archive.com/?u=4ad274b490aa6da8c2d29b775&id=887df01416")),
       li(Url("https://dev.to/vincenius/weekly-web-development-resources-150-5819")),
       li(Url("https://stackshare.io/vanjs")),
+      li(Url("https://www.libhunt.com/r/van")),
       li(Url("https://enpitsulin.xlog.app/reactive-framework-less-than-100-lines"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://juejin.cn/post/7237702874880032826"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://juejin.cn/post/7239148708699865144"), " (", i("in Simplified Chinese"), ")"),

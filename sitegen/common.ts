@@ -5,7 +5,7 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {add, tags} = van.vanWithDoc(doc)
-  const {a, b, br, code, i, h1, h2, h3, hr, pre, td, tr} = tags
+  const {a, b, br, code, div, i, h1, h2, h3, hr, p, pre, td, tr} = tags
 
   const genId = (text: string, id: string | undefined) =>
     id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
@@ -44,12 +44,22 @@ export default (doc: HTMLDocument) => {
     td(description),
   )
 
+  const versionToUrl: {[key: string]: string} = {
+    "0.12.0": "https://github.com/vanjs-org/van/discussions/53",
+  }
+
+  const VanJS = () => b("VanJS")
+
   return {
-    VanJS: () => b("VanJS"),
+    VanJS,
 
     MiniVan: () => b("Mini-Van"),
 
     Demo: () => b("Demo:"),
+
+    MinVersion: (version: string) => div({style: "font-size: 0.9em;"},
+      i("Requires ", VanJS(), " ", Link(version, versionToUrl[version]), " or later.")
+    ),
 
     H1: (...children: readonly ChildDom[]) => h1({class: "w3-xxlarge"}, ...children),
 

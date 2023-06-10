@@ -8,7 +8,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, li, p, span, table, tbody, td, tr, ul} = tags
 
-  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, MinVersion, Symbol, SymLink, VanJS} = common(doc)
 
   interface ApiTableProps {
     readonly signature: string
@@ -60,11 +60,12 @@ van.add(document.body, Hello())
       description: ["Creates an ", SymLink("HTMLDivElement", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement"), " with ", Symbol("props"), " as its properties and ", Symbol("children"), " as its child nodes."],
       parameters: {
         props: ["optional, a plain JavaScript object whose keys and values are the keys and values of the properties of the created HTML element. Keys should be ", Symbol("string"), ", and values can be primitives (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"), "), primitive-valued ", Symbol("State"), " objects, or ", Symbol("State"), "-derived properties. We will explain the behavior of ", Link(Symbol("State"), "-typed", "#state-typed-prop"), " and ", Link(Symbol("State"), "-derived", "#state-derived-prop"), " properties in State Binding section below. For keys like ", Symbol("on..."), ", value should be ", Symbol("function"), " to represent the event handler."],
-        children: ["caller can provide 0 or more children as arguments to represent the child nodes of the created HTML element. Each child can be a valid DOM node, a primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"), "), a primitive-valued ", Symbol("State"), " object, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. We will explain the behavior of ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " in State Binding section below. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not declare an existing DOM node in the current document as the child node of the newly created element."],
+        children: ["caller can provide 0 or more children as arguments to represent the child nodes of the created HTML element. Each child can be a valid DOM node, a primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"), "), ", Symbol("null"), ", ", Symbol("undefined"), ", a primitive-valued or ", Symbol("null"), "/", Symbol("undefined"), "-valued ", Symbol("State"), " object, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. ", Symbol("null"), "/", Symbol("undefined"), "-valued children are only allowed in 0.12.1 or later and will be ignored. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. We will explain the behavior of ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " in State Binding section below. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not declare an existing DOM node in the current document as the child node of the newly created element."],
       },
       returns: ["The ", SymLink("HTMLDivElement", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement"), " object just created."],
     }),
     H3("SVG and MathML Support"),
+    MinVersion("0.12.0"),
     p("HTML elements with ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), " can be created via ", SymLink("van.tagsNS", "#api-tagsns"), ", a variant of ", Symbol("van.tags"), " that allows you to specify the ", Symbol("namespaceURI"), " of the created elements. Here is an example of composing the SVG DOM tree with ", Symbol("van.tagsNS"), ":"),
     Js(`const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
 
@@ -91,6 +92,7 @@ van.add(document.body, Euler())
     p(Demo(), " ", span({id: "demo-euler"})),
     p({id: "jsfiddle-euler"}),
     H3({id: "api-tagsns"}, "API reference: ", Symbol("van.tagsNS")),
+    MinVersion("0.12.0"),
     ApiTable({
       signature: "van.tagsNS(namespaceURI) => <the created tags object for elements with specified namespaceURI>",
       description: ["Creates a tags ", SymLink("Proxy", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"), " object similar to ", SymLink("van.tags", "#api-tags"), " for elements with specified ", Symbol("namespaceURI"), "."],
@@ -104,7 +106,7 @@ van.add(document.body, Euler())
       description: ["Mutates ", Symbol("dom"), " by appending 0 or more child nodes to it. Returns  ", Symbol("dom"), " for possibly further chaining."],
       parameters: {
         dom: "an existing DOM element that we want to append children to.",
-        children: ["caller can provide 0 or more ", Symbol("children"), " as arguments to represent the child nodes we want to append to ", Symbol("dom"), ". Each child can be a valid DOM node, a primitive, a primitive-valued ", Symbol("State"), " object, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " behaves the same way as in tag function. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not append an existing DOM node in the current document to ", Symbol("dom"), ". If 0 children is provided, this function is a no-op."],
+        children: ["caller can provide 0 or more ", Symbol("children"), " as arguments to represent the child nodes we want to append to ", Symbol("dom"), ". Each child can be a valid DOM node, a primitive, ", Symbol("null"), ", ", Symbol("undefined"), ", a primitive-valued or ", Symbol("null"), "/", Symbol("undefined"), "-valued ", Symbol("State"), " object, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. ", Symbol("null"), "/", Symbol("undefined"), "-valued children are only allowed in 0.12.1 or later and will be ignored. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " behaves the same way as in tag function. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not append an existing DOM node in the current document to ", Symbol("dom"), ". If 0 children is provided, this function is a no-op."],
       },
       returns: Symbol("dom"),
     }),
@@ -317,6 +319,7 @@ van.add(document.body, SortedList())
       returns: ["The created DOM node that binds to dependencies."],
   }),
     H3("Polymorphism between ", Symbol("State"), " and non-", Symbol("State"), " dependencies"),
+    MinVersion("0.12.0"),
     p("State-derived properties and ", Symbol("van.bind"), " can accept both ", Symbol("State"), " and non-", Symbol("State"), " objects as dependency arguments. This polymorphism makes it handy to build reusable components where users can specify both state and non-state property values. Non-state dependencies behave the same way as state dependencies whose ", Symbol("val"), " properties never change. Below is an example of a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be both state and non-state objects:"),
     JsFile("nonstate-deps.code.js"),
     p(Demo(), span({id: "demo-nonstate-deps"})),
