@@ -41,7 +41,7 @@ export default (doc: HTMLDocument) => {
     ),
     p("For every single release of ", MiniVan(), ", below is the list of tests that will be run through:"),
     ul(
-      li("A browser-based test suite, with ~30 test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)"),
+      li("A browser-based test suite, with 30+ test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)"),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li("A Deno test suite for ", Symbol("van-plate"), " mode, covering Deno integration."),
       li("The entire site of vanjs.org was generated with ", MiniVan(), " with TypeScript files defining all web pages. Source code can be found ", Link("here", "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/sitegen"), "."),
