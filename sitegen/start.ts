@@ -54,10 +54,11 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Getting Started"),
-    p("To get started, download the latest version ", Download(`van-${version}.min.js`), " and add the line below to your script:"),
-    Js(`import van from "./van-${version}.min.js"`),
-    p("To code without ES6 modules, you can download the bundled version ", Download(`van-${version}.nomodule.min.js`), " and add the following line to your HTML file instead:"),
-    Html(`<script type="text/javascript" src="van-${version}.nomodule.min.js"></script>`),
+    p("To get started, add the line below to your script:"),
+    Js(`import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.min.js"`),
+    p("To code without ES6 modules, add the following line to your HTML file instead:"),
+    Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.nomodule.min.js"></script>`),
+    p("Alternative you can download the files (", Download(`van-${version}.min.js`), ", ", Download(`van-${version}.nomodule.min.js`), ") and serve them locally."),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags
