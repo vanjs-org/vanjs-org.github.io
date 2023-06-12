@@ -149,8 +149,8 @@ van.add(document.body, Timer({totalSecs: 5}))
 const ConnectedProps = () =&gt; {
   const text = van.state("")
   return span(
-    input({type: "text", value: text, oninput: e =&gt; value.val = e.target.value}),
-    input({type: "text", value: text, oninput: e =&gt; value.val = e.target.value}),
+    input({type: "text", value: text, oninput: e =&gt; text.val = e.target.value}),
+    input({type: "text", value: text, oninput: e =&gt; text.val = e.target.value}),
   )
 }
 
@@ -391,10 +391,10 @@ van.add(document.body, EditableList())
   const {input, span} = van.tags
 
   const ConnectedProps = () => {
-    const value = van.state("")
+    const text = van.state("")
     return span(
-      input({type: "text", value, oninput: e => value.val = e.target.value}),
-      input({type: "text", value, oninput: e => value.val = e.target.value}),
+      input({type: "text", value: text, oninput: e => text.val = e.target.value}),
+      input({type: "text", value: text, oninput: e => text.val = e.target.value}),
     )
   }
 
