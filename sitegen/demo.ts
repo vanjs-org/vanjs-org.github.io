@@ -175,6 +175,29 @@ const CounterSet = () => {
       "data-prefix": "const {button, pre, span} = van.tags",
       "data-suffix": "van.add(document.body, Stopwatch())",
     }),
+    H2("Blog"),
+    p(VanJS(), " doesn't have an equivalent to React's ", SymLink("<Fragment>", "https://react.dev/reference/react/Fragment"), ". For most of the cases, returning an array of HTML elements from your custom component would serve the similar purpose. Here is the sample code equivalent to the ", Symbol("Blog"), " example in React's official website:"),
+    Js(`const Blog = () => [
+  Post({title: "An update", body: "It's been a while since I posted..."}),
+  Post({title: "My new blog", body: "I am starting a new blog!"}),
+]
+
+const Post = ({title, body}) => [
+  PostTitle({title}),
+  PostBody({body}),
+]
+
+const PostTitle = ({title}) => h1(title)
+const PostBody = ({body}) => article(p(body))
+`
+),
+    p({
+      id: "jsfiddle-blog",
+      "data-prefix": "const {article, h1, p} = van.tags",
+      "data-suffix": "van.add(document.body, Blog())",
+    }),
+    p("The sample code in React is 29 lines, ", VanJS(), "'s equivalent code is ~3 times smaller by eliminating unnecessary boilerplate."),
+    p("Note that: The result of ", Link("complex state binding", "/tutorial#complex-state-binding"), " can't be an array of elements. You can wrap the result into a pass-through container (", Symbol("span"), " for inline elements and ", Symbol("div"), " for block elements) if multiple elements need to be returned."),
     H2("List"),
     p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can construct the DOM tree in an imperative way (modifying the DOM tree via ", SymLink("van.add", "/tutorial#api-add"), "), or in a functional/declarative way."),
     p("Below is an example of building a list even numbers in ", Symbol("1..N"), ", using an imperative way:"),
