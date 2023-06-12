@@ -34,7 +34,7 @@ export default (doc: HTMLDocument) => {
   )
 
   const Download = (file: string, hasCopyButton?: boolean) => Symbol(
-    a({href: "/code/" + file, download: file, style: "white-space: nowrap;"}, file),
+    a({href: "/code/" + file, download: file, style: "white-space: nowrap;", title: "Download " + file}, file),
     hasCopyButton && CopyButton(),
   )
 

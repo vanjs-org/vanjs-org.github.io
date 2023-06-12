@@ -292,7 +292,8 @@ textarea {
 
 .copy .tooltip {
   visibility: hidden;
-  width: 170px;
+  width: 140px;
+  font-size: 12px;
   background-color: #555;
   color: #fff;
   text-align: center;
