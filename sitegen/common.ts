@@ -5,7 +5,7 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {add, tags} = van.vanWithDoc(doc)
-  const {a, b, br, code, div, i, h1, h2, h3, hr, p, pre, td, tr} = tags
+  const {a, b, br, code, div, i, h1, h2, h3, hr, pre, span, td, tr} = tags
 
   const genId = (text: string, id: string | undefined) =>
     id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
@@ -28,18 +28,26 @@ export default (doc: HTMLDocument) => {
 
   const Symbol = (...child: ChildDom[]) => code({class: "symbol"}, child)
 
-  const Download = (file: string) =>
-    Symbol(a({href: "/code/" + file, download: file, style: "white-space: nowrap;"}, file))
+  const CopyButton = () => a({class: "copy", onclick: "copy(this)", onmouseout: "resetTooltip(this)"},
+    span({class: "tooltip"}, "Copy import line"),
+    "📋",
+  )
+
+  const Download = (file: string, hasCopyButton?: boolean) => Symbol(
+    a({href: "/code/" + file, download: file, style: "white-space: nowrap;"}, file),
+    hasCopyButton && CopyButton(),
+  )
+
   interface DownloadRowProps {
     readonly version: string
     readonly prefix?: string
     readonly suffix: string
-    readonly hasDts: boolean
+    readonly hasDts?: boolean
     readonly description: string | readonly ChildDom[]
   }
   const DownloadRow = ({version, prefix = "", suffix, hasDts, description}: DownloadRowProps) => tr(
-    td(Download(`${prefix}van-${version}${suffix}.js`),
-      hasDts ? [br(), Download(`${prefix}van-${version}${suffix}.d.ts`)] : []
+    td(pre({style: "margin: 0;"}, Download(`${prefix}van-${version}${suffix}.js`, true)),
+      hasDts && pre({style: "margin: 0;"}, Download(`${prefix}van-${version}${suffix}.d.ts`)),
     ),
     td(description),
   )
@@ -65,7 +73,7 @@ export default (doc: HTMLDocument) => {
 
     H2: (first: HeadingProps | ChildDom, ...rest: readonly ChildDom[]) => {
       const [props, children] =
-        first.constructor === Object ?
+        first?.constructor === Object ?
         [<HeadingProps>first, <readonly ChildDom[]>rest] :
         [<HeadingProps>{}, <readonly ChildDom[]>[first, ...rest]]
       return [
@@ -76,7 +84,7 @@ export default (doc: HTMLDocument) => {
 
     H3: (first: HeadingProps | ChildDom, ...rest: readonly ChildDom[]) => {
       const [props, children] =
-        first.constructor === Object ?
+        first?.constructor === Object ?
         [<HeadingProps>first, <readonly ChildDom[]>rest] :
         [<HeadingProps>{}, <readonly ChildDom[]>[first, ...rest]]
       return addToHeading(props.id, h3({class: "w3-large w3-text-red"}), children)

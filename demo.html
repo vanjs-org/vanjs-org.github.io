@@ -1676,6 +1676,19 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script>
+      const copy = e => {
+        const file = e.previousElementSibling.innerText
+        const importLine = file.includes("nomodule") ?
+          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
+          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
+          navigator.clipboard.writeText(importLine)
+            .then(() => e.querySelector(".tooltip").innerText = "Copied")
+            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
+      }
+
+      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
+    </script>
     <script class="inline">const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 {

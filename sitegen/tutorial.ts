@@ -135,7 +135,7 @@ van.add(document.body, List({items: ["Item 1", "Item 2", "Item 3"]}))
 const Table = ({head, data}) => table(
   head ? thead(tr(head.map(h => th(h)))) : [],
   tbody(data.map(row => tr(
-    row.map(col => td(col))
+    row.map(col => td(col)),
   ))),
 )
 

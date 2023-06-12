@@ -86,7 +86,7 @@ van.add(document.body, List({items: ["Item 1", "Item 2", "Item 3"]}))
 const Table = ({head, data}) =&gt; table(
   head ? thead(tr(head.map(h =&gt; th(h)))) : [],
   tbody(data.map(row =&gt; tr(
-    row.map(col =&gt; td(col))
+    row.map(col =&gt; td(col)),
   ))),
 )
 
@@ -506,6 +506,19 @@ van.add(document.body, EditableList())
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script>
+      const copy = e => {
+        const file = e.previousElementSibling.innerText
+        const importLine = file.includes("nomodule") ?
+          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
+          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
+          navigator.clipboard.writeText(importLine)
+            .then(() => e.querySelector(".tooltip").innerText = "Copied")
+            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
+      }
+
+      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
+    </script>
     <script class="inline"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>

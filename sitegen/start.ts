@@ -34,19 +34,16 @@ export default (doc: HTMLDocument) => {
       DownloadRow({
         version,
         suffix: ".nomodule.min",
-        hasDts: false,
         description: ["Similar to ", Symbol(`van-${version}.min.js`), ", but designed to work in non-module context, such as inline JavaScript or ", Symbol('<script type="text/javascript">'), "."],
       }),
       DownloadRow({
         version,
         suffix: ".nomodule",
-        hasDts: false,
         description: ["Similar to ", Symbol(`van-${version}.js`), ", but designed to work in non-module context, such as inline JavaScript or ", Symbol('<script type="text/javascript">'), "."],
       }),
       DownloadRow({
         version,
         suffix: ".nomodule.debug",
-        hasDts: false,
         description: ["Similar to ", Symbol(`van-${version}.debug.js`), ", but designed to work in non-module context, such as inline JavaScript or ", Symbol('<script type="text/javascript">'), "."],
       }),
     ),
@@ -58,7 +55,7 @@ export default (doc: HTMLDocument) => {
     Js(`import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.min.js"`),
     p("To code without ES6 modules, add the following line to your HTML file instead:"),
     Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.nomodule.min.js"></script>`),
-    p("Alternative you can download the files (", Download(`van-${version}.min.js`), ", ", Download(`van-${version}.nomodule.min.js`), ") and serve them locally."),
+    p("Alternative, you can download the files (", Download(`van-${version}.min.js`), ", ", Download(`van-${version}.nomodule.min.js`), ") and serve them locally."),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags
@@ -100,6 +97,7 @@ van.add(document.body, Hello())
     p({id: "jsfiddle-hello-fun"}),
     H2({id: "download-table"}, "Download Table"),
     p("The current version of ", VanJS(), " is ", Symbol(version), " (", Link("announcement", "https://github.com/vanjs-org/van/discussions/53#discussioncomment-6142154"), "). You can find all relevant ", VanJS(), " files to download in the table below:"),
+    div("Click link to download the file, and 📋 to copy the import line from CDN."),
     DownloadTable({version}),
     H2("Historical Versions"),
     H3("0.12.1"),

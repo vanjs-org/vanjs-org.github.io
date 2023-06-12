@@ -285,6 +285,44 @@ textarea {
   height: 100%;
 }
 
+.copy {
+  position: relative;
+  display: inline-block;
+}
+
+.copy .tooltip {
+  visibility: hidden;
+  width: 170px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.copy .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.copy:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (max-width: 800px) {
   #toc {
     display: none;

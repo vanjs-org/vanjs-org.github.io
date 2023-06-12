@@ -3,7 +3,7 @@ const {table, tbody, thead, td, th, tr} = van.tags
 const Table = ({head, data}) => table(
   head ? thead(tr(head.map(h => th(h)))) : [],
   tbody(data.map(row => tr(
-    row.map(col => td(col))
+    row.map(col => td(col)),
   ))),
 )
 
