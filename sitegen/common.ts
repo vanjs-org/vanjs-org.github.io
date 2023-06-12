@@ -5,7 +5,7 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {add, tags} = van.vanWithDoc(doc)
-  const {a, b, br, code, div, i, h1, h2, h3, hr, pre, span, td, tr} = tags
+  const {a, b, code, div, i, h1, h2, h3, hr, pre, span, td, tr} = tags
 
   const genId = (text: string, id: string | undefined) =>
     id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
