@@ -97,7 +97,7 @@ van.add(document.body, Hello())
     p({id: "jsfiddle-hello-fun"}),
     H2({id: "download-table"}, "Download Table"),
     p("The current version of ", VanJS(), " is ", Symbol(version), " (", Link("announcement", "https://github.com/vanjs-org/van/discussions/53#discussioncomment-6142154"), "). You can find all relevant ", VanJS(), " files to download in the table below:"),
-    div("Click link to download the file, and 📋 to copy the import line from CDN."),
+    div("Click the link to download the file, or 📋 to copy the import line from CDN."),
     DownloadTable({version}),
     H2("Historical Versions"),
     H3("0.12.1"),

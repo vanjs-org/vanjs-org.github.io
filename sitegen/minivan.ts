@@ -225,7 +225,7 @@ await serve(req => new Response(
     p("Alternative, you can download the files (", Download(`mini-van-${version}.min.js`), ", ", Download(`mini-van-${version}.nomodule.min.js`), ") and serve them locally."),
     H3("Download Table"),
     p("You can find all relevant ", MiniVan(), " files to download in the table below:"),
-    div("Click link to download the file, and 📋 to copy the import line from CDN."),
+    div("Click the link to download the file, or 📋 to copy the import line from CDN."),
     DownloadTable({version}),
     H2("API Reference"),
     p(MiniVan(), " exposes the same set of APIs as ", VanJS(), " for DOM composition and manipulation. Thus for API reference, you can refer to ", Link("DOM Composition and Manipulation", "/tutorial#dom"), " section of ", VanJS(), " tutorial. Note that: state and state binding are not supported in ", MiniVan(), "."),
