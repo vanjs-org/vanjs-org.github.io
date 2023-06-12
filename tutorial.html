@@ -147,10 +147,10 @@ van.add(document.body, Timer({totalSecs: 5}))
 </code></pre><p><b>Demo:</b> <span id="demo-timer"></span></p><p id="jsfiddle-timer"><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/timer">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="state-typed-prop"><a class="self-link" href="#state-typed-prop"><code class="symbol">State</code> objects as properties</a></h3><p><code class="symbol">State</code> objects can be used as properties of HTML elements. Similar to <code class="symbol">State</code>-based child nodes, the value of the properties will be always in sync with the value of the respective states. When <code class="symbol">State</code> objects are used as properties, you need to make sure that the values of the states are always valid property values, i.e.: primitives or <code class="symbol">function</code>s (for event handlers).</p><p>The following code demonstrates 2 <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text" class="w3-hover-opacity">text inputs</a></code> whose values are always in sync:</p><pre><code class="language-js">const {input, span} = van.tags
 
 const ConnectedProps = () =&gt; {
-  const value = van.state("")
+  const text = van.state("")
   return span(
-    input({type: "text", value, oninput: e =&gt; value.val = e.target.value}),
-    input({type: "text", value, oninput: e =&gt; value.val = e.target.value}),
+    input({type: "text", value: text, oninput: e =&gt; value.val = e.target.value}),
+    input({type: "text", value: text, oninput: e =&gt; value.val = e.target.value}),
   )
 }
 
