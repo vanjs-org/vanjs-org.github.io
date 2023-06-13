@@ -104,7 +104,7 @@ export default (doc: HTMLDocument) => {
 
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),
 
-    TsFile: (file: string) => pre(code({class: "language-ts", "data-file": file})),
+    TsFile: (file: string) => pre(code({class: "language-ts"}, Deno.readTextFileSync(file))),
 
     Shell: (text: string) => pre(code({class: "language-shell"}, text)),
 
