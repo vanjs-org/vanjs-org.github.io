@@ -64,6 +64,8 @@ const process = (path: string) => {
         "Try on jsfiddle",
       ),
     )
+    for (const name of dom.getAttributeNames())
+      if (name.startsWith("data-")) dom.removeAttribute(name)
   }
 
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)

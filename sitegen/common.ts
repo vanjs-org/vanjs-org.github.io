@@ -98,7 +98,7 @@ export default (doc: HTMLDocument) => {
 
     Js: (text: string) => pre(code({class: "language-js"}, text)),
 
-    JsFile: (file: string) => pre(code({class: "language-js", "data-file": file})),
+    JsFile: (file: string) => pre(code({class: "language-js"}, Deno.readTextFileSync(file))),
 
     InlineJs: (text: string) => code({class: "language-js"}, text),
 
@@ -110,7 +110,7 @@ export default (doc: HTMLDocument) => {
 
     Html: (text: string) => pre(code({class: "language-html"}, text)),
 
-    HtmlFile: (file: string) => pre(code({class: "language-html", "data-file": file})),
+    HtmlFile: (file: string) => pre(code({class: "language-html"}, Deno.readTextFileSync(file))),
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
