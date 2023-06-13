@@ -662,11 +662,11 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 const attrsToVanCode = dom =&gt; dom.attributes.length &gt; 0 ?
   `{${[...dom.attributes].map(
     a =&gt; `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
-    .join(", ")}}${dom.childNodes.length &gt; 0 ? "," : ""}` : ""
+    .join(", ")}}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =&gt;
   [...childNodes].filter(c =&gt; (c.nodeType === 1 || c.nodeType === 3) &amp;&amp;
-    (!skipEmptyText || c.nodeName !== "#text" || /S/.test(c.nodeValue)))
+    (!skipEmptyText || c.nodeName !== "#text" || /\S/.test(c.nodeValue)))
 
 const autoGrow = e =&gt; {
   e.style.height = "5px"
@@ -683,13 +683,15 @@ const domToVanCode = (dom,
   const lowerCaseTagName = dom.nodeName.toLowerCase()
   tagsUsed.add(lowerCaseTagName)
   if (lowerCaseTagName === "pre") skipEmptyText = false
-  return [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
+  return dom.childNodes.length &gt; 0 ? [
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)},`,
     ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =&gt;
       domToVanCode(
         c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
         tagsUsed)),
     `${prefix})${suffix}`,
+  ] : [
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)})${suffix}`,
   ]
 }
 

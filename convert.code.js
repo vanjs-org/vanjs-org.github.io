@@ -1,7 +1,3 @@
-import van from "/code/van-latest.min.js"
-
-const {code, div, h5, input, pre, textarea} = van.tags
-
 const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
   key : `"${key}"`
 
@@ -80,7 +76,3 @@ const Converter = ({initInput}) => {
     van.bind(domCode, c => div(pre(code({class: "language-js"}, c)))),
   )
 }
-
-const converter = Converter({
-  initInput: `<div><p>👋Hello</p><ul><li>🗺️World</li><li><a href="https://vanjs.org/">🍦VanJS</a></li></ul></div>`})
-document.getElementById("converter").appendChild(converter)
