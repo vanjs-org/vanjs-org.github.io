@@ -91,33 +91,17 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
 renderPage(home, "", "index.html", "Home")
 
 renderPage(start, "start", "start.html", "Getting Started")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("start.html", "start/index.html")
 
 renderPage(tutorial, "tutorial", "tutorial.html", "Tutorial and API Reference")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("tutorial.html", "tutorial/index.html")
 
 renderPage(demo, "demo", "demo.html", "Learning by Example")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("demo.html", "demo/index.html")
 
 renderPage(convert, "convert", "convert.html", "Convert HTML Snippet to 🍦VanJS Code")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("convert.html", "convert/index.html")
 
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("minivan.html", "minivan/index.html")
 
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("advanced.html", "advanced/index.html")
 
 renderPage(media, "media", "media.html", "Media Mentions")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("media.html", "media/index.html")
 
 renderPage(about, "about", "about.html", "About")
-// Backward compatible for URLs that end with "/".
-Deno.copyFileSync("about.html", "about/index.html")

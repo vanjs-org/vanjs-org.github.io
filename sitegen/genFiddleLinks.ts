@@ -69,8 +69,6 @@ const process = (path: string) => {
   }
 
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
-  // Backward compatible for URLs that end with "/".
-  if (path) Deno.copyFileSync(file, join(path, "index.html"))
 }
 
 process("")
