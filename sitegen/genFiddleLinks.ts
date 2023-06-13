@@ -26,8 +26,8 @@ const extractCss = (htmlFile: string) => {
   return cssLines.slice(1, -1).map(l => l.substring(indent) + "\n").join("")
 }
 
-const process = (path: string) => {
-  const file = path ? path + ".html" : "index.html"
+const process = (file: string) => {
+  const path = file === "index.html" ? "home" : file.slice(0, -5)
   console.log(`Generating jsfiddle links for ${file}...`)
   const doc = new DOMParser().parseFromString(Deno.readTextFileSync(file), "text/html")!
   const {add, tags} = van.vanWithDoc(doc)
@@ -71,9 +71,5 @@ const process = (path: string) => {
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
 }
 
-process("")
-process("start")
-process("tutorial")
-process("demo")
-process("minivan")
-process("advanced")
+for await (const f of Deno.readDir("."))
+  if (f.isFile && f.name.endsWith(".html") && f.name !== "template.html") process(f.name)
