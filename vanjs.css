@@ -324,6 +324,12 @@ textarea {
   opacity: 1;
 }
 
+.contact svg {
+  padding-top: 3px;
+  margin-right: 3px;
+  color: rgb(101, 109, 118);
+}
+
 @media (max-width: 800px) {
   #toc {
     display: none;
