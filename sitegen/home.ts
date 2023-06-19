@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {a, b, blockquote, br, div, g, i, li, p, path, span, svg, title, ul} = tags
+  const {a, b, blockquote, br, div, g, i, input, li, p, path, span, svg, title, ul} = tags
 
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Symbol, VanJS} = common(doc)
 
@@ -36,7 +36,7 @@ export default (doc: HTMLDocument) => {
   )
 
   return div({id: "content"},
-    H1(VanJS(), ": A 1.3kB Grab 'n Go Reactive UI Framework without React/JSX"),
+    H1(VanJS(), ": A 0.8kB Grab 'n Go Reactive UI Framework without React/JSX"),
     p("📣 ", Link(VanJS(), " 0.12.0 released →", "https://github.com/vanjs-org/van/discussions/53")),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     p((VanJS()), " is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
@@ -82,8 +82,14 @@ van.add(document.body, Counter())
     H3("Grab 'n Go"),
     p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no 3rd-party dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
     H3("Ultra-Lightweight"),
-    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the bundled size of ", VanJS(), " is just 1.3kB (0.8kB gzipped), which is ", b("more than 100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
-    p({id: "size-comp"}),
+    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the minified bundled size of ", VanJS(), " is just 1.3kB (0.8kB gzipped), which is ", b("50~100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
+    p(
+      div({style: "text-align: center"},
+        input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({style: "margin-right: 60px;"}, ".min.gz"), " ",
+        input({type: "radio", name: "bundle-type", id: "radioMin", onclick: "updateChart()"}), ".min",
+      ),
+      div({id: "size-comp"}),
+    ),
     Quote({
       text: "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.",
       source: "Antoine de Saint-Exupéry, Airman's Odyssey",
