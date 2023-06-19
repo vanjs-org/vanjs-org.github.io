@@ -160,9 +160,14 @@
       const Snippet = str => {
         const copyToClipboard = e => navigator.clipboard.writeText(str)
           .then(() => {
-            const msgDom = e.target.parentNode.appendChild(van.tags.i("Copied!"))
+            const msgDom = van.tags.i("Copied!")
+            e.target.after(msgDom)
             setTimeout(() => msgDom.remove(), 1000)
-          }, e => e.target.parentNode.appendChild(van.tags.i("Copy failed: " + e.message)))
+          }, () => {
+            const msgDom = van.tags.i("Copy failed: " + e.message)
+            e.target.after(msgDom)
+            setTimeout(() => msgDom.remove(), 1000)
+          })
         return str.includes("\n") ? div(
           van.tags.a({onclick: copyToClipboard}, "📋"), pre(str),
         ) : span(
