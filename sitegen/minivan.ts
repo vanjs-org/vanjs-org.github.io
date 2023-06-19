@@ -18,7 +18,7 @@ export default (doc: HTMLDocument) => {
         prefix: "mini-",
         suffix: ".min",
         hasDts: true,
-        description: "Minized script file for ES6 modules, optimized for bundle size.",
+        description: "Minified script file for ES6 modules, optimized for bundle size.",
       }),
       DownloadRow({
         version,
@@ -42,7 +42,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(MiniVan(), ": A Minimalist Template Engine for Client/Server-side Rendering without JSX"),
-    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.5kB in the minized bundle size, ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
+    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.5kB in the minified bundle size (0.4kB gzipped), ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
 const Hello = () => div(

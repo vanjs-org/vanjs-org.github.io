@@ -17,7 +17,7 @@ export default (doc: HTMLDocument) => {
         version,
         suffix: ".min",
         hasDts: true,
-        description: "Minized script file for ES6 modules, optimized for bundle size.",
+        description: "Minified script file for ES6 modules, optimized for bundle size.",
       }),
       DownloadRow({
         version,
