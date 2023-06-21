@@ -89,19 +89,11 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
 }
 
 renderPage(home, "", "index.html", "Home")
-
 renderPage(start, "start", "start.html", "Getting Started")
-
 renderPage(tutorial, "tutorial", "tutorial.html", "Tutorial and API Reference")
-
 renderPage(demo, "demo", "demo.html", "Learning by Example")
-
 renderPage(convert, "convert", "convert.html", "Convert HTML Snippet to 🍦VanJS Code")
-
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
-
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
-
 renderPage(media, "media", "media.html", "Media Mentions")
-
 renderPage(about, "about", "about.html", "About")

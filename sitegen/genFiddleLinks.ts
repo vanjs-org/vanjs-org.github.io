@@ -33,6 +33,8 @@ const process = (file: string) => {
   const {add, tags} = van.vanWithDoc(doc)
   const {a} = tags
 
+  const version = Deno.readTextFileSync("code/van.version")
+
   for (const node of doc.querySelectorAll("[id^=jsfiddle-]")) {
     const dom = <Element>node
     if (dom.querySelector("a")) continue
@@ -47,8 +49,8 @@ const process = (file: string) => {
     const subdir = join(path ? path : "home", dom.id.substring(9))
     const dir = join(jsFiddleRoot, subdir)
     mkdirIfNotExist(dir)
-    Deno.copyFileSync("jsfiddle/" + (dom.getAttribute("data-details") ?? "demo.details"),
-      join(dir, "demo.details"))
+    const detailStr = Deno.readTextFileSync("jsfiddle/" + (dom.getAttribute("data-details") ?? "demo.details"))
+    Deno.writeTextFileSync(join(dir, "demo.details"), detailStr.replace("van-latest.", `van-${version}.`))
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
     const css = dom.getAttribute("data-css")
     if (css) Deno.writeTextFileSync(join(dir, "demo.css"), css)
