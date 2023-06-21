@@ -10,7 +10,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
-    H2({id: "story"}, "Meet the Author - the Story behind ", VanJS()),
+    H2({id: "story"}, "Meet the Author - the Story behind VanJS"),
     div({style: "overflow: auto;"},
       img({style: "float: left; width: 150px; margin-right: 20px;",
         src: "/tao.jpeg", alt: "Tao Xin"}),
@@ -30,7 +30,7 @@ export default (doc: HTMLDocument) => {
     H2("Copyright and Compliance Disclaimer"),
     p(VanJS(), " was built by Tao Xin during his personal time while being employed as a full-time employee at Google. The project was submitted to Invention Assignment Review Committee at Google where Google, upon reviewing the designated scopes, waived its copyright claims. Thus the copyright of ", VanJS(), " belongs to its creater, all rights reserved. ", VanJS(), " is open sourced under MIT license. ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever."),
     p("The project was developed, and will be maintained with strict compliance to Google's Outside Work Guidelines as well as requirements imposed by Google's copyright waiver. ", VanJS(), " was created, and will continue to be maintaned, without any use of internal Alphabet resources, including but not limited to, corporate hardware equipments, software licenses, internal tools, internal corporate mailing lists, corporate accounts, propriatory or confidential information, trademarks or brand features of any Alphabet company. Alphabet does not sponsor, endorse or in any form affiliate with ", VanJS(), " project. To comply with the conflict of interests provisions, Tao Xin does not advocate the adoption of ", VanJS(), " within Alphabet."),
-    H2({id: "reliability"}, "How Do We Ensure the Reliability of ", VanJS(), "?"),
+    H2({id: "reliability"}, "How Do We Ensure the Reliability of VanJS?"),
     p("We're hoping to achieve ", VanJS(), " ", Symbol("1.0"), " soon, which will mean the commitment to API stability. Meanwhile, as a new UI framework, we put heavy focus on the reliability of the framework."),
     p("For every single release of ", VanJS(), ", below is the list of tests that will be run through:"),
     ul(
@@ -49,7 +49,7 @@ export default (doc: HTMLDocument) => {
     H2({id: "coding-style"}, "A Note on Coding Styles"),
     p("The sample code snippets throughout this website follow a minimalist approach when it comes to coding styles. When readability is not impacted, we are leaning towards the choice that leads to more concise code, with the belief that brevity and simplicity generally make the code easier to read and write. This means that we're consciously choosing certain coding styles throughout this website: such as omitting optional semicolons, naked if statements, usage of ternary operator when appropriate, etc."),
     p("On the other hand, we acknowledge that different people might hold a somewhat different opinion regarding certain coding style choices, and some are among hotly debated issues among programmers. We understand the arguments from the other side that certain coding styles, might occasionally lead to slightly more misleading error messages for incorrect implementation in limited situations. As an ", b("unopinionated"), " framework, ", VanJS(), " doesn't take side on coding styles. If some style in the sample code doesn't align with your personal preference or your team's common practice, feel free to make the corresponding styling changes after copy/past-ing the sample code."),
-    H2({id: "name"}, "How Did ", VanJS(), " Get Its Name?"),
+    H2({id: "name"}, "How Did VanJS Get Its Name?"),
     p(VanJS(), " is short for ", b("Van"), "illa ", b("J"), "ava", b("S"), "ript, which is a metaphor that ", VanJS(), " provides an abbreviated way to write Vanilla JavaScript code. Meanwhile, the logo of ", VanJS(), " is a symbolic vanilla icecream, which means ", VanJS(), " = ", b("Vanilla"), " JavaScript + syntax ", b("Sugar"), "."),
     p("Under the hood, ", VanJS(), " stays truthful to Vanilla JavaScript as close as possible, as there is no transpiling, virtual DOM or any hidden logic. ", VanJS(), " code can be translated to Vanilla JavaScript code in a very straightforward way. For instance, the following ", VanJS(), " code:"),
     Js(`a({href: "https://vanjs.org"}, "🍦 VanJS")`),
