@@ -495,10 +495,9 @@ const DiffApp = () =&gt; {
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="json-inspector"><a class="self-link" href="#json-inspector">JSON Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is another example of leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a> - to build a tree view for inspecting JSON data:</p><pre><code class="language-js">const ListItem = ({key, value, indent = 0}) =&gt; {
   const hide = van.state(key !== "")
-  const style = {deps: [hide], f: hide =&gt; hide ? "display: none" : ""}
   let valueDom
   if (typeof value !== "object") valueDom = value
-  else valueDom = div({style},
+  else valueDom = div({style: () =&gt; hide.val ? "display: none;" : ""},
     Object.entries(value).map(([k, v]) =&gt;
       ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
   )
@@ -507,9 +506,7 @@ const DiffApp = () =&gt; {
     key ? (
       typeof valueDom !== "object" ? ["🟰 ", b(`${key}: `)] :
         a({onclick: () =&gt; hide.val = !hide.val, style: "cursor: pointer"},
-          van.bind(hide, hide =&gt; hide ? "➕ " : "➖ "),
-          b(`${key}: `),
-          van.bind(hide, hide =&gt; hide ? "…" : ""),
+          () =&gt; hide.val ? "➕ " : "➖ ", b(`${key}: `), () =&gt; hide.val ? "…" : "",
         )
     ) : [],
     valueDom,
@@ -538,7 +535,7 @@ const JsonInspector = ({initInput}) =&gt; {
     div(textareaDom),
     div(button({onclick: inspect}, "Inspect")),
     pre({style: "color: red"}, errmsg),
-    van.bind(json, json =&gt; json ? ListItem({key: "", value: json}) : ""),
+    () =&gt; json.val ? ListItem({key: "", value: json.val}) : "",
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-json-inspector"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/json-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="auto-complete"><a class="self-link" href="#auto-complete">Textarea with Autocomplete</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" class="w3-hover-opacity">textarea</a></code> with autocomplete support. This implementation leverages <a href="/tutorial#stateful-binding" class="w3-hover-opacity">Stateful DOM binding</a> to optimize the performance of DOM tree rendering:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">interface SuggestionListProps {
@@ -1484,10 +1481,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 {
   const ListItem = ({key, value, indent = 0}) => {
     const hide = van.state(key !== "")
-    const style = {deps: [hide], f: hide => hide ? "display: none" : ""}
     let valueDom
     if (typeof value !== "object") valueDom = value
-    else valueDom = div({style},
+    else valueDom = div({style: () => hide.val ? "display: none;" : ""},
       Object.entries(value).map(([k, v]) =>
         ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
     )
@@ -1496,9 +1492,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       key ? (
         typeof valueDom !== "object" ? ["🟰 ", b(`${key}: `)] :
           a({onclick: () => hide.val = !hide.val, style: "cursor: pointer"},
-            van.bind(hide, hide => hide ? "➕ " : "➖ "),
-            b(`${key}: `),
-            van.bind(hide, hide => hide ? "…" : ""),
+            () => hide.val ? "➕ " : "➖ ", b(`${key}: `), () => hide.val ? "…" : "",
           )
       ) : [],
       valueDom,
@@ -1527,7 +1521,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       div(textareaDom),
       div(button({onclick: inspect}, "Inspect")),
       pre({style: "color: red"}, errmsg),
-      van.bind(json, json => json ? ListItem({key: "", value: json}) : ""),
+      () => json.val ? ListItem({key: "", value: json.val}) : "",
     )
   }
 

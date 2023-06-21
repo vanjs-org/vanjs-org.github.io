@@ -326,10 +326,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 {
   const ListItem = ({key, value, indent = 0}) => {
     const hide = van.state(key !== "")
-    const style = {deps: [hide], f: hide => hide ? "display: none" : ""}
     let valueDom
     if (typeof value !== "object") valueDom = value
-    else valueDom = div({style},
+    else valueDom = div({style: () => hide.val ? "display: none;" : ""},
       Object.entries(value).map(([k, v]) =>
         ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
     )
@@ -338,9 +337,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       key ? (
         typeof valueDom !== "object" ? ["🟰 ", b(`${key}: `)] :
           a({onclick: () => hide.val = !hide.val, style: "cursor: pointer"},
-            van.bind(hide, hide => hide ? "➕ " : "➖ "),
-            b(`${key}: `),
-            van.bind(hide, hide => hide ? "…" : ""),
+            () => hide.val ? "➕ " : "➖ ", b(`${key}: `), () => hide.val ? "…" : "",
           )
       ) : [],
       valueDom,
@@ -369,7 +366,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       div(textareaDom),
       div(button({onclick: inspect}, "Inspect")),
       pre({style: "color: red"}, errmsg),
-      van.bind(json, json => json ? ListItem({key: "", value: json}) : ""),
+      () => json.val ? ListItem({key: "", value: json.val}) : "",
     )
   }
 
