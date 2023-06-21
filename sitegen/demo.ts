@@ -436,6 +436,7 @@ const TodoList = () => {
       id: "jsfiddle-json-inspector",
       "data-prefix": "const {a, b, button, div, pre, span, textarea} = van.tags",
       "data-suffix": 'van.add(document.body, JsonInspector({initInput: `{"name":"John Doe","age":30,"email":"johndoe@example.com","address":{"street":"123 Main St","city":"Anytown","state":"CA","zip":"12345"},"phone_numbers":[{"type":"home","number":"555-1234"},{"type":"work","number":"555-5678"}]}`}))',
+      "data-css-file": "code/json-inspector.html",
     }),
     H2({id: "auto-complete"}, "Textarea with Autocomplete"),
     p("The code below implements a ", SymLink("textarea", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"), " with autocomplete support. This implementation leverages ", Link("Stateful DOM binding", "/tutorial#stateful-binding"), " to optimize the performance of DOM tree rendering:"),
