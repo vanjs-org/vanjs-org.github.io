@@ -26,7 +26,7 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
           "Diff",
         ),
       ),
-      div({class: "row"}, van.bind(diff, Result)),
+      div({class: "row"}, () => Result(diff.val)),
     )
   }
 
