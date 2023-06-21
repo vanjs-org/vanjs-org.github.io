@@ -18,20 +18,21 @@ const AutoComplete = ({ words }) => {
     };
     const prefix = van.state("");
     const candidates = van.state(getCandidates(""));
-    prefix.onnew(p => candidates.val = getCandidates(p));
+    van.effect(() => candidates.val = getCandidates(prefix.val));
     const selectedIndex = van.state(0);
-    candidates.onnew(() => selectedIndex.val = 0);
-    const suggestionList = van.bind(candidates, selectedIndex, (candidates, selectedIndex, dom, oldCandidates, oldSelectedIndex) => {
+    van.effect(() => (candidates.val, selectedIndex.val = 0));
+    const suggestionList = (node) => {
         var _a, _b, _c, _d;
-        if (dom && candidates === oldCandidates) {
+        const dom = node;
+        if (dom && candidates.val === candidates.oldVal) {
             // If the candidate list doesn't change, we don't need to re-render the
             // suggetion list. Just need to change the selected candidate.
-            (_b = (_a = dom.querySelector(`[data-index="${oldSelectedIndex}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-            (_d = (_c = dom.querySelector(`[data-index="${selectedIndex}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+            (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
+            (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
             return dom;
         }
-        return SuggestionList({ candidates, selectedIndex });
-    });
+        return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
+    };
     const onkeydown = (e) => {
         var _a;
         if (e.key === "ArrowDown") {
