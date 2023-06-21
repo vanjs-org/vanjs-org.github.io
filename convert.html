@@ -150,9 +150,9 @@ const Converter = ({initInput}) => {
     "Indent level: ", indentInputDom, " ",
     skipEmptyTextDom, "Skip empty text",
     h5("Declaring tag functions:"),
-    van.bind(tagsCode, c => div(pre(code({class: "language-js"}, c)))),
+    () => div(pre(code({class: "language-js"}, tagsCode.val))),
     h5("Building the DOM tree:"),
-    van.bind(domCode, c => div(pre(code({class: "language-js"}, c)))),
+    () => div(pre(code({class: "language-js"}, domCode.val))),
   )
 }
 
