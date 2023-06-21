@@ -15,10 +15,10 @@ const AutoComplete = ({ words }) => {
     };
     const prefix = van.state("");
     const candidates = van.state(getCandidates(""));
-    prefix.onnew(p => candidates.val = getCandidates(p));
+    van.effect(() => candidates.val = getCandidates(prefix.val));
     const selectedIndex = van.state(0);
-    candidates.onnew(() => selectedIndex.val = 0);
-    const SuggestionListItem = ({ index }) => pre({ class: { deps: [selectedIndex], f: s => index === s ? "text-row selected" : "text-row" } }, van.bind(candidates, c => { var _a; return (_a = c[index]) !== null && _a !== void 0 ? _a : ""; }));
+    van.effect(() => (candidates.val, selectedIndex.val = 0));
+    const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
     const indices = [];
     for (let i = 0; i < 10; ++i)
         indices.push(i);

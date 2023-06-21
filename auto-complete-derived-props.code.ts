@@ -1,7 +1,3 @@
-import van from "./van-latest.min.js"
-
-const {a, div, p, pre, textarea} = van.tags
-
 const lastWord = (text: string) => text.match(/\w+$/)?.[0] ?? ""
 
 const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
@@ -53,15 +49,3 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
 
   return div({class: "root"}, textarea({onkeydown, oninput}), suggestionList)
 }
-
-fetch("https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt")
-  .then(r => r.text())
-  .then(t => t.split("\n"))
-  .then(words => {
-    van.add(document.body,
-      p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."),
-      p(a({href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt"},
-        "Dictionary Source")),
-      AutoComplete({words}),
-    ).querySelector("textarea")!.focus();
-  })
