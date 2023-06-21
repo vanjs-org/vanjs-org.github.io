@@ -37,37 +37,37 @@ const DiffApp = () => {
         oninput: e => showMerged.val = e.target.checked}),
       "show merged result"
     ),
-    van.bind(diff, showMerged, (diff, showMerged) => {
-      const resultDom = div()
-      for (let i = 0; i < diff.length; ) {
+    () => {
+      const diffVal = diff.val, showMergedVal = showMerged.val, resultDom = div()
+      for (let i = 0; i < diffVal.length; ) {
         let line
-        if (diff[i].added && diff[i + 1].removed) {
-          line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+        if (diffVal[i].added && diffVal[i + 1].removed) {
+          line = DiffLine(diffVal[i + 1].value, diffVal[i].value, showMergedVal)
           i += 2
-        } else if (diff[i].removed && diff[i + 1].added) {
-          line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+        } else if (diffVal[i].removed && diffVal[i + 1].added) {
+          line = DiffLine(diffVal[i].value, diffVal[i + 1].value, showMergedVal)
           i += 2
-        } else if (diff[i].added) {
-          line = showMerged ? div({class: "merged add row"},
-            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+        } else if (diffVal[i].added) {
+          line = showMergedVal ? div({class: "merged add row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           ) : div({class: "row"},
             div({class: "column"}),
-            div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+            div({class: "add column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           )
           ++i
-        } else if (diff[i].removed) {
-          line = showMerged ? div({class: "merged remove row"},
-            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+        } else if (diffVal[i].removed) {
+          line = showMergedVal ? div({class: "merged remove row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           ) : div({class: "row"},
-            div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+            div({class: "remove column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           )
           ++i
         } else {
           line = div({class: "row", style: "white-space: pre-wrap;"},
-            showMerged ? div({class: "merged column"}, diff[i].value) :
+            showMergedVal ? div({class: "merged column"}, diffVal[i].value) :
               [
-                div({class: "column"}, diff[i].value),
-                div({class: "column"}, diff[i].value),
+                div({class: "column"}, diffVal[i].value),
+                div({class: "column"}, diffVal[i].value),
               ],
           )
           ++i
@@ -75,7 +75,7 @@ const DiffApp = () => {
         van.add(resultDom, line)
       }
       return resultDom
-    })
+    },
   )
 }
 

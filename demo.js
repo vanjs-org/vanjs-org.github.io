@@ -28,9 +28,8 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     }
     animate()
 
-    const helloText = van.bind(headingSpaces, trailingUnderscores,
-      (h, t) => `${" ".repeat(h)}🚐💨Hello VanJS!${"_".repeat(t)}`)
-    return div(pre(helloText))
+    return div(pre(() =>
+      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`))
   }
 
   const Hello = () => {

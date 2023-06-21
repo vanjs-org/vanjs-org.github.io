@@ -32,36 +32,7 @@ export default (doc: HTMLDocument) => {
       "data-suffix": "van.add(document.body, Hello())",
     }),
     p("This is the funnier ", Symbol("Hello"), " program shown in ", Link("Getting Started", "/start"), " page:"),
-    Js(`const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const Run = ({sleepMs}) => {
-  const headingSpaces = van.state(40), trailingUnderscores = van.state(0)
-
-  const animate = async () => {
-    while (headingSpaces.val > 0) {
-      await sleep(sleepMs)
-      --headingSpaces.val, ++trailingUnderscores.val
-    }
-  }
-  animate()
-
-  const helloText = van.bind(headingSpaces, trailingUnderscores,
-    (h, t) => \`\${" ".repeat(h)}🚐💨Hello VanJS!\${"_".repeat(t)}\`)
-  return div(pre(helloText))
-}
-
-const Hello = () => {
-  const dom = div()
-  return div(
-    dom,
-    button({onclick: () => van.add(dom, Run({sleepMs: 2000}))}, "Hello 🐌"),
-    button({onclick: () => van.add(dom, Run({sleepMs: 500}))}, "Hello 🐢"),
-    button({onclick: () => van.add(dom, Run({sleepMs: 100}))}, "Hello 🚶‍♂️"),
-    button({onclick: () => van.add(dom, Run({sleepMs: 10}))}, "Hello 🏎️"),
-    button({onclick: () => van.add(dom, Run({sleepMs: 2}))}, "Hello 🚀"),
-  )
-}
-`),
+    JsFile("hello-fun.code.js"),
     p(Demo()),
     p({id: "demo-hello-fun"}),
     p({

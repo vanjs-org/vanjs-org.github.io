@@ -62,9 +62,8 @@ const Run = ({sleepMs}) =&gt; {
   }
   animate()
 
-  const helloText = van.bind(headingSpaces, trailingUnderscores,
-    (h, t) =&gt; `${" ".repeat(h)}🚐💨Hello VanJS!${"_".repeat(t)}`)
-  return div(pre(helloText))
+  return div(pre(() =&gt;
+    `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`))
 }
 
 const Hello = () =&gt; {
@@ -307,7 +306,7 @@ const DiffApp = () =&gt; {
         "Diff",
       ),
     ),
-    div({class: "row"}, van.bind(diff, Result)),
+    div({class: "row"}, () =&gt; Result(diff.val)),
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><p>Here is a more advanced <code class="symbol">Diff App</code> that supports side-by-side and line-by-line comparison:</p><pre><code class="language-js">const autoGrow = e =&gt; {
@@ -347,37 +346,37 @@ const DiffApp = () =&gt; {
         oninput: e =&gt; showMerged.val = e.target.checked}),
       "show merged result"
     ),
-    van.bind(diff, showMerged, (diff, showMerged) =&gt; {
-      const resultDom = div()
-      for (let i = 0; i &lt; diff.length; ) {
+    () =&gt; {
+      const diffVal = diff.val, showMergedVal = showMerged.val, resultDom = div()
+      for (let i = 0; i &lt; diffVal.length; ) {
         let line
-        if (diff[i].added &amp;&amp; diff[i + 1].removed) {
-          line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+        if (diffVal[i].added &amp;&amp; diffVal[i + 1].removed) {
+          line = DiffLine(diffVal[i + 1].value, diffVal[i].value, showMergedVal)
           i += 2
-        } else if (diff[i].removed &amp;&amp; diff[i + 1].added) {
-          line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+        } else if (diffVal[i].removed &amp;&amp; diffVal[i + 1].added) {
+          line = DiffLine(diffVal[i].value, diffVal[i + 1].value, showMergedVal)
           i += 2
-        } else if (diff[i].added) {
-          line = showMerged ? div({class: "merged add row"},
-            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+        } else if (diffVal[i].added) {
+          line = showMergedVal ? div({class: "merged add row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           ) : div({class: "row"},
             div({class: "column"}),
-            div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+            div({class: "add column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           )
           ++i
-        } else if (diff[i].removed) {
-          line = showMerged ? div({class: "merged remove row"},
-            div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+        } else if (diffVal[i].removed) {
+          line = showMergedVal ? div({class: "merged remove row"},
+            div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           ) : div({class: "row"},
-            div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+            div({class: "remove column", style: "white-space: pre-wrap;"}, diffVal[i].value),
           )
           ++i
         } else {
           line = div({class: "row", style: "white-space: pre-wrap;"},
-            showMerged ? div({class: "merged column"}, diff[i].value) :
+            showMergedVal ? div({class: "merged column"}, diffVal[i].value) :
               [
-                div({class: "column"}, diff[i].value),
-                div({class: "column"}, diff[i].value),
+                div({class: "column"}, diffVal[i].value),
+                div({class: "column"}, diffVal[i].value),
               ],
           )
           ++i
@@ -385,7 +384,7 @@ const DiffApp = () =&gt; {
         van.add(resultDom, line)
       }
       return resultDom
-    })
+    },
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-diff"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
@@ -835,7 +834,7 @@ const Input = ({id}) =&gt; {
 }
 
 const Console = () =&gt; div({class: "console"}, Input({id: 1}))
-</code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-0.12.3.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;" title="Download shell.ts">shell.ts</a></code>.</p><pre><code class="language-ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
+</code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-shell"><a class="self-link" href="#an-improved-unix-shell">An Improved Unix Shell</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that <b>VanJS</b> has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:</p><ol><li>Command <code class="symbol">ps ...</code> will render an HTML table instead of text output.</li><li>Command <code class="symbol">tree</code> (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:<div><img src="/tree_screenshot.png" alt="Tree-view of the current directory"></div></li></ol><h3 class="w3-large w3-text-red" id="deployment-steps"><a class="self-link" href="#deployment-steps">Deployment Steps</a></h3><p>1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from <a href="https://deno.com/runtime" class="w3-hover-opacity">deno.com</a>.</p><p>2. Copy the code below, and save it into <code class="symbol">shell.ts</code>, under the same directory of <code class="symbol">van-1.0.0.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.ts" download="shell.ts" style="white-space: nowrap;" title="Download shell.ts">shell.ts</a></code>.</p><pre><code class="language-ts">import { getCookies, setCookie } from "https://deno.land/std@0.184.0/http/cookie.ts"
 import { resolve, dirname, fromFileUrl, join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
 const moduleDir = resolve(dirname(fromFileUrl(import.meta.url)))
@@ -961,7 +960,7 @@ console.log(key + "\n")
 console.log("%cFor security purposes, DO NOT share the key with anyone else",
   "color: red; font-weight: bold")
 for await (const conn of Deno.listen({port})) serveConn(conn)
-</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-0.12.3.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;" title="Download shell.html">shell.html</a></code>.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+</code></pre><p>3. Copy the code below, and save it into <code class="symbol">shell.html</code>, under the same directory of <code class="symbol">shell.ts</code>. After this step, your working directory should have 3 files: <code class="symbol">shell.ts</code>, <code class="symbol">shell.html</code> and <code class="symbol">van-1.0.0.min.js</code>. Alternatively, you can directly download the file with the link here: <code class="symbol"><a href="/code/shell.html" download="shell.html" style="white-space: nowrap;" title="Download shell.html">shell.html</a></code>.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;💻&lt;/text&gt;&lt;/svg&gt;"&gt;
@@ -1187,9 +1186,8 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     }
     animate()
 
-    const helloText = van.bind(headingSpaces, trailingUnderscores,
-      (h, t) => `${" ".repeat(h)}🚐💨Hello VanJS!${"_".repeat(t)}`)
-    return div(pre(helloText))
+    return div(pre(() =>
+      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`))
   }
 
   const Hello = () => {
@@ -1697,7 +1695,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           "Diff",
         ),
       ),
-      div({class: "row"}, van.bind(diff, Result)),
+      div({class: "row"}, () => Result(diff.val)),
     )
   }
 
@@ -1742,37 +1740,37 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           oninput: e => showMerged.val = e.target.checked}),
         "show merged result"
       ),
-      van.bind(diff, showMerged, (diff, showMerged) => {
-        const resultDom = div()
-        for (let i = 0; i < diff.length; ) {
+      () => {
+        const diffVal = diff.val, showMergedVal = showMerged.val, resultDom = div()
+        for (let i = 0; i < diffVal.length; ) {
           let line
-          if (diff[i].added && diff[i + 1].removed) {
-            line = DiffLine(diff[i + 1].value, diff[i].value, showMerged)
+          if (diffVal[i].added && diffVal[i + 1].removed) {
+            line = DiffLine(diffVal[i + 1].value, diffVal[i].value, showMergedVal)
             i += 2
-          } else if (diff[i].removed && diff[i + 1].added) {
-            line = DiffLine(diff[i].value, diff[i + 1].value, showMerged)
+          } else if (diffVal[i].removed && diffVal[i + 1].added) {
+            line = DiffLine(diffVal[i].value, diffVal[i + 1].value, showMergedVal)
             i += 2
-          } else if (diff[i].added) {
-            line = showMerged ? div({class: "merged add row"},
-              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+          } else if (diffVal[i].added) {
+            line = showMergedVal ? div({class: "merged add row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
             ) : div({class: "row"},
               div({class: "column"}),
-              div({class: "add column", style: "white-space: pre-wrap;"}, diff[i].value),
+              div({class: "add column", style: "white-space: pre-wrap;"}, diffVal[i].value),
             )
             ++i
-          } else if (diff[i].removed) {
-            line = showMerged ? div({class: "merged remove row"},
-              div({class: "column", style: "white-space: pre-wrap;"}, diff[i].value),
+          } else if (diffVal[i].removed) {
+            line = showMergedVal ? div({class: "merged remove row"},
+              div({class: "column", style: "white-space: pre-wrap;"}, diffVal[i].value),
             ) : div({class: "row"},
-              div({class: "remove column", style: "white-space: pre-wrap;"}, diff[i].value),
+              div({class: "remove column", style: "white-space: pre-wrap;"}, diffVal[i].value),
             )
             ++i
           } else {
             line = div({class: "row", style: "white-space: pre-wrap;"},
-              showMerged ? div({class: "merged column"}, diff[i].value) :
+              showMergedVal ? div({class: "merged column"}, diffVal[i].value) :
                 [
-                  div({class: "column"}, diff[i].value),
-                  div({class: "column"}, diff[i].value),
+                  div({class: "column"}, diffVal[i].value),
+                  div({class: "column"}, diffVal[i].value),
                 ],
             )
             ++i
@@ -1780,7 +1778,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           van.add(resultDom, line)
         }
         return resultDom
-      })
+      },
     )
   }
 

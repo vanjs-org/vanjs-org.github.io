@@ -25,7 +25,7 @@ const DiffApp = () => {
         "Diff",
       ),
     ),
-    div({class: "row"}, van.bind(diff, Result)),
+    div({class: "row"}, () => Result(diff.val)),
   )
 }
 

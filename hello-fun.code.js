@@ -1,7 +1,3 @@
-import van from "/code/van-latest.min.js"
-
-const {button, div, pre} = van.tags
-
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const Run = ({sleepMs}) => {
@@ -30,5 +26,3 @@ const Hello = () => {
     button({onclick: () => van.add(dom, Run({sleepMs: 2}))}, "Hello 🚀"),
   )
 }
-
-van.add(document.getElementById("demo-hello-fun"), Hello())
