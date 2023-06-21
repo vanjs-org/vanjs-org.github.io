@@ -162,12 +162,10 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 {
   const TodoItem = ({text}) => {
     const done = van.state(false), deleted = van.state(false)
-    return van.bind(deleted,
-      d => d ? null : div(
-        input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
-        van.bind(done, done => done ? strike(text) : span(text)),
-        a({onclick: () => deleted.val = true}, "❌"),
-      )
+    return () => deleted.val ? null : div(
+      input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
+      () => done.val ? strike(text) : span(text),
+      a({onclick: () => deleted.val = true}, "❌"),
     )
   }
 

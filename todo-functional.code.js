@@ -1,5 +1,3 @@
-const {a, button, div, input, span, strike} = van.tags
-
 const TodoItem = ({text}) => {
   const done = van.state(false), deleted = van.state(false)
   return () => deleted.val ? null : div(
@@ -17,5 +15,3 @@ const TodoList = () => {
   )
   return dom
 }
-
-van.add(document.body, TodoList())

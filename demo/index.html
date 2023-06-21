@@ -194,18 +194,17 @@ const TodoList = () =&gt; {
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-procedural"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-procedural">Try on jsfiddle</a></p><p>Alternatively, you can use a functional/reactive way to build <code class="symbol">TODO Items</code>:</p><pre><code class="language-js">const TodoItem = ({text}) =&gt; {
   const done = van.state(false), deleted = van.state(false)
-  return van.bind(deleted,
-    d =&gt; d ? null : div(
-      input({type: "checkbox", checked: done, onclick: e =&gt; done.val = e.target.checked}),
-      van.bind(done, done =&gt; done ? strike(text) : span(text)),
-      a({onclick: () =&gt; deleted.val = true}, "❌"),
-    )
+  return () =&gt; deleted.val ? null : div(
+    input({type: "checkbox", checked: done, onclick: e =&gt; done.val = e.target.checked}),
+    () =&gt; done.val ? strike(text) : span(text),
+    a({onclick: () =&gt; deleted.val = true}, "❌"),
   )
 }
 
 const TodoList = () =&gt; {
   const inputDom = input({type: "text"})
-  const dom = div(inputDom,
+  const dom = div(
+    inputDom,
     button({onclick: () =&gt; van.add(dom, TodoItem({text: inputDom.value}))}, "Add"),
   )
   return dom
@@ -1317,12 +1316,10 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 {
   const TodoItem = ({text}) => {
     const done = van.state(false), deleted = van.state(false)
-    return van.bind(deleted,
-      d => d ? null : div(
-        input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
-        van.bind(done, done => done ? strike(text) : span(text)),
-        a({onclick: () => deleted.val = true}, "❌"),
-      )
+    return () => deleted.val ? null : div(
+      input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
+      () => done.val ? strike(text) : span(text),
+      a({onclick: () => deleted.val = true}, "❌"),
     )
   }
 
