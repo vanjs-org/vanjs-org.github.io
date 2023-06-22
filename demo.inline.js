@@ -199,7 +199,7 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
         .appendChild(Input({id: id + 1}))
         .querySelector("textarea")
       newTextDom.focus()
-      setTimeout(() => newTextDom.scrollIntoView(), 10)
+      setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
     }
     const runDom = button({class: "run", onclick: run}, "Run")
     const onkeydown = async e => {
