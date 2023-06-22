@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, li, ol, p} = tags
 
-  const {H1, H2, H3, InlineJs, InlineHtml, JsFile, Link, Symbol, SymLink, Ts, VanJS} = common(doc)
+  const {H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Advanced Topics"),
@@ -22,13 +22,12 @@ export default (doc: HTMLDocument) => {
     }),
     H2({id: "gc"}, "Garbage Collection"),
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
-    Ts(`const renderPre = van.state(false)
+    Js(`const renderPre = van.state(false)
 const text = van.state("Text")
-const TextLine = (renderPre: boolean) =>
-  (renderPre ? pre : div)(
-    van.bind(text, t => \`--\${t}--\`),
-  )
-const dom = div(van.bind(renderPre, TextLine))`),
+const dom = div(
+  () => (renderPre.val ? pre : div)(() => \`--\${text.val}--\`)),
+)
+`),
     p("In this piece of code, we have created an element ", Symbol("dom"), ", whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether ", Symbol("dom"), " has a ", Symbol("<pre>"), " or ", Symbol("<div>"), " child element. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the DOM tree will be generated, and we will add a new binding from ", Symbol("text"), " state to the text node of the newly created DOM tree."),
     p("Without proper garbage collection implemented, ", Symbol("text"), " state will eventually be bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
     p("Garbage collection is implemented in ", VanJS(), " to resolve the issue. There are 2 ways a garbage collection activity can be triggered:"),
@@ -44,14 +43,13 @@ const dom = div(van.bind(renderPre, TextLine))`),
     ),
     H3(Symbol("onnew"), " listeners are not subject to GC"),
     p("Note that, the garbage collection in ", VanJS(), " only removes obsolete bindings. It doesn't apply to event handers registered via ", Symbol("onnew"), " method. For instance, the code below still suffers from memory leaks:"),
-    Ts(`const renderPre = van.state(false)
+    Js(`const renderPre = van.state(false)
 const text = van.state("Text")
-const TextLine = (renderPre: boolean) => {
-  const expandedText = van.state("--Text--")
-  text.onnew(t => expandedText.val = \`--\${t}--\`)
-  return (renderPre ? pre : div)(expandedText)
-}
-const dom = div(van.bind(renderPre, TextLine))
+const dom = div(() => {
+  const expandedText = van.state("")
+  van.effect(() => expandedText.val = \`--\${text.val}--\`)
+  return (renderPre.val ? pre : div)(expandedText)
+})
 `),
     p("In this example, whenever the generation function ", Symbol("TextLine"), " is called, a new ", Symbol("State"), " object will be created and subscribe to the change of the ", Symbol("text"), " state. Because every event handler registered via ", Symbol("onnew"), " holds the reference to local ", Symbol("State"), " variable ", Symbol("expandedText"), ", the instances of ", Symbol("expandedText"), " variable will not be GC-ed by JavaScript runtime even when they are no longer being actively used."),
     p("To avoid memory leaks caused by ", Symbol("onnew"), ", in the generation function of the ", Symbol("van.bind"), " call, you shall NEVER register event handlers via ", Symbol("onnew"), " method for ", Symbol("State", ), " objects defined outside the scope of generation function."),
