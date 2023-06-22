@@ -19,6 +19,7 @@ pre[class*=language-], pre[class*=language-].line-numbers>code {
 }
 
 #banner {
+  background-color: #fff1a8;
   margin-left: -20px;
   padding-left: 35px;
   top: 0;
