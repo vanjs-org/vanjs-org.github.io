@@ -1,5 +1,3 @@
-const {button, code, div, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
-
 const toDataArray = data => {
   const hasPrimitive = !data.every(r => typeof r === "object")
   const keys = [...new Set(
@@ -100,34 +98,3 @@ const Input = ({id}) => {
 }
 
 const Console = () => div({class: "console"}, Input({id: 1}))
-
-const Snippet = str => str.includes("\n") ? pre(str) : code(str)
-
-google.charts.load('current', {packages: ['corechart']})
-google.charts.setOnLoadCallback(() =>
-  van.add(document.body,
-    div("JavaScript Console. Please enter JS expression here, and type ⌘ + ↵ or ^ + ↵ to evaluate:"),
-    div("You can assign variables in format like 'x = 3 + 5'."),
-    p("Try the following commands:", ul(
-      li(Snippet("{a: 1, b: {c: 2, d: 3}}")),
-      li(Snippet("table([{a: 1, b: 2}, {b: 2, c: 3}])")),
-      li("Any valid JSON string, e.g.: ", Snippet('{"name":"John","pets":[{"name":"Fluffy","species":"cat"},{"name":"Buddy","species":"dog"}]}')),
-      li(Snippet('plot([2, 5, 3], "LineChart")')),
-      li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
-      li("The chart shown in the home page:", Snippet(`plot([
-  ["Framework", "Size", {role: "style"}, {role: "annotation"}],
-  ["VanJS", 0.8, "#f44336", "VanJS-0.12.3 0.8kB"],
-  ["Preact", 4.3, "#b7b7b7", "Preact-10.15.1 4.3kB"],
-  ["jQuery", 29.7, "#b7b7b7", "jQuery-3.7.0 29.7kB"],
-  ["ReactDOM", 42, "#b7b7b7", "ReactDOM-18.2.0 42kB"],
-  ["Angular", 62.3, "#b7b7b7", "Angular-1.8.3 62.3kB"],
-], "BarChart", {
-  legend: {position: "none"},
-  hAxis: {gridlines: {count: 0}, textPosition: "none"},
-  annotations: {alwaysOutside: true},
-})`)),
-      li("More chart types supported in ", van.tags.a({href: "https://developers.google.com/chart/interactive/docs"}, "Google Charts")),
-    )),
-    Console()
-  ).querySelector("textarea").focus()
-)

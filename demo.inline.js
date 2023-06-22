@@ -152,21 +152,20 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
     (indent ? div : pre)(Object.entries(obj).map(([k, v]) => {
       if (v?.constructor !== Object && !Array.isArray(v))
         return div(indent + "🟰 ", van.tags.b(k + ": "), v)
-      const icon = van.state("➕ ")
-      const suffix = van.state(" {…}")
-      const show = () => {
-        const treeDom = result.appendChild(Tree({obj: v, indent: indent + "  "}))
-        icon.val = "➖ "
-        suffix.val = ""
-        onclick.val = () => {
-          treeDom.remove()
-          onclick.val = show
-          icon.val = "➕ "
-          suffix.val = " {…}"
-        }
-      }
-      const onclick = van.state(show)
-      const result = div(indent, van.tags.a({onclick}, icon, van.tags.b(k + ":"), suffix))
+      const expanded = van.state(false)
+      let treeDom
+      const onclick = van.derive(() => expanded.val ?
+        () => (treeDom.remove(), expanded.val = !expanded.val) :
+        () => (treeDom = result.appendChild(Tree({obj: v, indent: indent + "  "}),
+          expanded.val = !expanded.val)))
+      const result = div(
+        indent,
+        van.tags.a({onclick},
+          () => expanded.val ? "➖ " : "➕ ",
+          van.tags.b(k + ":"),
+          () => expanded.val ? "" : " {…}",
+        ),
+      )
       return result
     }))
 
@@ -200,7 +199,7 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
         .appendChild(Input({id: id + 1}))
         .querySelector("textarea")
       newTextDom.focus()
-      setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
+      setTimeout(() => newTextDom.scrollIntoView(), 10)
     }
     const runDom = button({class: "run", onclick: run}, "Run")
     const onkeydown = async e => {
