@@ -18,6 +18,14 @@ pre[class*=language-], pre[class*=language-].line-numbers>code {
   font-size: 12px;
 }
 
+#banner {
+  margin-left: -20px;
+  padding-left: 35px;
+  top: 0;
+  position: sticky;
+  z-index: 2;
+}
+
 header {
   white-space: nowrap;
   /* overflow-x: hidden; */
@@ -343,6 +351,10 @@ textarea {
 
   #page {
     margin-top: 80px;
+  }
+
+  #banner {
+    top: 68px;
   }
 
   #toc {
