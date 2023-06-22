@@ -162,34 +162,7 @@ van.add(document.body, Table({
     H2("State"),
     p("A ", Symbol("State"), " object in ", VanJS(), " represents a value that can be updated throughout your application. A ", Symbol("State"), " object has a public property ", Symbol("val"), ", with a ", Link("custom setter", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set"), " that automatically propogates changes to DOM nodes that bind to it. In addition, you can register your event handler to listen to updates of a ", Symbol("State"), " object via its ", Symbol("onnew"), " method."),
     p("The code below illustrates how a ", Symbol("State"), " object can be used:"),
-    Js(`const {button, div, input, sup} = van.tags
-
-// Create a new State object with init value 1
-const counter = van.state(1)
-
-// Log whenever the value of the state is updated
-counter.onnew((v, oldV) => console.log(\`Counter: \${oldV} -> \${v}\`))
-
-// Used as a child node
-const dom1 = div(counter)
-
-// Used as a property
-const dom2 = input({type: "number", value: counter, disabled: true})
-
-// Used in a state-derived property
-const dom3 = div(
-  {style: {deps: [counter], f: c => \`font-size: \${c}em;\`}},
-  "Text")
-
-// Used in a complex binding
-const dom4 = van.bind(counter, c => div(c, sup(2), \` = \${c * c}\`))
-
-// Button to increment the value of the state
-const incrementBtn = button({onclick: () => ++counter.val}, "Increment")
-const resetBtn = button({onclick: () => counter.val = 1}, "Reset")
-
-van.add(document.body, incrementBtn, resetBtn, dom1, dom2, dom3, dom4)
-`),
+    JsFile("state.code.js"),
     p(Demo()),
     p({id: "demo-state"}),
     p({id: "jsfiddle-state"}),
@@ -260,26 +233,7 @@ van.add(document.body, ConnectedProps())
       li(Symbol(b("f")), " - a ", Symbol("function"), " that takes the values of states in ", Symbol(b("deps")), " as parameters. The return value of ", Symbol(b("f")), " should always be valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
     ),
     p("The example below is a live font size and color preview implemented with this feature:"),
-    Js(`const {input, option, select, span} = van.tags
-
-const FontPreview = () => {
-  const size = van.state(16), color = van.state("black")
-  return span(
-    "Size: ",
-    input({type: "range", min: 10, max: 36, value: size,
-      oninput: e => size.val = e.target.value}),
-    " Color: ",
-    select({oninput: e => color.val = e.target.value, value: color},
-      ["black", "blue", "green", "red", "brown"]
-        .map(c => option({value: c}, c)),
-    ),
-    span({style: {deps: [size, color], f: (size, color) =>
-      \`font-size: \${size}px; color: \${color};\`}}, " Hello 🍦VanJS"),
-  )
-}
-
-van.add(document.body, FontPreview())
-`),
+    JsFile("font-preview.code.js"),
     p(Demo(), " ", span({id: "demo-font-preview"})),
     p({id: "jsfiddle-font-preview"}),
     H3("Complex ", Symbol("State"), " binding"),
@@ -296,10 +250,9 @@ const SortedList = () => {
       option({value: "Ascending"}, "Ascending"),
       option({value: "Descending"}, "Descending"),
     ),
-    van.bind(items, sortedBy, (items, sortedBy) =>
-      sortedBy === "Ascending" ?
-        ul(items.split(",").sort().map(i => li(i))) :
-        ul(items.split(",").sort().reverse().map(i => li(i)))),
+    () => sortedBy.val === "Ascending" ?
+      ul(items.val.split(",").sort().map(i => li(i))) :
+      ul(items.val.split(",").sort().reverse().map(i => li(i))),
   )
 }
 
@@ -331,9 +284,9 @@ van.add(document.body, SortedList())
 
 const ListItem = ({text}) => {
   const deleted = van.state(false)
-  return van.bind(deleted, d => d ? null : li(
+  return () => deleted.val ? null : li(
     text, a({onclick: () => deleted.val = true}, "❌"),
-  ))
+  )
 }
 
 const EditableList = () => {
@@ -358,20 +311,7 @@ van.add(document.body, EditableList())
     H3({id: "stateful-binding"}, "Stateful binding"),
     p("While dealing with state updates, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of its dependencies. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered."),
     p("The following code is a snippet of the ", Link("auto-complete application", "/demo#auto-complete"), " which leverages this feature to optimize:"),
-    Js(`const suggestionList = van.bind(candidates, selectedIndex,
-  (candidates, selectedIndex, dom, oldCandidates, oldSelectedIndex) => {
-    if (dom && candidates === oldCandidates) {
-      // If candidate list doesn't change, we don't need to re-render the
-      // suggetion list. Just need to change the selected candidate.
-      dom.querySelector(\`[data-index="\${oldSelectedIndex}"]\`)
-        ?.classList?.remove("selected")
-      dom.querySelector(\`[data-index="\${selectedIndex}"]\`)
-        ?.classList?.add("selected")
-      return dom
-    }
-    return SuggestionList({candidates, selectedIndex})
-  })
-`),
+    JsFile("stateful-binding.snippet.js"),
     p("The piece of code above is building a ", Symbol("suggestionList"), " that is reactive to the changes of selection ", Symbol("candidates"), " and ", Symbol("selectedIndex"), ". When selection ", Symbol("candidates"), " change, the ", Symbol("suggestionList"), " needs to be regenerated. However, if only ", Symbol("selectedIndex"), " changes, we only need to update the DOM element to indicate that the new candidate is being selected now, which can be achieved by changing the ", SymLink("classList", "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"), " of relevant candidate elements."),
     p("The generation function ", Symbol("f"), " can either return ", Symbol("dom"), " (the existing node in the document tree), or a newly created DOM node. When a newly created DOM node is returned, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), ")"),
     p("Note that, when the generation function is being called for the first time, ", Symbol("dom"), " and ", Symbol("oldV1"), ", ", Symbol("oldV2"), ", ...,", Symbol("oldVN"), " will all be ", Symbol("undefined"), ". Thus the generation function of stateful binding needs to handle this situation as well. This is why in Line 3, we're checking ", Symbol("dom"), " in the ", Symbol("if"), " statement."),

@@ -104,7 +104,7 @@ van.add(document.body, Table({
 const counter = van.state(1)
 
 // Log whenever the value of the state is updated
-counter.onnew((v, oldV) =&gt; console.log(`Counter: ${oldV} -&gt; ${v}`))
+van.effect(() =&gt; console.log(`Counter: ${counter.oldVal} -&gt; ${counter.val}`))
 
 // Used as a child node
 const dom1 = div(counter)
@@ -113,12 +113,10 @@ const dom1 = div(counter)
 const dom2 = input({type: "number", value: counter, disabled: true})
 
 // Used in a state-derived property
-const dom3 = div(
-  {style: {deps: [counter], f: c =&gt; `font-size: ${c}em;`}},
-  "Text")
+const dom3 = div({style: () =&gt; `font-size: ${counter.val}em;`}, "Text")
 
 // Used in a complex binding
-const dom4 = van.bind(counter, c =&gt; div(c, sup(2), ` = ${c * c}`))
+const dom4 = () =&gt; div(counter.val, sup(2), ` = ${counter.val * counter.val}`)
 
 // Button to increment the value of the state
 const incrementBtn = button({onclick: () =&gt; ++counter.val}, "Increment")
@@ -167,8 +165,7 @@ const FontPreview = () =&gt; {
       ["black", "blue", "green", "red", "brown"]
         .map(c =&gt; option({value: c}, c)),
     ),
-    span({style: {deps: [size, color], f: (size, color) =&gt;
-      `font-size: ${size}px; color: ${color};`}}, " Hello 🍦VanJS"),
+    span({style: () =&gt; `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
   )
 }
 
@@ -185,20 +182,17 @@ const SortedList = () =&gt; {
       option({value: "Ascending"}, "Ascending"),
       option({value: "Descending"}, "Descending"),
     ),
-    van.bind(items, sortedBy, (items, sortedBy) =&gt;
-      sortedBy === "Ascending" ?
-        ul(items.split(",").sort().map(i =&gt; li(i))) :
-        ul(items.split(",").sort().reverse().map(i =&gt; li(i)))),
+    () =&gt; sortedBy.val === "Ascending" ?
+      ul(items.val.split(",").sort().map(i =&gt; li(i))) :
+      ul(items.val.split(",").sort().reverse().map(i =&gt; li(i))),
   )
 }
 
 van.add(document.body, SortedList())
 </code></pre><p><b>Demo:</b></p><p id="demo-sorted-list"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/sorted-list">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="api-bind"><a class="self-link" href="#api-bind">API reference: <code class="symbol">van.bind</code></a></h3><table><tbody><tr><td><b>Signature</b></td><td><code class="language-js">van.bind(dep1, dep2, ..., depN, f) =&gt; &lt;the created DOM node&gt;</code></td></tr><tr><td><b>Description</b></td><td>Creates a DOM node that binds to dependencies: <code class="symbol">dep1</code>, <code class="symbol">dep2</code>, ..., <code class="symbol">depN</code>. Whenever the values of these states change, the generation function - <code class="symbol">f</code>, will be called to update the DOM tree.</td></tr><tr><td><b>Parameters</b></td><td><ul><li><code class="symbol"><b>dep1</b></code>, <code class="symbol"><b>dep2</b></code>, ..., <code class="symbol"><b>depN</b></code> - the dependencies bound to the DOM node.</li><li><b><code class="symbol">f</code></b> - The generation function, with signature <code class="language-js">f(v1, v2, ..., vN, [dom, oldV1, oldV2, ..., oldVN]) =&gt; &lt;primitive, DOM node, null or undefined&gt;</code>. Whenever any value of <code class="symbol">dep1</code>, <code class="symbol">dep2</code>, ..., <code class="symbol">depN</code> changes, <code class="symbol">f</code> will be called and returns the new version of the DOM node based on new values of the dependencies. Optionally, <code class="symbol">f</code> can take <code class="symbol">dom</code> (the current version of the bound DOM node) and <code class="symbol">oldV1</code>, <code class="symbol">oldV2</code>, ...,<code class="symbol">oldVN</code> (the old values of the dependencies) as additional parameters to enable <a href="#stateful-binding" class="w3-hover-opacity">Stateful binding</a>, which might sometimes choose to mutate existing DOM node instead of generating a new one as an optimization. When <code class="symbol">f</code> returns a primitive, a <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Text" class="w3-hover-opacity">Text node</a></code> will be created based on its content. When <code class="symbol">f</code> returns <code class="symbol">null</code> or <code class="symbol">undefined</code>, the DOM node will removed. Removed DOM node will never be brought back, even when <code class="symbol">f</code> would return a non-<code class="symbol">null</code>/<code class="symbol">undefined</code> value based on future values of the dependencies.</li></ul></td></tr><tr><td><b>Returns</b></td><td>The created DOM node that binds to dependencies.</td></tr></tbody></table><h3 class="w3-large w3-text-red" id="polymorphism-between-state-and-non-state-dependencies"><a class="self-link" href="#polymorphism-between-state-and-non-state-dependencies">Polymorphism between <code class="symbol">State</code> and non-<code class="symbol">State</code> dependencies</a></h3><div style="font-size: 0.9em;"><i>Requires <b>VanJS</b> <a href="https://github.com/vanjs-org/van/discussions/53" class="w3-hover-opacity">0.12.0</a> or later.</i></div><p>State-derived properties and <code class="symbol">van.bind</code> can accept both <code class="symbol">State</code> and non-<code class="symbol">State</code> objects as dependency arguments. This polymorphism makes it handy to build reusable components where users can specify both state and non-state property values. Non-state dependencies behave the same way as state dependencies whose <code class="symbol">val</code> properties never change. Below is an example of a reuseable button whose <code class="symbol">color</code>, <code class="symbol">text</code> and <code class="symbol">onclick</code> properties can be both state and non-state objects:</p><pre><code class="language-js">const {button, span} = van.tags
 
-const Button = ({color, text, onclick}) =&gt; button({
-  style: {deps: [color], f: color =&gt; `background-color: ${color};`},
-  onclick,
-}, text)
+const Button = ({color, text, onclick}) =&gt;
+  button({style: () =&gt; `background-color: ${van.val(color)};`, onclick}, text)
 
 const App = () =&gt; {
   const colorState = van.state("green")
@@ -227,9 +221,9 @@ van.add(document.body, App())
 
 const ListItem = ({text}) =&gt; {
   const deleted = van.state(false)
-  return van.bind(deleted, d =&gt; d ? null : li(
+  return () =&gt; deleted.val ? null : li(
     text, a({onclick: () =&gt; deleted.val = true}, "❌"),
-  ))
+  )
 }
 
 const EditableList = () =&gt; {
@@ -244,19 +238,18 @@ const EditableList = () =&gt; {
 }
 
 van.add(document.body, EditableList())
-</code></pre><p><b>Demo:</b></p><p id="demo-editable-list"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/editable-list">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="stateful-binding"><a class="self-link" href="#stateful-binding">Stateful binding</a></h3><p>While dealing with state updates, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of its dependencies. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered.</p><p>The following code is a snippet of the <a href="/demo#auto-complete" class="w3-hover-opacity">auto-complete application</a> which leverages this feature to optimize:</p><pre><code class="language-js">const suggestionList = van.bind(candidates, selectedIndex,
-  (candidates, selectedIndex, dom, oldCandidates, oldSelectedIndex) =&gt; {
-    if (dom &amp;&amp; candidates === oldCandidates) {
-      // If candidate list doesn't change, we don't need to re-render the
-      // suggetion list. Just need to change the selected candidate.
-      dom.querySelector(`[data-index="${oldSelectedIndex}"]`)
-        ?.classList?.remove("selected")
-      dom.querySelector(`[data-index="${selectedIndex}"]`)
-        ?.classList?.add("selected")
-      return dom
-    }
-    return SuggestionList({candidates, selectedIndex})
-  })
+</code></pre><p><b>Demo:</b></p><p id="demo-editable-list"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/editable-list">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="stateful-binding"><a class="self-link" href="#stateful-binding">Stateful binding</a></h3><p>While dealing with state updates, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of its dependencies. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered.</p><p>The following code is a snippet of the <a href="/demo#auto-complete" class="w3-hover-opacity">auto-complete application</a> which leverages this feature to optimize:</p><pre><code class="language-js">const suggestionList = dom =&gt; {
+  if (dom &amp;&amp; candidates.val === candidates.oldVal) {
+    // If the candidate list doesn't change, we don't need to re-render the
+    // suggetion list. Just need to change the selected candidate.
+    dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+      ?.classList?.remove("selected")
+    dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+      ?.classList?.add("selected")
+    return dom
+  }
+  return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
+}
 </code></pre><p>The piece of code above is building a <code class="symbol">suggestionList</code> that is reactive to the changes of selection <code class="symbol">candidates</code> and <code class="symbol">selectedIndex</code>. When selection <code class="symbol">candidates</code> change, the <code class="symbol">suggestionList</code> needs to be regenerated. However, if only <code class="symbol">selectedIndex</code> changes, we only need to update the DOM element to indicate that the new candidate is being selected now, which can be achieved by changing the <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" class="w3-hover-opacity">classList</a></code> of relevant candidate elements.</p><p>The generation function <code class="symbol">f</code> can either return <code class="symbol">dom</code> (the existing node in the document tree), or a newly created DOM node. When a newly created DOM node is returned, it shouldn't be already connected to a document tree (<code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected" class="w3-hover-opacity">isConnected</a></code> property should be <code class="symbol">false</code>)</p><p>Note that, when the generation function is being called for the first time, <code class="symbol">dom</code> and <code class="symbol">oldV1</code>, <code class="symbol">oldV2</code>, ...,<code class="symbol">oldVN</code> will all be <code class="symbol">undefined</code>. Thus the generation function of stateful binding needs to handle this situation as well. This is why in Line 3, we're checking <code class="symbol">dom</code> in the <code class="symbol">if</code> statement.</p><h2 class="w3-xxlarge w3-text-red" id="the-end"><a class="self-link" href="#the-end">The End</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>🎉 Congratulations! You have completed the entire tutorial of <b>VanJS</b>. Now you can start your journey of building feature-rich applications!</p><p>To learn more, you can:</p><ul><li>check out a list of <a href="/demo" class="w3-hover-opacity">sample applications</a> built with <b>VanJS</b>.</li><li>read the in-depth discussion of a few <a href="/advanced" class="w3-hover-opacity">advanced topics</a>.</li></ul><h2 class="w3-xxlarge w3-text-red" id="api-index"><a class="self-link" href="#api-index">API Index</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is the list of all top-level APIs in <b>VanJS</b>:</p><ul><li><code class="symbol"><a href="#api-tags" class="w3-hover-opacity">van.tags</a></code></li><li><code class="symbol"><a href="#api-tagsns" class="w3-hover-opacity">van.tagsNS</a></code></li><li><code class="symbol"><a href="#api-add" class="w3-hover-opacity">van.add</a></code></li><li><code class="symbol"><a href="#api-state" class="w3-hover-opacity">van.state</a></code></li><li><code class="symbol"><a href="#api-bind" class="w3-hover-opacity">van.bind</a></code></li></ul></div>
         <aside id="toc"><ul><li><a href="#dom" class="w3-hover-opacity">DOM Composition and Manipulation</a><ul><li><a href="#your-first-vanjs-app-a-simple-hello-page" class="w3-hover-opacity">Your first VanJS app: a simple Hello page</a></li><li><a href="#api-tags" class="w3-hover-opacity">API reference: van.tags</a></li><li><a href="#svg-and-mathml-support" class="w3-hover-opacity">SVG and MathML Support</a></li><li><a href="#api-tagsns" class="w3-hover-opacity">API reference: van.tagsNS</a></li><li><a href="#api-add" class="w3-hover-opacity">API reference: van.add</a></li><li><a href="#dom-nodes-already-in-the-document-tree-can-t-be-used-as-children" class="w3-hover-opacity">DOM nodes already in the document tree can't be used as children</a></li><li><a href="#fun-dom" class="w3-hover-opacity">Functional-style DOM tree building</a></li><li><a href="#on-event-handlers" class="w3-hover-opacity">on... event handlers</a></li></ul></li><li><a href="#state" class="w3-hover-opacity">State</a><ul><li><a href="#api-state" class="w3-hover-opacity">API reference: van.state</a></li><li><a href="#public-interface-of-state-objects" class="w3-hover-opacity">Public interface of State objects</a></li><li><a href="#state-val-is-immutable" class="w3-hover-opacity">State.val is immutable</a></li></ul></li><li><a href="#state-binding" class="w3-hover-opacity">State Binding</a><ul><li><a href="#state-typed-child" class="w3-hover-opacity">State objects as child nodes</a></li><li><a href="#state-typed-prop" class="w3-hover-opacity">State objects as properties</a></li><li><a href="#state-derived-prop" class="w3-hover-opacity">State-derived properties</a></li><li><a href="#complex-state-binding" class="w3-hover-opacity">Complex State binding</a></li><li><a href="#api-bind" class="w3-hover-opacity">API reference: van.bind</a></li><li><a href="#polymorphism-between-state-and-non-state-dependencies" class="w3-hover-opacity">Polymorphism between State and non-State dependencies</a></li><li><a href="#removing-a-dom-node" class="w3-hover-opacity">Removing a DOM node</a></li><li><a href="#stateful-binding" class="w3-hover-opacity">Stateful binding</a></li></ul></li><li><a href="#the-end" class="w3-hover-opacity">The End</a></li><li><a href="#api-index" class="w3-hover-opacity">API Index</a></li></ul></aside>
       </div>
@@ -320,7 +313,7 @@ van.add(document.body, EditableList())
   const counter = van.state(1)
 
   // Log whenever the value of the state is updated
-  counter.onnew((v, oldV) => console.log(`Counter: ${oldV} -> ${v}`))
+  van.effect(() => console.log(`Counter: ${counter.oldVal} -> ${counter.val}`))
 
   // Used as a child node
   const dom1 = div(counter)
@@ -329,12 +322,10 @@ van.add(document.body, EditableList())
   const dom2 = input({type: "number", value: counter, disabled: true})
 
   // Used in a state-derived property
-  const dom3 = div(
-    {style: {deps: [counter], f: c => `font-size: ${c}em;`}},
-    "Text")
+  const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
   // Used in a complex binding
-  const dom4 = van.bind(counter, c => div(c, sup(2), ` = ${c * c}`))
+  const dom4 = () => div(counter.val, sup(2), ` = ${counter.val * counter.val}`)
 
   // Button to increment the value of the state
   const incrementBtn = button({onclick: () => ++counter.val}, "Increment")
@@ -413,8 +404,7 @@ van.add(document.body, EditableList())
         ["black", "blue", "green", "red", "brown"]
           .map(c => option({value: c}, c)),
       ),
-      span({style: {deps: [size, color], f: (size, color) =>
-        `font-size: ${size}px; color: ${color};`}}, " Hello 🍦VanJS"),
+      span({style: () => `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
     )
   }
 
@@ -434,10 +424,9 @@ van.add(document.body, EditableList())
         option({value: "Ascending"}, "Ascending"),
         option({value: "Descending"}, "Descending"),
       ),
-      van.bind(items, sortedBy, (items, sortedBy) =>
-        sortedBy === "Ascending" ?
-          ul(items.split(",").sort().map(i => li(i))) :
-          ul(items.split(",").sort().reverse().map(i => li(i)))),
+      () => sortedBy.val === "Ascending" ?
+        ul(items.val.split(",").sort().map(i => li(i))) :
+        ul(items.val.split(",").sort().reverse().map(i => li(i))),
     )
   }
 
@@ -447,10 +436,8 @@ van.add(document.body, EditableList())
 {
   const {button, span} = van.tags
 
-  const Button = ({color, text, onclick}) => button({
-    style: {deps: [color], f: color => `background-color: ${color};`},
-    onclick,
-  }, text)
+  const Button = ({color, text, onclick}) =>
+    button({style: () => `background-color: ${van.val(color)};`, onclick}, text)
 
   const App = () => {
     const colorState = van.state("green")
@@ -482,9 +469,9 @@ van.add(document.body, EditableList())
 
   const ListItem = ({text}) => {
     const deleted = van.state(false)
-    return van.bind(deleted, d => d ? null : li(
+    return () => deleted.val ? null : li(
       text, a({onclick: () => deleted.val = true}, "❌"),
-    ))
+    )
   }
 
   const EditableList = () => {

@@ -10,10 +10,9 @@ const SortedList = () => {
       option({value: "Ascending"}, "Ascending"),
       option({value: "Descending"}, "Descending"),
     ),
-    van.bind(items, sortedBy, (items, sortedBy) =>
-      sortedBy === "Ascending" ?
-        ul(items.split(",").sort().map(i => li(i))) :
-        ul(items.split(",").sort().reverse().map(i => li(i)))),
+    () => sortedBy.val === "Ascending" ?
+      ul(items.val.split(",").sort().map(i => li(i))) :
+      ul(items.val.split(",").sort().reverse().map(i => li(i))),
   )
 }
 

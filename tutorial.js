@@ -30,7 +30,7 @@ import van from "/code/van-latest.min.js"
   const counter = van.state(1)
 
   // Log whenever the value of the state is updated
-  counter.onnew((v, oldV) => console.log(`Counter: ${oldV} -> ${v}`))
+  van.effect(() => console.log(`Counter: ${counter.oldVal} -> ${counter.val}`))
 
   // Used as a child node
   const dom1 = div(counter)
@@ -39,12 +39,10 @@ import van from "/code/van-latest.min.js"
   const dom2 = input({type: "number", value: counter, disabled: true})
 
   // Used in a state-derived property
-  const dom3 = div(
-    {style: {deps: [counter], f: c => `font-size: ${c}em;`}},
-    "Text")
+  const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
   // Used in a complex binding
-  const dom4 = van.bind(counter, c => div(c, sup(2), ` = ${c * c}`))
+  const dom4 = () => div(counter.val, sup(2), ` = ${counter.val * counter.val}`)
 
   // Button to increment the value of the state
   const incrementBtn = button({onclick: () => ++counter.val}, "Increment")
@@ -123,8 +121,7 @@ import van from "/code/van-latest.min.js"
         ["black", "blue", "green", "red", "brown"]
           .map(c => option({value: c}, c)),
       ),
-      span({style: {deps: [size, color], f: (size, color) =>
-        `font-size: ${size}px; color: ${color};`}}, " Hello 🍦VanJS"),
+      span({style: () => `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
     )
   }
 
@@ -144,10 +141,9 @@ import van from "/code/van-latest.min.js"
         option({value: "Ascending"}, "Ascending"),
         option({value: "Descending"}, "Descending"),
       ),
-      van.bind(items, sortedBy, (items, sortedBy) =>
-        sortedBy === "Ascending" ?
-          ul(items.split(",").sort().map(i => li(i))) :
-          ul(items.split(",").sort().reverse().map(i => li(i)))),
+      () => sortedBy.val === "Ascending" ?
+        ul(items.val.split(",").sort().map(i => li(i))) :
+        ul(items.val.split(",").sort().reverse().map(i => li(i))),
     )
   }
 
@@ -157,10 +153,8 @@ import van from "/code/van-latest.min.js"
 {
   const {button, span} = van.tags
 
-  const Button = ({color, text, onclick}) => button({
-    style: {deps: [color], f: color => `background-color: ${color};`},
-    onclick,
-  }, text)
+  const Button = ({color, text, onclick}) =>
+    button({style: () => `background-color: ${van.val(color)};`, onclick}, text)
 
   const App = () => {
     const colorState = van.state("green")
@@ -192,9 +186,9 @@ import van from "/code/van-latest.min.js"
 
   const ListItem = ({text}) => {
     const deleted = van.state(false)
-    return van.bind(deleted, d => d ? null : li(
+    return () => deleted.val ? null : li(
       text, a({onclick: () => deleted.val = true}, "❌"),
-    ))
+    )
   }
 
   const EditableList = () => {
