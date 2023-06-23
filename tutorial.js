@@ -42,7 +42,7 @@ import van from "/code/van-latest.min.js"
   const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
   // Used in a complex binding
-  const dom4 = () => div(counter, sup(2), ` = ${counter.val * counter.val}`)
+  const dom4 = div(counter, sup(2), () => ` = ${counter.val * counter.val}`)
 
   // Button to increment the value of the state
   const incrementBtn = button({onclick: () => ++counter.val}, "Increment")
