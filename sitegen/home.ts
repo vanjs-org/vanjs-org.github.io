@@ -132,10 +132,11 @@ van.add(document.body, Counter())
         "Follow @vanjs-org",
       ),
     ),
-    p(i("I will be traveling from June 23 to July 15, with no access to my computer. Most likely I can only respond to discussion posts and emails right after I'm back.")),
-    p(i("Meanwhile, ", VanJS(), " 1.0.0 is planned to be released shortly after my coming back. Stay tuned :-)")),
     p({class: "contact"},
       "Contact us: ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"), " / ", twitterIcon, Link("@taoxin", "https://twitter.com/taoxin"),
     ),
+    p(i("I will be traveling from June 23 to July 15, with no access to my computer. Most likely I can only respond to discussion posts and emails right after I'm back.")),
+    p(i("Meanwhile, ", VanJS(), " 1.0.0 is planned to be released shortly after my coming back. Stay tuned :-)")),
+    p(i("Thank you for your understanding!")),
   )
 }
