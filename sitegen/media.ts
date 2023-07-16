@@ -51,6 +51,8 @@ export default (doc: HTMLDocument) => {
       li(Url("https://www.libhunt.com/r/van")),
       li(Url("https://www.saashub.com/vanjs")),
       li(Url("https://kicksaas.cool/resource/vanjs")),
+      li(Url("https://www.builtatlightspeed.com/theme/vanjs-org-mini-van")),
+      li(Url("")),
     ),
   )
 }
