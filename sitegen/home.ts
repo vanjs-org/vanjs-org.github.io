@@ -37,7 +37,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": A 0.8kB Grab 'n Go Reactive UI Framework without React/JSX"),
-    p("📣 ", Link(VanJS(), " 0.12.0 released →", "https://github.com/vanjs-org/van/discussions/53")),
+    p("📣 ", Link(VanJS(), " 0.12.0 released →", "https://github.com/vanjs-org/van/discussions/53"), ". ", VanJS(), " 1.0.0 is ", Link("on the way", "https://github.com/vanjs-org/van/discussions/62"), "."),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     p((VanJS()), " is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
@@ -135,8 +135,5 @@ van.add(document.body, Counter())
     p({class: "contact"},
       "Contact us: ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"), " / ", twitterIcon, Link("@taoxin", "https://twitter.com/taoxin"),
     ),
-    p(i("I will be traveling from June 23 to July 15, with no access to my computer. Most likely I can only respond to discussion posts and emails right after I'm back.")),
-    p(i("Meanwhile, ", VanJS(), " 1.0.0 (", Link("feature preview", "https://github.com/vanjs-org/van/discussions/62"), ") is planned to be released shortly after my coming back. Stay tuned :-)")),
-    p(i("Thank you for your understanding!")),
   )
 }
