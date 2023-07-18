@@ -14,10 +14,8 @@ const AutoComplete = ({ words }) => {
         return result;
     };
     const prefix = van.state("");
-    const candidates = van.state(getCandidates(""));
-    van.effect(() => candidates.val = getCandidates(prefix.val));
-    const selectedIndex = van.state(0);
-    van.effect(() => (candidates.val, selectedIndex.val = 0));
+    const candidates = van.derive(() => getCandidates(prefix.val));
+    const selectedIndex = van.derive(() => (candidates.val, 0));
     const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
     const indices = [];
     for (let i = 0; i < 10; ++i)

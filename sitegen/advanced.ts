@@ -46,8 +46,7 @@ const dom = div(
     Js(`const renderPre = van.state(false)
 const text = van.state("Text")
 const dom = div(() => {
-  const expandedText = van.state("")
-  van.effect(() => expandedText.val = \`--\${text.val}--\`)
+  const expandedText = van.derive(() => expandedText.val = \`--\${text.val}--\`)
   return (renderPre.val ? pre : div)(expandedText)
 })
 `),

@@ -13,10 +13,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
   }
 
   const prefix = van.state("")
-  const candidates = van.state(getCandidates(""))
-  van.effect(() => candidates.val = getCandidates(prefix.val))
-  const selectedIndex = van.state(0)
-  van.effect(() => (candidates.val, selectedIndex.val = 0))
+  const candidates = van.derive(() => getCandidates(prefix.val))
+  const selectedIndex = van.derive(() => (candidates.val, 0))
 
   const SuggestionListItem = ({index}: {index: number}) => pre(
     {class: () => index === selectedIndex.val ? "text-row selected" : "text-row"},

@@ -17,10 +17,8 @@ const AutoComplete = ({ words }) => {
         return result;
     };
     const prefix = van.state("");
-    const candidates = van.state(getCandidates(""));
-    van.effect(() => candidates.val = getCandidates(prefix.val));
-    const selectedIndex = van.state(0);
-    van.effect(() => (candidates.val, selectedIndex.val = 0));
+    const candidates = van.derive(() => getCandidates(prefix.val));
+    const selectedIndex = van.derive(() => (candidates.val, 0));
     const suggestionList = (node) => {
         var _a, _b, _c, _d;
         const dom = node;

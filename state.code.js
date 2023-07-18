@@ -1,10 +1,13 @@
 const {button, div, input, sup} = van.tags
 
-// Create a new State object with init value 1
+// Create a new state object with init value 1
 const counter = van.state(1)
 
 // Log whenever the value of the state is updated
-van.effect(() => console.log(`Counter: ${counter.oldVal} -> ${counter.val}`))
+van.derive(() => console.log(`Counter: ${counter.val}`))
+
+// Derived state
+const counterSquared = van.derive(() => counter.val * counter.val)
 
 // Used as a child node
 const dom1 = div(counter)
@@ -16,7 +19,7 @@ const dom2 = input({type: "number", value: counter, disabled: true})
 const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
 // Used in a complex binding
-const dom4 = div(counter, sup(2), () => ` = ${counter.val * counter.val}`)
+const dom4 = div(counter, sup(2), () => ` = ${counterSquared.val}`)
 
 // Button to increment the value of the state
 const incrementBtn = button({onclick: () => ++counter.val}, "Increment")

@@ -25,10 +25,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
   }
 
   const prefix = van.state("")
-  const candidates = van.state(getCandidates(""))
-  van.effect(() => candidates.val = getCandidates(prefix.val))
-  const selectedIndex = van.state(0)
-  van.effect(() => (candidates.val, selectedIndex.val = 0))
+  const candidates = van.derive(() => getCandidates(prefix.val))
+  const selectedIndex = van.derive(() => (candidates.val, 0))
 
   const suggestionList = (node: Node) => {
     const dom = <HTMLElement>node

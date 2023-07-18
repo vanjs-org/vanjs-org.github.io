@@ -100,11 +100,14 @@ van.add(document.body, Table({
 }))
 </code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/table">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="on-event-handlers"><a class="self-link" href="#on-event-handlers"><code class="symbol">on...</code> event handlers</a></h3><p>In tag functions, you can provide a <code class="symbol">function</code> value for property keys like <code class="symbol">on...</code>. This is a convenient way to specify event handlers. For instance, the code below creates a <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button" class="w3-hover-opacity">button</a></code> that shows an alert whenever clicked:</p><pre><code class="language-js">button({onclick: () =&gt; alert("Hello from 🍦VanJS")}, "Hello")</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/onclick">Try on jsfiddle</a></p><p>🎉 Congratulations! You have mastered the skills for building and manipulating DOM trees using <b>VanJS</b>'s declarative API, which is incredibly powerful for creating comprehensive applications with elegant code. In the sections below, you will continue to learn how to build reactive applications with state and state binding.</p><p>If your application doesn't rely on state and state binding, you can use the slimmed-down version of <b>VanJS</b> - <a href="/minivan" class="w3-hover-opacity">Mini-Van</a>.</p><h2 class="w3-xxlarge w3-text-red" id="state"><a class="self-link" href="#state">State</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>A <code class="symbol">State</code> object in <b>VanJS</b> represents a value that can be updated throughout your application. A <code class="symbol">State</code> object has a public property <code class="symbol">val</code>, with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set" class="w3-hover-opacity">custom setter</a> that automatically propogates changes to DOM nodes that bind to it. In addition, you can register your event handler to listen to updates of a <code class="symbol">State</code> object via its <code class="symbol">onnew</code> method.</p><p>The code below illustrates how a <code class="symbol">State</code> object can be used:</p><pre><code class="language-js">const {button, div, input, sup} = van.tags
 
-// Create a new State object with init value 1
+// Create a new state object with init value 1
 const counter = van.state(1)
 
 // Log whenever the value of the state is updated
-van.effect(() =&gt; console.log(`Counter: ${counter.oldVal} -&gt; ${counter.val}`))
+van.derive(() =&gt; console.log(`Counter: ${counter.val}`))
+
+// Derived state
+const counterSquared = van.derive(() =&gt; counter.val * counter.val)
 
 // Used as a child node
 const dom1 = div(counter)
@@ -116,7 +119,7 @@ const dom2 = input({type: "number", value: counter, disabled: true})
 const dom3 = div({style: () =&gt; `font-size: ${counter.val}em;`}, "Text")
 
 // Used in a complex binding
-const dom4 = div(counter, sup(2), () =&gt; ` = ${counter.val * counter.val}`)
+const dom4 = div(counter, sup(2), () =&gt; ` = ${counterSquared.val}`)
 
 // Button to increment the value of the state
 const incrementBtn = button({onclick: () =&gt; ++counter.val}, "Increment")
@@ -309,11 +312,14 @@ van.add(document.body, EditableList())
 {
   const {button, div, input, sup} = van.tags
 
-  // Create a new State object with init value 1
+  // Create a new state object with init value 1
   const counter = van.state(1)
 
   // Log whenever the value of the state is updated
-  van.effect(() => console.log(`Counter: ${counter.oldVal} -> ${counter.val}`))
+  van.derive(() => console.log(`Counter: ${counter.val}`))
+
+  // Derived state
+  const counterSquared = van.derive(() => counter.val * counter.val)
 
   // Used as a child node
   const dom1 = div(counter)
@@ -325,7 +331,7 @@ van.add(document.body, EditableList())
   const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
   // Used in a complex binding
-  const dom4 = div(counter, sup(2), () => ` = ${counter.val * counter.val}`)
+  const dom4 = div(counter, sup(2), () => ` = ${counterSquared.val}`)
 
   // Button to increment the value of the state
   const incrementBtn = button({onclick: () => ++counter.val}, "Increment")
