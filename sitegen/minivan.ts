@@ -42,7 +42,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(MiniVan(), ": A Minimalist Template Engine for Client/Server-side Rendering without JSX"),
-    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.4kB in the minified bundle size (0.3kB gzipped), ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
+    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.5kB in the minified bundle size (0.4kB gzipped), ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
 const Hello = () => div(
@@ -63,7 +63,7 @@ van.add(document.body, Hello())
       "data-details": "demo-mini-van.details",
     }),
     p("You can convert any HTML snippet into ", MiniVan(), " code with our online ", Link("converter", "/convert"), "."),
-    p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.3kB and can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
+    p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.4kB and can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
     H2("Server-Side: Npm Integration"),
     p(MiniVan(), " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ", Link("www.npmjs.com/package/mini-van-plate", "https://www.npmjs.com/package/mini-van-plate"), ". Thus it can be used in ", Link("Node.js", "https://nodejs.org/"), " or ", Link("Bun", "https://bun.sh/"), "."),
     p("There are 2 modes for server-side integration: ", Symbol("van-plate"), " mode (based on text templating, thus doesn't need the DOM dependency), and ", Symbol("mini-van"), " mode (based on DOM, thus needs the DOM dependency)."),
@@ -240,7 +240,7 @@ await serve(req => new Response(
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/mini-van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
     p("We're looking for the 1.0 milestone (commitment to API stability) soon, your precious feedback will be greatly appreciated. You can submit your feedback by creating issues with the link below:"),
     p(
-      a({class: "github-button", href: "https://github.com/vanjs-org/mini-van", "data-icon": "octicon-star", "aria-label": "Star vanjs-org/van on GitHub"},
+      a({class: "github-button", href: "https://github.com/vanjs-org/mini-van", "data-icon": "octicon-star", "data-show-count": true, "aria-label": "Star vanjs-org/van on GitHub"},
         "Star",
       ), " ",
       a({class: "github-button", href: "https://github.com/vanjs-org/mini-van/subscription", "data-icon": "octicon-eye", "aria-label": "Watch vanjs-org/van on GitHub"},
@@ -248,6 +248,9 @@ await serve(req => new Response(
       ), " ",
       a({class: "github-button", href: "https://github.com/vanjs-org/mini-van/issues", "data-icon": "octicon-issue-opened", "aria-label": "Issue vanjs-org/van on GitHub"},
         "Issue",
+      ), " ",
+      a({class: "github-button", href: "https://github.com/vanjs-org", "aria-label": "Follow @vanjs-org on GitHub"},
+        "Follow @vanjs-org",
       ),
     ),
     p("Contact us: ", Link("tao@vanjs.org", "mailto:tao@vanjs.org")),

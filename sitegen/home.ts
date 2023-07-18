@@ -37,7 +37,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": A 0.8kB Grab 'n Go Reactive UI Framework without React/JSX"),
-    p("📣 ", Link(VanJS(), " 0.12.0 released →", "https://github.com/vanjs-org/van/discussions/53")),
+    p("📣 ", Link(VanJS(), " 0.12.0 released →", "https://github.com/vanjs-org/van/discussions/53"), ". ", VanJS(), " 1.0.0 is ", Link("on the way →", "https://github.com/vanjs-org/van/discussions/62"), "."),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     p((VanJS()), " is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.

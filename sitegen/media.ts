@@ -34,6 +34,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://javascript.thisweekin.io/javascript-weekly-issue-83-31f1d5c6c57f")),
       li(Url("https://us3.campaign-archive.com/?u=4ad274b490aa6da8c2d29b775&id=887df01416")),
       li(Url("https://dev.to/vincenius/weekly-web-development-resources-150-5819")),
+      li(Url("https://webtoolsweekly.com/archives/issue-521/")),
       li(Url("https://unsuckjs.com/")),
       li(Url("https://enpitsulin.xlog.app/reactive-framework-less-than-100-lines"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://www.qinshenxue.com/article/vanjs-the-worlds-smallest-responsive-ui-framework.html"), " (", i("in Simplified Chinese"), ")"),
@@ -51,6 +52,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://www.libhunt.com/r/van")),
       li(Url("https://www.saashub.com/vanjs")),
       li(Url("https://kicksaas.cool/resource/vanjs")),
+      li(Url("https://www.builtatlightspeed.com/theme/vanjs-org-mini-van")),
     ),
   )
 }
