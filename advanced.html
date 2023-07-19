@@ -58,7 +58,7 @@
     option({value: "Vanilla"}),
   )
 )
-</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/readonly-prop">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
+</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/advanced/readonly-prop">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
 const text = van.state("Text")
 const dom = div(
   () =&gt; (renderPre.val ? pre : div)(() =&gt; `--${text.val}--`)),

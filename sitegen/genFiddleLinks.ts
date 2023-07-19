@@ -2,8 +2,8 @@ import van from "./mini-van.js"
 import { DOMParser, Element } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
-const jsFiddleRoot = "/Users/xintao/org/vanjs-org.github.io/jsfiddle"
-const ghPath = "vanjs-org/vanjs-org.github.io/tree/master/jsfiddle"
+const jsFiddleRoot = "/Users/xintao/jsfiddle-test/jsfiddle"
+const ghPath = "Tao-VanJS/jsfiddle-test/tree/master/jsfiddle"
 
 const mkdirIfNotExist = (dir: string) => {
   try {
@@ -53,8 +53,10 @@ const process = (file: string) => {
     const detailFile = dom.getAttribute("data-details") ?? "demo.details"
     const detailStr = Deno.readTextFileSync("jsfiddle/" + detailFile)
     Deno.writeTextFileSync(join(dir, "demo.details"),
-      detailStr.replace("van-latest.",
-        `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`))
+      detailStr
+        .replace("van-latest.",
+          `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`)
+        .replace("gh/vanjs-org/van/public", "gh/Tao-VanJS/jsfiddle-test/code"))
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
     const css = dom.getAttribute("data-css")
     if (css) Deno.writeTextFileSync(join(dir, "demo.css"), css)
