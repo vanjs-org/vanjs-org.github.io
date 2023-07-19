@@ -44,7 +44,7 @@ import van from "/code/van-latest.min.js"
   // Used in a state-derived property
   const dom3 = div({style: () => `font-size: ${counter.val}em;`}, "Text")
 
-  // Used in a complex binding
+  // Used in a state-derived child
   const dom4 = div(counter, sup(2), () => ` = ${counterSquared.val}`)
 
   // Button to increment the value of the state
