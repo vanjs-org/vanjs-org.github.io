@@ -58,14 +58,21 @@
         document.getElementById("myOverlay").style.display = "none"
       }
 
+      const tocDom = document.getElementById("toc")
+
       // Track the current toc item
       const trackToc = () => {
         const allHeadings = [...document.querySelectorAll("h2,h3")]
         const currentHeading = allHeadings.find(h => h.getBoundingClientRect().top >= 0)
           ?? allHeadings[allHeadings.length - 1]
         for (const e of document.querySelectorAll("#toc li a"))
-          if (e.href.split("#")[1] === currentHeading?.id)
-            e.classList.add("w3-opacity"); else
+          if (e.href.split("#")[1] === currentHeading?.id) {
+            e.classList.add("w3-opacity")
+            const {top: tocTop, bottom: tocBottom} = tocDom.getBoundingClientRect()
+            const {top: eTop, bottom: eBottom} = e.getBoundingClientRect()
+            if (eBottom > tocBottom) tocDom.scrollTop += eBottom - tocBottom
+            else if (eTop < tocTop) tocDom.scrollTop -= tocTop - eTop
+          } else
             e.classList.remove("w3-opacity")
       }
       trackToc()
