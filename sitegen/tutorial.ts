@@ -186,7 +186,7 @@ van.add(document.body, Table({
     p("In this example, if we click the \"Turn Bold\" button, the first \"", VanJS(), "\" text will disappear, which is unexpected. This is because the same DOM node is used twice in the DOM tree. For this reason, an error will be thrown in ", Symbol("van-{version}.debug.js"), " whenever we assign a DOM node to a ", Symbol("State"), " object."),
     H3(Symbol("State.val"), " is immutable"),
     p("While you can update ", Symbol("State"), " objects by setting the ", Symbol("val"), " property, you should never mutate the underlying object of ", Symbol("val"), " itself. Doing so will not trigger the DOM tree update as you would expect and might result in ", Link("undefined behavior", "https://en.wikipedia.org/wiki/Undefined_behavior"), " due to ", Link("aliasing", "https://en.wikipedia.org/wiki/Aliasing_(computing)"), ". In ", Symbol("van-<version>.debug.js"), ", attempt to mutate the object in ", Symbol("val"), " will lead to an ", SymLink("Error", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error"), " to be thrown."),
-    H3("Derived State"),
+    H3("Derived state"),
     p("Derived states can be declared via ", Symbol("van.derive"), ", as illustrated in the example below:"),
     JsFile("derived-state.code.js"),
     p(Demo(), " ", span({id: "demo-derived-state"})),
@@ -200,12 +200,29 @@ van.add(document.body, Table({
       },
       returns: ["The created derived ", Symbol("State"), " object."],
     }),
-    H3("Side Effect"),
+    H3("Side effect"),
     p(Symbol("van.derive"), " can be used to declare side effects as well. You can discard the return value of ", Symbol("van.derive"), " if you are not interested. The code below is a modified ", Symbol("Counter App"), " which logs the counter to console whenever it changes:"),
     JsFile("effect.code.js"),
     p({id: "jsfiddle-effect"}),
     H2("State Binding"),
     p("Once ", Symbol("State"), " objects are created, we can bind them to DOM nodes in various ways to make your UI reactive to state changes."),
+    H3({id: "state-typed-prop"}, Symbol("State"), " objects as properties"),
+    p(Symbol("State"), " objects can be used as properties of HTML elements. Similar to ", Symbol("State"), "-based child nodes, the value of the properties will be always in sync with the value of the respective states. When ", Symbol("State"), " objects are used as properties, you need to make sure that the values of the states are always valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
+    p("The following code demonstrates 2 ", SymLink("text inputs", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"), " whose values are always in sync:"),
+    Js(`const {input, span} = van.tags
+
+const ConnectedProps = () => {
+  const text = van.state("")
+  return span(
+    input({type: "text", value: text, oninput: e => text.val = e.target.value}),
+    input({type: "text", value: text, oninput: e => text.val = e.target.value}),
+  )
+}
+
+van.add(document.body, ConnectedProps())
+`),
+    p(Demo(), " ", span({id: "demo-connected-props"})),
+    p({id: "jsfiddle-connected-props"}),
     H3({id: "state-typed-child"}, Symbol("State"), " objects as child nodes"),
     p(Symbol("State"), " objects can be used as child nodes in ", SymLink("tag functions", "#api-tags"), " and ", SymLink("van.add", "#api-add"), ", like the ", SymLink("Counter", "/#code-counter"), " example shown in the home page. For a ", Symbol("State"), " object used as a child node, its value needs to be primitive (", Symbol("string"), ", ", Symbol("number"), ", ", Symbol("boolean"), " or ", Symbol("bigint"),  "), and a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it. The content of the created ", Symbol("Text node"), " will be always in sync with the value of the state."),
     p("The following code shows how to build a simple timer with this feature:"),
@@ -230,29 +247,8 @@ van.add(document.body, Timer({totalSecs: 5}))
 `),
     p(Demo(), " ", span({id: "demo-timer"})),
     p({id: "jsfiddle-timer"}),
-    H3({id: "state-typed-prop"}, Symbol("State"), " objects as properties"),
-    p(Symbol("State"), " objects can be used as properties of HTML elements. Similar to ", Symbol("State"), "-based child nodes, the value of the properties will be always in sync with the value of the respective states. When ", Symbol("State"), " objects are used as properties, you need to make sure that the values of the states are always valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
-    p("The following code demonstrates 2 ", SymLink("text inputs", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"), " whose values are always in sync:"),
-    Js(`const {input, span} = van.tags
-
-const ConnectedProps = () => {
-  const text = van.state("")
-  return span(
-    input({type: "text", value: text, oninput: e => text.val = e.target.value}),
-    input({type: "text", value: text, oninput: e => text.val = e.target.value}),
-  )
-}
-
-van.add(document.body, ConnectedProps())
-`),
-    p(Demo(), " ", span({id: "demo-connected-props"})),
-    p({id: "jsfiddle-connected-props"}),
     H3({id: "state-derived-prop"}, Symbol("State"), "-derived properties"),
-    p(Symbol("State"), "-derived property is a more advanced way to bind a property of an HTML element with one or more underlying ", Symbol("State"), " objects. To use ", Symbol("State"), "-derived properties, you need to provide an object with the following fields as the value in ", Symbol("props"), " argument while calling to a ", SymLink("tag function", "#api-tags"), ":"),
-    ul(
-      li(Symbol(b("deps")), " - an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of one or more dependencies."),
-      li(Symbol(b("f")), " - a ", Symbol("function"), " that takes the values of states in ", Symbol(b("deps")), " as parameters. The return value of ", Symbol(b("f")), " should always be valid property values, i.e.: primitives or ", Symbol("function"), "s (for event handlers)."),
-    ),
+    p(Symbol("State"), "-derived property is a more advanced way to bind a property of an HTML element with one or more underlying ", Symbol("State"), " objects. To declare a ", Symbol("State"), "-derived property, you need to provide a function as the value in ", Symbol("props"), " argument while calling to a ", SymLink("tag function", "#api-tags"), ". The function takes no parameter and return the value of the property. Whenever any dependency of the function changes, the value of the property will be updated accordingly."),
     p("The example below is a live font size and color preview implemented with this feature:"),
     JsFile("font-preview.code.js"),
     p(Demo(), " ", span({id: "demo-font-preview"})),
