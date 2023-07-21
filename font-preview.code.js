@@ -11,6 +11,7 @@ const FontPreview = () => {
       ["black", "blue", "green", "red", "brown"]
         .map(c => option({value: c}, c)),
     ),
+    // The <span> element below has a state-derived property `style`
     span({style: () => `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
   )
 }

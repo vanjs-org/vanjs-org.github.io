@@ -154,6 +154,7 @@ import van from "/code/van-latest.min.js"
         ["black", "blue", "green", "red", "brown"]
           .map(c => option({value: c}, c)),
       ),
+      // The <span> element below has a state-derived property `style`
       span({style: () => `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
     )
   }
@@ -174,6 +175,7 @@ import van from "/code/van-latest.min.js"
         option({value: "Ascending"}, "Ascending"),
         option({value: "Descending"}, "Descending"),
       ),
+      // A State-derived child node
       () => sortedBy.val === "Ascending" ?
         ul(items.val.split(",").sort().map(i => li(i))) :
         ul(items.val.split(",").sort().reverse().map(i => li(i))),

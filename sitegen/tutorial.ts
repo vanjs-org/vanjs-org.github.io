@@ -253,8 +253,8 @@ van.add(document.body, Timer({totalSecs: 5}))
     JsFile("font-preview.code.js"),
     p(Demo(), " ", span({id: "demo-font-preview"})),
     p({id: "jsfiddle-font-preview"}),
-    H3("Complex ", Symbol("State"), " binding"),
-    p("You can call ", SymLink("van.bind", "#api-bind"), " to bind an HTML node with one or more ", Symbol("State"), " objects in a custom way, as specified in a generation function that you provide. The following example illustrates this:"),
+    H3(Symbol("State"), "-derived child nodes"),
+    p("Similarly, you can bind an HTML node with one or more underlying ", Symbol("State"), " objects. To declare a ", Symbol("State"), "-derived child node, you need to provide a function as the ", Symbol("child"), " argument while calling to a ", SymLink("tag function", "#api-tags"), " or ", SymLink("van.add", "#api-add"), ". The following example illustrates this:"),
     Js(`const {input, li, option, select, span, ul} = van.tags
 
 const SortedList = () => {
@@ -267,6 +267,7 @@ const SortedList = () => {
       option({value: "Ascending"}, "Ascending"),
       option({value: "Descending"}, "Descending"),
     ),
+    // A State-derived child node
     () => sortedBy.val === "Ascending" ?
       ul(items.val.split(",").sort().map(i => li(i))) :
       ul(items.val.split(",").sort().reverse().map(i => li(i))),
