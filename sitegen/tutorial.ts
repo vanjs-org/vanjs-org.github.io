@@ -281,7 +281,7 @@ van.add(document.body, SortedList())
     p({id: "demo-sorted-list"}),
     p({id: "jsfiddle-sorted-list"}),
     H3("Removing a DOM node"),
-    p("As noted in the API reference above, when generation function ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."),
+    p("For ", Symbol("State"), "-derived child nodes, if the binding function returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when the binding function would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."),
     p("The following code illustrates how to build an editable list with this features:"),
     Js(`const {a, button, div, input, li, ul} = van.tags
 
