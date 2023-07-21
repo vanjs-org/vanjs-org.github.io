@@ -8,7 +8,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, li, p, span, table, tbody, td, tr, ul} = tags
 
-  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, MinVersion, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
 
   interface ApiTableProps {
     readonly signature: string
@@ -255,7 +255,7 @@ van.add(document.body, Timer({totalSecs: 5}))
     p(Demo(), " ", span({id: "demo-escape-derived-prop"})),
     p({id: 'jsfiddle-escape-derived-prop'}),
     H3(Symbol("State"), "-derived child nodes"),
-    p("Similarly, you can bind an HTML node with one or more underlying ", Symbol("State"), " objects. To declare a ", Symbol("State"), "-derived child node, you need to provide a function as the ", Symbol("child"), " argument while calling to a ", SymLink("tag function", "#api-tags"), " or ", SymLink("van.add", "#api-add"), ". The function you provide can return a primitive value (a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for the primitive value) or a DOM node. The following example illustrates this:"),
+    p("Similarly, you can bind an HTML node with one or more underlying ", Symbol("State"), " objects. To declare a ", Symbol("State"), "-derived child node, you need to provide a function as the ", Symbol("child"), " argument while calling to a ", SymLink("tag function", "#api-tags"), " or ", SymLink("van.add", "#api-add"), ". The function you provide can return a primitive value (a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it) or a DOM node. The following example illustrates this:"),
     Js(`const {input, li, option, select, span, ul} = van.tags
 
 const SortedList = () => {
@@ -280,12 +280,6 @@ van.add(document.body, SortedList())
     p(Demo()),
     p({id: "demo-sorted-list"}),
     p({id: "jsfiddle-sorted-list"}),
-    H3("Polymorphism between ", Symbol("State"), " and non-", Symbol("State"), " dependencies"),
-    MinVersion("0.12.0"),
-    p("State-derived properties and ", Symbol("van.bind"), " can accept both ", Symbol("State"), " and non-", Symbol("State"), " objects as dependency arguments. This polymorphism makes it handy to build reusable components where users can specify both state and non-state property values. Non-state dependencies behave the same way as state dependencies whose ", Symbol("val"), " properties never change. Below is an example of a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be both state and non-state objects:"),
-    JsFile("nonstate-deps.code.js"),
-    p(Demo(), span({id: "demo-nonstate-deps"})),
-    p({id: "jsfiddle-nonstate-deps"}),
     H3("Removing a DOM node"),
     p("As noted in the API reference above, when generation function ", Symbol("f"), " returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when ", Symbol("f"), " would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."),
     p("The following code illustrates how to build an editable list with this features:"),
@@ -324,6 +318,40 @@ van.add(document.body, EditableList())
     p("The piece of code above is building a ", Symbol("suggestionList"), " that is reactive to the changes of selection ", Symbol("candidates"), " and ", Symbol("selectedIndex"), ". When selection ", Symbol("candidates"), " change, the ", Symbol("suggestionList"), " needs to be regenerated. However, if only ", Symbol("selectedIndex"), " changes, we only need to update the DOM element to indicate that the new candidate is being selected now, which can be achieved by changing the ", SymLink("classList", "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"), " of relevant candidate elements."),
     p("The generation function ", Symbol("f"), " can either return ", Symbol("dom"), " (the existing node in the document tree), or a newly created DOM node. When a newly created DOM node is returned, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), ")"),
     p("Note that, when the generation function is being called for the first time, ", Symbol("dom"), " and ", Symbol("oldV1"), ", ", Symbol("oldV2"), ", ...,", Symbol("oldVN"), " will all be ", Symbol("undefined"), ". Thus the generation function of stateful binding needs to handle this situation as well. This is why in Line 3, we're checking ", Symbol("dom"), " in the ", Symbol("if"), " statement."),
+    H2("Polymorphic Binding"),
+    p("If you use ", VanJS(), " to build reusable UI components, it's desirable for your components to accept both state and non-state property values. For instance, for a reusable ", Symbol("button"), " component like that:"),
+    Js(`const Button = ({color, ...}) = button(
+  ...
+)
+`),
+    p("it would be desirable for ", Symbol("button"), " to accept both static ", Symbol("color"), " value and ", Symbol("color"), " state. If the ", Symbol("color"), " property is used as a DOM node property or as a child node, things can work out of the box, as tag functions and ", Symbol("van.add"), " support both state and non-state values in ", Symbol("props"), " and ", Symbol("children"), " parameter. However, if the ", Symbol("color"), " property is used as a ", Symbol("State"), "-derived property or a ", Symbol("State"), "-derived child, it would be hard for your component to work in both ways. Consider the example below:"),
+    Js(`button({style: () => \`background-color: \${color};\`},
+  ...
+)`),
+    p("When ", Symbol("color"), " is a static value, we should use ", InlineJs("${color}"), ". However, when ", Symbol("color"), " is a state, we should use ", InlineJs("${color.val}"), " instead. This makes it hard to build reusable UI component that accepts both state and non-state property values. ", VanJS(), " has 2 helper functions: ", Symbol("van.val"), " and ", Symbol("van.oldVal"), " to help you in this situation:"),
+    H3({id: "api-val"}, "API reference: ", Symbol("van.val")),
+    ApiTable({
+      signature: "van.val(s) => <The value of s>",
+      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("val"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
+      parameters: {
+        s: "The input value, which can be either a state or a non-state value."
+      },
+      returns: ["The value of ", Symbol("s"), "."],
+    }),
+    H3({id: "api-oldval"}, "API reference: ", Symbol("van.oldVal")),
+    ApiTable({
+      signature: "van.oldVal(s) => <The old value of s>",
+      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("oldVal"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
+      parameters: {
+        s: "The input value, which can be either a state or a non-state value."
+      },
+      returns: ["The old value of ", Symbol("s"), "."],
+    }),
+    H3("A pratical example"),
+    p("Now, let's take a look at a pratical example - a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be either state or non-state objects:"),
+    JsFile("nonstate-deps.code.js"),
+    p(Demo(), span({id: "demo-nonstate-deps"})),
+    p({id: "jsfiddle-nonstate-deps"}),
     H2("The End"),
     p("🎉 Congratulations! You have completed the entire tutorial of ", VanJS(), ". Now you can start your journey of building feature-rich applications!"),
     p("To learn more, you can:"),
@@ -338,7 +366,10 @@ van.add(document.body, EditableList())
       li(SymLink("van.tagsNS", "#api-tagsns")),
       li(SymLink("van.add", "#api-add")),
       li(SymLink("van.state", "#api-state")),
-      li(SymLink("van.bind", "#api-bind")),
+      li(SymLink("van.derive", "#api-derive")),
+      li(SymLink("van._", "#api-_")),
+      li(SymLink("van.val", "#api-val")),
+      li(SymLink("van.oldVal", "#api-oldval")),
     ),
   )
 }
