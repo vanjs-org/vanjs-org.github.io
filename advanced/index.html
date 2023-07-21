@@ -58,7 +58,18 @@
     option({value: "Vanilla"}),
   )
 )
-</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/advanced/readonly-prop">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
+</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/advanced/readonly-prop">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="why-not-dom-valued-states"><a class="self-link" href="#why-not-dom-valued-states">Why Can't States Have DOM Node as Values?</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>We might be prompted to assign a DOM node to a <code class="symbol">State</code> object, especially when the <code class="symbol">State</code> object is used as a <code class="symbol">State</code>-typed child. However, this is problematic when the state is bound to multiple child DOM nodes, like the example below:</p><pre><code class="language-js">const {b, button, span} = van.tags
+
+const TurnBold = () =&gt; {
+  const vanJS = van.state("VanJS")
+  return span(
+    button({onclick: () =&gt; vanJS.val = b("VanJS")}, "Turn Bold"),
+    "&nbsp;Welcome to ", vanJS, ". ", vanJS, "&nbsp;is awesome!"
+  )
+}
+
+van.add(document.body, TurnBold())
+</code></pre><p><b>Demo:</b> <span id="demo-dom-valued-state"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/advanced/dom-valued-state">Try on jsfiddle</a></p><p>In this example, if we click the "Turn Bold" button, the first "<b>VanJS</b>" text will disappear, which is unexpected. This is because the same DOM node is used twice in the DOM tree. For this reason, an error will be thrown in <code class="symbol">van-{version}.debug.js</code> whenever we assign a DOM node to a <code class="symbol">State</code> object.</p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
 const text = van.state("Text")
 const dom = div(
   () =&gt; (renderPre.val ? pre : div)(() =&gt; `--${text.val}--`)),
@@ -70,7 +81,7 @@ const dom = div(() =&gt; {
   return (renderPre.val ? pre : div)(expandedText)
 })
 </code></pre><p>In this example, whenever the generation function <code class="symbol">TextLine</code> is called, a new <code class="symbol">State</code> object will be created and subscribe to the change of the <code class="symbol">text</code> state. Because every event handler registered via <code class="symbol">onnew</code> holds the reference to local <code class="symbol">State</code> variable <code class="symbol">expandedText</code>, the instances of <code class="symbol">expandedText</code> variable will not be GC-ed by JavaScript runtime even when they are no longer being actively used.</p><p>To avoid memory leaks caused by <code class="symbol">onnew</code>, in the generation function of the <code class="symbol">van.bind</code> call, you shall NEVER register event handlers via <code class="symbol">onnew</code> method for <code class="symbol">State</code> objects defined outside the scope of generation function.</p></div>
-        <aside id="toc"><ul><li><a href="#dom-attributes-vs-properties" class="w3-hover-opacity">DOM Attributes vs. Properties</a></li><li><a href="#gc" class="w3-hover-opacity">Garbage Collection</a><ul><li><a href="#avoid-your-bindings-to-be-gc-ed-unexpectedly" class="w3-hover-opacity">Avoid your bindings to be GC-ed unexpectedly</a></li><li><a href="#onnew-listeners-are-not-subject-to-gc" class="w3-hover-opacity">onnew listeners are not subject to GC</a></li></ul></li></ul></aside>
+        <aside id="toc"><ul><li><a href="#dom-attributes-vs-properties" class="w3-hover-opacity">DOM Attributes vs. Properties</a></li><li><a href="#why-not-dom-valued-states" class="w3-hover-opacity">Why Can't States Have DOM Node as Values?</a></li><li><a href="#gc" class="w3-hover-opacity">Garbage Collection</a><ul><li><a href="#avoid-your-bindings-to-be-gc-ed-unexpectedly" class="w3-hover-opacity">Avoid your bindings to be GC-ed unexpectedly</a></li><li><a href="#onnew-listeners-are-not-subject-to-gc" class="w3-hover-opacity">onnew listeners are not subject to GC</a></li></ul></li></ul></aside>
       </div>
     </div>
     <script>
@@ -107,7 +118,20 @@ const dom = div(() =&gt; {
       addEventListener("resize", trackToc)
     </script>
     <script type="text/javascript" src="/prism.js"></script>
-    <script type="module"></script>
+    <script type="module">{
+  const {b, button, span} = van.tags
+
+  const TurnBold = () => {
+    const vanJS = van.state("VanJS")
+    return span(
+      button({onclick: () => vanJS.val = b("VanJS")}, "Turn Bold"),
+      " Welcome to ", vanJS, ". ", vanJS, " is awesome!"
+    )
+  }
+
+  van.add(document.getElementById("demo-dom-valued-state"), TurnBold())
+}
+</script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>

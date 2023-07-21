@@ -4,9 +4,9 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {b, div, li, ol, p} = tags
+  const {b, div, li, ol, p, span} = tags
 
-  const {H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Advanced Topics"),
@@ -20,6 +20,12 @@ export default (doc: HTMLDocument) => {
       "data-prefix": "const {div, input, option, datalist, label} = van.tags",
       "data-suffix": 'van.add(document.body, Datalist())',
     }),
+    H2({id: "why-not-dom-valued-states"}, "Why Can't States Have DOM Node as Values?"),
+    p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child. However, this is problematic when the state is bound to multiple child DOM nodes, like the example below:"),
+    JsFile("dom-valued-state.code.js"),
+    p(Demo(), " ", span({id: "demo-dom-valued-state"})),
+    p({id: "jsfiddle-dom-valued-state"}),
+    p("In this example, if we click the \"Turn Bold\" button, the first \"", VanJS(), "\" text will disappear, which is unexpected. This is because the same DOM node is used twice in the DOM tree. For this reason, an error will be thrown in ", Symbol("van-{version}.debug.js"), " whenever we assign a DOM node to a ", Symbol("State"), " object."),
     H2({id: "gc"}, "Garbage Collection"),
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)
