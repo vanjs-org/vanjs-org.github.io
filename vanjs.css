@@ -251,6 +251,10 @@ table {
   border-collapse: collapse;
 }
 
+#content table {
+  width: 100%;
+}
+
 table.download-table td {
   padding: 6px 2px;
 }
