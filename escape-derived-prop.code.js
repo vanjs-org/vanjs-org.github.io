@@ -2,13 +2,13 @@ const {button, option, select, span} = van.tags
 
 const Counter = () => {
   const counter = van.state(0)
-  const action = van.state("Up")
+  const action = van.state("👍")
   return span(
     "❤️ ", counter, " ",
     select({oninput: e => action.val = e.target.value, value: action},
-      option({value: "Up"}, "Up"), option({value: "Down"}, "Down"),
+      option({value: "👍"}, "👍"), option({value: "👎"}, "👎"),
     ), " ",
-    button({onclick: van._(() => action.val === "Up" ?
+    button({onclick: van._(() => action.val === "👍" ?
       () => ++counter.val : () => --counter.val)}, "Run"),
   )
 }
