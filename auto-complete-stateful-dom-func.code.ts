@@ -24,20 +24,6 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
   const candidates = van.derive(() => getCandidates(prefix.val))
   const selectedIndex = van.derive(() => (candidates.val, 0))
 
-  const suggestionList = (node: Node) => {
-    const dom = <HTMLElement>node
-    if (dom && candidates.val === candidates.oldVal) {
-      // If the candidate list doesn't change, we don't need to re-render the
-      // suggetion list. Just need to change the selected candidate.
-      dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
-        ?.classList?.remove("selected")
-      dom.querySelector(`[data-index="${selectedIndex.val}"]`)
-        ?.classList?.add("selected")
-      return dom
-    }
-    return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
-  }
-
   const onkeydown = (e: KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0
@@ -57,5 +43,17 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
 
   const oninput = (e: Event) => prefix.val = lastWord((<HTMLTextAreaElement>e.target).value)
 
-  return div({class: "root"}, textarea({onkeydown, oninput}), suggestionList)
+  return div({class: "root"}, textarea({onkeydown, oninput}), node => {
+    const dom = <HTMLElement>node
+    if (dom && candidates.val === candidates.oldVal) {
+      // If the candidate list doesn't change, we don't need to re-render the
+      // suggetion list. Just need to change the selected candidate.
+      dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+        ?.classList?.remove("selected")
+      dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+        ?.classList?.add("selected")
+      return dom
+    }
+    return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
+  })
 }

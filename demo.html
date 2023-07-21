@@ -563,20 +563,6 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
   const candidates = van.derive(() =&gt; getCandidates(prefix.val))
   const selectedIndex = van.derive(() =&gt; (candidates.val, 0))
 
-  const suggestionList = (node: Node) =&gt; {
-    const dom = &lt;HTMLElement&gt;node
-    if (dom &amp;&amp; candidates.val === candidates.oldVal) {
-      // If the candidate list doesn't change, we don't need to re-render the
-      // suggetion list. Just need to change the selected candidate.
-      dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
-        ?.classList?.remove("selected")
-      dom.querySelector(`[data-index="${selectedIndex.val}"]`)
-        ?.classList?.add("selected")
-      return dom
-    }
-    return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
-  }
-
   const onkeydown = (e: KeyboardEvent) =&gt; {
     if (e.key === "ArrowDown") {
       selectedIndex.val = selectedIndex.val + 1 &lt; candidates.val.length ? selectedIndex.val + 1 : 0
@@ -596,7 +582,19 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   const oninput = (e: Event) =&gt; prefix.val = lastWord((&lt;HTMLTextAreaElement&gt;e.target).value)
 
-  return div({class: "root"}, textarea({onkeydown, oninput}), suggestionList)
+  return div({class: "root"}, textarea({onkeydown, oninput}), node =&gt; {
+    const dom = &lt;HTMLElement&gt;node
+    if (dom &amp;&amp; candidates.val === candidates.oldVal) {
+      // If the candidate list doesn't change, we don't need to re-render the
+      // suggetion list. Just need to change the selected candidate.
+      dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+        ?.classList?.remove("selected")
+      dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+        ?.classList?.add("selected")
+      return dom
+    }
+    return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
+  })
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/jps6bnvL/7/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
 
@@ -1547,18 +1545,6 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       const prefix = van.state("");
       const candidates = van.derive(() => getCandidates(prefix.val));
       const selectedIndex = van.derive(() => (candidates.val, 0));
-      const suggestionList = (node) => {
-          var _a, _b, _c, _d;
-          const dom = node;
-          if (dom && candidates.val === candidates.oldVal) {
-              // If the candidate list doesn't change, we don't need to re-render the
-              // suggetion list. Just need to change the selected candidate.
-              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
-              return dom;
-          }
-          return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
-      };
       const onkeydown = (e) => {
           var _a;
           if (e.key === "ArrowDown") {
@@ -1579,7 +1565,18 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           }
       };
       const oninput = (e) => prefix.val = lastWord(e.target.value);
-      return div({ class: "root" }, textarea({ onkeydown, oninput }), suggestionList);
+      return div({ class: "root" }, textarea({ onkeydown, oninput }), node => {
+          var _a, _b, _c, _d;
+          const dom = node;
+          if (dom && candidates.val === candidates.oldVal) {
+              // If the candidate list doesn't change, we don't need to re-render the
+              // suggetion list. Just need to change the selected candidate.
+              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
+              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+              return dom;
+          }
+          return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
+      });
   };
   fetch("https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt")
       .then(r => r.text())
