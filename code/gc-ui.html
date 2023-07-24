@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Demo for Garbage Collection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script type="text/javascript" src="van-latest.nomodule.js"></script>
+    <script>
+      const {div, input, pre, span} = van.tags
+
+      const renderPre = van.state(false)
+      const text = van.state("Text")
+      const TextDiv = () => div(
+        () => (renderPre.val ? pre : span)(text),
+      )
+
+      van.add(document.body,
+        div(
+          "renderPre: ",
+          input({type: "checkbox", checked: renderPre, onclick: e => renderPre.val = e.target.checked}),
+          " text: ",
+          input({type: "text", value: text, oninput: e => text.val = e.target.value}),
+        ),
+        TextDiv(),
+      )
+    </script>
+  </body>
+</html>

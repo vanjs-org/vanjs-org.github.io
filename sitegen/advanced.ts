@@ -30,17 +30,18 @@ export default (doc: HTMLDocument) => {
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)
 const text = van.state("Text")
-return div(
+const Text = () => div(
   () => (renderPre.val ? pre : span)(text),
 )
 `),
-    p("In this piece of code, we create a ", Symbol("<div>"), " element whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
+    p("In this piece of code, the ", Symbol("Text"), " component has a ", Symbol("<div>"), " element whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
     p("Without proper garbage collection implemented, ", Symbol("text"), " state will be eventually bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except for the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds the reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
     p("Garbage collection is implemented in ", VanJS(), " to resolve the issue. There are 2 ways a garbage collection activity can be triggered:"),
     ol(
       li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all the bindings for a disconnected DOM element. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
       li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all the bindings for a disconnected DOM element."),
     ),
+    p(Link("Try out the example here", "/code/gc-ui"), " (You can use developer console to watch ", Symbol("renderPre"), "'s UI bindings)."),
     H3("Avoid your bindings to be GC-ed unexpectedly"),
     p("There are some general guidelines to follow to avoid your bindings being garbage collected unexpectedly:"),
     ol(
