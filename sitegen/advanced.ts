@@ -30,16 +30,16 @@ export default (doc: HTMLDocument) => {
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)
 const text = van.state("Text")
-const dom = div(
-  () => (renderPre.val ? pre : div)(() => \`--\${text.val}--\`)),
+return div(
+  () => (renderPre.val ? pre : span)(text),
 )
 `),
-    p("In this piece of code, we have created an element ", Symbol("dom"), ", whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether ", Symbol("dom"), " has a ", Symbol("<pre>"), " or ", Symbol("<div>"), " child element. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the DOM tree will be generated, and we will add a new binding from ", Symbol("text"), " state to the text node of the newly created DOM tree."),
-    p("Without proper garbage collection implemented, ", Symbol("text"), " state will eventually be bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
+    p("In this piece of code, we create a ", Symbol("<div>"), " element whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
+    p("Without proper garbage collection implemented, ", Symbol("text"), " state will be eventually bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except for the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds the reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
     p("Garbage collection is implemented in ", VanJS(), " to resolve the issue. There are 2 ways a garbage collection activity can be triggered:"),
     ol(
-      li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all the bindings to a disconnected DOM element. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
-      li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all the bindings to a disconnected DOM element."),
+      li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all the bindings for a disconnected DOM element. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
+      li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all the bindings for a disconnected DOM element."),
     ),
     H3("Avoid your bindings to be GC-ed unexpectedly"),
     p("There are some general guidelines to follow to avoid your bindings being garbage collected unexpectedly:"),
@@ -47,16 +47,28 @@ const dom = div(
       li("Please complete the construction of the DOM tree and connect the newly constructed DOM tree to the ", SymLink("document", "https://developer.mozilla.org/en-US/docs/Web/API/Window/document"), " object before making any state changes. Otherwise, the bindings to yet-to-be-connected DOM elements will be garbage collected."),
       li("DOM tree construction needs to be synchronous. i.e.: you shouldn't have any suspension point while building the DOM tree (e.g.: ", Symbol("await"), " something in an ", SymLink("async function", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function"), "). Otherwise, periodic recycling might be scheduled in the middle of the suspension point which can cause bindings to yet-to-be-connected DOM elements being garbage collected."),
     ),
-    H3(Symbol("onnew"), " listeners are not subject to GC"),
-    p("Note that, the garbage collection in ", VanJS(), " only removes obsolete bindings. It doesn't apply to event handers registered via ", Symbol("onnew"), " method. For instance, the code below still suffers from memory leaks:"),
+    H3("Derived states and side effects are not subject to GC"),
+    p("Note that, the garbage collection in ", VanJS(), " only removes obsolete UI bindings. It doesn't apply to derived states or side effects registered via ", Symbol("van.derive"), ". For instance, the code below still suffers from memory leaks:"),
     Js(`const renderPre = van.state(false)
-const text = van.state("Text")
-const dom = div(() => {
-  const expandedText = van.derive(() => expandedText.val = \`--\${text.val}--\`)
-  return (renderPre.val ? pre : div)(expandedText)
+const prefix = van.state("Prefix - ")
+return div(() => {
+  const suffix = van.state("Suffix")
+  const text = van.derive(() => \`\${prefix.val}\${suffix.val}\`)
+  return (renderPre.val ? pre : span)(text)
 })
 `),
-    p("In this example, whenever the generation function ", Symbol("TextLine"), " is called, a new ", Symbol("State"), " object will be created and subscribe to the change of the ", Symbol("text"), " state. Because every event handler registered via ", Symbol("onnew"), " holds the reference to local ", Symbol("State"), " variable ", Symbol("expandedText"), ", the instances of ", Symbol("expandedText"), " variable will not be GC-ed by JavaScript runtime even when they are no longer being actively used."),
-    p("To avoid memory leaks caused by ", Symbol("onnew"), ", in the generation function of the ", Symbol("van.bind"), " call, you shall NEVER register event handlers via ", Symbol("onnew"), " method for ", Symbol("State", ), " objects defined outside the scope of generation function."),
+    p("In this example, whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " and ", Symbol("suffix"), " state. Because ", Symbol("prefix"), " is defined in the outer scope, it will eventually hold references to many versions of the derived ", Symbol("text"), " state, which are created whenever the binding function is called. These ", Symbol("text"), " state instances won't be GC-ed by JavaScript runtime even though they're no longer being used except for the most recent one."),
+    p("To avoid memory leaks in this situation, if you register derived states or side effects via ", Symbol("van.derive"), " inside a binding function, the derived states or side effect shall NEVER depend on state that are created outside the scope of current binding function. The code above can be modified in the following way:"),
+    Js(`const renderPre = van.state(false)
+const prefix = van.state("Prefix - ")
+return div(() => {
+  const prefixVal = prefix.val
+  const suffix = van.state("Suffix")
+  const text = van.derive(() => \`\${prefixVal}\${suffix.val}\`)
+  return (renderPre.val ? pre : span)(text)
+})
+`),
+    p("In the modified implementation above, we're making the ", Symbol("State"), "-derived DOM node, instead of the ", Symbol("text"), " state, depend on the ", Symbol("prefix"), " state, which avoids the GC issue."),
+    p("In ", Symbol("van-{version}.debug.js"), ", an error will be thrown if you try to reference a state created out of the scope of the current binding function while defining derived states or side effects.")
   )
 }
