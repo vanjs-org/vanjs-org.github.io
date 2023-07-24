@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="icon" href="/logo.svg">
-    <title>Demo for Garbage Collection (UI Binding)</title>
+    <title>Demo for Garbage Collection (Good Example for Derived State)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -12,17 +12,20 @@
       const {div, h4, input, pre, span} = van.tags
 
       const renderPre = van.state(false)
-      const text = van.state("Text")
-      const TextDiv = () => div(
-        () => (renderPre.val ? pre : span)(text),
-      )
+      const prefix = van.state("Prefix - ")
+      const TextDiv = () => div(() => {
+        const prefixVal = prefix.val
+        const suffix = van.state("Suffix")
+        const text = van.derive(() => `${prefixVal}${suffix.val}`)
+        return (renderPre.val ? pre : span)(text)
+      })
 
       van.add(document.body,
         div(
           "renderPre: ",
           input({type: "checkbox", checked: renderPre, onclick: e => renderPre.val = e.target.checked}),
-          " text: ",
-          input({type: "text", value: text, oninput: e => text.val = e.target.value}),
+          " prefix: ",
+          input({type: "text", value: prefix, oninput: e => prefix.val = e.target.value}),
         ),
         h4("Rendering Result:"),
         TextDiv(),
