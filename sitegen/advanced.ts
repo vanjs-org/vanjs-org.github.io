@@ -22,11 +22,11 @@ export default (doc: HTMLDocument) => {
     }),
     H2("State and State Binding"),
     H3({id: "why-not-dom-valued-states"}, "Why can't states have DOM node as values?"),
-    p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child. However, this is problematic when the state is bound to multiple child DOM nodes, like the example below:"),
+    p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:"),
     JsFile("dom-valued-state.code.js"),
     p(Demo(), " ", span({id: "demo-dom-valued-state"})),
     p({id: "jsfiddle-dom-valued-state"}),
-    p("In this example, if we click the \"Turn Bold\" button, the first \"", VanJS(), "\" text will disappear, which is unexpected. This is because the same DOM node is used twice in the DOM tree. For this reason, an error will be thrown in ", Symbol("van-{version}.debug.js"), " whenever we assign a DOM node to a ", Symbol("State"), " object."),
+    p("In this example, if we click the \"Turn Bold\" button, the first \"", VanJS(), "\" text will disappear, which is unexpected. This is because the same DOM node ", InlineJs('b("VanJS")'), " is used twice in the DOM tree. For this reason, an error will be thrown in ", Symbol("van-{version}.debug.js"), " whenever we assign a DOM node to a ", Symbol("State"), " object."),
     H3("State granularity"),
     p("Whenever possible, it's encouraged to define states at a more granular level. That is, it's recommended to define states like this:"),
     Js(`const appState = {
@@ -34,7 +34,7 @@ export default (doc: HTMLDocument) => {
   b: van.state(2),
 }
 `),
-    p("instead of that:"),
+    p("instead of this:"),
     Js(`const appState = van.state({
   a: 1,
   b: 2,
@@ -61,8 +61,8 @@ export default (doc: HTMLDocument) => {
       "data-css-file": "code/advanced-state-derivation.html",
     }),
     H3("Conditional state binding"),
-    p("In ", Link(Symbol("State"), "-derived properties", "/tutorial#state-derived-prop"), " and ", Link(Symbol("State"), "-derived child nodes", "/tutorial#state-derived-child"), ", it is guaranteed that the binding function will be triggered, and only be triggered to generate the new UI content when the dependency states change. This is true even for complex binding functions, who have different dependency states under different conditions."),
-    p("For instance, the binding function ", InlineJs("() => cond.val ? a.val + b.val : c.val + d.val"), " will be triggered and only be triggered by updates of state ", Symbol("a"), " and ", Symbol("b"), " if ", Symbol("cond.val"), " is true, and will be triggered and only be triggered by updates of state ", Symbol("c"), " and ", Symbol("d"), " if ", Symbol("cond.val"), " is false. This can be illustrated with the code below:"),
+    p("In ", Link(Symbol("State"), "-derived properties", "/tutorial#state-derived-prop"), " and ", Link(Symbol("State"), "-derived child nodes", "/tutorial#state-derived-child"), ", it is guaranteed that the binding function will (only) be triggered when the dependency states change. This is true even for complex binding functions, who have different dependency states under different conditions."),
+    p("For instance, the binding function ", InlineJs("() => cond.val ? a.val + b.val : c.val + d.val"), " will (only) be triggered by updates of state ", Symbol("a"), " and ", Symbol("b"), " if ", Symbol("cond.val"), " is true, and will (only) be triggered by updates of state ", Symbol("c"), " and ", Symbol("d"), " if ", Symbol("cond.val"), " is false. This can be illustrated with the code below:"),
     JsFile("conditional-binding.code.js"),
     p(Demo()),
     p({id: "demo-conditional-binding"}),
@@ -84,16 +84,16 @@ export default (doc: HTMLDocument) => {
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)
 const text = van.state("Text")
-const Text = () => div(
+const TextDiv = () => div(
   () => (renderPre.val ? pre : span)(text),
 )
 `),
-    p("In this piece of code, the ", Symbol("Text"), " component has a ", Symbol("<div>"), " element whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
-    p("Without proper garbage collection implemented, ", Symbol("text"), " state will be eventually bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except for the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds the reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
+    p("In this piece of code, the ", Symbol("TextDiv"), " component has a ", Symbol("<div>"), " element whose only child binds to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text binds to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
+    p("Without proper garbage collection implemented, ", Symbol("text"), " state will eventually be bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except for the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds the reference to all DOM elements that bind to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
     p("Garbage collection is implemented in ", VanJS(), " to resolve the issue. There are 2 ways a garbage collection activity can be triggered:"),
     ol(
-      li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all the bindings for a disconnected DOM element. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
-      li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all the bindings for a disconnected DOM element."),
+      li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all bindings to disconnected DOM elements. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
+      li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all bindings to disconnected DOM elements."),
     ),
     p(Link("Try out the example here", "/code/gc-ui"), " (You can use ", Link("developer console", "https://en.wikipedia.org/wiki/Web_development_tools"), " to watch ", Symbol("text"), "'s UI ", Symbol("bindings"), ")."),
     H3("Avoid your bindings to be GC-ed unexpectedly"),
@@ -114,7 +114,7 @@ const TextDiv = () => div(() => {
 `),
     p("In this example, whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " and ", Symbol("suffix"), " state. Because ", Symbol("prefix"), " is defined in the outer scope, it will eventually hold references to many versions of the derived ", Symbol("text"), " state, which are created whenever the binding function is called. These ", Symbol("text"), " state instances won't be GC-ed by JavaScript runtime even though they're no longer being used except for the most recent one."),
     p(Link("Try out the example here", "/code/gc-derive-bad"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("listeners"), ")."),
-    p("To avoid memory leaks in this situation, if you register derived states or side effects via ", Symbol("van.derive"), " inside a binding function, the derived states or side effect shall NEVER depend on state that are created outside the scope of current binding function. The code above can be modified in the following way:"),
+    p("To avoid memory leaks in this situation, if you register derived states or side effects via ", Symbol("van.derive"), " inside a binding function, the derived states or side effect shall NEVER depend on states that are created outside the scope of the current binding function. The code above can be modified in the following way:"),
     Js(`const renderPre = van.state(false)
 const prefix = van.state("Prefix - ")
 const TextDiv = () => div(() => {

@@ -1,6 +1,6 @@
 const fullName = van.state("Tao Xin")
 
-// Declaring multiple derived states
+// Defining multiple derived states
 const firstName = van.state(), lastName = van.state()
 van.derive(() => [firstName.val, lastName.val] = fullName.val.split(" "))
 
