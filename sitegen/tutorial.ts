@@ -255,7 +255,7 @@ van.add(document.body, Timer({totalSecs: 5}))
     JsFile("escape-derived-prop.code.js"),
     p(Demo(), " ", span({id: "demo-escape-derived-prop"})),
     p({id: 'jsfiddle-escape-derived-prop'}),
-    H3(Symbol("State"), "-derived child nodes"),
+    H3({id: "state-derived-child"}, Symbol("State"), "-derived child nodes"),
     p("Similarly, you can bind an HTML node with one or more underlying ", Symbol("State"), " objects. To declare a ", Symbol("State"), "-derived child node, you need to provide a function as the ", Symbol("child"), " argument while calling to a ", SymLink("tag function", "#api-tags"), " or ", SymLink("van.add", "#api-add"), ". The function you provide can return a primitive value (a ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it) or a DOM node. The following example illustrates this:"),
     Js(`const {input, li, option, select, span, ul} = van.tags
 
