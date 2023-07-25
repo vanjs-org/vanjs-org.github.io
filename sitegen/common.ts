@@ -26,7 +26,7 @@ export default (doc: HTMLDocument) => {
     return a({href, class: "w3-hover-opacity"}, children)
   }
 
-  const Symbol = (...child: ChildDom[]) => code({class: "symbol"}, child)
+  const Symbol = (...children: ChildDom[]) => code({class: "symbol"}, children)
 
   const CopyButton = () => a({class: "copy", onclick: "copy(this)", onmouseout: "resetTooltip(this)"},
     span({class: "tooltip"}, "Copy import line"),
