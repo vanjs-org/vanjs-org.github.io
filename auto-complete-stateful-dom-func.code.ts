@@ -22,6 +22,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
 
   const prefix = van.state("")
   const candidates = van.derive(() => getCandidates(prefix.val))
+  // Resetting selectedIndex to 0 whenever candidates change
   const selectedIndex = van.derive(() => (candidates.val, 0))
 
   const onkeydown = (e: KeyboardEvent) => {

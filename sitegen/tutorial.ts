@@ -187,6 +187,7 @@ van.add(document.body, Table({
     JsFile("derived-state.code.js"),
     p(Demo(), " ", span({id: "demo-derived-state"})),
     p({id: "jsfiddle-derived-state"}),
+    p("See also: ", Link("Advanced state derivation", "/advanced#advanced-state-derivation")),
     H3({id: "api-derive"}, "API reference: ", Symbol("van.derive")),
     ApiTable({
       signature: "van.derive(f) => <the created derived state>",

@@ -133,16 +133,15 @@ const CounterSet = () =&gt; {
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-counter-advanced"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/demo/counter-advanced">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stopwatch"><a class="self-link" href="#stopwatch">Stopwatch</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is a <code class="symbol">Stopwatch App</code>, similar to the <code class="symbol"><a href="/tutorial#state-typed-child" class="w3-hover-opacity">Timer App</a></code> shown in the tutorial:</p><pre><code class="language-js">const Stopwatch = () =&gt; {
-  const elapsed = van.state("0.00")
+  const elapsed = van.state(0)
   let id
-  const start = () =&gt; id = id || setInterval(() =&gt;
-    elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+  const start = () =&gt; id = id || setInterval(() =&gt; elapsed.val += .01, 10)
   return span(
-    pre({style: "display: inline;"}, elapsed, "s "),
+    pre({style: "display: inline;"}, () =&gt; elapsed.val.toFixed(2), "s "),
     button({onclick: start}, "Start"),
     button({onclick: () =&gt; (clearInterval(id), id = 0)}, "Stop"),
     button({onclick: () =&gt;
-      (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+      (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
   )
 }
 </code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/demo/stopwatch">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="blog"><a class="self-link" href="#blog">Blog</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><b>VanJS</b> doesn't have an equivalent to React's <code class="symbol"><a href="https://react.dev/reference/react/Fragment" class="w3-hover-opacity">&lt;Fragment&gt;</a></code>. For most of the cases, returning an array of HTML elements from your custom component would serve the similar purpose. Here is the sample code equivalent to the <code class="symbol">Blog</code> example in React's official website:</p><pre><code class="language-js">const Blog = () =&gt; [
@@ -561,6 +560,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   const prefix = van.state("")
   const candidates = van.derive(() =&gt; getCandidates(prefix.val))
+  // Resetting selectedIndex to 0 whenever candidates change
   const selectedIndex = van.derive(() =&gt; (candidates.val, 0))
 
   const onkeydown = (e: KeyboardEvent) =&gt; {
@@ -612,6 +612,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   const prefix = van.state("")
   const candidates = van.derive(() =&gt; getCandidates(prefix.val))
+  // Resetting selectedIndex to 0 whenever candidates change
   const selectedIndex = van.derive(() =&gt; (candidates.val, 0))
 
   const SuggestionListItem = ({index}: {index: number}) =&gt; pre(
@@ -1275,16 +1276,15 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
   const {button, pre, span} = van.tags
 
   const Stopwatch = () => {
-    const elapsed = van.state("0.00")
+    const elapsed = van.state(0)
     let id
-    const start = () => id = id || setInterval(() =>
-      elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+    const start = () => id = id || setInterval(() => elapsed.val += .01, 10)
     return span(
-      pre({style: "display: inline;"}, elapsed, "s "),
+      pre({style: "display: inline;"}, () => elapsed.val.toFixed(2), "s "),
       button({onclick: start}, "Start"),
       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
       button({onclick: () =>
-        (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+        (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
     )
   }
 
@@ -1544,6 +1544,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const prefix = van.state("");
       const candidates = van.derive(() => getCandidates(prefix.val));
+      // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const onkeydown = (e) => {
           var _a;
@@ -1602,6 +1603,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const prefix = van.state("");
       const candidates = van.derive(() => getCandidates(prefix.val));
+      // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
       const indices = [];

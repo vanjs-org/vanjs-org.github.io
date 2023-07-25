@@ -121,16 +121,15 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
   const {button, pre, span} = van.tags
 
   const Stopwatch = () => {
-    const elapsed = van.state("0.00")
+    const elapsed = van.state(0)
     let id
-    const start = () => id = id || setInterval(() =>
-      elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+    const start = () => id = id || setInterval(() => elapsed.val += .01, 10)
     return span(
-      pre({style: "display: inline;"}, elapsed, "s "),
+      pre({style: "display: inline;"}, () => elapsed.val.toFixed(2), "s "),
       button({onclick: start}, "Start"),
       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
       button({onclick: () =>
-        (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+        (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
     )
   }
 
@@ -390,6 +389,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const prefix = van.state("");
       const candidates = van.derive(() => getCandidates(prefix.val));
+      // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const onkeydown = (e) => {
           var _a;
@@ -448,6 +448,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const prefix = van.state("");
       const candidates = van.derive(() => getCandidates(prefix.val));
+      // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
       const indices = [];

@@ -15,6 +15,7 @@ const AutoComplete = ({ words }) => {
     };
     const prefix = van.state("");
     const candidates = van.derive(() => getCandidates(prefix.val));
+    // Resetting selectedIndex to 0 whenever candidates change
     const selectedIndex = van.derive(() => (candidates.val, 0));
     const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
     const indices = [];

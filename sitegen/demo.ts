@@ -127,16 +127,15 @@ const CounterSet = () => {
     H2("Stopwatch"),
     p("This is a ", Symbol("Stopwatch App"), ", similar to the ", SymLink("Timer App", "/tutorial#state-typed-child"), " shown in the tutorial:"),
     Js(`const Stopwatch = () => {
-  const elapsed = van.state("0.00")
+  const elapsed = van.state(0)
   let id
-  const start = () => id = id || setInterval(() =>
-    elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
+  const start = () => id = id || setInterval(() => elapsed.val += .01, 10)
   return span(
-    pre({style: "display: inline;"}, elapsed, "s "),
+    pre({style: "display: inline;"}, () => elapsed.val.toFixed(2), "s "),
     button({onclick: start}, "Start"),
     button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
     button({onclick: () =>
-      (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
+      (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
   )
 }
 `),
