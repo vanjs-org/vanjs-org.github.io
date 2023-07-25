@@ -145,7 +145,7 @@ const Converter = ({initInput}) => {
 
   const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
   const indentInputDom = input(
-    {type: "number", min: "1", max: "8", value: "2", oninput})
+    {type: "number", min: 1, max: 8, value: 2, oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
