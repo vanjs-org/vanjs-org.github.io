@@ -187,7 +187,6 @@ van.add(document.body, Table({
     JsFile("derived-state.code.js"),
     p(Demo(), " ", span({id: "demo-derived-state"})),
     p({id: "jsfiddle-derived-state"}),
-    p("See also: ", Link("Advanced state derivation", "/advanced#advanced-state-derivation")),
     H3({id: "api-derive"}, "API reference: ", Symbol("van.derive")),
     ApiTable({
       signature: "van.derive(f) => <the created derived state>",
@@ -201,6 +200,7 @@ van.add(document.body, Table({
     p(Symbol("van.derive"), " can be used to declare side effects as well. You can discard the return value of ", Symbol("van.derive"), " if you are not interested. The code below is a modified ", Symbol("Counter App"), " which logs the counter to console whenever it changes:"),
     JsFile("effect.code.js"),
     p({id: "jsfiddle-effect"}),
+    p("See also: ", Link("Advanced state derivation", "/advanced#advanced-state-derivation")),
     H2("State Binding"),
     p("Once ", Symbol("State"), " objects are created, we can bind them to DOM nodes in various ways to make your UI reactive to state changes."),
     H3({id: "state-typed-prop"}, Symbol("State"), " objects as properties"),
