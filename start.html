@@ -182,7 +182,6 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
   }
 
   const DownloadTable = ({version}) => div(
-    p(a({href: versionToAnnouncement[version]}, version, " release announcement")),
     div("Click the link to download the file, or 📋 to copy the import line from CDN."),
     table({class: "download-table"},
       thead(tr(th("Files"), th("Description"))),
@@ -226,11 +225,13 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
 
   const version = van.state(Object.keys(versionToAnnouncement)[0])
   van.add(document.getElementById("download-table-div"),
-    div(
+    p(
       "Version: ",
       select({value: version, oninput: e => version.val = e.target.value},
         Object.keys(versionToAnnouncement).map(v => option({value: v}, v)),
       ),
+      " ",
+      () => a({href: versionToAnnouncement[version.val]}, "release announcement"),
     ),
     () => DownloadTable({version: version.val}),
   )
