@@ -100,7 +100,7 @@ van.add(document.body, Counter())
     p(VanJS(), " puts heavy emphasis on the simplicity of the framework. There are only 5 exported functions in the API and feels a lot like React. Because of that, the ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
     H2("Want to Learn More?"),
     ul(
-      li("Download and ", Link("Get Started", "/start")),
+      li(Link("Get Started", "/start")),
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo"), " (and also ", Link("Community Examples", "/demo#community-examples"), ")"),
       li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
