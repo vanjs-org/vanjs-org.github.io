@@ -1133,7 +1133,7 @@ for await (const conn of Deno.listen({port})) serveConn(conn)
 
       const tocDom = document.getElementById("toc")
 
-      // Track the current toc item
+      // Tracks the current toc item
       const trackToc = () => {
         const allHeadings = [...document.querySelectorAll("h2,h3")]
         const currentHeadingIndex = allHeadings.findIndex(h => h.getBoundingClientRect().top >= 0)
