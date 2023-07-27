@@ -4,9 +4,9 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {div, p, table, tbody, th, thead, tr} = tags
+  const {div, p} = tags
 
-  const {Demo, Download, DownloadRow, H1, H2, H3, Html, Js, Link, Symbol, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, Html, Js, Link, Shell, Symbol, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -17,6 +17,9 @@ export default (doc: HTMLDocument) => {
     p("To code without ES6 modules, add the following line to your HTML file instead:"),
     Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.nomodule.min.js"></script>`),
     p("Alternative, you can download the files (", Download(`van-${version}.min.js`), ", ", Download(`van-${version}.nomodule.min.js`), ") and serve them locally."),
+    H2("NPM Integration"),
+    p("It's also possible to integrate with ", VanJS(), " via NPM, making it handy to build web applications with tools like ", Link("Vite", "https://vitejs.dev/"), " or ", Link("Parcel", "https://parceljs.org/"), ". You can also build your own NPM packages which depend on ", VanJS(), ". To get started with ", VanJS(), " via NPM, run:"),
+    Shell("npm install <TODO: PACKAGE NAME>"),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags
