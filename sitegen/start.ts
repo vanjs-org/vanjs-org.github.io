@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {div, p} = tags
 
-  const {Demo, Download, H1, H2, Html, Js, Link, Shell, Symbol, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, Html, Js, Link, Shell, Symbol, SymLink, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -20,6 +20,11 @@ export default (doc: HTMLDocument) => {
     H2("NPM Integration"),
     p("It's also possible to integrate with ", VanJS(), " via NPM, making it handy to build web applications with tools like ", Link("Vite", "https://vitejs.dev/"), " or ", Link("Parcel", "https://parceljs.org/"), ". You can also build your own NPM packages which depend on ", VanJS(), ". To get started with ", VanJS(), " via NPM, run:"),
     Shell("npm install <TODO: PACKAGE NAME>"),
+    p("To use the ", VanJS(), " NPM package, add this line to your script:"),
+    Js(`import van from "vanjs-prerelease2"`),
+    p("or this line if you want to import the debug version of ", VanJS(), ":"),
+    Js(`import van from "vanjs-prerelease2/debug"`),
+    p("You can check out the ", SymLink("Hello World", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/1.0.0/npm-examples/hello?file=%2Fsrc%2Fmain.ts%3A1%2C1"), " app built with ", VanJS(), " NPM (", Link("source code", "https://github.com/vanjs-org/van/tree/1.0.0/npm-examples/hello"), ")."),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags
