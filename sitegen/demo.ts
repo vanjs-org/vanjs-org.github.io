@@ -380,7 +380,7 @@ const TodoList = () => {
       "data-css-file": "code/json-csv-table-viewer.html",
     }),
     H2({id: "package-lock-inspector"}, Symbol("package-lock.json"), " Inspector"),
-    p("Below is an example which can extract all dependency packages and their versions from ", Symbol("package-lock.json"), " file:"),
+    p("Below is an example which can extract and display all dependency packages and their versions from ", Symbol("package-lock.json"), " file:"),
     JsFile("package-lock-inspector.code.js"),
     p(Link("Try it out here", "code/package-lock-inspector")),
     p({

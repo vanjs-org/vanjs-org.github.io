@@ -491,7 +491,7 @@ const DiffApp = () =&gt; {
   )
   return dom
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="package-lock-inspector"><a class="self-link" href="#package-lock-inspector"><code class="symbol">package-lock.json</code> Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an example which can extract all dependency packages and their versions from <code class="symbol">package-lock.json</code> file:</p><pre><code class="language-js">const PackageLockInspector = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/Tao-VanJS/jsfiddle-test/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="package-lock-inspector"><a class="self-link" href="#package-lock-inspector"><code class="symbol">package-lock.json</code> Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an example which can extract and display all dependency packages and their versions from <code class="symbol">package-lock.json</code> file:</p><pre><code class="language-js">const PackageLockInspector = () =&gt; {
   const json = van.state("")
   return [
     div("Paste the content of package-lock.json file here:"),
