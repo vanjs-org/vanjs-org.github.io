@@ -62,7 +62,7 @@ export default (doc: HTMLDocument) => {
     }),
     H3("Conditional state binding"),
     p("In ", Link(Symbol("State"), "-derived properties", "/tutorial#state-derived-prop"), " and ", Link(Symbol("State"), "-derived child nodes", "/tutorial#state-derived-child"), ", it is guaranteed that the binding function will (only) be triggered when the dependency states change. This is true even for complex binding functions, who have different dependency states under different conditions."),
-    p("For instance, the binding function ", InlineJs("() => cond.val ? a.val + b.val : c.val + d.val"), " will (only) be triggered by updates of state ", Symbol("a"), " and ", Symbol("b"), " if ", Symbol("cond.val"), " is true, and will (only) be triggered by updates of state ", Symbol("c"), " and ", Symbol("d"), " if ", Symbol("cond.val"), " is false. This can be illustrated with the code below:"),
+    p("For instance, the binding function ", InlineJs("() => cond.val ? a.val + b.val : c.val + d.val"), " will (only) be triggered by updates of state ", Symbol("a"), ", ", Symbol("b"), " and ", Symbol("cond"), " if ", Symbol("cond.val"), " is true, and will (only) be triggered by updates of state ", Symbol("c"), ", ", Symbol("d"), " and ", Symbol("cond"), " if ", Symbol("cond.val"), " is false. This can be illustrated with the code below:"),
     JsFile("conditional-binding.code.js"),
     p(Demo()),
     p({id: "demo-conditional-binding"}),

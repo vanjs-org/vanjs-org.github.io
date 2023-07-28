@@ -116,7 +116,7 @@ google.charts.setOnLoadCallback(() =>
       li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
       li("The chart shown in the home page:", Snippet(`plot([
   ["Framework", "Size", {role: "style"}, {role: "annotation"}],
-  ["VanJS", 0.8, "#f44336", "VanJS-0.12.4 0.8kB"],
+  ["VanJS", 0.9, "#f44336", "VanJS-1.0.0 0.9kB"],
   ["Preact", 4.3, "#b7b7b7", "Preact-10.15.1 4.3kB"],
   ["jQuery", 29.7, "#b7b7b7", "jQuery-3.7.0 29.7kB"],
   ["ReactDOM", 42, "#b7b7b7", "ReactDOM-18.2.0 42kB"],
