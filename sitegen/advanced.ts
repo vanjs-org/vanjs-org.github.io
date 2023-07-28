@@ -126,6 +126,6 @@ const TextDiv = () => div(() => {
 `),
     p("In the modified implementation above, we're making the ", Symbol("State"), "-derived DOM node, instead of the ", Symbol("text"), " state, depend on the ", Symbol("prefix"), " state, which avoids the GC issue."),
     p(Link("Try out the example here", "/code/gc-derive-good"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("listeners"), ")."),
-    p("In ", Symbol("van-{version}.debug.js"), ", an error will be thrown if you try to reference a state created out of the scope of the current binding function while defining derived states or side effects.")
+    p("In ", Symbol("van-{version}.debug.js"), ", an error will be logged if you try to reference a state created out of the scope of the current binding function while defining derived states or side effects.")
   )
 }
