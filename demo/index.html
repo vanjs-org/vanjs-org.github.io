@@ -624,7 +624,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
     return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
   })
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/jps6bnvL/7/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
+</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/Lgjmoku3/1/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
 
 const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
   const maxTotalCandidates = 10
@@ -674,7 +674,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   return div({class: "root"}, textarea({onkeydown, oninput}), suggestionList)
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-derived-props"></p><p id="jsfiddle-auto-complete-derived-props"><a href="https://jsfiddle.net/h8utdb7g/5/">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="html-to-vanjs-code-converter"><a class="self-link" href="#html-to-vanjs-code-converter">HTML to VanJS Code Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The converter that converts HTML snippet to <b>VanJS</b> code, is also implemented with <b>VanJS</b>:</p><pre><code class="language-js">const quoteIfNeeded = key =&gt; /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
+</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-derived-props"></p><p id="jsfiddle-auto-complete-derived-props"><a href="https://jsfiddle.net/4g56au83/1/">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="html-to-vanjs-code-converter"><a class="self-link" href="#html-to-vanjs-code-converter">HTML to VanJS Code Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The converter that converts HTML snippet to <b>VanJS</b> code, is also implemented with <b>VanJS</b>:</p><pre><code class="language-js">const quoteIfNeeded = key =&gt; /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
   key : `"${key}"`
 
 const attrsToVanCode = dom =&gt; dom.attributes.length &gt; 0 ?
