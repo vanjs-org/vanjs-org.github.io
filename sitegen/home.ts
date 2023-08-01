@@ -100,7 +100,7 @@ van.add(document.body, Counter())
     p("Simplicity at its core. 4 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
     H2("Want to Learn More?"),
     ul(
-      li(Link("Get Started", "/start")),
+      li(Link("Get Started", "/start"), " (CDN, NPM or local download)"),
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo"), " (and also ", Link("Community Examples", "/demo#community-examples"), ")"),
       li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
