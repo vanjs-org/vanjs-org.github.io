@@ -1,6 +1,7 @@
 import van from "./mini-van.js"
 import { DOMParser, Element } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import { emptyDir, join } from "https://deno.land/std@0.184.0/path/mod.ts"
+import { emptyDirSync } from "https://deno.land/std@0.184.0/fs/mod.ts"
+import { join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
 const jsFiddleRoot = "/Users/xintao/org/vanjs-org.github.io/jsfiddle"
 const ghPath = "vanjs-org/vanjs-org.github.io/tree/master/jsfiddle"
@@ -79,7 +80,7 @@ const process = (file: string) => {
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
 }
 
-await emptyDir(jsFiddleRoot)
+// await emptyDir(jsFiddleRoot)
 
 for await (const f of Deno.readDir("."))
   if (f.isFile && f.name.endsWith(".html") && f.name !== "template.html") process(f.name)

@@ -58,7 +58,7 @@
     option({value: "Vanilla"}),
   )
 )
-</code></pre><p id="jsfiddle-readonly-prop" data-prefix="const {div, input, option, datalist, label} = van.tags" data-suffix="van.add(document.body, Datalist())"></p><h2 class="w3-xxlarge w3-text-red" id="state-and-state-binding"><a class="self-link" href="#state-and-state-binding">State and State Binding</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><h3 class="w3-large w3-text-red" id="why-not-dom-valued-states"><a class="self-link" href="#why-not-dom-valued-states">Why can't states have DOM node as values?</a></h3><p>We might be prompted to assign a DOM node to a <code class="symbol">State</code> object, especially when the <code class="symbol">State</code> object is used as a <code class="symbol">State</code>-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:</p><pre><code class="language-js">const {b, button, span} = van.tags
+</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/readonly-prop">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="state-and-state-binding"><a class="self-link" href="#state-and-state-binding">State and State Binding</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><h3 class="w3-large w3-text-red" id="why-not-dom-valued-states"><a class="self-link" href="#why-not-dom-valued-states">Why can't states have DOM node as values?</a></h3><p>We might be prompted to assign a DOM node to a <code class="symbol">State</code> object, especially when the <code class="symbol">State</code> object is used as a <code class="symbol">State</code>-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:</p><pre><code class="language-js">const {b, button, span} = van.tags
 
 const TurnBold = () =&gt; {
   const vanJS = van.state("VanJS")
@@ -69,7 +69,7 @@ const TurnBold = () =&gt; {
 }
 
 van.add(document.body, TurnBold())
-</code></pre><p><b>Demo:</b> <span id="demo-dom-valued-state"></span></p><p id="jsfiddle-dom-valued-state"></p><p>In this example, if we click the "Turn Bold" button, the first "<b>VanJS</b>" text will disappear, which is unexpected. This is because the same DOM node <code class="language-js">b("VanJS")</code> is used twice in the DOM tree. For this reason, an error will be thrown in <code class="symbol">van-{version}.debug.js</code> whenever we assign a DOM node to a <code class="symbol">State</code> object.</p><h3 class="w3-large w3-text-red" id="state-granularity"><a class="self-link" href="#state-granularity">State granularity</a></h3><p>Whenever possible, it's encouraged to define states at a more granular level. That is, it's recommended to define states like this:</p><pre><code class="language-js">const appState = {
+</code></pre><p><b>Demo:</b> <span id="demo-dom-valued-state"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/dom-valued-state">Try on jsfiddle</a></p><p>In this example, if we click the "Turn Bold" button, the first "<b>VanJS</b>" text will disappear, which is unexpected. This is because the same DOM node <code class="language-js">b("VanJS")</code> is used twice in the DOM tree. For this reason, an error will be thrown in <code class="symbol">van-{version}.debug.js</code> whenever we assign a DOM node to a <code class="symbol">State</code> object.</p><h3 class="w3-large w3-text-red" id="state-granularity"><a class="self-link" href="#state-granularity">State granularity</a></h3><p>Whenever possible, it's encouraged to define states at a more granular level. That is, it's recommended to define states like this:</p><pre><code class="language-js">const appState = {
   a: van.state(1),
   b: van.state(2),
 }
@@ -113,17 +113,7 @@ const streamOf = s =&gt; {
   // You can also chain the data stream with `map`, `filter`, etc. by integrating with
   // wu.js (https://fitzgen.github.io/wu.js/)
 })()
-</code></pre><p id="jsfiddle-advanced-state-derivation" data-prefix="const {div, input, span} = van.tags" data-suffix="van.add(document.body,
-  div(
-    span({class: &quot;label&quot;}, &quot;fullName:&quot;),
-    input({type: &quot;text&quot;, value: fullName, oninput: e => fullName.val = e.target.value}),
-  ),
-  div(span({class: &quot;label&quot;}, &quot;firstName:&quot;), firstName),
-  div(span({class: &quot;label&quot;}, &quot;lastName:&quot;), lastName),
-  div(span({class: &quot;label&quot;}, &quot;elapsed:&quot;), () => elapsed.val.toFixed(2)),
-  div(span({class: &quot;label&quot;}, &quot;delayed:&quot;), () => delayed.val.toFixed(2)),
-  div(span({class: &quot;label&quot;}, &quot;throttled:&quot;), () => throttled.val.toFixed(2)),
-)" data-css-file="code/advanced-state-derivation.html"></p><h3 class="w3-large w3-text-red" id="conditional-state-binding"><a class="self-link" href="#conditional-state-binding">Conditional state binding</a></h3><p>In <a href="/tutorial#state-derived-prop" class="w3-hover-opacity"><code class="symbol">State</code>-derived properties</a> and <a href="/tutorial#state-derived-child" class="w3-hover-opacity"><code class="symbol">State</code>-derived child nodes</a>, it is guaranteed that the binding function will (only) be triggered when the dependency states change. This is true even for complex binding functions, who have different dependency states under different conditions.</p><p>For instance, the binding function <code class="language-js">() =&gt; cond.val ? a.val + b.val : c.val + d.val</code> will (only) be triggered by updates of state <code class="symbol">a</code>, <code class="symbol">b</code> and <code class="symbol">cond</code> if <code class="symbol">cond.val</code> is true, and will (only) be triggered by updates of state <code class="symbol">c</code>, <code class="symbol">d</code> and <code class="symbol">cond</code> if <code class="symbol">cond.val</code> is false. This can be illustrated with the code below:</p><pre><code class="language-js">const ConditionalBinding = () =&gt; {
+</code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/advanced-state-derivation">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="conditional-state-binding"><a class="self-link" href="#conditional-state-binding">Conditional state binding</a></h3><p>In <a href="/tutorial#state-derived-prop" class="w3-hover-opacity"><code class="symbol">State</code>-derived properties</a> and <a href="/tutorial#state-derived-child" class="w3-hover-opacity"><code class="symbol">State</code>-derived child nodes</a>, it is guaranteed that the binding function will (only) be triggered when the dependency states change. This is true even for complex binding functions, who have different dependency states under different conditions.</p><p>For instance, the binding function <code class="language-js">() =&gt; cond.val ? a.val + b.val : c.val + d.val</code> will (only) be triggered by updates of state <code class="symbol">a</code>, <code class="symbol">b</code> and <code class="symbol">cond</code> if <code class="symbol">cond.val</code> is true, and will (only) be triggered by updates of state <code class="symbol">c</code>, <code class="symbol">d</code> and <code class="symbol">cond</code> if <code class="symbol">cond.val</code> is false. This can be illustrated with the code below:</p><pre><code class="language-js">const ConditionalBinding = () =&gt; {
   const formula = van.state("a + b")
   const a = van.state(1), b = van.state(2), c = van.state(3), d = van.state(4)
   const triggeredTimes = new Text(0)
@@ -150,7 +140,7 @@ const streamOf = s =&gt; {
     div("Binding function triggered: ", triggeredTimes, " time(s)"),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-conditional-binding"></p><p id="jsfiddle-conditional-binding" data-prefix="const {div, input, option, select} = van.tags" data-suffix="van.add(document.body, ConditionalBinding())"></p><p>Conditional state binding works for <a href="/tutorial#derived-state" class="w3-hover-opacity">derived states</a> and <a href="/tutorial#side-effect" class="w3-hover-opacity">side effects</a> registered via <code class="symbol">van.derive</code> as well:</p><pre><code class="language-js">const ConditionalDerive = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-conditional-binding"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/conditional-binding">Try on jsfiddle</a></p><p>Conditional state binding works for <a href="/tutorial#derived-state" class="w3-hover-opacity">derived states</a> and <a href="/tutorial#side-effect" class="w3-hover-opacity">side effects</a> registered via <code class="symbol">van.derive</code> as well:</p><pre><code class="language-js">const ConditionalDerive = () =&gt; {
   const formula = van.state("a + b")
   const a = van.state(1), b = van.state(2), c = van.state(3), d = van.state(4)
   const triggeredTimes = new Text(0)
@@ -178,7 +168,7 @@ const streamOf = s =&gt; {
     div("Binding function triggered: ", triggeredTimes, " time(s)"),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-conditional-derive"></p><p id="jsfiddle-conditional-derive" data-prefix="const {div, input, option, select} = van.tags" data-suffix="van.add(document.body, ConditionalDerive())"></p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
+</code></pre><p><b>Demo:</b></p><p id="demo-conditional-derive"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/conditional-derive">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="gc"><a class="self-link" href="#gc">Garbage Collection</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>There is garbage collection mechanism implemented in <b>VanJS</b> to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:</p><pre><code class="language-js">const renderPre = van.state(false)
 const text = van.state("Text")
 const TextDiv = () =&gt; div(
   () =&gt; (renderPre.val ? pre : span)(text),
