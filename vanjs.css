@@ -115,6 +115,12 @@ a {
   padding: 0.5em 0.5em;
 }
 
+@media (max-width: 485px) {
+  #demo-connected-props input {
+    width: 120px;
+  }
+}
+
 #demo-key-inspector .label {
   width: 80px;
   font-weight: bold;
