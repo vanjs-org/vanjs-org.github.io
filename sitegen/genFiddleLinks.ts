@@ -37,6 +37,8 @@ const process = (file: string) => {
   const vanVersion = Deno.readTextFileSync("code/van.version")
   const miniVanVersion = Deno.readTextFileSync("code/mini-van.version")
 
+  emptyDirSync(join(jsFiddleRoot, path))
+
   for (const node of doc.querySelectorAll("[id^=jsfiddle-]")) {
     const dom = <Element>node
     if (dom.querySelector("a")) continue
@@ -79,8 +81,6 @@ const process = (file: string) => {
 
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
 }
-
-// await emptyDir(jsFiddleRoot)
 
 for await (const f of Deno.readDir("."))
   if (f.isFile && f.name.endsWith(".html") && f.name !== "template.html") process(f.name)
