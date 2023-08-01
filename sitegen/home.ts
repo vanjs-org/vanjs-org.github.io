@@ -97,7 +97,7 @@ van.add(document.body, Counter())
     H3("TypeScript Support"),
     p(VanJS(), " provides first-class support for TypeScript. Simply download the corresponding ", Symbol(".d.ts"), " file along with your ", Symbol(".js") ," file, and you'll be able to take advantage of type-checking, IntelliSense, large-scale refactoring provided by your preferred development environment. Refer to the ", Link("Download Table", "/start#download-table"), " to find the right ", Symbol(".d.ts"), " file to work with."),
     H3("Easy to Learn"),
-    p(VanJS(), " puts heavy emphasis on the simplicity of the framework. There are only 5 exported functions in the API and feels a lot like React. Because of that, the ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
+    p("Simplicity at its core. 4 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
     H2("Want to Learn More?"),
     ul(
       li(Link("Get Started", "/start")),
