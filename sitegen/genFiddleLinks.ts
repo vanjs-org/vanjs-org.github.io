@@ -56,10 +56,8 @@ const process = (file: string) => {
     const detailFile = dom.getAttribute("data-details") ?? "demo.details"
     const detailStr = Deno.readTextFileSync("jsfiddle/" + detailFile)
     Deno.writeTextFileSync(join(dir, "demo.details"),
-      detailStr
-        .replace("van-latest.",
-          `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`)
-        .replace("gh/vanjs-org/van/public", "gh/Tao-VanJS/jsfiddle-test/code"))
+      detailStr.replace("van-latest.",
+        `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`))
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
     const css = dom.getAttribute("data-css")
     if (css) Deno.writeTextFileSync(join(dir, "demo.css"), css)
