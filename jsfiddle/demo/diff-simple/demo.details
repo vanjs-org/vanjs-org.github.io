@@ -3,7 +3,7 @@
 authors:
   - Tao Xin
 resources:
-  - https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.0.0.nomodule.min.js
+  - https://cdn.jsdelivr.net/gh/Tao-VanJS/jsfiddle-test/code/van-1.0.0.nomodule.min.js
   - https://vanjs.org/code/diff.min.js
 panel_js: 2
 ...
