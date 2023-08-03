@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {b, div, li, ol, p, span} = tags
 
-  const {Demo, H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Advanced Topics"),
@@ -42,6 +42,7 @@ export default (doc: HTMLDocument) => {
 `),
     p("More granular ", Symbol("State"), " objects can help state bindings be more locally scoped, which make reactive UI updates more effient by eliminating unnecessary DOM tree construction and replacement."),
     H3("Advanced state derivation"),
+    Quote({text: "道生一，一生二，二生三，三生万物。", source: "老子，道德经"}),
     p("A broad set of advanced state derivation (derived states and side effects) can indeed be defined with ", SymLink("van.derive", "/tutorial#api-derive"), ", as illustrated in the following piece of code:"),
     JsFile("advanced-state-derivation.code.js"),
     p({

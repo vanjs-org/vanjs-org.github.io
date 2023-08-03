@@ -4,12 +4,13 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {b, div, i, img, li, p, ul} = tags
+  const {b, blockquote, div, i, img, li, p, ul} = tags
 
   const {H1, H2, Js, Link, MiniVan, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
+    blockquote(i("大道至简 (The Great Truth is Simple)")),
     H2({id: "story"}, "Meet the Author - the Story behind VanJS"),
     div({style: "overflow: auto;"},
       img({style: "float: left; width: 150px; margin-right: 20px;",
