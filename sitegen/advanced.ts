@@ -4,12 +4,13 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {b, div, li, ol, p, span} = tags
+  const {b, br, div, li, ol, p, span} = tags
 
   const {Demo, H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Advanced Topics"),
+    Quote({text: "Look deep into nature, and then you will understand everything better.", source: "Albert Einstein, to Margot Einstein"}),
     H2("DOM Attributes vs. Properties"),
     p("In ", SymLink("tag functions", "/tutorial#api-tags"), ", while assigning values from ", Symbol("props"), " parameter to the created HTML element, there are 2 ways of doing it: via ", SymLink("HTML attributes", "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"), " (", InlineJs("dom.setAttribute(<key>, <value>)"), "), or via the properties of the created HTML element (", InlineJs("dom[<key>] = <value>"), "). ", VanJS(), " follows a consistent rule that makes sense for most use cases regarding which option to choose: when a settable property exists in a given ", Symbol("<key>"), " for the specific element type, we will assign the value via property, otherwise we will assign the value via attribute."),
     p("For instance, ", InlineJs('input({type: "text", value: "Hello 🍦VanJS"})'), " will create an ", Link("input box", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"), " with ", Symbol("Hello 🍦VanJS"), " as the value of the ", Symbol("value"), " property, while ", InlineJs('div({"data-index": 1})'), " will create the tag: ", InlineHtml('<div data-index="1"></div>'), "."),
@@ -42,7 +43,7 @@ export default (doc: HTMLDocument) => {
 `),
     p("More granular ", Symbol("State"), " objects can help state bindings be more locally scoped, which make reactive UI updates more effient by eliminating unnecessary DOM tree construction and replacement."),
     H3("Advanced state derivation"),
-    Quote({text: "道生一，一生二，二生三，三生万物。", source: "老子，道德经"}),
+    Quote({text: ["道生一，一生二，二生三，三生万物", br(), "(Tao derives one, one derives two, two derive three, three derive everything)"], source: "老子，道德经"}),
     p("A broad set of advanced state derivation (derived states and side effects) can indeed be defined with ", SymLink("van.derive", "/tutorial#api-derive"), ", as illustrated in the following piece of code:"),
     JsFile("advanced-state-derivation.code.js"),
     p({
