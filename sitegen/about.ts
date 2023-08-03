@@ -4,9 +4,9 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {b, blockquote, div, i, img, li, p, ul} = tags
+  const {b, blockquote, br, div, i, img, li, p, ul} = tags
 
-  const {H1, H2, Js, Link, MiniVan, Symbol, VanJS} = common(doc)
+  const {H1, H2, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
@@ -26,7 +26,8 @@ export default (doc: HTMLDocument) => {
       p("I am never a front-end engineer, and I haven't used any UI framework. But I built lots of UI apps, and I will continue doing it, in a scripting way. And I believe anyone can do that as well."),
       p("I'm hoping open sourcing ", VanJS(), " can help us one step closer to that vision. Hope you can enjoy!"),
       p("Thanks!"),
-      p("-- Tao Xin")
+      p("-- Tao Xin"),
+      Quote({text: ['"Who do you truly serve?"', br(), '"The Realm. Someone must."'], source: "George R. R. Martin, Game of Thrones: S1E8"}),
     ),
     H2("Copyright and Compliance Disclaimer"),
     p(VanJS(), " was built by Tao Xin during his personal time while being employed as a full-time employee at Google. The project was submitted to Invention Assignment Review Committee at Google where Google, upon reviewing the designated scopes, waived its copyright claims. Thus the copyright of ", VanJS(), " belongs to its creater, all rights reserved. ", VanJS(), " is open sourced under MIT license. ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever."),
