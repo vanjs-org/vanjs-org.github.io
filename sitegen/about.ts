@@ -10,7 +10,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
-    blockquote(i("大道至简 (The Great Truth is Simple)")),
+    blockquote(i("大道至简 (The profound truth is utmost simplicity)")),
     H2({id: "story"}, "Meet the Author - the Story behind VanJS"),
     div({style: "overflow: auto;"},
       img({style: "float: left; width: 150px; margin-right: 20px;",
