@@ -680,7 +680,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 const attrsToVanCode = dom =&gt; dom.attributes.length &gt; 0 ?
   `{${[...dom.attributes].map(
     a =&gt; `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
-    .join(", ")}}` : ""
+    .join(", ")}}${dom.childNodes.length &gt; 0 ? "," : ""}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =&gt;
   [...childNodes].filter(c =&gt; (c.nodeType === 1 || c.nodeType === 3) &amp;&amp;
@@ -702,7 +702,7 @@ const domToVanCode = (dom,
   tagsUsed.add(lowerCaseTagName)
   if (lowerCaseTagName === "pre") skipEmptyText = false
   return dom.childNodes.length &gt; 0 ? [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)},`,
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
     ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =&gt;
       domToVanCode(
         c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
@@ -751,8 +751,7 @@ const Converter = ({initInput}) =&gt; {
     h5("Building the DOM tree:"),
     () =&gt; div(pre(code({class: "language-js"}, domCode.val))),
   )
-}
-</code></pre><p>You can try it out with <a href="/convert" class="w3-hover-opacity">this link</a>.</p><h2 class="w3-xxlarge w3-text-red" id="jupyter-like-javascript-console"><a class="self-link" href="#jupyter-like-javascript-console">Jupyter-like JavaScript Console</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in <b>~100 lines</b> of code with <b>VanJS</b>. The JavaScript console supports drawing tables (with the technique similar to <a href="#table-viewer" class="w3-hover-opacity">Table Viewer</a>), inspecting objects in a tree view (with the technique similar to <a href="#json-inspector" class="w3-hover-opacity">Json Inspector</a>) and plotting (with the integration of <a href="https://developers.google.com/chart" class="w3-hover-opacity">Google Charts</a>).</p><p>Here is the implementation:</p><pre><code class="language-js">const toDataArray = data =&gt; {
+}</code></pre><p>You can try it out with <a href="/convert" class="w3-hover-opacity">this link</a>.</p><h2 class="w3-xxlarge w3-text-red" id="jupyter-like-javascript-console"><a class="self-link" href="#jupyter-like-javascript-console">Jupyter-like JavaScript Console</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in <b>~100 lines</b> of code with <b>VanJS</b>. The JavaScript console supports drawing tables (with the technique similar to <a href="#table-viewer" class="w3-hover-opacity">Table Viewer</a>), inspecting objects in a tree view (with the technique similar to <a href="#json-inspector" class="w3-hover-opacity">Json Inspector</a>) and plotting (with the integration of <a href="https://developers.google.com/chart" class="w3-hover-opacity">Google Charts</a>).</p><p>Here is the implementation:</p><pre><code class="language-js">const toDataArray = data =&gt; {
   const hasPrimitive = !data.every(r =&gt; typeof r === "object")
   const keys = [...new Set(
     data.flatMap(r =&gt; typeof r === "object" ? Object.keys(r) : []))]

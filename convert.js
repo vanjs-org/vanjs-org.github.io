@@ -8,7 +8,7 @@ const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
 const attrsToVanCode = dom => dom.attributes.length > 0 ?
   `{${[...dom.attributes].map(
     a => `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
-    .join(", ")}}` : ""
+    .join(", ")}}${dom.childNodes.length > 0 ? "," : ""}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =>
   [...childNodes].filter(c => (c.nodeType === 1 || c.nodeType === 3) &&
@@ -30,7 +30,7 @@ const domToVanCode = (dom,
   tagsUsed.add(lowerCaseTagName)
   if (lowerCaseTagName === "pre") skipEmptyText = false
   return dom.childNodes.length > 0 ? [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)},`,
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
     ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =>
       domToVanCode(
         c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
