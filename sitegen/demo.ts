@@ -364,7 +364,7 @@ const TodoList = () => {
         tr(td(b("# of lines:")), td(156), td(616)),
       ),
     ),
-    p("As you can see, not only ", VanJS(), " is ", b("more than 100 times"), " smaller than React, apps built with ", VanJS(), " also tends to be slimmer."),
+    p("As you can see, not only ", VanJS(), " is ", b("~50 times"), " smaller than React, apps built with ", VanJS(), " also tends to be much slimmer."),
     H2({id: "table-viewer"}, "JSON/CSV Table Viewer"),
     p("The following code implements a ", Symbol("Table Viewer"), " for JSON/CSV-based data by leveraging ", Link("functional-style DOM tree building", "/tutorial#fun-dom"), ":"),
     JsFile("table-viewer.code.js"),
