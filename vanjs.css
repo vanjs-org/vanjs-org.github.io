@@ -103,6 +103,10 @@ a {
   color: -webkit-link;
 }
 
+.fixed-width {
+  font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+}
+
 .symbol {
   background-color: rgb(245, 242, 240);
   font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;

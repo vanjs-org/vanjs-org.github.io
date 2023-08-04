@@ -82,8 +82,8 @@ van.add(document.body, Counter())
     p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the minified bundled size of ", VanJS(), " is just 1.6kB (0.9kB gzipped), which is ", b("50~100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
     p(
       div({style: "text-align: center"},
-        input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({style: "margin-right: 60px;"}, ".min.gz"), " ",
-        input({type: "radio", name: "bundle-type", id: "radioMin", onclick: "updateChart()"}), ".min",
+        input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({class: "fixed-width", style: "margin-right: 60px;"}, ".min.js.gz"), " ",
+        input({type: "radio", name: "bundle-type", id: "radioMin", onclick: "updateChart()"}), span({class: "fixed-width"}, ".min.js"),
       ),
       div({id: "size-comp"}),
     ),
