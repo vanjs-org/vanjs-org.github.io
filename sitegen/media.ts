@@ -27,6 +27,7 @@ export default (doc: HTMLDocument) => {
     H2("Articles / Podcasts"),
     ol(
       li(Url("https://changelog.com/jsparty/277"), " (podcasts)"),
+      li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
       li(Url("https://bytes.dev/archives/190")),
       li(Url("https://echojs.com/news/41772")),
