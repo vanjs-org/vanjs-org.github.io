@@ -47,6 +47,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://zhuanlan.zhihu.com/p/630633744"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://www.cnblogs.com/xueweihan/p/17445043.html"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://hkdeveloper.io/2023/05/26/%E5%89%B5%E6%96%B0%E9%96%8B%E6%BA%90ui%E6%A1%86%E6%9E%B6%EF%BC%9Avanjs-%E6%96%BCgithub%E4%B8%8A%E9%87%8B%E5%87%BA/"), " (", i("in Traditional Chinese"), ")"),
+      li(Url("https://news.hada.io/topic?id=10202"), " (", i("in Korean"), ")"),
       li(Url("https://zenn.dev/daifukuninja/articles/79ff6fa650a535"), " (", i("in Japanese"), ")"),
       li(Url("http://kachibito.net/useful-resource/vanjs"), " (", i("in Japanese"), ")"),
       li(Url("https://b.hatena.ne.jp/entry/s/github.com/vanjs-org/van"), " (", i("in Japanese"), ")"),
