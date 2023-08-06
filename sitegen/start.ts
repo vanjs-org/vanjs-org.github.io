@@ -24,7 +24,7 @@ export default (doc: HTMLDocument) => {
     Js(`import van from "vanjs-core"`),
     p("or this line if you want to import the debug version of ", VanJS(), ":"),
     Js(`import van from "vanjs-core/debug"`),
-    p("You can check out the ", SymLink("Hello World", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/1.0.0/npm-examples/hello?file=%2Fsrc%2Fmain.ts%3A1%2C1"), " app built with ", VanJS(), " NPM + Vite (", Link("source code", "https://github.com/vanjs-org/van/tree/1.0.0/npm-examples/hello"), ")."),
+    p("You can check out the ", SymLink("Hello World", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/npm-examples/hello?file=%2Fsrc%2Fmain.ts%3A1%2C1"), " app built with ", VanJS(), " NPM + Vite (", Link("source code", "https://github.com/vanjs-org/van/tree/main/npm-examples/hello"), ")."),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags

@@ -56,6 +56,7 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
   )
 
   const versionToAnnouncement = {
+    "1.0.1": "https://github.com/vanjs-org/van/discussions/72#discussioncomment-6652959",
     "1.0.0": "https://github.com/vanjs-org/van/discussions/72",
     "0.12.4": "https://github.com/vanjs-org/van/discussions/53#discussioncomment-6463621",
     "0.12.3": "https://github.com/vanjs-org/van/discussions/53#discussioncomment-6223903",
