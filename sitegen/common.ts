@@ -120,6 +120,8 @@ export default (doc: HTMLDocument) => {
     User: (id: string) => Link("@" + id, "https://github.com/" + id),
 
     Quote: ({text, source}: {text: string | readonly ChildDom[], source: string}) =>
-      blockquote(i(text, br(), br(), "-- " + source))
+      blockquote(i(text, br(), br(), "-- " + source)),
+
+    Url: (url: string) => Link(url, url),
   }
 }

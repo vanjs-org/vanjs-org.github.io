@@ -6,13 +6,11 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {div, i, iframe, li, ol, p} = tags
 
-  const {H1, H2, Link, VanJS} = common(doc)
+  const {H1, H2, Url, VanJS} = common(doc)
 
   const Video = (src: string) => p({class: "video-wrapper"},
     iframe({src, frameborder: "0", allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", allowfullscreen: ""}),
   )
-
-  const Url = (url: string) => Link(url, url)
 
   return div({id: "content"},
     H1(VanJS(), ": Media Mentions"),

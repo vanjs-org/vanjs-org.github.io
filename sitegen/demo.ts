@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
   const {a, b, div, i, img, iframe, li, ol, p, span, table, tbody, td, th, thead, tr, ul} = tags
 
-  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, TsFile, User, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, TsFile, User, Url, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -463,32 +463,9 @@ google.charts.setOnLoadCallback(() =>
       "data-css-file": "code/console.html",
     }),
     p("You can also try out the JavaScript console in ", Link("this standalone page", "/code/console.html"), "."),
-    H2("An Improved Unix Shell"),
-    p("The final program we're going to demonstrate is a web-based Unix shell that connects to your local computer, with some notable improvements. This is to demonstrate that ", VanJS(), " has the potential to become a great extension to commandline utilities. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has ", SymLink("/bin/sh", "https://en.wikipedia.org/wiki/Bourne_shell"), "."),
-    p("Compare to ordinary Unix shell that you're familar with, the web-based shell has 2 notable improvements:"),
-    ol(
-      li("Command ", Symbol("ps ..."), " will render an HTML table instead of text output."),
-      li("Command ", Symbol("tree"), " (need the exact text match) will render an interactive tree-view of your current directory, like the one in the screenshot below:", div(img({src: "/tree_screenshot.png", alt: "Tree-view of the current directory"}))),
-    ),
-    H3("Deployment Steps"),
-    p("1. To make the program work, we need to deploy the server first, which is implemented with Deno. If you don't have Deno in your environment, you can get it installed from ", Link("deno.com", "https://deno.com/runtime"), "."),
-    p("2. Copy the code below, and save it into ", Symbol("shell.ts"), ", under the same directory of ", Symbol(`van-${version}.min.js`), ". Alternatively, you can directly download the file with the link here: ", Download("shell.ts"), "."),
-    TsFile("code/shell.ts"),
-    p("3. Copy the code below, and save it into ", Symbol("shell.html"), ", under the same directory of ", Symbol("shell.ts"), ". After this step, your working directory should have 3 files: ", Symbol("shell.ts"), ", ", Symbol("shell.html"), " and ", Symbol(`van-${version}.min.js`), ". Alternatively, you can directly download the file with the link here: ", Download("shell.html"), "."),
-    HtmlFile("code/shell.html"),
-    p("4. Run the command below under your working directory:"),
-    p(i("You can append a custom port number to the end. By default, port 8000 will be chosen.")),
-    Shell("deno run --allow-net --allow-run --allow-read shell.ts"),
-    p("5. You can visit the web-based shell with the URL printed in the console output of ", Symbol("deno run"), ". In your first visit, it will ask you to login, you need to paste the random key printed from the console to proceed."),
-    p("6. After login, you will be able to see and use the web-based shell."),
-    H3("Security Considerations"),
-    p("This program allows web access to your OS shell, which elevates the privilege to a level that you would not normally get with your browser. Here are the extra measures we're taking to ensure the security of your local computer:"),
-    ol(
-      li("Only local connection to your ", Symbol("shell.ts"), " server is allowed."),
-      li("Before using the web-based shell in your browser, you need to login with the key printed in the console of ", Symbol("shell.ts"), " server first. The key is generated randomly every time the server restarts. You should never share the key to other people."),
-      li("You're advised to shut down the ", Symbol("shell.ts"), " server when you're not using the shell to further reduce the risk of unauthorized access to your shell with the leaked key. Next time, when the server restarts, any browser access needs the login with the new key generated randomly."),
-      li("Please be aware that any commands you run in the web-based shell are the real commands executed on your computer. Thus don't try dangerous stuff as they are IRREVERSIBLE."),
-    ),
+    H2("An Improved Unix Terminal"),
+    p("Next up is a web-based Unix terminal that connects to your local computer, with notable improvements, all under 300 lines of code. This is to demonstrate that, with ", VanJS(), ", we can easily provide great extension to commandline utilities with fancy GUI by leveraging all available HTML elements. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has ", SymLink("/bin/sh", "https://en.wikipedia.org/wiki/Bourne_shell"), "."),
+    p("See ", Link("github.com/vanjs-org/van/tree/main/demo/terminal", "https://github.com/vanjs-org/van/tree/main/demo/terminal"), " for the app."),
     H2("Community Examples"),
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
