@@ -17,6 +17,8 @@ export default (doc: HTMLDocument) => {
     p("🙏🙏🙏 ", VanJS(), " is a personal project, which means I don't have the time and resources to promote it to a wider audience. My heartfelt gratitude extends towards to all content creators and tech bloggers who are helping spread good words about ", VanJS(), ". Your help is invaluable in our pursuit of ", VanJS(), "'s mission: ", i("Enabling everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     H2("Videos"),
     Video("https://www.youtube.com/embed/2Oee-q5TKRU?start=1774"),
+    Video("https://www.youtube.com/embed/ob5uZEV2_zA"),
+    p("(", i("In Polish"), ")"),
     p({class: "video-wrapper"},
       iframe({src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7069919877041410048?compact=1", height: "420", width: "100%", frameborder: "0", allowfullscreen: "", title: "Embedded post"}),
     ),
