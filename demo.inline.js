@@ -6,11 +6,6 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
     e.target.style.height = (e.target.scrollHeight + 5) + "px"
   }
 
-  const Result = diff => div({class: "column", style: "white-space: pre-wrap;"},
-    diff.map(d =>
-      span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
-  )
-
   const DiffApp = () => {
     const oldTextDom = textarea({oninput: autoGrow, rows: 1})
     const newTextDom = textarea({oninput: autoGrow, rows: 1})
@@ -26,7 +21,10 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
           "Diff",
         ),
       ),
-      div({class: "row"}, () => Result(diff.val)),
+      div({class: "row"}, () => div({class: "column", style: "white-space: pre-wrap;"},
+        diff.val.map(d =>
+          span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+      )),
     )
   }
 
