@@ -29,6 +29,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["Tutorial", "tutorial"],
     ["VanJS by Example", "demo"],
     ["Convert HTML to VanJS", "convert"],
+    ["VanUI", "https://github.com/vanjs-org/van/tree/main/components"],
     ["Mini-Van", "minivan"],
     ["Advanced Topics", "advanced"],
     ["Media Mentions", "media"],
@@ -39,7 +40,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     shortTitleToPath.map(([title, path]) => {
       let className = "w3-bar-item w3-button w3-hover-white"
       if (path === page) className += " current"
-      return a({href: `/${path}`, onclick: "w3_close()", className}, title)
+      return a({href: path.startsWith("https://") ? path : `/${path}`, onclick: "w3_close()", className}, title)
     }),
   )
 
