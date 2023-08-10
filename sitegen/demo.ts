@@ -4,11 +4,9 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {a, b, div, i, img, iframe, li, ol, p, span, table, tbody, td, th, thead, tr, ul} = tags
+  const {a, b, div, i, iframe, li, p, span, table, tbody, td, th, thead, tr, ul} = tags
 
-  const {Demo, Download, H1, H2, H3, HtmlFile, Js, JsFile, Link, Shell, Symbol, SymLink, TsFile, User, Url, VanJS} = common(doc)
-
-  const version = Deno.readTextFileSync("code/van.version")
+  const {Demo, H1, H2, Js, JsFile, Link, Symbol, SymLink, TsFile, User, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Learning by Example"),
@@ -470,7 +468,7 @@ google.charts.setOnLoadCallback(() =>
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
       li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
-      li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc")),
+      li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1"), ")"),
       li(User("FredericHeem"), "'s ", Link("multi-page app starter kit under 5kB", "https://github.com/FredericHeem/van-kit")),
       li(User("FredericHeem"), "'s ", Link("VanJS playground with Vite", "https://github.com/FredericHeem/van-playground")),
       li(User("ndrean"), "'s ", Link(b("Modal"), " component & routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal")),
