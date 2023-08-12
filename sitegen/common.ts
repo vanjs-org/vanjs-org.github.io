@@ -42,7 +42,7 @@ export default (doc: HTMLDocument) => {
     readonly version: string
     readonly prefix?: string
     readonly suffix: string
-    readonly hasDts?: boolean
+    readonly hasDts?: true
     readonly description: string | readonly ChildDom[]
   }
   const DownloadRow = ({version, prefix = "", suffix, hasDts, description}: DownloadRowProps) => tr(
