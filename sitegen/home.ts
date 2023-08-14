@@ -137,6 +137,5 @@ van.add(document.body, Counter())
     p({class: "contact"},
       "Contact us: ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"), " / ", twitterIcon, Link("@taoxin", "https://twitter.com/intent/follow?region=follow_link&screen_name=taoxin"),
     ),
-    p({class: "sharethis-inline-share-buttons"}),
   )
 }
