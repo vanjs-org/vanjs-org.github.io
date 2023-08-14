@@ -31,6 +31,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://javascriptweekly.com/issues/639")),
       li(Url("https://bytes.dev/archives/211")),
       li(Url("https://bytes.dev/archives/190")),
+      li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://echojs.com/news/41772")),
       li(Url("https://wweb.dev/weekly/150")),
       li(Url("https://javascript.thisweekin.io/javascript-weekly-issue-83-31f1d5c6c57f")),
