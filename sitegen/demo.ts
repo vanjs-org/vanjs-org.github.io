@@ -470,9 +470,9 @@ google.charts.setOnLoadCallback(() =>
     ul(
       li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
       li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1"), ")"),
+      li(User("ndrean"), "'s ", Link(b("Modal"), " component & routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal"), " (", Link("live preview", "https://githubbox.com/ndrean/vanjs-dialog-modal"), ")"),
       li(User("FredericHeem"), "'s ", Link("multi-page app starter kit under 5kB", "https://github.com/FredericHeem/van-kit")),
       li(User("FredericHeem"), "'s ", Link("VanJS playground with Vite", "https://github.com/FredericHeem/van-playground")),
-      li(User("ndrean"), "'s ", Link(b("Modal"), " component & routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal")),
     ),
   )
 }
