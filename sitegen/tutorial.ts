@@ -6,9 +6,9 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {b, div, li, p, span, table, tbody, td, tr, ul} = tags
+  const {b, br, div, li, p, span, table, tbody, td, tr, ul} = tags
 
-  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   interface ApiTableProps {
     readonly signature: string
@@ -31,7 +31,8 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
-    p("In this tutorial, we will break down into 3 core functionality ", VanJS(), " supports: DOM composition / manipulation, State and State binding."),
+    Quote({text: ["Entia non sunt multiplicanda praeter necessitatem", br(), "(We should not use more things than are necessary)"], source: "Occam's Razor"}),
+    p("In this tutorial, we will break down into 3 core functionalities ", VanJS(), " supports: DOM composition / manipulation, State and State binding."),
     H2({id: "dom"}, "DOM Composition and Manipulation"),
     H3("Your first VanJS app: a simple ", Symbol("Hello"), " page"),
     p("We will start this tutorial with a simple ", Symbol("Hello"), " page, with the code below:"),
