@@ -97,7 +97,7 @@ const TextDiv = () => div(
       li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all bindings to disconnected DOM elements. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
       li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all bindings to disconnected DOM elements."),
     ),
-    p(Link("Try out the example here", "/code/gc-ui"), " (You can use ", Link("developer console", "https://en.wikipedia.org/wiki/Web_development_tools"), " to watch ", Symbol("text"), "'s UI ", Symbol("bindings"), ")."),
+    p(Link("Try out the example here", "/code/gc-ui"), " (You can use ", Link("developer console", "https://en.wikipedia.org/wiki/Web_development_tools"), " to watch ", Symbol("text"), "'s UI ", Symbol("_bindings"), ")."),
     H3("Avoid your bindings to be GC-ed unexpectedly"),
     p("There are some general guidelines to follow to avoid your bindings being garbage collected unexpectedly:"),
     ol(
@@ -115,7 +115,7 @@ const TextDiv = () => div(() => {
 })
 `),
     p("In this example, whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " and ", Symbol("suffix"), " state. Because ", Symbol("prefix"), " is defined in the outer scope, it will eventually hold references to many versions of the derived ", Symbol("text"), " state, which are created whenever the binding function is called. These ", Symbol("text"), " state instances won't be GC-ed by JavaScript runtime even though they're no longer being used except for the most recent one."),
-    p(Link("Try out the example here", "/code/gc-derive-bad"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("listeners"), ")."),
+    p(Link("Try out the example here", "/code/gc-derive-bad"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("_listeners"), ")."),
     p("To avoid memory leaks in this situation, if you register derived states or side effects via ", Symbol("van.derive"), " inside a binding function, the derived states or side effect shall NEVER depend on states that are created outside the scope of the current binding function. The code above can be modified in the following way:"),
     Js(`const renderPre = van.state(false)
 const prefix = van.state("Prefix - ")
