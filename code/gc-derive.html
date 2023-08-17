@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="icon" href="/logo.svg">
-    <title>Demo for Garbage Collection (Good Example for Derived State)</title>
+    <title>Demo for Garbage Collection (Bad Example for Derived State)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -12,11 +12,9 @@
       const {div, h4, input, pre, span} = van.tags
 
       const renderPre = van.state(false)
-      const prefix = van.state("Prefix - ")
+      const prefix = van.state("Prefix")
       const TextDiv = () => div(() => {
-        const prefixVal = prefix.val
-        const suffix = van.state("Suffix")
-        const text = van.derive(() => `${prefixVal}${suffix.val}`)
+        const text = van.derive(() => `${prefix.val} - Suffix`)
         return (renderPre.val ? pre : span)(text)
       })
 

@@ -97,37 +97,23 @@ const TextDiv = () => div(
       li(b("Periodic recycling:"), " periodically, ", VanJS(), " will scan all ", Symbol("State"), " objects that have new bindings added recently, and remove all bindings to disconnected DOM elements. i.e.: ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property is ", Symbol("false"), "."),
       li(b("Pre-rendering recycling:"), " before ", VanJS(), " re-render the DOM tree in response to state changes, it will first check all the states whose values have been changed in this render cycle, and remove all bindings to disconnected DOM elements."),
     ),
-    p(Link("Try out the example here", "/code/gc-ui"), " (You can use ", Link("developer console", "https://en.wikipedia.org/wiki/Web_development_tools"), " to watch ", Symbol("text"), "'s UI ", Symbol("bindings"), ")."),
+    p(Link("Try out the example here", "/code/gc-ui"), " (You can use ", Link("developer console", "https://en.wikipedia.org/wiki/Web_development_tools"), " to watch ", Symbol("text"), "'s UI ", Symbol("_bindings"), ")."),
     H3("Avoid your bindings to be GC-ed unexpectedly"),
     p("There are some general guidelines to follow to avoid your bindings being garbage collected unexpectedly:"),
     ol(
       li("Please complete the construction of the DOM tree and connect the newly constructed DOM tree to the ", SymLink("document", "https://developer.mozilla.org/en-US/docs/Web/API/Window/document"), " object before making any state changes. Otherwise, the bindings to yet-to-be-connected DOM elements will be garbage collected."),
       li("DOM tree construction needs to be synchronous. i.e.: you shouldn't have any suspension point while building the DOM tree (e.g.: ", Symbol("await"), " something in an ", SymLink("async function", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function"), "). Otherwise, periodic recycling might be scheduled in the middle of the suspension point which can cause bindings to yet-to-be-connected DOM elements being garbage collected."),
     ),
-    H3("Derived states and side effects are not subject to GC"),
-    p("Note that, the garbage collection in ", VanJS(), " only removes obsolete UI bindings. It doesn't apply to derived states or side effects registered via ", Symbol("van.derive"), ". For instance, the code below still suffers from memory leaks:"),
+    H3("Derived states and side effects registered inside a binding function"),
+    p("For derived states and side effects registered via ", SymLink("van.derive", "tutorial#api-derive"), ", if they are registered inside a binding function, they will be garbage collected if the DOM node returned by the binding function becomes disconnected from the document tree. For instance, for the code below:"),
     Js(`const renderPre = van.state(false)
-const prefix = van.state("Prefix - ")
+const prefix = van.state("Prefix")
 const TextDiv = () => div(() => {
-  const suffix = van.state("Suffix")
-  const text = van.derive(() => \`\${prefix.val}\${suffix.val}\`)
+  const text = van.derive(() => \`\${prefix.val} - Suffix\`)
   return (renderPre.val ? pre : span)(text)
 })
 `),
-    p("In this example, whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " and ", Symbol("suffix"), " state. Because ", Symbol("prefix"), " is defined in the outer scope, it will eventually hold references to many versions of the derived ", Symbol("text"), " state, which are created whenever the binding function is called. These ", Symbol("text"), " state instances won't be GC-ed by JavaScript runtime even though they're no longer being used except for the most recent one."),
-    p(Link("Try out the example here", "/code/gc-derive-bad"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("listeners"), ")."),
-    p("To avoid memory leaks in this situation, if you register derived states or side effects via ", Symbol("van.derive"), " inside a binding function, the derived states or side effect shall NEVER depend on states that are created outside the scope of the current binding function. The code above can be modified in the following way:"),
-    Js(`const renderPre = van.state(false)
-const prefix = van.state("Prefix - ")
-const TextDiv = () => div(() => {
-  const prefixVal = prefix.val
-  const suffix = van.state("Suffix")
-  const text = van.derive(() => \`\${prefixVal}\${suffix.val}\`)
-  return (renderPre.val ? pre : span)(text)
-})
-`),
-    p("In the modified implementation above, we're making the ", Symbol("State"), "-derived DOM node, instead of the ", Symbol("text"), " state, depend on the ", Symbol("prefix"), " state, which avoids the GC issue."),
-    p(Link("Try out the example here", "/code/gc-derive-good"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("listeners"), ")."),
-    p("In ", Symbol("van-{version}.debug.js"), ", an error will be logged if you try to reference a state created out of the scope of the current binding function while defining derived states or side effects.")
+    p("Whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " state. However, the derivation from ", Symbol("prefix"), " to the previous ", Symbol("text"), " state will be garbage collected as the derivation was created while executing a binding function whose result DOM node no longer connects to the document tree. This is the mechanism to avoid memory leaks caused by state derivations that hold onto memory indefinitely."),
+    p(Link("Try out the example here", "/code/gc-derive"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("_listeners"), ")."),
   )
 }
