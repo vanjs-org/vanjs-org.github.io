@@ -31,7 +31,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
-    p("In this tutorial, we will break down into 3 core functionality ", VanJS(), " supports: DOM composition / manipulation, State and State binding."),
+    p("In this tutorial, we will break down into 3 core functionalities ", VanJS(), " supports: DOM composition / manipulation, State and State binding."),
     H2({id: "dom"}, "DOM Composition and Manipulation"),
     H3("Your first VanJS app: a simple ", Symbol("Hello"), " page"),
     p("We will start this tutorial with a simple ", Symbol("Hello"), " page, with the code below:"),
