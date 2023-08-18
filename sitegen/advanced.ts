@@ -109,11 +109,12 @@ const TextDiv = () => div(
     Js(`const renderPre = van.state(false)
 const prefix = van.state("Prefix")
 const TextDiv = () => div(() => {
-  const text = van.derive(() => \`\${prefix.val} - Suffix\`)
+  const suffix = van.state("Suffix")
+  const text = van.derive(() => \`\${prefix.val} - \${suffix.val}\`)
   return (renderPre.val ? pre : span)(text)
 })
 `),
-    p("Whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " state. However, the derivation from ", Symbol("prefix"), " to the previous ", Symbol("text"), " state will be garbage collected as the derivation was created while executing a binding function whose result DOM node no longer connects to the document tree. This is the mechanism to avoid memory leaks caused by state derivations that hold onto memory indefinitely."),
+    p("whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " state. However, the derivation from ", Symbol("prefix"), " to the previous ", Symbol("text"), " state will be garbage collected as the derivation was created while executing a binding function whose result DOM node no longer connects to the document tree. This is the mechanism to avoid memory leaks caused by state derivations that hold onto memory indefinitely."),
     p(Link("Try out the example here", "/code/gc-derive"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("_listeners"), ")."),
   )
 }

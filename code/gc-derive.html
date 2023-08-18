@@ -14,7 +14,8 @@
       const renderPre = van.state(false)
       const prefix = van.state("Prefix")
       const TextDiv = () => div(() => {
-        const text = van.derive(() => `${prefix.val} - Suffix`)
+        const suffix = van.state("Suffix")
+        const text = van.derive(() => `${prefix.val} - ${suffix.val}`)
         return (renderPre.val ? pre : span)(text)
       })
 
