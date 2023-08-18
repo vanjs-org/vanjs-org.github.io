@@ -83,7 +83,7 @@ van.add(document.body, Counter())
     H3("Grab 'n Go"),
     p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
     H3("Ultra-Lightweight"),
-    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the minified bundled size of ", VanJS(), " is just 1.6kB (0.9kB gzipped), which is ", b("50~100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
+    p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the minified bundled size of ", VanJS(), " is just 1.7kB (0.9kB gzipped), which is ", b("50~100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
     p(
       div({style: "text-align: center"},
         input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({class: "fixed-width", style: "margin-right: 60px;"}, ".min.js.gz"), " ",
