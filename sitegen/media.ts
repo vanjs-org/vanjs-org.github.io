@@ -56,6 +56,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://zenn.dev/daifukuninja/articles/79ff6fa650a535"), " (", i("in Japanese"), ")"),
       li(Url("http://kachibito.net/useful-resource/vanjs"), " (", i("in Japanese"), ")"),
       li(Url("https://b.hatena.ne.jp/entry/s/github.com/vanjs-org/van"), " (", i("in Japanese"), ")"),
+      li(Url("https://jser.info/2023/05/26/wrangler-v3.0.0-playwright-v1.34.0-typescript-5.2/"), " (", i("in Japanese"), ")"),
       li(Url("https://jser.info/2023/08/10/lighthouse-v11.0.0-astro-2.10view-transitions-sharpwebassembly/"), " (", i("in Japanese"), ")"),
       li(Url("https://stackshare.io/vanjs")),
       li(Url("https://www.libhunt.com/r/van")),
