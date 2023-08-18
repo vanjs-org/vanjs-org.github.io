@@ -465,7 +465,7 @@ google.charts.setOnLoadCallback(() =>
     p("You can also try out the JavaScript console in ", Link("this standalone page", "/code/console.html"), "."),
     H2("An Improved Unix Terminal"),
     p("Next up is a web-based Unix terminal that connects to your local computer, with notable improvements, all under 300 lines of code. This is to demonstrate that, with ", VanJS(), ", we can easily provide great extension to commandline utilities with fancy GUI by leveraging all available HTML elements. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has ", SymLink("/bin/sh", "https://en.wikipedia.org/wiki/Bourne_shell"), "."),
-    p("See ", Link("github.com/vanjs-org/van/tree/main/demo/terminal", "https://github.com/vanjs-org/van/tree/main/demo/terminal"), " for the app."),
+    p("See ", Link("github.com/vanjs-org/van/tree/main/demo/terminal", "https://github.com/vanjs-org/van/tree/main/demo/terminal"), " for the app (", Link("preview", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/demo/terminal?file=/client.html:1,1"), ")."),
     H2("Community Examples"),
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
