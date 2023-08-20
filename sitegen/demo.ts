@@ -10,7 +10,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Learning by Example"),
-    Quote({text: "Simplicity is the ultimate sophistication.", source: "Leonardo da Vinci"}),
+    Quote({text: "Simplicity is the ultimate sophistication.", source: "Steve Jobs"}),
     p("Despite being an ", b("ultra-lightweight"), " UI framework, ", VanJS(), " allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with ", VanJS(), "."),
     p("See also ", Link("Community Examples", "#community-examples"), "."),
     H2("Hello World!"),
