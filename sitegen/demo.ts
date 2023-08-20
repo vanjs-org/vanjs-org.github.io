@@ -297,8 +297,7 @@ const TodoList = () => {
     H2("Calculator"),
     p("The code below implements a ", Symbol("Calculator App"), " similar to the one that you are using on your smartphones:"),
     Js(`const Calculator = () => {
-  const displayNum = van.state(0)
-  let lhs = null, op = null, rhs = 0
+  let lhs = van.state(null), op = null, rhs = van.state(0)
 
   const calc = (lhs, op, rhs) => {
     const rhsNumber = parseFloat(rhs)
@@ -311,33 +310,24 @@ const TodoList = () => {
 
   const onclick = e => {
     const str = e.target.innerText
-    if (str >= "0" && str <= "9") {
-      if (rhs) {
-        if (typeof rhs === "string") rhs += str; else rhs = rhs * 10 + parseInt(str)
-      } else
-        rhs = parseInt(str)
-    } else if (str === "AC") {
-      lhs = op = null, rhs = 0
-    } else if (str === "+/-") {
-      if (rhs) rhs = -rhs
-    } else if (str === "%") {
-      if (rhs) rhs *= 0.01
-    } else if (str === "+" || str === "-" || str === "x" || str === "÷") {
-      if (rhs !== null) lhs = calc(lhs, op, rhs), rhs = null
+    if (str >= "0" && str <= "9")
+      typeof rhs.val === "string" ? rhs.val += str : rhs.val = rhs.val * 10 + parseInt(str)
+    else if (str === "AC") lhs.val = op = null, rhs.val = 0
+    else if (str === "+/-" && rhs.val) rhs.val = -rhs.val
+    else if (str === "%" && rhs.val) rhs.val *= 0.01
+    else if (str === "+" || str === "-" || str === "x" || str === "÷") {
+      rhs.val !== null && (lhs.val = calc(lhs.val, op, rhs.val), rhs.val = null)
       op = str
-    } else if (str === "=") {
-      if (op && rhs !== null) lhs = calc(lhs, op, rhs), op = null, rhs = null
-    } else if (str === ".") {
-      rhs = rhs ? rhs + "." : "0."
-    }
-
-    displayNum.val = rhs ?? lhs
+    } else if (str === "=" && op && rhs.val !== null)
+      lhs.val = calc(lhs.val, op, rhs.val), op = null, rhs.val = null
+    else if (str === ".")
+      rhs.val = rhs.val ? rhs.val + "." : "0."
   }
 
   const Button = str => div({class: "button"}, button(str))
 
   return div({id: "root"},
-    div({id: "display"}, div(displayNum)),
+    div({id: "display"}, div(() => rhs.val ?? lhs.val)),
     div({id: "panel", onclick},
       div(Button("AC"), Button("+/-"), Button("%"), Button("÷")),
       div(Button("7"), Button("8"), Button("9"), Button("x")),
@@ -361,7 +351,7 @@ const TodoList = () => {
       thead(tr(th(), th("VanJS-based App"), th("React-based App"))),
       tbody(
         tr(td(b("# of files:")), td(2), td(16)),
-        tr(td(b("# of lines:")), td(156), td(616)),
+        tr(td(b("# of lines:")), td(146), td(616)),
       ),
     ),
     p("As you can see, not only ", VanJS(), " is ", b("~50 times"), " smaller than React, apps built with ", VanJS(), " also tends to be much slimmer."),

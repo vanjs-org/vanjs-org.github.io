@@ -383,8 +383,7 @@ const DiffApp = () =&gt; {
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-diff"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="calculator"><a class="self-link" href="#calculator">Calculator</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The code below implements a <code class="symbol">Calculator App</code> similar to the one that you are using on your smartphones:</p><pre><code class="language-js">const Calculator = () =&gt; {
-  const displayNum = van.state(0)
-  let lhs = null, op = null, rhs = 0
+  let lhs = van.state(null), op = null, rhs = van.state(0)
 
   const calc = (lhs, op, rhs) =&gt; {
     const rhsNumber = parseFloat(rhs)
@@ -397,33 +396,24 @@ const DiffApp = () =&gt; {
 
   const onclick = e =&gt; {
     const str = e.target.innerText
-    if (str &gt;= "0" &amp;&amp; str &lt;= "9") {
-      if (rhs) {
-        if (typeof rhs === "string") rhs += str; else rhs = rhs * 10 + parseInt(str)
-      } else
-        rhs = parseInt(str)
-    } else if (str === "AC") {
-      lhs = op = null, rhs = 0
-    } else if (str === "+/-") {
-      if (rhs) rhs = -rhs
-    } else if (str === "%") {
-      if (rhs) rhs *= 0.01
-    } else if (str === "+" || str === "-" || str === "x" || str === "÷") {
-      if (rhs !== null) lhs = calc(lhs, op, rhs), rhs = null
+    if (str &gt;= "0" &amp;&amp; str &lt;= "9")
+      typeof rhs.val === "string" ? rhs.val += str : rhs.val = rhs.val * 10 + parseInt(str)
+    else if (str === "AC") lhs.val = op = null, rhs.val = 0
+    else if (str === "+/-" &amp;&amp; rhs.val) rhs.val = -rhs.val
+    else if (str === "%" &amp;&amp; rhs.val) rhs.val *= 0.01
+    else if (str === "+" || str === "-" || str === "x" || str === "÷") {
+      rhs.val !== null &amp;&amp; (lhs.val = calc(lhs.val, op, rhs.val), rhs.val = null)
       op = str
-    } else if (str === "=") {
-      if (op &amp;&amp; rhs !== null) lhs = calc(lhs, op, rhs), op = null, rhs = null
-    } else if (str === ".") {
-      rhs = rhs ? rhs + "." : "0."
-    }
-
-    displayNum.val = rhs ?? lhs
+    } else if (str === "=" &amp;&amp; op &amp;&amp; rhs.val !== null)
+      lhs.val = calc(lhs.val, op, rhs.val), op = null, rhs.val = null
+    else if (str === ".")
+      rhs.val = rhs.val ? rhs.val + "." : "0."
   }
 
   const Button = str =&gt; div({class: "button"}, button(str))
 
   return div({id: "root"},
-    div({id: "display"}, div(displayNum)),
+    div({id: "display"}, div(() =&gt; rhs.val ?? lhs.val)),
     div({id: "panel", onclick},
       div(Button("AC"), Button("+/-"), Button("%"), Button("÷")),
       div(Button("7"), Button("8"), Button("9"), Button("x")),
@@ -433,7 +423,7 @@ const DiffApp = () =&gt; {
     ),
   )
 }
-</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>156</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>~50 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be much slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">Table-View Example: JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
+</code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>146</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>~50 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be much slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">Table-View Example: JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
   const resultDom = div()
 
   const jsonRadioDom = input({type: "radio", checked: inputType === "json",
