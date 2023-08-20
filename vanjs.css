@@ -23,6 +23,10 @@ header {
   /* overflow-x: hidden; */
 }
 
+header.w3-top {
+  z-index: 20;
+}
+
 #nav .current {
   color: #000!important;
   background-color: #fff!important
