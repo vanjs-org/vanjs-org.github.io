@@ -294,14 +294,12 @@ const DiffApp = () =&gt; {
       div({class: "column"}, newTextDom),
     ),
     div({class: "row"},
-      button(
-        {onclick: () =&gt; diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
+      button({onclick: () =&gt; diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
         "Diff",
       ),
     ),
     div({class: "row"}, () =&gt; div({class: "column", style: "white-space: pre-wrap;"},
-      diff.val.map(d =&gt;
-        span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+      diff.val.map(d =&gt; span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
     )),
   )
 }</code></pre><p><b>Demo:</b></p><p id="demo-diff-simple"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/diff-simple">Try on jsfiddle</a></p><p>Here is a more advanced <code class="symbol">Diff App</code> that supports side-by-side and line-by-line comparison:</p><pre><code class="language-js">const autoGrow = e =&gt; {
@@ -1402,8 +1400,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
         div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
-        button(
-          {onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
+        button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
           "Diff",
         ),
       ),

@@ -16,14 +16,12 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
         div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
-        button(
-          {onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
+        button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
           "Diff",
         ),
       ),
       div({class: "row"}, () => div({class: "column", style: "white-space: pre-wrap;"},
-        diff.val.map(d =>
-          span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
+        diff.val.map(d => span({class: d.added ? "add" : (d.removed ? "remove" : "")}, d.value)),
       )),
     )
   }
