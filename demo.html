@@ -227,26 +227,19 @@ const TodoList = () =&gt; {
   new Date(ts / 1e6)
 
 const Converter = () =&gt; {
-  const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
+  const nowTs = van.state(Math.floor(new Date().getTime() / 1e3)), date = van.state(null)
   setInterval(() =&gt; ++nowTs.val, 1000)
   const inputDom = input({type: "text", size: 25, value: nowTs.val})
-  let dateStrDom
-  const resultDom = div(
+  return div(
     div(b("Now: "), nowTs),
     inputDom, " ",
-    button({
-      onclick: () =&gt; {
-        const date = tsToDate(Number(inputDom.value))
-        dateStrDom?.remove()
-        dateStrDom = resultDom.appendChild(p(
-          div(date.toString()),
-          div(b("GMT: "), date.toGMTString()),
-        ))
-      },
-    }, "Convert"),
+    button({onclick: () =&gt; date.val = tsToDate(Number(inputDom.value))}, "Convert"),
     p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+    () =&gt; date.val ? p(
+      div(date.val.toString()),
+      div(b("GMT: "), date.val.toGMTString()),
+    ) : p(),
   )
-  return resultDom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-epoch-converter"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/epoch-converter">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="keyboard-event-inspector"><a class="self-link" href="#keyboard-event-inspector">Keyboard Event Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an application to inspect all relevant key codes in keyboard <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event" class="w3-hover-opacity">keydown</a></code> events:</p><pre><code class="language-js">const Label = text =&gt; span({class: "label"}, text)
 const Value = text =&gt; span({class: "value"}, text)
@@ -1059,26 +1052,19 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     new Date(ts / 1e6)
 
   const Converter = () => {
-    const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
+    const nowTs = van.state(Math.floor(new Date().getTime() / 1e3)), date = van.state(null)
     setInterval(() => ++nowTs.val, 1000)
     const inputDom = input({type: "text", size: 25, value: nowTs.val})
-    let dateStrDom
-    const resultDom = div(
+    return div(
       div(b("Now: "), nowTs),
       inputDom, " ",
-      button({
-        onclick: () => {
-          const date = tsToDate(Number(inputDom.value))
-          dateStrDom?.remove()
-          dateStrDom = resultDom.appendChild(p(
-            div(date.toString()),
-            div(b("GMT: "), date.toGMTString()),
-          ))
-        },
-      }, "Convert"),
+      button({onclick: () => date.val = tsToDate(Number(inputDom.value))}, "Convert"),
       p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
+      () => date.val ? p(
+        div(date.val.toString()),
+        div(b("GMT: "), date.val.toGMTString()),
+      ) : p(),
     )
-    return resultDom
   }
 
   van.add(document.getElementById("demo-epoch-converter"), Converter())
