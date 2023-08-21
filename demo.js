@@ -180,12 +180,11 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 }
 
 {
-  const tsToDate = ts => {
-    if (ts < 1e10) return new Date(ts * 1e3)
-    if (ts < 1e13) return new Date(ts)
-    if (ts < 1e16) return new Date(ts / 1e3)
-    return new Date(ts / 1e6)
-  }
+  const tsToDate = ts =>
+    ts < 1e10 ? new Date(ts * 1e3) :
+    ts < 1e13 ? new Date(ts) :
+    ts < 1e16 ? new Date(ts / 1e3) :
+    new Date(ts / 1e6)
 
   const Converter = () => {
     const nowTs = van.state(Math.floor(new Date().getTime() / 1e3))
@@ -203,7 +202,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
             div(date.toString()),
             div(b("GMT: "), date.toGMTString()),
           ))
-        }
+        },
       }, "Convert"),
       p(i("Supports Unix timestamps in seconds, milliseconds, microseconds and nanoseconds.")),
     )
