@@ -18,7 +18,7 @@ const Calculator = () => {
       if (rhs.val !== null) lhs.val = calc(lhs.val, op, Number(rhs.val)), rhs.val = null
       op = str
     } else if (str === "=" && op && rhs.val !== null)
-      lhs.val = calc(lhs.val, op, rhs.val), op = null, rhs.val = null
+      lhs.val = calc(lhs.val, op, Number(rhs.val)), op = null, rhs.val = null
     else if (str === ".")
       rhs.val = rhs.val ? rhs.val + "." : "0."
   }
