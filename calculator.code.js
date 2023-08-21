@@ -1,5 +1,3 @@
-const {button, div} = van.tags
-
 const Calculator = () => {
   let lhs = van.state(null), op = null, rhs = van.state(0)
 
@@ -38,5 +36,3 @@ const Calculator = () => {
     ),
   )
 }
-
-van.add(document.body, Calculator())

@@ -15,24 +15,21 @@
       const Calculator = () => {
         let lhs = van.state(null), op = null, rhs = van.state(0)
 
-        const calc = (lhs, op, rhs) => {
-          const rhsNumber = parseFloat(rhs)
-          if (!op || lhs === null) return rhsNumber
-          if (op === "+") return lhs + rhsNumber
-          if (op === "-") return lhs - rhsNumber
-          if (op === "x") return lhs * rhsNumber
-          if (op === "÷") return lhs / rhsNumber
-        }
+        const calc = (lhs, op, rhs) =>
+          !op || lhs === null ? rhs :
+          op === "+" ? lhs + rhs :
+          op === "-" ? lhs - rhs :
+          op === "x" ? lhs * rhs : lhs / rhs
 
         const onclick = e => {
           const str = e.target.innerText
           if (str >= "0" && str <= "9")
-            typeof rhs.val === "string" ? rhs.val += str : rhs.val = rhs.val * 10 + parseInt(str)
+            typeof rhs.val === "string" ? rhs.val += str : rhs.val = rhs.val * 10 + Number(str)
           else if (str === "AC") lhs.val = op = null, rhs.val = 0
           else if (str === "+/-" && rhs.val) rhs.val = -rhs.val
           else if (str === "%" && rhs.val) rhs.val *= 0.01
           else if (str === "+" || str === "-" || str === "x" || str === "÷") {
-            rhs.val !== null && (lhs.val = calc(lhs.val, op, rhs.val), rhs.val = null)
+            if (rhs.val !== null) lhs.val = calc(lhs.val, op, Number(rhs.val)), rhs.val = null
             op = str
           } else if (str === "=" && op && rhs.val !== null)
             lhs.val = calc(lhs.val, op, rhs.val), op = null, rhs.val = null

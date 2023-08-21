@@ -296,48 +296,7 @@ const TodoList = () => {
     }),
     H2("Calculator"),
     p("The code below implements a ", Symbol("Calculator App"), " similar to the one that you are using on your smartphones:"),
-    Js(`const Calculator = () => {
-  let lhs = van.state(null), op = null, rhs = van.state(0)
-
-  const calc = (lhs, op, rhs) => {
-    const rhsNumber = parseFloat(rhs)
-    if (!op || lhs === null) return rhsNumber
-    if (op === "+") return lhs + rhsNumber
-    if (op === "-") return lhs - rhsNumber
-    if (op === "x") return lhs * rhsNumber
-    if (op === "÷") return lhs / rhsNumber
-  }
-
-  const onclick = e => {
-    const str = e.target.innerText
-    if (str >= "0" && str <= "9")
-      typeof rhs.val === "string" ? rhs.val += str : rhs.val = rhs.val * 10 + parseInt(str)
-    else if (str === "AC") lhs.val = op = null, rhs.val = 0
-    else if (str === "+/-" && rhs.val) rhs.val = -rhs.val
-    else if (str === "%" && rhs.val) rhs.val *= 0.01
-    else if (str === "+" || str === "-" || str === "x" || str === "÷") {
-      rhs.val !== null && (lhs.val = calc(lhs.val, op, rhs.val), rhs.val = null)
-      op = str
-    } else if (str === "=" && op && rhs.val !== null)
-      lhs.val = calc(lhs.val, op, rhs.val), op = null, rhs.val = null
-    else if (str === ".")
-      rhs.val = rhs.val ? rhs.val + "." : "0."
-  }
-
-  const Button = str => div({class: "button"}, button(str))
-
-  return div({id: "root"},
-    div({id: "display"}, div(() => rhs.val ?? lhs.val)),
-    div({id: "panel", onclick},
-      div(Button("AC"), Button("+/-"), Button("%"), Button("÷")),
-      div(Button("7"), Button("8"), Button("9"), Button("x")),
-      div(Button("4"), Button("5"), Button("6"), Button("-")),
-      div(Button("1"), Button("2"), Button("3"), Button("+")),
-      div(div({class: "button wide"}, button("0")), Button("."), Button("=")),
-    ),
-  )
-}
-`),
+    JsFile("calculator.code.js"),
     p(Demo()),
     iframe({id: "demo-calculator", src: "/code/calculator.html"}),
     p({
@@ -351,7 +310,7 @@ const TodoList = () => {
       thead(tr(th(), th("VanJS-based App"), th("React-based App"))),
       tbody(
         tr(td(b("# of files:")), td(2), td(16)),
-        tr(td(b("# of lines:")), td(146), td(616)),
+        tr(td(b("# of lines:")), td(143), td(616)),
       ),
     ),
     p("As you can see, not only ", VanJS(), " is ", b("~50 times"), " smaller than React, apps built with ", VanJS(), " also tends to be much slimmer."),
