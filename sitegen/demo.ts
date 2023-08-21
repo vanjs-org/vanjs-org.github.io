@@ -320,7 +320,7 @@ const TodoList = () => {
     p({id: "demo-table-viewer"}),
     p({
       id: "jsfiddle-table-viewer",
-      "data-prefix": "const {button, input, div, label, pre, table, tbody, td, textarea, th, thead, tr} = van.tags",
+      "data-prefix": "const {button, input, div, label, p, pre, table, tbody, td, textarea, th, thead, tr} = van.tags",
       "data-suffix": `van.add(document.body, TableViewer({
   inputText: \`[{"id":1,"name":"John Doe","email":"john.doe@example.com","age":35,"country":"USA"},{"id":2,"name":"Jane Smith","email":"jane.smith@example.com","age":28,"country":"Canada"},{"id":3,"name":"Bob Johnson","email":"bob.johnson@example.com","age":42,"country":"Australia"}]\`,
   inputType: "json",

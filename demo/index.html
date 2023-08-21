@@ -408,8 +408,6 @@ const DiffApp = () =&gt; {
   )
 }
 </code></pre><p><b>Demo:</b></p><iframe id="demo-calculator" src="/code/calculator.html"></iframe><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/calculator">Try on jsfiddle</a></p><p>Notably, this <code class="symbol">Calculator App</code> is equivalent to the React-based implementation here: <a href="https://github.com/ahfarmer/calculator" class="w3-hover-opacity">github.com/ahfarmer/calculator</a>. Here is the size comparison of the total package between the 2 apps:</p><table style="text-align: right;"><thead><tr><th></th><th>VanJS-based App</th><th>React-based App</th></tr></thead><tbody><tr><td><b># of files:</b></td><td>2</td><td>16</td></tr><tr><td><b># of lines:</b></td><td>143</td><td>616</td></tr></tbody></table><p>As you can see, not only <b>VanJS</b> is <b>~50 times</b> smaller than React, apps built with <b>VanJS</b> also tends to be much slimmer.</p><h2 class="w3-xxlarge w3-text-red" id="table-viewer"><a class="self-link" href="#table-viewer">Table-View Example: JSON/CSV Table Viewer</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code implements a <code class="symbol">Table Viewer</code> for JSON/CSV-based data by leveraging <a href="/tutorial#fun-dom" class="w3-hover-opacity">functional-style DOM tree building</a>:</p><pre><code class="language-js">const TableViewer = ({inputText, inputType}) =&gt; {
-  const resultDom = div()
-
   const jsonRadioDom = input({type: "radio", checked: inputType === "json",
     name: "inputType", value: "json"})
   const csvRadioDom = input({type: "radio", checked: inputType === "csv",
@@ -420,6 +418,8 @@ const DiffApp = () =&gt; {
   }
   const textareaDom = textarea({oninput: e =&gt; autoGrow(e.target)}, inputText)
   setTimeout(() =&gt; autoGrow(textareaDom), 10)
+
+  const text = van.state("")
 
   const tableFromJson = text =&gt; {
     const json = JSON.parse(text)
@@ -438,29 +438,23 @@ const DiffApp = () =&gt; {
     }
   }
 
-  const showTable = () =&gt; {
-    try {
-      let {head, data} = jsonRadioDom.checked ?
-        tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
-      resultDom.firstChild?.remove()
-      van.add(resultDom, table(
-        thead(tr(head.map(h =&gt; th(h)))),
-        tbody(data.map(row =&gt; tr(row.map(col =&gt; td(col))))),
-      ))
-      dom.querySelector(".err").innerText = ""
-    } catch (e) {
-      dom.querySelector(".err").innerText = e.message
-    }
-  }
-
-  const dom = div(
+  return div(
     div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
     div(textareaDom),
-    div(button({onclick: showTable}, "Show Table")),
-    pre({class: "err"}),
-    resultDom,
+    div(button({onclick: () =&gt; text.val = textareaDom.value}, "Show Table")),
+    p(() =&gt; {
+      if (!text.val) return div()
+      try {
+        const {head, data} = (jsonRadioDom.checked ? tableFromJson : tableFromCsv)(text.val)
+        return table(
+          thead(tr(head.map(h =&gt; th(h)))),
+          tbody(data.map(row =&gt; tr(row.map(col =&gt; td(col))))),
+        )
+      } catch (e) {
+        return pre({class: "err"}, e.toString())
+      }
+    }),
   )
-  return dom
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-table-viewer"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/table-viewer">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="package-lock-inspector"><a class="self-link" href="#package-lock-inspector"><code class="symbol">package-lock.json</code> Inspector</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Below is an example which can extract and display all dependency packages and their versions from <code class="symbol">package-lock.json</code> file:</p><pre><code class="language-js">const PackageLockInspector = () =&gt; {
   const json = van.state("")
@@ -1115,8 +1109,6 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 
 {
   const TableViewer = ({inputText, inputType}) => {
-    const resultDom = div()
-
     const jsonRadioDom = input({type: "radio", checked: inputType === "json",
       name: "inputType", value: "json"})
     const csvRadioDom = input({type: "radio", checked: inputType === "csv",
@@ -1127,6 +1119,8 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     }
     const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
     setTimeout(() => autoGrow(textareaDom), 10)
+
+    const text = van.state("")
 
     const tableFromJson = text => {
       const json = JSON.parse(text)
@@ -1145,29 +1139,23 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       }
     }
 
-    const showTable = () => {
-      try {
-        let {head, data} = jsonRadioDom.checked ?
-          tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
-        resultDom.firstChild?.remove()
-        van.add(resultDom, table(
-          thead(tr(head.map(h => th(h)))),
-          tbody(data.map(row => tr(row.map(col => td(col))))),
-        ))
-        dom.querySelector(".err").innerText = ""
-      } catch (e) {
-        dom.querySelector(".err").innerText = e.message
-      }
-    }
-
-    const dom = div(
+    return div(
       div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
       div(textareaDom),
-      div(button({onclick: showTable}, "Show Table")),
-      pre({class: "err"}),
-      resultDom,
+      div(button({onclick: () => text.val = textareaDom.value}, "Show Table")),
+      p(() => {
+        if (!text.val) return div()
+        try {
+          const {head, data} = (jsonRadioDom.checked ? tableFromJson : tableFromCsv)(text.val)
+          return table(
+            thead(tr(head.map(h => th(h)))),
+            tbody(data.map(row => tr(row.map(col => td(col))))),
+          )
+        } catch (e) {
+          return pre({class: "err"}, e.toString())
+        }
+      }),
     )
-    return dom
   }
 
   van.add(document.getElementById("demo-table-viewer"), TableViewer({

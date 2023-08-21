@@ -1,8 +1,6 @@
-const {button, input, div, label, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
+const {button, input, div, label, p, pre, table, tbody, td, textarea, th, thead, tr} = van.tags
 
 const TableViewer = ({inputText, inputType}) => {
-  const resultDom = div()
-
   const jsonRadioDom = input({type: "radio", checked: inputType === "json",
     name: "inputType", value: "json"})
   const csvRadioDom = input({type: "radio", checked: inputType === "csv",
@@ -13,6 +11,8 @@ const TableViewer = ({inputText, inputType}) => {
   }
   const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
   setTimeout(() => autoGrow(textareaDom), 10)
+
+  const text = van.state("")
 
   const tableFromJson = text => {
     const json = JSON.parse(text)
@@ -31,29 +31,23 @@ const TableViewer = ({inputText, inputType}) => {
     }
   }
 
-  const showTable = () => {
-    try {
-      let {head, data} = jsonRadioDom.checked ?
-        tableFromJson(textareaDom.value) : tableFromCsv(textareaDom.value)
-      resultDom.firstChild?.remove()
-      van.add(resultDom, table(
-        thead(tr(head.map(h => th(h)))),
-        tbody(data.map(row => tr(row.map(col => td(col))))),
-      ))
-      dom.querySelector(".err").innerText = ""
-    } catch (e) {
-      dom.querySelector(".err").innerText = e.message
-    }
-  }
-
-  const dom = div(
+  return div(
     div(jsonRadioDom, label("JSON"), csvRadioDom, label("CSV (Quoting not Supported)")),
     div(textareaDom),
-    div(button({onclick: showTable}, "Show Table")),
-    pre({class: "err"}),
-    resultDom,
+    div(button({onclick: () => text.val = textareaDom.value}, "Show Table")),
+    p(() => {
+      if (!text.val) return div()
+      try {
+        const {head, data} = (jsonRadioDom.checked ? tableFromJson : tableFromCsv)(text.val)
+        return table(
+          thead(tr(head.map(h => th(h)))),
+          tbody(data.map(row => tr(row.map(col => td(col))))),
+        )
+      } catch (e) {
+        return pre({class: "err"}, e.toString())
+      }
+    }),
   )
-  return dom
 }
 
 van.add(document.body, TableViewer({
