@@ -2,9 +2,8 @@ const {a, b, button, div, pre, span, textarea} = van.tags
 
 const ListItem = ({key, value, indent = 0}) => {
   const hide = van.state(key !== "")
-  let valueDom
-  if (typeof value !== "object") valueDom = value
-  else valueDom = div({style: () => hide.val ? "display: none;" : ""},
+  const valueDom = typeof value !== "object" ? value : div(
+    {style: () => hide.val ? "display: none;" : ""},
     Object.entries(value).map(([k, v]) =>
       ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
   )
@@ -45,5 +44,4 @@ const JsonInspector = ({initInput}) => {
     () => json.val ? ListItem({key: "", value: json.val}) : "",
   )
 }
-
 van.add(document.body, JsonInspector({initInput: `{"name":"John Doe","age":30,"email":"johndoe@example.com","address":{"street":"123 Main St","city":"Anytown","state":"CA","zip":"12345"},"phone_numbers":[{"type":"home","number":"555-1234"},{"type":"work","number":"555-5678"}]}`}))

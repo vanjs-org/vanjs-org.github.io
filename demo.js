@@ -308,9 +308,8 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 {
   const ListItem = ({key, value, indent = 0}) => {
     const hide = van.state(key !== "")
-    let valueDom
-    if (typeof value !== "object") valueDom = value
-    else valueDom = div({style: () => hide.val ? "display: none;" : ""},
+    const valueDom = typeof value !== "object" ? value : div(
+      {style: () => hide.val ? "display: none;" : ""},
       Object.entries(value).map(([k, v]) =>
         ListItem({key: k, value: v, indent: indent + 2 * (key !== "")})),
     )
