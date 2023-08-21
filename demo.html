@@ -289,8 +289,7 @@ const DiffApp = () =&gt; {
   const diff = van.state([])
   return div(
     div({class: "row"},
-      div({class: "column"}, oldTextDom),
-      div({class: "column"}, newTextDom),
+      div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
     ),
     div({class: "row"},
       button({onclick: () =&gt; diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
@@ -327,8 +326,7 @@ const DiffApp = () =&gt; {
   const showMerged = van.state(true)
   return div(
     div({class: "row"},
-      div({class: "column"}, oldTextDom),
-      div({class: "column"}, newTextDom),
+      div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
     ),
     div({class: "row"},
       button({onclick: () =&gt; diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
@@ -1005,8 +1003,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       pre({style: "display: inline;"}, () => elapsed.val.toFixed(2), "s "),
       button({onclick: start}, "Start"),
       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
-      button({onclick: () =>
-        (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
+      button({onclick: () => (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
     )
   }
 
@@ -1392,8 +1389,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     const diff = van.state([])
     return div(
       div({class: "row"},
-        div({class: "column"}, oldTextDom),
-        div({class: "column"}, newTextDom),
+        div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
         button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
@@ -1436,8 +1432,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     const showMerged = van.state(true)
     return div(
       div({class: "row"},
-        div({class: "column"}, oldTextDom),
-        div({class: "column"}, newTextDom),
+        div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
         button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},

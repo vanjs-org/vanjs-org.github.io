@@ -9,8 +9,7 @@ const DiffApp = () => {
   const diff = van.state([])
   return div(
     div({class: "row"},
-      div({class: "column"}, oldTextDom),
-      div({class: "column"}, newTextDom),
+      div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
     ),
     div({class: "row"},
       button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},

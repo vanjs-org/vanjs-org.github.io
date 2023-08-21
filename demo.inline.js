@@ -12,8 +12,7 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
     const diff = van.state([])
     return div(
       div({class: "row"},
-        div({class: "column"}, oldTextDom),
-        div({class: "column"}, newTextDom),
+        div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
         button({onclick: () => diff.val = Diff.diffWords(oldTextDom.value, newTextDom.value)},
@@ -56,8 +55,7 @@ const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thea
     const showMerged = van.state(true)
     return div(
       div({class: "row"},
-        div({class: "column"}, oldTextDom),
-        div({class: "column"}, newTextDom),
+        div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
       ),
       div({class: "row"},
         button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},

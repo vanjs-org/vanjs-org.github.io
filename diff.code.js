@@ -24,8 +24,7 @@ const DiffApp = () => {
   const showMerged = van.state(true)
   return div(
     div({class: "row"},
-      div({class: "column"}, oldTextDom),
-      div({class: "column"}, newTextDom),
+      div({class: "column"}, oldTextDom), div({class: "column"}, newTextDom),
     ),
     div({class: "row"},
       button({onclick: () => diff.val = Diff.diffLines(oldTextDom.value, newTextDom.value)},
