@@ -128,8 +128,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       pre({style: "display: inline;"}, () => elapsed.val.toFixed(2), "s "),
       button({onclick: start}, "Start"),
       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
-      button({onclick: () =>
-        (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
+      button({onclick: () => (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
     )
   }
 

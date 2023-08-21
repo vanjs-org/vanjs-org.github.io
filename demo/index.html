@@ -140,8 +140,7 @@ const CounterSet = () =&gt; {
     pre({style: "display: inline;"}, () =&gt; elapsed.val.toFixed(2), "s "),
     button({onclick: start}, "Start"),
     button({onclick: () =&gt; (clearInterval(id), id = 0)}, "Stop"),
-    button({onclick: () =&gt;
-      (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
+    button({onclick: () =&gt; (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
   )
 }
 </code></pre><p><b>Demo:</b> <span id="demo-stopwatch"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/stopwatch">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="blog"><a class="self-link" href="#blog">Blog</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><b>VanJS</b> doesn't have an equivalent to React's <code class="symbol"><a href="https://react.dev/reference/react/Fragment" class="w3-hover-opacity">&lt;Fragment&gt;</a></code>. For most of the cases, returning an array of HTML elements from your custom component would serve the similar purpose. Here is the sample code equivalent to the <code class="symbol">Blog</code> example in React's official website:</p><pre><code class="language-js">const Blog = () =&gt; [
