@@ -264,8 +264,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     const text = van.state("")
 
     const tableFromJson = text => {
-      const json = JSON.parse(text)
-      const head = Object.keys(json[0])
+      const json = JSON.parse(text), head = Object.keys(json[0])
       return {
         head,
         data: json.map(row => head.map(h => row[h]))
