@@ -1,5 +1,4 @@
-const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ?
-  key : `"${key}"`
+const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ? key : `"${key}"`
 
 const attrsToVanCode = dom => dom.attributes.length > 0 ?
   `{${[...dom.attributes].map(
@@ -15,9 +14,8 @@ const autoGrow = e => {
   e.style.height = (e.scrollHeight + 5) + "px"
 }
 
-const domToVanCode = (dom,
-  {indent = 0, indentLevel, skipEmptyText, skipTrailingComma},
-  tagsUsed) => {
+const domToVanCode =
+  (dom, {indent = 0, indentLevel, skipEmptyText, skipTrailingComma}, tagsUsed) => {
   const prefix = " ".repeat(indent)
   const suffix = skipTrailingComma ? "" : ","
   if (dom.nodeName === "#text")
@@ -58,8 +56,7 @@ const Converter = ({initInput}) => {
   }
 
   const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)
-  const indentInputDom = input(
-    {type: "number", min: 1, max: 8, value: 2, oninput})
+  const indentInputDom = input({type: "number", min: 1, max: 8, value: 2, oninput})
   const skipEmptyTextDom = input({type: "checkbox", oninput})
   const tagsCode = van.state(""), domCode = van.state("")
 
