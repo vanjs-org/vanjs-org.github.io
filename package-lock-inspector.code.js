@@ -21,7 +21,7 @@ const PackageLockInspector = () => {
           ),
         )
       } catch (e) {
-        return pre({style: "color: red;"}, "Parsing error: ", e)
+        return pre({style: "color: red;"}, "Parsing error: ", e.toString())
       }
     },
   ]
