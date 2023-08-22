@@ -245,29 +245,15 @@ const Converter = () =&gt; {
 const Value = text =&gt; span({class: "value"}, text)
 
 const Inspector = () =&gt; {
-  const keyStates = {
-    key: van.state(""),
-    code: van.state(""),
-    which: van.state(""),
-    keyCode: van.state(""),
-    ctrlKey: van.state(false),
-    metaKey: van.state(false),
-    altKey: van.state(false),
-    shiftKey: van.state(false),
-  }
+  const keyEvent = van.state(new KeyboardEvent("keydown"))
 
-  const Result = prop =&gt; span(Label(prop + ": "), Value(keyStates[prop]))
-
-  const onkeydown = e =&gt; {
-    e.preventDefault()
-    Object.entries(keyStates).forEach(([k, v]) =&gt; v.val = e[k])
-  }
+  const Result = prop =&gt; span(Label(prop + ": "), Value(keyEvent.val[prop]))
 
   return div(
-    div(input({placeholder: "Focus here and press keys…", onkeydown,
-      style: "width: 260px"})),
-    div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
-    div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
+    div(input({placeholder: "Focus here and press keys…", style: "width: 260px",
+      onkeydown: e =&gt; (e.preventDefault(), keyEvent.val = e)})),
+    () =&gt; div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
+    () =&gt; div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
   )
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-key-inspector"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/key-inspector">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="diff"><a class="self-link" href="#diff">Diff</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Here is a <code class="symbol">Diff App</code> with the integration of <code class="symbol"><a href="https://github.com/kpdecker/jsdiff" class="w3-hover-opacity">jsdiff</a></code>. The app can compare 2 pieces of text (very handy tool to check how your text is revised by <code class="symbol">ChatGPT</code> 🙂):</p><pre><code class="language-js">const autoGrow = e =&gt; {
@@ -1066,29 +1052,15 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
   const Value = text => span({class: "value"}, text)
 
   const Inspector = () => {
-    const keyStates = {
-      key: van.state(""),
-      code: van.state(""),
-      which: van.state(""),
-      keyCode: van.state(""),
-      ctrlKey: van.state(false),
-      metaKey: van.state(false),
-      altKey: van.state(false),
-      shiftKey: van.state(false),
-    }
+    const keyEvent = van.state(new KeyboardEvent("keydown"))
 
-    const Result = prop => span(Label(prop + ": "), Value(keyStates[prop]))
-
-    const onkeydown = e => {
-      e.preventDefault()
-      Object.entries(keyStates).forEach(([k, v]) => v.val = e[k])
-    }
+    const Result = prop => span(Label(prop + ": "), Value(keyEvent.val[prop]))
 
     return div(
-      div(input({placeholder: "Focus here and press keys…", onkeydown,
-        style: "width: 260px"})),
-      div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
-      div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
+      div(input({placeholder: "Focus here and press keys…", style: "width: 260px",
+        onkeydown: e => (e.preventDefault(), keyEvent.val = e)})),
+      () => div(Result("key"), Result("code"), Result("which"), Result("keyCode")),
+      () => div(Result("ctrlKey"), Result("metaKey"), Result("altKey"), Result("shiftKey")),
     )
   }
 
