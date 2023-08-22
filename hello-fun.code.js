@@ -11,8 +11,8 @@ const Run = ({sleepMs}) => {
   }
   animate()
 
-  return div(pre(() =>
-    `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`))
+  return pre(() =>
+    `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`)
 }
 
 const Hello = () => {

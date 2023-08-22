@@ -16,8 +16,8 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
     }
     animate()
 
-    return div(pre(() =>
-      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`))
+    return pre(() =>
+      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`)
   }
 
   const Hello = () => {
