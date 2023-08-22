@@ -3,7 +3,7 @@ const {button, span} = van.tags
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const Timer = ({totalSecs}) => {
-  const secs = van.state(totalSecs);
+  const secs = van.state(totalSecs)
   return span(
     secs, "s ",
     button({onclick: async () => {
