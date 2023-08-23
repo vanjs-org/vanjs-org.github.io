@@ -235,9 +235,8 @@ import van from "/code/van-latest.min.js"
     const listDom = ul()
     const textDom = input({type: "text"})
     return div(
-      textDom, " ", button({
-        onclick: () => van.add(listDom, ListItem({text: textDom.value})),
-      }, "➕"),
+      textDom, " ",
+      button({onclick: () => van.add(listDom, ListItem({text: textDom.value}))}, "➕"),
       listDom,
     )
   }
