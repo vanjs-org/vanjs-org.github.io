@@ -1,4 +1,7 @@
-const fullName = van.state("Tao Xin")
+const fullName = van.state(localStorage.getItem("fullName") ?? "Tao Xin")
+
+// State persistence with `localStorage`
+van.derive(() => localStorage.setItem("fullName", fullName.val))
 
 // Defining multiple derived states
 const firstName = van.state(), lastName = van.state()

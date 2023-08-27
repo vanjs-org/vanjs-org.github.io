@@ -1,6 +1,9 @@
 const {div, input, span} = van.tags
 
-const fullName = van.state("Tao Xin")
+const fullName = van.state(localStorage.getItem("fullName") ?? "Tao Xin")
+
+// State persistence with `localStorage`
+van.derive(() => localStorage.setItem("fullName", fullName.val))
 
 // Defining multiple derived states
 const firstName = van.state(), lastName = van.state()
@@ -42,8 +45,8 @@ van.add(document.body,
     span({class: "label"}, "fullName:"),
     input({type: "text", value: fullName, oninput: e => fullName.val = e.target.value}),
   ),
-  div(span({class: "label"}, "firstName:"), firstName),
-  div(span({class: "label"}, "lastName:"), lastName),
+  div(span({class: "label"}, "firstName:"), () => firstName.val ?? ""),
+  div(span({class: "label"}, "lastName:"), () => lastName.val ?? ""),
   div(span({class: "label"}, "elapsed:"), () => elapsed.val.toFixed(2)),
   div(span({class: "label"}, "delayed:"), () => delayed.val.toFixed(2)),
   div(span({class: "label"}, "throttled:"), () => throttled.val.toFixed(2)),
