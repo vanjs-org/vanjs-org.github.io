@@ -4,9 +4,9 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags} = van.vanWithDoc(doc)
-  const {a, div, p, path, svg, table, tbody, th, thead, tr} = tags
+  const {a, div, i, p, path, svg, table, tbody, th, thead, tr} = tags
 
-  const {BI, Download, DownloadRow, H1, H2, H3, Html, Js, Link, MiniVan, Shell, Symbol, SymLink, Ts, VanJS} = common(doc)
+  const {BI, Download, DownloadRow, H1, H2, H3, Html, Js, JsFile, Link, MiniVan, Shell, Symbol, SymLink, TsFile, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/mini-van.version")
 
@@ -71,36 +71,7 @@ van.add(document.body, Hello())
     Shell("npm install mini-van-plate"),
     H3({id: "npm-van-plate"}, Symbol("van-plate"), " mode"),
     p("In ", Symbol("van-plate"), " mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:"),
-    Js(`import http from "node:http"
-import van from "mini-van-plate/van-plate"
-
-const {a, body, li, p, ul} = van.tags
-
-const hostname = '127.0.0.1'
-const port = 8080
-
-console.log("Testing DOM rendering...")
-// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` in the console
-console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html; charset=utf-8')
-  res.end(van.html(
-    body(
-      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
-      p("👋Hello"),
-      ul(
-        li("🗺️World"),
-        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
-      ),
-    ),
-  ))
-})
-
-server.listen(port, hostname, () =>
-  console.log(\`Server running at http://\${hostname}:\${port}/\`))
-`),
+    JsFile("sitegen/node-examples/van-plate-server/van-plate-server.mjs"),
     p("As illustrated in the example, ", Symbol("render"), " method can be called on the object returned from the ", SymLink("tag function", "/tutorial#api-tags"), " to generate a ", Symbol("string"), " that can be used for serving."),
     p(Symbol("van.html"), " is a helper function defined in ", Symbol("van-plate.js"), " that is equivalent to:",
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).render()`)),
@@ -111,112 +82,19 @@ server.listen(port, hostname, () =>
     p("First, install ", Symbol("jsdom"), ":"),
     Shell("npm install jsdom"),
     p("Sample code:"),
-    Js(`import http from "node:http"
-import jsdom from "jsdom"
-import van from "mini-van-plate"
-
-const dom = new jsdom.JSDOM("")
-const {html, tags} = van.vanWithDoc(dom.window.document)
-const {a, body, li, p, ul} = tags
-
-const hostname = '127.0.0.1'
-const port = 8080
-
-console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
-// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` printed in the console
-console.log(anchorDom.outerHTML)
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html; charset=utf-8')
-  res.end(html(
-    body(
-      p("Your user-agent is: ", req.headers["user-agent"] ?? "Unknown"),
-      p("👋Hello"),
-      ul(
-        li("🗺️World"),
-        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
-      ),
-    ),
-  ))
-})
-
-server.listen(port, hostname, () =>
-  console.log(\`Server running at http://\${hostname}:\${port}/\`))
-`),
+    JsFile("sitegen/node-examples/mini-van-server/mini-van-server.mjs"),
     p("Similar to ", Symbol("van-plate"), " mode, we have a helper function ", Symbol("html"), " defined in ", Symbol("mini-van.js"), " which is equivalent to:"),
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).outerHTML`),
     H2("Server-Side: Deno Integration"),
     p("Similarly, ", MiniVan(), " can work with Deno as well, in both ", Symbol("van-plate"), " mode and ", Symbol("mini-van"), " mode. A Deno module  was published here: ", SymLink("deno.land/x/minivan", "https://deno.land/x/minivan"), "."),
     H3({id: "deno-van-plate"}, Symbol("van-plate"), " mode"),
     p("Sample code:"),
-    Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import van from "https://deno.land/x/minivan@${version}/src/van-plate.js"
-
-const {a, body, li, p, ul} = van.tags
-
-const port = 8080
-
-console.log("Testing DOM rendering...")
-// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` in the console
-console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
-
-console.log(\`HTTP webserver running. Access it at: http://localhost:\${port}/\`)
-await serve(req => new Response(
-  van.html(
-    body(
-      p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
-      p("👋Hello"),
-      ul(
-        li("🗺️World"),
-        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
-      ),
-    ),
-  ),
-  {
-    status: 200,
-    headers: {"content-type": "text/html; charset=utf-8"},
-  },
-), {port})
-`),
+    div({style: "font-size: 0.9em;"}, i("Requires Deno ", Symbol("1.35"), " or later.")),
+    TsFile("sitegen/deno-examples/van-plate-server/van-plate-server.ts"),
     H3({id: "deno-mini-van"}, Symbol("mini-van"), " mode"),
     p("Likewise, ", MiniVan(), " mode needs a 3rd-party DOM library to provide the ", Symbol("Document"), " object. We will show an example with the integration of ", SymLink("deno-dom", "https://deno.com/manual@v1.28.1/advanced/jsx_dom/deno_dom"), "."),
-    Ts(`import { serve } from "https://deno.land/std@0.184.0/http/server.ts"
-import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@${version}/src/mini-van.js"
-
-const document = new DOMParser().parseFromString("", "text/html")!
-const {tags, html} = van.vanWithDoc(document)
-const {a, body, li, p, ul} = tags
-
-const port = 8080
-
-console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
-// Expecting \`<a href="https://vanjs.org/">🍦VanJS</a>\` printed in the console
-console.log(anchorDom.outerHTML)
-
-console.log(\`HTTP webserver running. Access it at: http://localhost:\${port}/\`)
-await serve(req => new Response(
-  html(
-    body(
-      p("Your user-agent is: ", req.headers.get("user-agent") ?? "Unknown"),
-      p("👋Hello"),
-      ul(
-        li("🗺️World"),
-        li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
-      ),
-    ),
-  ),
-  {
-    status: 200,
-    headers: {"content-type": "text/html; charset=utf-8"},
-  },
-), {port})
-`),
+    div({style: "font-size: 0.9em;"}, i("Requires Deno ", Symbol("1.35"), " or later.")),
+    TsFile("sitegen/deno-examples/mini-van-server/mini-van-server.ts"),
     H2("Client-Side: Getting Started"),
     p("To get started on the client side, add the line below to your script:"),
     Js(`import van from "https://cdn.jsdelivr.net/gh/vanjs-org/mini-van/public/mini-van-${version}.min.js"`),

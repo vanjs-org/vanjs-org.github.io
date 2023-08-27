@@ -1,0 +1,13 @@
+{
+  "name": "mini-van-node-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node mini-van-server.mjs"
+  },
+  "dependencies": {
+    "jsdom": "^22.1.0",
+    "mini-van-plate": "^0.3.9"
+  }
+}
