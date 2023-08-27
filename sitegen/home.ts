@@ -40,7 +40,7 @@ export default (doc: HTMLDocument) => {
     H1(VanJS(), ": A 0.9kB Grab 'n Go Reactive UI Framework without React/JSX"),
     p("📣 ", Link(VanJS(), " 1.0.0 is here →", "https://github.com/vanjs-org/van/discussions/72")),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
-    p((VanJS()), " is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
+    p((VanJS()), " (", Link("abbreviated ", b("Van"), "illa ", b("J"), "ava", b("S"), "ript", "/about#name"), ") is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
 const Hello = () => div(
@@ -108,7 +108,6 @@ van.add(document.body, Counter())
       li("Check out ", Link("VanUI", "https://github.com/vanjs-org/van/tree/main/components"), " - A collection of grab 'n go reusable UI components for ", VanJS()),
       li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
-      li(Link("How did ", VanJS(), " get its name?", "/about#name")),
     ),
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},
