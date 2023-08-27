@@ -64,7 +64,7 @@ const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
-// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` in the console
+// Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
 
 const server = http.createServer((req, res) =&gt; {
