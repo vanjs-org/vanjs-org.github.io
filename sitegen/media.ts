@@ -16,6 +16,7 @@ export default (doc: HTMLDocument) => {
     H1(VanJS(), ": Media Mentions"),
     p("🙏🙏🙏 ", VanJS(), " is a personal project, which means I don't have the time and resources to promote it to a wider audience. My heartfelt gratitude extends towards to all content creators and tech bloggers who are helping spread good words about ", VanJS(), ". Your help is invaluable in our pursuit of ", VanJS(), "'s mission: ", i("Enabling everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     H2("Videos"),
+    Video("https://www.youtube.com/embed/Oh2IEVqarHs"),
     Video("https://www.youtube.com/embed/2Oee-q5TKRU?start=1774"),
     Video("https://www.youtube.com/embed/ob5uZEV2_zA"),
     p("(", i("In Polish"), ")"),
