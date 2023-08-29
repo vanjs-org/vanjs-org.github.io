@@ -27,6 +27,7 @@ export default (doc: HTMLDocument) => {
     p("(", i("In Dutch"), ")"),
     H2("Articles / Podcasts"),
     ol(
+      li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
       li(Url("https://changelog.com/jsparty/277"), " (podcasts)"),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
