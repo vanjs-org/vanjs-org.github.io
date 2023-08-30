@@ -58,6 +58,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://zenn.dev/ryo_kawamata/articles/1ad6e51eed13ae"), " (", i("in Japanese"), ")"),
       li(Url("https://zenn.dev/daifukuninja/articles/79ff6fa650a535"), " (", i("in Japanese"), ")"),
       li(Url("https://qiita.com/mori_goq/items/364d63c861c796b6ac4b"), " (", i("in Japanese"), ")"),
+      li(Url("http://var.blog.jp/archives/87712487.html"), " (", i("in Japanese"), ")"),
       li(Url("http://kachibito.net/useful-resource/vanjs"), " (", i("in Japanese"), ")"),
       li(Url("https://b.hatena.ne.jp/entry/s/github.com/vanjs-org/van"), " (", i("in Japanese"), ")"),
       li(Url("https://jser.info/2023/05/26/wrangler-v3.0.0-playwright-v1.34.0-typescript-5.2/"), " (", i("in Japanese"), ")"),
