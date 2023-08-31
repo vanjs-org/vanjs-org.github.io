@@ -58,7 +58,7 @@ van.add(document.body, Hello())
 </code></pre><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/minivan/hello">Try on jsfiddle</a></p><p>You can convert any HTML snippet into <b>Mini-Van</b> code with our online <a href="/convert" class="w3-hover-opacity">converter</a>.</p><p><b>Mini-Van</b> is the slimmed-down version of <a href="/" class="w3-hover-opacity"><b>VanJS</b></a>, which aims to provide an <b><i>ultra-lightweight</i></b>, <b><i>zero-dependency</i></b>, and <b><i>unopinionated</i></b> Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to <b>VanJS</b>, <b>Mini-Van</b> further reduces the gzipped minified bundle size to 0.4kB and can be used on the server-side as a <a href="https://en.wikipedia.org/wiki/Web_template_system" class="w3-hover-opacity">template engine</a>.</p><h2 class="w3-xxlarge w3-text-red" id="server-side-npm-integration"><a class="self-link" href="#server-side-npm-integration">Server-Side: NPM Integration</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><b>Mini-Van</b>&nbsp;can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: <a href="https://www.npmjs.com/package/mini-van-plate" class="w3-hover-opacity">www.npmjs.com/package/mini-van-plate</a>. Thus it can be used in <a href="https://nodejs.org/" class="w3-hover-opacity">Node.js</a> or <a href="https://bun.sh/" class="w3-hover-opacity">Bun</a>.</p><p>There are 2 modes for server-side integration: <code class="symbol">van-plate</code> mode (based on text templating, thus doesn't need the DOM dependency), and <code class="symbol">mini-van</code> mode (based on DOM, thus needs the DOM dependency).</p><h3 class="w3-large w3-text-red" id="install"><a class="self-link" href="#install">Install</a></h3><pre><code class="language-shell">npm install mini-van-plate</code></pre><h3 class="w3-large w3-text-red" id="npm-van-plate"><a class="self-link" href="#npm-van-plate"><code class="symbol">van-plate</code> mode</a></h3><p>In <code class="symbol">van-plate</code> mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:</p><pre><code class="language-js">import http from "node:http"
 import van from "mini-van-plate/van-plate"
 
-const {a, body, li, p, ul} = van.tags
+const {a, body, button, input, li, p, ul} = van.tags
 
 const hostname = '127.0.0.1'
 const port = 8080
@@ -66,6 +66,10 @@ const port = 8080
 console.log("Testing DOM rendering...")
 // Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").render())
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).render())
 
 const server = http.createServer((req, res) =&gt; {
   res.statusCode = 200
@@ -89,17 +93,18 @@ import jsdom from "jsdom"
 import van from "mini-van-plate"
 
 const dom = new jsdom.JSDOM("")
-const {html, tags} = van.vanWithDoc(dom.window.document)
-const {a, body, li, p, ul} = tags
+const {html, tags: {a, body, button, input, li, p, ul}} = van.vanWithDoc(dom.window.document)
 
 const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
 // Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
-console.log(anchorDom.outerHTML)
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
 
 const server = http.createServer((req, res) =&gt; {
   res.statusCode = 200
@@ -120,13 +125,17 @@ server.listen(port, hostname, () =&gt;
   console.log(`Server running at http://${hostname}:${port}/`))
 </code></pre><p>Preview via <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/mini-van-server?file=/mini-van-server.mjs:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><p>Similar to <code class="symbol">van-plate</code> mode, we have a helper function <code class="symbol">html</code> defined in <code class="symbol">mini-van.js</code> which is equivalent to:</p><pre><code class="language-js">(...args) =&gt; "&lt;!DOCTYPE html&gt;" + tags.html(...args).outerHTML</code></pre><h2 class="w3-xxlarge w3-text-red" id="server-side-deno-integration"><a class="self-link" href="#server-side-deno-integration">Server-Side: Deno Integration</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Similarly, <b>Mini-Van</b> can work with Deno as well, in both <code class="symbol">van-plate</code> mode and <code class="symbol">mini-van</code> mode. A Deno module  was published here: <code class="symbol"><a href="https://deno.land/x/minivan" class="w3-hover-opacity">deno.land/x/minivan</a></code>.</p><h3 class="w3-large w3-text-red" id="deno-van-plate"><a class="self-link" href="#deno-van-plate"><code class="symbol">van-plate</code> mode</a></h3><p>Sample code:</p><div style="font-size: 0.9em;"><i>Requires Deno <code class="symbol">1.35</code> or later.</i></div><pre><code class="language-ts">import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
 
-const {a, body, li, p, ul} = van.tags
+const {a, body, button, input, li, p, ul} = van.tags
 
 const port = 8080
 
 console.log("Testing DOM rendering...")
 // Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").render())
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).render())
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
 Deno.serve({port}, req =&gt; new Response(
@@ -149,16 +158,17 @@ Deno.serve({port}, req =&gt; new Response(
 import van from "https://deno.land/x/minivan@0.3.9/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
-const {tags, html} = van.vanWithDoc(document)
-const {a, body, li, p, ul} = tags
+const {tags: {a, body, button, input, li, p, ul}, html} = van.vanWithDoc(document)
 
 const port = 8080
 
 console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
 // Expecting `&lt;a href="https://vanjs.org/"&gt;🍦VanJS&lt;/a&gt;` printed in the console
-console.log(anchorDom.outerHTML)
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `&lt;button onclick="alert(&amp;quot;Hello&amp;quot;)"&gt;Click&lt;/button&gt;` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `&lt;input type="text" value="value"&gt;` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
 Deno.serve({port}, req =&gt; new Response(

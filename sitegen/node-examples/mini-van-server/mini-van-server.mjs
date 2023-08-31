@@ -3,17 +3,18 @@ import jsdom from "jsdom"
 import van from "mini-van-plate"
 
 const dom = new jsdom.JSDOM("")
-const {html, tags} = van.vanWithDoc(dom.window.document)
-const {a, body, li, p, ul} = tags
+const {html, tags: {a, body, button, input, li, p, ul}} = van.vanWithDoc(dom.window.document)
 
 const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
 // Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
-console.log(anchorDom.outerHTML)
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `<button onclick="alert(&quot;Hello&quot;)">Click</button>` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `<input type="text" value="value">` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200

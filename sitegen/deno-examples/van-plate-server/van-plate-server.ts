@@ -1,12 +1,16 @@
 import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
 
-const {a, body, li, p, ul} = van.tags
+const {a, body, button, input, li, p, ul} = van.tags
 
 const port = 8080
 
 console.log("Testing DOM rendering...")
 // Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
 console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").render())
+// Expecting `<button onclick="alert(&quot;Hello&quot;)">Click</button>` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").render())
+// Expecting `<input type="text" value="value">` printed in the console
+console.log(input({type: "text", value: "value"}).render())
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
 Deno.serve({port}, req => new Response(

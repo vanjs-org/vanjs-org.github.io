@@ -2,16 +2,17 @@ import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts
 import van from "https://deno.land/x/minivan@0.3.9/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
-const {tags, html} = van.vanWithDoc(document)
-const {a, body, li, p, ul} = tags
+const {tags: {a, body, button, input, li, p, ul}, html} = van.vanWithDoc(document)
 
 const port = 8080
 
 console.log("Testing DOM rendering...")
-const anchorDom = a({href: "https://vanjs.org/"}, "🍦VanJS")
-// anchorDom is an HTMLAnchorElement
 // Expecting `<a href="https://vanjs.org/">🍦VanJS</a>` printed in the console
-console.log(anchorDom.outerHTML)
+console.log(a({href: "https://vanjs.org/"}, "🍦VanJS").outerHTML)
+// Expecting `<button onclick="alert(&quot;Hello&quot;)">Click</button>` printed in the console
+console.log(button({onclick: 'alert("Hello")'}, "Click").outerHTML)
+// Expecting `<input type="text" value="value">` printed in the console
+console.log(input({type: "text", value: "value"}).outerHTML)
 
 console.log(`HTTP webserver running. Access it at: http://localhost:${port}/`)
 Deno.serve({port}, req => new Response(
