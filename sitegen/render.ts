@@ -38,9 +38,8 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
 
   const Nav = ({page}: {page: string}) => div({id: "nav", class: "w3-bar-block"},
     shortTitleToPath.map(([title, path]) => {
-      let className = "w3-bar-item w3-button w3-hover-white"
-      if (path === page) className += " current"
-      return a({href: path.startsWith("https://") ? path : `/${path}`, onclick: "w3_close()", className}, title)
+      const className = "w3-bar-item w3-button w3-hover-white" + (path === page ? " current" : "")
+      return a({href: path.startsWith("https://") ? path : `/${path}`, onclick: "w3_close()", class: className}, title)
     }),
   )
 
