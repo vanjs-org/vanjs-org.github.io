@@ -1,0 +1,23 @@
+{
+  "name": "vanjs-hydration-example",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bash build.sh && node dist/server dev",
+    "build": "bash build.sh && bash minify.sh && echo run the following command to start the server: node dist/server prod"
+  },
+  "devDependencies": {
+    "@types/finalhandler": "^1.2.0",
+    "@types/node": "^20.5.7",
+    "@types/serve-static": "^1.15.2",
+    "terser": "^5.19.2",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "finalhandler": "^1.2.0",
+    "mini-van-plate": "0.4.0-rc.4",
+    "serve-static": "^1.15.0",
+    "vanjs-core": "1.2.0-rc.0"
+  }
+}
