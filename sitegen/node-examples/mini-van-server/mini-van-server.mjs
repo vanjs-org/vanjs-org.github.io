@@ -5,7 +5,6 @@ import van from "mini-van-plate"
 const dom = new jsdom.JSDOM("")
 const {html, tags: {a, body, button, input, li, p, ul}} = van.vanWithDoc(dom.window.document)
 
-const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
@@ -31,5 +30,4 @@ const server = http.createServer((req, res) => {
   ))
 })
 
-server.listen(port, hostname, () =>
-  console.log(`Server running at http://${hostname}:${port}/`))
+server.listen(port, () => console.log(`Server running at http://localhost:${port}/`))

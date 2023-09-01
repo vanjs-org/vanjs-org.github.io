@@ -47,6 +47,5 @@ createServer((req, res) => {
       ),
     )
   ))
-}).listen(Number(port), () => {
-  console.log(`Try visiting the server via http://localhost:${port}/?counter-init=5`)
-})
+}).listen(Number(port),
+  () => console.log(`Try visiting the server via http://localhost:${port}/?counter-init=5`))

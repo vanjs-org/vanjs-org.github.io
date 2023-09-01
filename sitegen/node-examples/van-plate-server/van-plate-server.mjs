@@ -3,7 +3,6 @@ import van from "mini-van-plate/van-plate"
 
 const {a, body, button, input, li, p, ul} = van.tags
 
-const hostname = '127.0.0.1'
 const port = 8080
 
 console.log("Testing DOM rendering...")
@@ -29,5 +28,4 @@ const server = http.createServer((req, res) => {
   ))
 })
 
-server.listen(port, hostname, () =>
-  console.log(`Server running at http://${hostname}:${port}/`))
+server.listen(port, () => console.log(`Server running at http://localhost:${port}/`))
