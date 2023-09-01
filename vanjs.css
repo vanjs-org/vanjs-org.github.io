@@ -95,6 +95,18 @@ a {
   font-weight: 1000;
 }
 
+ul.dir-tree, ul.dir-tree ul {
+  list-style: none;
+}
+
+ul.dir-tree {
+  padding-left: 10px;
+}
+
+ul.dir-tree ul {
+  padding-left: 30px;
+}
+
 #content {
   flex: 70%;
   max-width: 800px;

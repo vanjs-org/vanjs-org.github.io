@@ -4,9 +4,12 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, li, ol, p, ul}} = van.vanWithDoc(doc)
-  const {H1, H2, Link, MiniVan, VanJS} = common(doc)
+  const {H1, H2, Link, MiniVan, Symbol, SymLink, VanJS} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/hydrate/hydration-example"
+
+  const Folder = (name: string) => ["📂 ", Symbol(name)]
+  const File = (name: string, path: string) => ["📄 ", SymLink(name, codeUrlBase + "/" + path)]
 
   return div({id: "content"},
     H1(VanJS(), ": Fullstack Rendering (SSR, CSR and Hydration)"),
@@ -18,5 +21,16 @@ export default (doc: HTMLDocument) => {
     ),
     p("The sample application requires a bare minimum of dependencies. The server-side script can be run by Node.js. We can also build a fullstack application with other JavaScript runtimes like Deno or Bun. Other front-end frameworks like Vite or Astro is not required, but it should be easy to integrate with them."),
     p("The source code of the sample application can be found ", Link("here", codeUrlBase), " with the following directory structure:"),
+    ul({class: "dir-tree"},
+      li(Folder("src"), ": Source files of the application.",
+        ul(
+          li(Folder("components"), ": Common components that are shared on both server-side and client-side.",
+            ul(
+              li()
+            ),
+          ),
+        ),
+      )
+    )
   )
 }
