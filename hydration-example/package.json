@@ -11,6 +11,7 @@
     "@types/finalhandler": "^1.2.0",
     "@types/node": "^20.5.7",
     "@types/serve-static": "^1.15.2",
+    "esbuild": "^0.19.2",
     "terser": "^5.19.2",
     "typescript": "^5.0.4"
   },

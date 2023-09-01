@@ -3,9 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags} = van.vanWithDoc(doc)
-  const {div, i, iframe, li, ol, p} = tags
-
+  const {tags: {div, i, iframe, li, ol, p}} = van.vanWithDoc(doc)
   const {H1, H2, Url, VanJS} = common(doc)
 
   const Video = (src: string) => p({class: "video-wrapper"},

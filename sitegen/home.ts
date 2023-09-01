@@ -3,9 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags} = van.vanWithDoc(doc)
-  const {a, b, blockquote, div, g, i, input, li, p, path, span, svg, title, ul} = tags
-
+  const {tags: {a, b, blockquote, div, g, i, input, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: "16", height: "16", "aria-hidden": "true"},

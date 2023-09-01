@@ -4,8 +4,7 @@ import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.3
 type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
-  const {add, tags} = van.vanWithDoc(doc)
-  const {a, b, blockquote, br, code, div, i, h1, h2, h3, hr, pre, span, td, tr} = tags
+  const {add, tags: {a, b, blockquote, br, code, div, i, h1, h2, h3, hr, pre, span, td, tr}} = van.vanWithDoc(doc)
 
   const genId = (text: string, id: string | undefined) =>
     id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")

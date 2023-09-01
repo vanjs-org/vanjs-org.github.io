@@ -5,9 +5,7 @@ import { Element, HTMLDocument, Text } from "https://deno.land/x/deno_dom@v0.1.3
 type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
-  const {tags} = van.vanWithDoc(doc)
-  const {b, br, div, li, p, span, table, tbody, td, tr, ul} = tags
-
+  const {tags: {b, br, div, li, p, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
   const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   interface ApiTableProps {

@@ -8,6 +8,7 @@ import tutorial from "./tutorial.ts"
 import demo from "./demo.ts"
 import convert from "./convert.ts"
 import minivan from "./minivan.ts"
+import ssr from "./ssr.ts"
 import advanced from "./advanced.ts"
 import media from "./media.ts"
 import about from "./about.ts"
@@ -17,10 +18,7 @@ const templateStr = Deno.readTextFileSync("template.html")
 const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: string,
   title: string) => {
   const doc = new DOMParser().parseFromString(templateStr, "text/html")!
-
-  const {tags} = van.vanWithDoc(doc)
-  const {a, aside, div, li, ul} = tags
-
+  const {tags: {a, aside, div, li, ul}} = van.vanWithDoc(doc)
   const {Link} = common(doc)
 
   const shortTitleToPath = [
@@ -31,6 +29,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["Convert HTML to VanJS", "convert"],
     ["VanUI", "https://github.com/vanjs-org/van/tree/main/components"],
     ["Mini-Van", "minivan"],
+    ["SSR & Hydration", "ssr"],
     ["Advanced Topics", "advanced"],
     ["Media Mentions", "media"],
     ["About", "about"],
@@ -94,6 +93,7 @@ renderPage(tutorial, "tutorial", "tutorial.html", "Tutorial and API Reference")
 renderPage(demo, "demo", "demo.html", "Learning by Example")
 renderPage(convert, "convert", "convert.html", "Convert HTML Snippet to 🍦VanJS Code")
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
+renderPage(ssr, "ssr", "ssr.html", "Fullstack Rendering (SSR, CSR and Hydration)")
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
 renderPage(media, "media", "media.html", "Media Mentions")
 renderPage(about, "about", "about.html", "About")

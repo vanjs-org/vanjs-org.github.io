@@ -3,9 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags} = van.vanWithDoc(doc)
-  const {div, p} = tags
-
+  const {tags: {div, p}} = van.vanWithDoc(doc)
   const {Demo, Download, H1, H2, Html, Js, Link, Shell, Symbol, SymLink, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")

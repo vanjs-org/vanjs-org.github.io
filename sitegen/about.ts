@@ -3,9 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags} = van.vanWithDoc(doc)
-  const {b, blockquote, br, div, i, img, li, p, ul} = tags
-
+  const {tags: {b, blockquote, br, div, i, img, li, p, ul}} = van.vanWithDoc(doc)
   const {H1, H2, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
