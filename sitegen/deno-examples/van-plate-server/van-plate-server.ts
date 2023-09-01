@@ -1,4 +1,4 @@
-import van from "https://deno.land/x/minivan@0.3.9/src/van-plate.js"
+import van from "https://deno.land/x/minivan@0.4.0/src/van-plate.js"
 
 const {a, body, button, input, li, p, ul} = van.tags
 
