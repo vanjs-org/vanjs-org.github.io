@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanJS - Fullstack Rendering (SSR, CSR and Hydration)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q0NB75RY7E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q0NB75RY7E');
+    </script>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-16 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"><a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a><a href="/start" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Getting Started</a><a href="/tutorial" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tutorial</a><a href="/demo" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanJS by Example</a><a href="/convert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Convert HTML to VanJS</a><a href="https://github.com/vanjs-org/van/tree/main/components" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanUI</a><a href="/minivan" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Mini-Van</a><a href="/ssr" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white current">SSR &amp; Hydration</a><a href="/advanced" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Advanced Topics</a><a href="/media" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Media Mentions</a><a href="/about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar">SSR &amp; Hydration</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;">
+      <div id="page">
+        <div id="content"><h1 class="w3-xxlarge"><b>VanJS</b>: Fullstack Rendering (SSR, CSR and Hydration)</h1><p>⌛ Coming soon. Stay tuned!</p></div>
+        <aside id="toc"></aside>
+      </div>
+    </div>
+    <script>
+      // Script to open and close sidebar
+      const w3_open = () => {
+        document.getElementById("mySidebar").style.display = "block"
+        document.getElementById("myOverlay").style.display = "block"
+      }
+
+      const w3_close = () => {
+        document.getElementById("mySidebar").style.display = "none"
+        document.getElementById("myOverlay").style.display = "none"
+      }
+
+      const tocDom = document.getElementById("toc")
+
+      // Tracks the current toc item
+      const trackToc = () => {
+        const allHeadings = [...document.querySelectorAll("h2,h3")]
+        const currentHeadingIndex = allHeadings.findIndex(h => h.getBoundingClientRect().top >= 0)
+        let currentHeading
+        if (currentHeadingIndex < 0) currentHeading = allHeadings[allHeadings.length - 1]; else {
+          currentHeading = allHeadings[currentHeadingIndex]
+          if (currentHeadingIndex > 0 && currentHeading.getBoundingClientRect().top > innerHeight)
+            currentHeading = allHeadings[currentHeadingIndex - 1]
+        }
+        for (const e of document.querySelectorAll("#toc li a"))
+          if (e.href.split("#")[1] === currentHeading?.id) {
+            e.classList.add("w3-opacity")
+            const {top: tocTop, bottom: tocBottom} = tocDom.getBoundingClientRect()
+            const {top: eTop, bottom: eBottom} = e.getBoundingClientRect()
+            if (eBottom > tocBottom) tocDom.scrollTop += eBottom - tocBottom
+            else if (eTop < tocTop) tocDom.scrollTop -= tocTop - eTop
+          } else
+            e.classList.remove("w3-opacity")
+      }
+      trackToc()
+      document.addEventListener("scroll", trackToc)
+      addEventListener("resize", trackToc)
+    </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/diff.min.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script>
+      const copy = e => {
+        const file = e.previousElementSibling.innerText
+        const importLine = file.includes("nomodule") ?
+          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
+          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
+          navigator.clipboard.writeText(importLine)
+            .then(() => e.querySelector(".tooltip").innerText = "Copied")
+            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
+      }
+
+      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
+    </script>
+    <script class="inline"></script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+  
+
+</body></html>
