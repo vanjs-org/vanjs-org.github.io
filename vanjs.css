@@ -97,14 +97,20 @@ a {
 
 ul.dir-tree, ul.dir-tree ul {
   list-style: none;
+  padding-left: 15px;
 }
 
-ul.dir-tree {
-  padding-left: 10px;
+ul.dir-tree li.folder::before {
+  content: "📂 ";
 }
 
-ul.dir-tree ul {
-  padding-left: 30px;
+ul.dir-tree li.file::before {
+  content: "📄 ";
+}
+
+ul.dir-tree li.folder, ul.dir-tree li.file {
+  text-indent: -1.5em;
+  padding-left: 1.5em;
 }
 
 #content {

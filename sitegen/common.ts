@@ -95,6 +95,8 @@ export default (doc: HTMLDocument) => {
     Link,
     SymLink: (symbol: string, href: string) => Symbol(Link(symbol, href)),
 
+    Json: (text: string) => pre(code({class: "language-json"}, text)),
+
     Js: (text: string) => pre(code({class: "language-js"}, text)),
 
     JsFile: (file: string) => pre(code({class: "language-js"}, Deno.readTextFileSync(file))),
@@ -104,6 +106,8 @@ export default (doc: HTMLDocument) => {
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),
 
     TsFile: (file: string) => pre(code({class: "language-ts"}, Deno.readTextFileSync(file))),
+
+    InlineTs: (text: string) => code({class: "language-js"}, text),
 
     Shell: (text: string) => pre(code({class: "language-shell"}, text)),
 

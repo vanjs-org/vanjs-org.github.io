@@ -3,12 +3,12 @@ import { VanObj } from "mini-van-plate/shared"
 interface Props {
   van: VanObj
   id?: string
-  init: number
+  init?: number
   buttonStyle?: string
 }
 
 export default ({
-  van, id, init, buttonStyle = "👍👎",
+  van, id, init = 0, buttonStyle = "👍👎",
 }: Props) => {
   const {button, div} = van.tags
 
