@@ -93,9 +93,10 @@ export default (doc: HTMLDocument) => {
     Ts('if (req.url?.endsWith(".js")) return serveFile(req, res, finalhandler(req, res))'),
     p("This is to tell the HTTP server to serve the file statically if any ", Symbol(".js"), " file is requested."),
     p("The bulk of the script is declaring the DOM structure of the page that is enclosed in ", InlineTs("van.html(...)"), ". As you can see, with the expressiveness of tag functions, we're able to declare the entire HTML page, including everything in the ", Symbol("<head>"), " section and ", Symbol("<body>"), " section with ", MiniVan(), " code."),
-    p("As you can see, we're rendering an HTML page with one ", Symbol("Hello"), " component and two ", Symbol("Counter"), " components - one with the default button style, and the other one whose button style can be selected by the user. Here are a few interesting things to note:"),
+    p("The code declares an HTML page with one ", Symbol("Hello"), " component and two ", Symbol("Counter"), " components - one with the default button style, and the other one whose button style can be selected by the user. Here are a few interesting things to note:"),
     ul(
-      li("The line:", Ts('script({type: "text/javascript", src: `dist/client.bundle${env === "dev" ? "" : ".min"}.js`, defer: true})'), ""),
+      li("The line:", Ts('script({type: "text/javascript", src: `dist/client.bundle${env === "dev" ? "" : ".min"}.js`, defer: true})'), "indicates that we're choosing different JavaScript bundle files under different modes: ", Symbol("client.bundle.js"), " in dev mode whereas ", Symbol("client.bundle.min.js"), " in prod mode. It makes sense to use original client-side script during development and use the minified script in production."),
+      li("We're allowing users to set the initial value of the counters via query parameters. Specifically, the line:", Ts('const counterInit = Number(parse(req.url!, true).query["counter-init"] ?? 0)'), "and line:", Ts('Counter({van, id: "basic-counter", init: counterInit})'), "enable that."),
     )
   )
 }
