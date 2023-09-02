@@ -86,7 +86,7 @@ export default (doc: HTMLDocument) => {
       li("You can optionally specify the styles of the increment/decrement buttons. As illustrated later, we will see how to make the button style of the ", Symbol("Counter"), " component reactive to user selection."),
       li("We keep the ", Symbol("data-counter"), " attribute of the component in sync with the current value of the counter. This will help us keep the counter value while hydrating."),
     ),
-    H2("Server-Side Script"),
+    H2("Server-Side Script: HTML Template"),
     p("Now, let's build the server-side script that enables SSR:"),
     TsFile("hydration-example/src/server.ts"),
     p("The script implements a basic HTTP server with the built-in ", Symbol("node:http"), " module (no web framework needed). You will probably first notice this line:"),
@@ -97,6 +97,11 @@ export default (doc: HTMLDocument) => {
     ul(
       li("The line:", Ts('script({type: "text/javascript", src: `dist/client.bundle${env === "dev" ? "" : ".min"}.js`, defer: true})'), "indicates that we're choosing different JavaScript bundle files under different modes: ", Symbol("client.bundle.js"), " in dev mode whereas ", Symbol("client.bundle.min.js"), " in prod mode. It makes sense to use original client-side script during development and use the minified script in production."),
       li("We're allowing users to set the initial value of the counters via query parameters. Specifically, the line:", Ts('const counterInit = Number(parse(req.url!, true).query["counter-init"] ?? 0)'), "and line:", Ts('Counter({van, id: "basic-counter", init: counterInit})'), "enable that."),
-    )
+      li("We're choosing ", Link(Symbol("van-plate"), " mode", "/minivan#npm-van-plate"), " as SSR is done with pure text templating, thus no DOM manipulation is needed in this application. If you want some DOM manipulation for your SSR, you can choose ", Link(Symbol("mini-van"), " mode", "/minivan#npm-mini-van"), " instead."),
+    ),
+    H2("Client-Side Script: CSR and Hydration"),
+    p("The final step is to complete the client-side script file. First, let's try to add a client-side component:"),
+    Ts(`van.add(document.getElementById("hello-container")!, Hello({van}))`),
+    p("This will append a CSR ", Symbol("Hello"), " component right after the SSR ", Symbol("Hello"), " component. You can tell whether the component is rendered on the server-side or on the client-side by checking whether the text is ", Symbol("👋Hello (from server)"), " or ", Symbol("👋Hello (from client)"), "."),
   )
 }
