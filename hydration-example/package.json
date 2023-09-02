@@ -19,6 +19,6 @@
     "finalhandler": "^1.2.0",
     "mini-van-plate": "0.4.0-rc.4",
     "serve-static": "^1.15.0",
-    "vanjs-core": "1.2.0-rc.0"
+    "vanjs-core": "1.2.0-rc.2"
   }
 }

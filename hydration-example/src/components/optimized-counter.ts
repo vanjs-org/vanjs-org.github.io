@@ -9,14 +9,19 @@ interface Props {
 
 export default ({
   van, id, init = 0, buttonStyle = "👍👎",
-}: Props) => {
+}: Props) => van.tags.div((dom: Node) => {
+  if (dom) return dom
+
   const {button, div} = van.tags
 
-  const [up, down] = [...van.val(buttonStyle)]
   const counter = van.state(init)
+  const up = van.state(<string | undefined>undefined)
+  const down = van.state(<string | undefined>undefined)
+  van.derive(() => [up.val, down.val] = [...van.val(buttonStyle)])
+
   return div({...(id ? {id} : {}), "data-counter": counter},
     "❤️ ", counter, " ",
     button({onclick: () => ++counter.val}, up),
     button({onclick: () => --counter.val}, down),
   )
-}
+}).firstChild
