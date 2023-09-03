@@ -110,19 +110,17 @@
     }
     return add(dom, ...children);
   }, { get: (tag, name) => tag.bind(_undefined, name) });
+  var update = (dom, newDom) => newDom !== dom && (newDom ? dom.replaceWith(newDom) : dom.remove());
   var updateDoms = () => {
     let changedStatesArray = [...changedStates].filter((s) => s._val !== s._oldVal);
     changedStates = _undefined;
-    for (let b of new Set(changedStatesArray.flatMap((s) => s._bindings = keepConnected(s._bindings)))) {
-      let dom = b._dom, newDom = bind(b.f, dom);
-      b._dom = _undefined;
-      if (newDom !== dom)
-        newDom != _undefined ? dom.replaceWith(newDom) : dom.remove();
-    }
+    for (let b of new Set(changedStatesArray.flatMap((s) => s._bindings = keepConnected(s._bindings))))
+      update(b._dom, bind(b.f, b._dom)), b._dom = _undefined;
     for (let s of changedStatesArray)
       s._oldVal = s._val;
   };
-  var van_default = { add, _, tags: tagsNS(), tagsNS, state, val, oldVal, derive };
+  var hydrate = (dom, f) => update(dom, bind(f, dom));
+  var van_default = { add, _, tags: tagsNS(), tagsNS, state, val, oldVal, derive, hydrate };
 
   // van.debug.js
   var capturedErrors;
@@ -165,16 +163,16 @@
     );
     return child;
   };
+  var withResultValidation = (f) => (dom) => {
+    const r = validateChild(f(dom));
+    if (r !== dom && r instanceof Node)
+      expect(
+        !r.isConnected,
+        "If the result of complex binding function is not the same as previous one, it shouldn't be already connected to document"
+      );
+    return r;
+  };
   var checkChildren = (children) => children.flat(Infinity).map((c) => {
-    const withResultValidation = (f) => (dom) => {
-      const r = validateChild(f(dom));
-      if (r !== dom && r instanceof Node)
-        expect(
-          !r.isConnected,
-          "If the result of complex binding function is not the same as previous one, it shouldn't be already connected to document"
-        );
-      return r;
-    };
     if (isState2(c))
       return withResultValidation(() => c.val);
     if (typeof c === "function")
@@ -197,9 +195,12 @@
         const [props, ...children] = protoOf2(args[0] ?? 0) === Object.prototype ? args : [{}, ...args];
         const debugProps = {};
         for (const [k, v] of Object.entries(props)) {
-          const validatePropValue = k.startsWith("on") ? (v2) => (expect(
+          const validatePropValue = k.startsWith("on") ? k.toLowerCase() === k ? (v2) => (expect(
             typeof v2 === "function" || v2 === null,
-            `Invalid property value for ${k}: Only functions and null are allowed for on... handler`
+            `Invalid property value for ${k}: Only functions and null are allowed for ${k} property`
+          ), v2) : (v2) => (expect(
+            typeof v2 === "string",
+            `Invalid property value for ${k}: Only strings are allowed for ${k} attribute`
           ), v2) : (v2) => (expect(
             isValidPrimitive(v2) || v2 === null,
             `Invalid property value for ${k}: Only string, number, boolean, bigint and null are valid prop value types`
@@ -219,7 +220,12 @@
     expect(typeof ns === "string", "Must provide a string for parameter `ns` in `van.tagsNS`");
     return _tagsNS(ns);
   };
-  var van_debug_default = { add: add2, _: _2, tags: _tagsNS(), tagsNS: tagsNS2, state: state2, val: van_default.val, oldVal: van_default.oldVal, derive: derive2, startCapturingErrors, stopCapturingErrors, get capturedErrors() {
+  var hydrate2 = (dom, f) => {
+    expect(dom instanceof Node, "1st argument of `van.hydrate` function must be a DOM Node object");
+    expect(typeof f === "function", "2nd argument of `van.hydrate` function must be a function");
+    return van_default.hydrate(dom, withResultValidation(f));
+  };
+  var van_debug_default = { add: add2, _: _2, tags: _tagsNS(), tagsNS: tagsNS2, state: state2, val: van_default.val, oldVal: van_default.oldVal, derive: derive2, hydrate: hydrate2, startCapturingErrors, stopCapturingErrors, get capturedErrors() {
     return capturedErrors;
   } };
 
