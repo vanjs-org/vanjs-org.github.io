@@ -159,7 +159,7 @@ van.add(document.body, Table({
     p("🎉 Congratulations! You have mastered the skills for building and manipulating DOM trees using ", VanJS(), "'s declarative API, which is incredibly powerful for creating comprehensive applications with elegant code. In the sections below, you will continue to learn how to build reactive applications with state and state binding."),
     p("If your application doesn't rely on state and state binding, you can use the slimmed-down version of ", VanJS(), " - ", Link("Mini-Van", "/minivan"), "."),
     H2("State"),
-    p("A ", Symbol("State"), " object in ", VanJS(), " represents a value that can be updated throughout your application. A ", Symbol("State"), " object has a public property ", Symbol("val"), ", with a ", Link("custom setter", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set"), " that automatically propogates changes to DOM nodes that bind to it."),
+    p("A ", Symbol("State"), " object in ", VanJS(), " represents a value that can be updated throughout your application. A ", Symbol("State"), " object has a public property ", Symbol("val"), ", with a ", Link("custom setter", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set"), " that automatically propagates changes to DOM nodes that are bound to it."),
     p("The code below illustrates how a ", Symbol("State"), " object can be used:"),
     JsFile("state.code.js"),
     p(Demo()),
@@ -176,7 +176,7 @@ van.add(document.body, Table({
     }),
     H3("Public interface of ", Symbol("State"), " objects"),
     ul(
-     li("Property ", Symbol(b("val")), " - the current value of the ", Symbol("State"), " object. When a new value of this property is set, all event handlers registered via ", Symbol("onnew"), " method will be called and all DOM nodes that bind to it will be updated accordingly."),
+     li("Property ", Symbol(b("val")), " - the current value of the ", Symbol("State"), " object. When a new value of this property is set, all ", Link("derived states", "#derived-state"), " and ", Link("side effects", "#side-effect"), " registered via ", SymLink("van.derive", "#api-derive"), " and all DOM nodes that are bound to it will be updated accordingly."),
      li("Readonly property ", Symbol(b("oldVal")), " - the old value of the ", Symbol("State"), " object prior to the current UI update cycle. This property might be useful for ", Link("stateful binding", "#stateful-binding"), ".")
     ),
     p("The value of a ", Symbol("State"), " object can be almost anything, primitive, ", SymLink("Object", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"), ", ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), ", ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), ", etc., with 2 ad-hoc exceptions that we made: The value of the ", Symbol("State"), " object cannot be a DOM node, or another ", Symbol("State"), " object. Having values in these 2 types carries little semantic information and is more likely a result of coding bugs. Thus we disallow ", Symbol("State"), " objects to have values in these 2 types. In ", Symbol("van-{version}.debug.js"), ", an explicit error will be thrown if you try to assign a DOM node or another ", Symbol("State"), " object as the value of a state."),
