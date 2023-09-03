@@ -113,6 +113,6 @@ export default (doc: HTMLDocument) => {
   init: Number(dom.getAttribute("data-counter")),
 }))
 `),
-    p(Symbol(`van.hydrate`), " replaces the SSR component (located by ", InlineTs(`document.getElementById("basic-counter")!`), ") with the CSR ", Symbol("Counter"), " component. Note that the 2nd argument of ", Symbol("van.hydrate"), " is a function that takes the existing DOM node as its parameter. This is exactly how we can get the current state of SSR component (via ", InlineTs(`Number(dom.getAttribute("data-counter"))`), ") and pass-in the information while constructing the CSR component, which keeps the counter value the same after hydration."),
+    p(Symbol(`van.hydrate`), " replaces the SSR component (located by ", InlineTs(`document.getElementById("basic-counter")!`), ") with the CSR ", Symbol("Counter"), " component. Note that the 2nd argument of ", Symbol("van.hydrate"), " is the hydration function that takes the existing DOM node as its parameter and returns the new hydrated component. This way we can get the current state of SSR component (via ", InlineTs(`Number(dom.getAttribute("data-counter"))`), ") and pass-in the information while constructing the CSR component, which keeps the counter value the same after hydration."),
   )
 }
