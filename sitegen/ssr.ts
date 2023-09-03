@@ -100,8 +100,19 @@ export default (doc: HTMLDocument) => {
       li("We're choosing ", Link(Symbol("van-plate"), " mode", "/minivan#npm-van-plate"), " as SSR is done with pure text templating without any DOM manipulation. If you want some DOM manipulation for your SSR, you can choose ", Link(Symbol("mini-van"), " mode", "/minivan#npm-mini-van"), " instead."),
     ),
     H2("Client-Side Script: CSR and Hydration"),
-    p("The final step is to complete the client-side script file. First, let's try to add a client-side component:"),
+    p("The final step is to complete the client-side script file."),
+    H3("Client-Side Component"),
+    p("First, let's try to add a client-side component:"),
     Ts(`van.add(document.getElementById("hello-container")!, Hello({van}))`),
     p("This will append a CSR ", Symbol("Hello"), " component right after the SSR ", Symbol("Hello"), " component. You can tell whether the component is rendered on the server-side or on the client-side by checking whether the text is ", Symbol("👋Hello (from server)"), " or ", Symbol("👋Hello (from client)"), "."),
+    H3("Hydration"),
+    p("Next, let's hydrate the counter components rendered on the server side to add the reactivity. We can use ", Symbol("van.hydrate"), " to achieve that:"),
+    Ts(`van.hydrate(document.getElementById("basic-counter")!, dom => Counter({
+  van,
+  id: "basic-counter",
+  init: Number(dom.getAttribute("data-counter")),
+}))
+`),
+    p(Symbol(`van.hydrate`), " replaces the SSR component (located by ", InlineTs(`document.getElementById("basic-counter")!`), ") with the CSR ", Symbol("Counter"), " component. Note that the 2nd argument of ", Symbol("van.hydrate"), " is a function that takes the existing DOM node as its parameter. This is exactly how we can get the current state of SSR component (via ", InlineTs(`Number(dom.getAttribute("data-counter"))`), ") and pass-in the information while constructing the CSR component, which keeps the counter value the same after hydration."),
   )
 }
