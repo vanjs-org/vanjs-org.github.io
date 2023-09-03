@@ -39,7 +39,6 @@ export default (doc: HTMLDocument) => {
       "data-prefix": "const {button, div, pre} = van.tags",
       "data-suffix": "van.add(document.body, Hello())",
     }),
-    p("An alternative implementation by ", Link("@stephenhandley", "https://github.com/stephenhandley"), " can be found ", Link("here", "https://github.com/vanjs-org/van/discussions/20"), "."),
     H2("DOM Composition and Manipulation"),
     p("Even without state and state binding, you can build interactive web pages thanks to ", VanJS(), "'s flexible API for DOM composition and manipulation: ", SymLink("tag functions", "/tutorial#api-tags"), " and ", SymLink("van.add", "/tutorial#api-add"), ". Check out the example below:"),
     Js(`const StaticDom = () => {
