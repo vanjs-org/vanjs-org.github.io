@@ -9,7 +9,7 @@ van.add(document.getElementById("hello-container")!, Hello({van}))
 const hydrate = () => {
   van.hydrate(document.getElementById("basic-counter")!, dom => Counter({
     van,
-    id: "basic-counter",
+    id: dom.id,
     init: Number(dom.getAttribute("data-counter")),
   }))
 
@@ -18,7 +18,7 @@ const hydrate = () => {
   styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e!.target).value
   van.hydrate(document.getElementById("styled-counter")!, dom => Counter({
     van,
-    id: "styled-counter",
+    id: dom.id,
     init: Number(dom.getAttribute("data-counter")),
     buttonStyle: buttonStyle,
   }))

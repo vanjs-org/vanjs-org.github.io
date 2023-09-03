@@ -109,7 +109,7 @@ export default (doc: HTMLDocument) => {
     p("Next, let's hydrate the counter components rendered on the server side to add the reactivity. We can use ", Symbol("van.hydrate"), " to achieve that:"),
     Ts(`van.hydrate(document.getElementById("basic-counter")!, dom => Counter({
   van,
-  id: "basic-counter",
+  id: dom.id,
   init: Number(dom.getAttribute("data-counter")),
 }))
 `),
