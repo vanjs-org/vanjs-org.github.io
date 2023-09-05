@@ -361,7 +361,7 @@ const TodoList = () => {
     p(Demo()),
     p({id: "demo-auto-complete-derived-props"}),
     p({id: "jsfiddle-auto-complete-derived-props"},
-      a({href: "https://jsfiddle.net/4g56au83/1/"}, "Try on jsfiddle"),
+      a({href: "https://jsfiddle.net/7ueod0pL/1/"}, "Try on jsfiddle"),
     ),
     H2("HTML to VanJS Code Converter"),
     p("The converter that converts HTML snippet to ", VanJS(), " code, is also implemented with ", VanJS(), ":"),

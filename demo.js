@@ -420,10 +420,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
-      const indices = [];
-      for (let i = 0; i < 10; ++i)
-          indices.push(i);
-      const suggestionList = div({ class: "suggestion" }, indices.map(index => SuggestionListItem({ index })));
+      const suggestionList = div({ class: "suggestion" }, Array.from({ length: 10 }).map((_, index) => SuggestionListItem({ index })));
       const onkeydown = (e) => {
           var _a;
           if (e.key === "ArrowDown") {

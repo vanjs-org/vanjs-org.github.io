@@ -26,10 +26,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
     () => candidates.val[index] ?? "",
   )
 
-  const indices: number[] = []
-  for (let i = 0; i < 10; ++i) indices.push(i)
   const suggestionList = div({class: "suggestion"},
-    indices.map(index => SuggestionListItem({index})))
+    Array.from({length: 10}).map((_, index) => SuggestionListItem({index})))
 
   const onkeydown = (e: KeyboardEvent) => {
     if (e.key === "ArrowDown") {
