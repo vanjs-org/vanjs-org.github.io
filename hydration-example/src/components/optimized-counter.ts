@@ -8,16 +8,14 @@ interface Props {
 }
 
 export default ({
-  van, id, init = 0, buttonStyle = "👍👎",
-}: Props) => van.tags.div((dom: Node) => {
+  van: {state, derive, val, tags: {button, div}},
+  id, init = 0, buttonStyle = "👍👎",
+}: Props) => div((dom: Node) => {
   if (dom) return dom
 
-  const {button, div} = van.tags
-
-  const counter = van.state(init)
-  const up = van.state(<string | undefined>undefined)
-  const down = van.state(<string | undefined>undefined)
-  van.derive(() => [up.val, down.val] = [...van.val(buttonStyle)])
+  const counter = state(init)
+  const up = state(<string | undefined>undefined), down = state(<string | undefined>undefined)
+  derive(() => [up.val, down.val] = [...val(buttonStyle)])
 
   return div({...(id ? {id} : {}), "data-counter": counter},
     "❤️ ", counter, " ",
