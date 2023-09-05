@@ -417,6 +417,7 @@ google.charts.setOnLoadCallback(() =>
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
     ul(
       li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
+      li(User("barrymun"), "'s ", Link("Division Game", "https://github.com/barrymun/division-game"), " (", Link("live preview", "http://barrymun.vanjs-division-game.surge.sh/"), ")"),
       li(User("enpitsuLin"), "'s ", Link("TODO app", "https://github.com/enpitsuLin/vanjs-todomvc"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1"), ")"),
       li(User("ndrean"), "'s ", Link(b("Modal"), " component & routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal"), " (", Link("live preview", "https://githubbox.com/ndrean/vanjs-dialog-modal"), ")"),
       li(User("FredericHeem"), "'s ", Link("multi-page app starter kit under 5kB", "https://github.com/FredericHeem/van-kit")),
