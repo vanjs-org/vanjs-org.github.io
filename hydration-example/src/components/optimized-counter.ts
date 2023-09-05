@@ -10,7 +10,7 @@ interface Props {
 export default ({
   van: {state, derive, val, tags: {button, div}},
   id, init = 0, buttonStyle = "👍👎",
-}: Props) => div((dom: Node) => {
+}: Props) => div((dom: Node | undefined) => {
   if (dom) return dom
 
   const counter = state(init)

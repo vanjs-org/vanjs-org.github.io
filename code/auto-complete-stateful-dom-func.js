@@ -42,8 +42,8 @@ const AutoComplete = ({ words }) => {
     const oninput = (e) => prefix.val = lastWord(e.target.value);
     return div({ class: "root" }, textarea({ onkeydown, oninput }), node => {
         var _a, _b, _c, _d;
-        const dom = node;
-        if (dom && candidates.val === candidates.oldVal) {
+        if (node && candidates.val === candidates.oldVal) {
+            const dom = node;
             // If the candidate list doesn't change, we don't need to re-render the
             // suggetion list. Just need to change the selected candidate.
             (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
