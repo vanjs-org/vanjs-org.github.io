@@ -119,6 +119,18 @@ export default (doc: HTMLDocument) => {
 const buttonStyle = van.state(styleSelectDom.value)
 styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e!.target).value
 `),
-    p(""),
+    p("Next, let's make the hydrated ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), "state:"),
+    Ts(`van.hydrate(document.getElementById("styled-counter")!, dom => Counter({
+  van,
+  id: dom.id,
+  init: Number(dom.getAttribute("data-counter")),
+  buttonStyle,
+}))
+`),
+    p("Since ", Symbol("buttonStyle"), " is passed into the ", Symbol("Counter"), " component where ", Symbol("buttonStyle.val"), " is referenced, the hydrated ", Symbol("Counter"), " component will be reactive to the change of ", Symbol("buttonStyle"), " state."),
+    p("Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of ", Symbol("Counter"), " component can be optimized to only make the ", Symbol("<button>"), "s of the ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), " state. This can achieved with a combination of advanced features in ", VanJS(), ": ", Link("stateful binding", "/tutorial#stateful-binding"), ", ", Link("polymorphic binding", "/tutorial#polymorphic-binding"), " and ", Link("advanced state derivation", "/advanced#advanced-state-derivation"), ". You can check out the implementation below for an optimized ", Symbol("Counter"), " component:"),
+    TsFile("hydration-example/src/components/optimized-counter.ts"),
+    H2("Demo"),
+    p("Now, let's check out what we have built so far.")
   )
 }

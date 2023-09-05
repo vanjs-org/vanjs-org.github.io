@@ -147,8 +147,39 @@ Also try http://localhost:${port}?counter-init=5 to set the initial value of the
 </code></pre><p><code class="symbol">van.hydrate</code> replaces the SSR component (located by <code class="language-js">document.getElementById("basic-counter")!</code>) with the CSR <code class="symbol">Counter</code> component. Note that the 2nd argument of <code class="symbol">van.hydrate</code> is the hydration function that takes the existing DOM node as its parameter and returns the new hydrated component. This way we can get the current state of SSR component (via <code class="language-js">Number(dom.getAttribute("data-counter"))</code>) and pass-in the information while constructing the CSR component, which keeps the counter value the same after hydration.</p><p>In the hydration function, you can read the <code class="symbol">val</code> property of states. In this way, the hydrated component will be a <a href="/tutorial#state-derived-child" class="w3-hover-opacity"><code class="symbol">State</code>-derived node</a>, i.e.: a DOM node that will be updated whenever its dependency states change. Now, with that, let's build a <code class="symbol">Counter</code> component whose button style can be adjusted by end users. First, let's define a state <code class="symbol">buttonStyle</code> whose <code class="symbol">val</code> is bound to the <code class="symbol">value</code> of the <code class="symbol">#button-style</code> <code class="symbol">&lt;select&gt;</code> element:</p><pre><code class="language-ts">const styleSelectDom = &lt;HTMLSelectElement&gt;document.getElementById("button-style")
 const buttonStyle = van.state(styleSelectDom.value)
 styleSelectDom.oninput = e =&gt; buttonStyle.val = (&lt;HTMLSelectElement&gt;e!.target).value
-</code></pre><p></p></div>
-        <aside id="toc"><ul><li><a href="#package-lock-json-file" class="w3-hover-opacity">package-lock.json File</a></li><li><a href="#shared-ui-components" class="w3-hover-opacity">Shared UI Components</a><ul><li><a href="#static-component" class="w3-hover-opacity">Static Component</a></li><li><a href="#reactive-component" class="w3-hover-opacity">Reactive Component</a></li></ul></li><li><a href="#server-side-script-html-template" class="w3-hover-opacity">Server-Side Script: HTML Template</a></li><li><a href="#client-side-script-csr-and-hydration" class="w3-hover-opacity">Client-Side Script: CSR and Hydration</a><ul><li><a href="#client-side-component" class="w3-hover-opacity">Client-Side Component</a></li><li><a href="#hydration" class="w3-hover-opacity">Hydration</a></li></ul></li></ul></aside>
+</code></pre><p>Next, let's make the hydrated <code class="symbol">Counter</code> component reactive to <code class="symbol">buttonStyle</code>state:</p><pre><code class="language-ts">van.hydrate(document.getElementById("styled-counter")!, dom =&gt; Counter({
+  van,
+  id: dom.id,
+  init: Number(dom.getAttribute("data-counter")),
+  buttonStyle,
+}))
+</code></pre><p>Since <code class="symbol">buttonStyle</code> is passed into the <code class="symbol">Counter</code> component where <code class="symbol">buttonStyle.val</code> is referenced, the hydrated <code class="symbol">Counter</code>&nbsp;component will be reactive to the change of <code class="symbol">buttonStyle</code> state.</p><p>Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of <code class="symbol">Counter</code> component can be optimized to only make the <code class="symbol">&lt;button&gt;</code>s of the <code class="symbol">Counter</code> component reactive to <code class="symbol">buttonStyle</code> state. This can achieved with a combination of advanced features in <b>VanJS</b>: <a href="/tutorial#stateful-binding" class="w3-hover-opacity">stateful binding</a>, <a href="/tutorial#polymorphic-binding" class="w3-hover-opacity">polymorphic binding</a>&nbsp;and <a href="/advanced#advanced-state-derivation" class="w3-hover-opacity">advanced state derivation</a>. You can check out the implementation below for an optimized <code class="symbol">Counter</code> component:</p><pre><code class="language-ts">import { VanObj, State } from "mini-van-plate/shared"
+
+interface Props {
+  van: VanObj
+  id?: string
+  init?: number
+  buttonStyle?: string | State&lt;string&gt;
+}
+
+export default ({
+  van: {state, derive, val, tags: {button, div}},
+  id, init = 0, buttonStyle = "👍👎",
+}: Props) =&gt; div((dom: Node | undefined) =&gt; {
+  if (dom) return dom
+
+  const counter = state(init)
+  const up = state(&lt;string | undefined&gt;undefined), down = state(&lt;string | undefined&gt;undefined)
+  derive(() =&gt; [up.val, down.val] = [...val(buttonStyle)])
+
+  return div({...(id ? {id} : {}), "data-counter": counter},
+    "❤️ ", counter, " ",
+    button({onclick: () =&gt; ++counter.val}, up),
+    button({onclick: () =&gt; --counter.val}, down),
+  )
+}).firstChild
+</code></pre><h2 class="w3-xxlarge w3-text-red" id="demo"><a class="self-link" href="#demo">Demo</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Now, let's check out what we have built so far.</p></div>
+        <aside id="toc"><ul><li><a href="#package-lock-json-file" class="w3-hover-opacity">package-lock.json File</a></li><li><a href="#shared-ui-components" class="w3-hover-opacity">Shared UI Components</a><ul><li><a href="#static-component" class="w3-hover-opacity">Static Component</a></li><li><a href="#reactive-component" class="w3-hover-opacity">Reactive Component</a></li></ul></li><li><a href="#server-side-script-html-template" class="w3-hover-opacity">Server-Side Script: HTML Template</a></li><li><a href="#client-side-script-csr-and-hydration" class="w3-hover-opacity">Client-Side Script: CSR and Hydration</a><ul><li><a href="#client-side-component" class="w3-hover-opacity">Client-Side Component</a></li><li><a href="#hydration" class="w3-hover-opacity">Hydration</a></li></ul></li><li><a href="#demo" class="w3-hover-opacity">Demo</a></li></ul></aside>
       </div>
     </div>
     <script>
