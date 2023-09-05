@@ -596,10 +596,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
     () =&gt; candidates.val[index] ?? "",
   )
 
-  const indices: number[] = []
-  for (let i = 0; i &lt; 10; ++i) indices.push(i)
   const suggestionList = div({class: "suggestion"},
-    indices.map(index =&gt; SuggestionListItem({index})))
+    Array.from({length: 10}).map((_, index) =&gt; SuggestionListItem({index})))
 
   const onkeydown = (e: KeyboardEvent) =&gt; {
     if (e.key === "ArrowDown") {
@@ -622,7 +620,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   return div({class: "root"}, textarea({onkeydown, oninput}), suggestionList)
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-derived-props"></p><p id="jsfiddle-auto-complete-derived-props"><a href="https://jsfiddle.net/4g56au83/1/">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="html-to-vanjs-code-converter"><a class="self-link" href="#html-to-vanjs-code-converter">HTML to VanJS Code Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The converter that converts HTML snippet to <b>VanJS</b> code, is also implemented with <b>VanJS</b>:</p><pre><code class="language-js">const quoteIfNeeded = key =&gt; /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ? key : `"${key}"`
+</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-derived-props"></p><p id="jsfiddle-auto-complete-derived-props"><a href="https://jsfiddle.net/7ueod0pL/1/">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="html-to-vanjs-code-converter"><a class="self-link" href="#html-to-vanjs-code-converter">HTML to VanJS Code Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The converter that converts HTML snippet to <b>VanJS</b> code, is also implemented with <b>VanJS</b>:</p><pre><code class="language-js">const quoteIfNeeded = key =&gt; /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ? key : `"${key}"`
 
 const attrsToVanCode = dom =&gt; dom.attributes.length &gt; 0 ?
   `{${[...dom.attributes].map(
@@ -1262,10 +1260,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
-      const indices = [];
-      for (let i = 0; i < 10; ++i)
-          indices.push(i);
-      const suggestionList = div({ class: "suggestion" }, indices.map(index => SuggestionListItem({ index })));
+      const suggestionList = div({ class: "suggestion" }, Array.from({ length: 10 }).map((_, index) => SuggestionListItem({ index })));
       const onkeydown = (e) => {
           var _a;
           if (e.key === "ArrowDown") {
