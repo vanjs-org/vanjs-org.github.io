@@ -20,7 +20,7 @@ const hydrate = () => {
     van,
     id: dom.id,
     init: Number(dom.getAttribute("data-counter")),
-    buttonStyle: buttonStyle,
+    buttonStyle,
   }))
 }
 

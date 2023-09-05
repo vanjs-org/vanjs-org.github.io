@@ -114,5 +114,11 @@ export default (doc: HTMLDocument) => {
 }))
 `),
     p(Symbol(`van.hydrate`), " replaces the SSR component (located by ", InlineTs(`document.getElementById("basic-counter")!`), ") with the CSR ", Symbol("Counter"), " component. Note that the 2nd argument of ", Symbol("van.hydrate"), " is the hydration function that takes the existing DOM node as its parameter and returns the new hydrated component. This way we can get the current state of SSR component (via ", InlineTs(`Number(dom.getAttribute("data-counter"))`), ") and pass-in the information while constructing the CSR component, which keeps the counter value the same after hydration."),
+    p("In the hydration function, you can read the ", Symbol("val"), " property of states. In this way, the hydrated component will be a ", Link(Symbol("State"), "-derived node", "/tutorial#state-derived-child"), ", i.e.: a DOM node that will be updated whenever its dependency states change. Now, with that, let's build a ", Symbol("Counter"), " component whose button style can be adjusted by end users. First, let's define a state ", Symbol("buttonStyle"), " whose ", Symbol("val"), " is bound to the ", Symbol("value"), " of the ", Symbol("#button-style"), " ", Symbol("<select>"), " element:"),
+    Ts(`const styleSelectDom = <HTMLSelectElement>document.getElementById("button-style")
+const buttonStyle = van.state(styleSelectDom.value)
+styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e!.target).value
+`),
+    p(""),
   )
 }
