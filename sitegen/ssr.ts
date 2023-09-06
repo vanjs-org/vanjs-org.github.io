@@ -5,8 +5,8 @@ import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.3
 type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
-  const {tags: {b, div, i, li, ol, p, ul}} = van.vanWithDoc(doc)
-  const {InlineTs, H1, H2, H3, Json, Link, MiniVan, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
+  const {tags: {b, div, i, img, li, ol, p, ul}} = van.vanWithDoc(doc)
+  const {ApiTable, Code, InlineHtml, InlineJs, InlineTs, H1, H2, H3, Json, Link, MiniVan, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/hydrate/hydration-example"
   const previewUrl = "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/hydrate/hydration-example?file=/package.json:1,1"
@@ -128,9 +128,45 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e!.target).v
 }))
 `),
     p("Since ", Symbol("buttonStyle"), " is passed into the ", Symbol("Counter"), " component where ", Symbol("buttonStyle.val"), " is referenced, the hydrated ", Symbol("Counter"), " component will be reactive to the change of ", Symbol("buttonStyle"), " state."),
-    p("Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of ", Symbol("Counter"), " component can be optimized to only make the ", Symbol("<button>"), "s of the ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), " state. This can achieved with a combination of advanced features in ", VanJS(), ": ", Link("stateful binding", "/tutorial#stateful-binding"), ", ", Link("polymorphic binding", "/tutorial#polymorphic-binding"), " and ", Link("advanced state derivation", "/advanced#advanced-state-derivation"), ". You can check out the implementation below for an optimized ", Symbol("Counter"), " component:"),
+    p("Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of ", Symbol("Counter"), " component can be optimized to only make the ", Symbol("<button>"), "s of the ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), " state. This can be achieved by binding more localized DOM nodes (i.e.: ", Symbol("<button>"), " nodes) to the ", Symbol("buttonStyle"), " state. You can check out the implementation below for an optimized ", Symbol("Counter"), " component:"),
     TsFile("hydration-example/src/components/optimized-counter.ts"),
+    H3({id: "api-hydrate"}, "API reference: ", Symbol("van.hydrate")),
+    ApiTable({
+      signature: "van.hydrate(dom, f) => undefined",
+      description: ["Hydrates the SSR component ", Symbol("dom"), " with hydration function ", Symbol("f"), "."],
+      parameters: {
+        dom: "The root DOM node of the SSR component we want to hydrate.",
+        f: ["The hydration function, which takes a DOM node as its input parameter and returns the new version of the DOM node. The hydration function describes how we want to convert an existing DOM node into a new one with added reactivity. If the ", Symbol("val"), " property of any states are referenced in the hydration function, the hydrated component will be bound to the dependency states (i.e.: reactive to the changes of the referenced states). In this case, the behavior of the hydrated component will be similar to ", Link(Symbol("State"), "-derived child node", "/tutorial#state-derived-child"), "."],
+      },
+      returns: Symbol("undefined"),
+    }),
     H2("Demo"),
-    p("Now, let's check out what we have built so far.")
+    p("Now, let's check out what we have built so far. You can preview the application via ", Link("CodeSandbox", previewUrl), ". Alternatively, you can build and deploy application locally by following the steps below:"),
+    ol(
+      li("Clone the GitHub repo:", Shell("git clone " + "https://github.com/vanjs-org/vanjs-org.github.io.git")),
+      li("Go to the directory for the demo:", Shell("cd vanjs-org.github.io/hydration-example")),
+      li("Install NPM packages:", Shell("npm install")),
+      li("Launch the development server:", Shell("npm run dev"), "You will see something like this in the terminal:", Code(`Try visiting the server via http://localhost:8080.
+      Also try http://localhost:8080?counter-init=5 to set the initial value of the counter.
+`)),
+      li("By clicking the links printed in the terminal, you will go to the demo page."),
+      li("You can build the bundle for production with:", Shell("npm run build")),
+    ),
+    p("Let's go to the demo page now. You will probably notice the first part of the demo:"),
+    img({src: "/code/hydration-hello-screenshot.png", width: "300px"}),
+    p("You can see an SSR ", Symbol("Hello"), " component followed by a CSR ", Symbol("Hello"), " component."),
+    p("The second part of the demo page is for hydrated ", Symbol("Counter"), " components. In real-world use cases, hydration typically happens immediately after page load, or when the application is idle. But if we do that in our sample application, hydration will happen so fast that we won't even be able to notice how hydration happens. Thus, for illustration purpose, we introduce a ", Symbol("<button>"), " where hydration only happens upon user click:"),
+    Ts(`van.add(document.getElementById("counter-container")!, p(button({onclick: hydrate}, "Hydrate")))`),
+    p("As a result, the second part of the demo will look like this:"),
+    img({src: "/code/hydration-counter-screenshot.png", width: "300px"}),
+    p("You can verified that all the ", Symbol("Counter"), " components are non-reactive before the ", Symbol("Hydrate"), " button is clicked and then turned reactive upon clicking the ", Symbol("Hydrate"), " button."),
+    H2("The End"),
+    p("🎉 Congratulations! You have completed the walkthrough for fullstack rendering. With the knowledge you have learned, you will be able to build sophisticated applications that take advantage of SSR, CSR and hydration."),
+    H2("Appendix"),
+    H3(Symbol("on..."), " Properties"),
+    p("Since ", MiniVan(), " ", Symbol("0.4.0"), ", properties specified in tag functions will be consistently set as ", SymLink("HTML attributes", "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"), ". This is because for SSR (which is ", MiniVan(), "'s primary use case), setting the properties of a DOM node will be invisible in the rendered HTML string unless the action of setting the properties itself will also set the HTML attributes (e.g.: setting the ", Symbol("id"), " property of a DOM node will also set the ", Symbol("id"), " attribute)."),
+    p("There is a special situation of this handling - ", Symbol("on..."), " properties. The valid values of ", Symbol("on..."), " properties are ", Symbol("function"), " or ", Symbol("null"), ". However, functions are not valid value for HTML attributes. It doesn't make too much sense to specify a function-valued ", Symbol("on..."), " attribute for an SSR DOM node. As a result, since ", MiniVan(), " ", Symbol("0.4.0"), ", all function-valued properties specified in tag functions will be ignored."),
+    p("Sometimes, it might be desirable to specify some string-valued ", Symbol("on..."), " attribute for SSR DOM nodes. For instance, DOM nodes like ", InlineHtml(`<button onclick="play()">Play</button>`), " might have legitimate use cases. But, if we render the DOM node with code ", InlineJs(`button({onclick: "play()"}, "Play")`), ", there will be problems if the code is in a component shared between server-side and client-side. The problem is on the client-side, ", Symbol("onclick"), " property, instead of", Symbol("onclick"), " attribute will be set for the DOM node, and strings are not valid values for ", Symbol("onclick"), " property (only functions are valid values for ", Symbol("onclick"), " property), causing the ", Symbol("onclick"), " event handler to be lost on the client-side."),
+    p("The solution to the problem is to capitalize some letters in the properties of the tag function. For instance, "),
   )
 }

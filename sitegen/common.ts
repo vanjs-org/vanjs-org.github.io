@@ -4,7 +4,7 @@ import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.3
 type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
-  const {add, tags: {a, b, blockquote, br, code, div, i, h1, h2, h3, hr, pre, span, td, tr}} = van.vanWithDoc(doc)
+  const {add, tags: {a, b, blockquote, br, code, h1, h2, h3, hr, i, li, pre, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
 
   const genId = (text: string, id: string | undefined) =>
     id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
@@ -51,9 +51,26 @@ export default (doc: HTMLDocument) => {
     td(description),
   )
 
-  const versionToUrl: {[key: string]: string} = {
-    "0.12.0": "https://github.com/vanjs-org/van/discussions/53",
+  const InlineJs = (text: string) => code({class: "language-js"}, text)
+
+  interface ApiTableProps {
+    readonly signature: string
+    readonly description: string | readonly ChildDom[]
+    readonly parameters: {[key: string]: string | readonly ChildDom[] | Element}
+    readonly returns: string | readonly ChildDom[] | Element
   }
+  const ApiTable = ({signature, description, parameters, returns}: ApiTableProps) =>
+    table(
+      tbody(
+        tr(td(b("Signature")), td(InlineJs(signature))),
+        tr(td(b("Description")), td(description)),
+        tr(td(b("Parameters")), td(
+          ul(Object.entries(parameters).map(([k, v]) => v instanceof Element ?
+            v : li(b(Symbol(k)), " - ", v))),
+        )),
+        tr(td(b("Returns")), td(returns)),
+      ),
+    )
 
   const VanJS = () => b("VanJS")
 
@@ -63,10 +80,6 @@ export default (doc: HTMLDocument) => {
     MiniVan: () => b("Mini-Van"),
 
     Demo: () => b("Demo:"),
-
-    MinVersion: (version: string) => div({style: "font-size: 0.9em;"},
-      i("Requires ", VanJS(), " ", Link(version, versionToUrl[version]), " or later.")
-    ),
 
     H1: (...children: readonly ChildDom[]) => h1({class: "w3-xxlarge"}, ...children),
 
@@ -101,7 +114,7 @@ export default (doc: HTMLDocument) => {
 
     JsFile: (file: string) => pre(code({class: "language-js"}, Deno.readTextFileSync(file))),
 
-    InlineJs: (text: string) => code({class: "language-js"}, text),
+    InlineJs,
 
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),
 
@@ -117,8 +130,11 @@ export default (doc: HTMLDocument) => {
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
+    Code: (text: string) => pre(code({class: "language-"}, text)),
+
     Download,
     DownloadRow,
+    ApiTable,
 
     User: (id: string) => Link("@" + id, "https://github.com/" + id),
 

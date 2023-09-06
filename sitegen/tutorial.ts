@@ -1,31 +1,10 @@
-import van, { ChildDom as TypedChildDom } from "./mini-van.js"
+import van from "./mini-van.js"
 import common from "./common.ts"
-import { Element, HTMLDocument, Text } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-
-type ChildDom = TypedChildDom<Element, Text>
+import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {b, br, div, li, p, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
-  const {Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
-
-  interface ApiTableProps {
-    readonly signature: string
-    readonly description: string | readonly ChildDom[]
-    readonly parameters: {[key: string]: string | readonly ChildDom[] | Element}
-    readonly returns: string | readonly ChildDom[] | Element
-  }
-  const ApiTable = ({signature, description, parameters, returns}: ApiTableProps) =>
-    table(
-      tbody(
-        tr(td(b("Signature")), td(InlineJs(signature))),
-        tr(td(b("Description")), td(description)),
-        tr(td(b("Parameters")), td(
-          ul(Object.entries(parameters).map(([k, v]) => v instanceof Element ?
-            v : li(b(Symbol(k)), " - ", v))),
-        )),
-        tr(td(b("Returns")), td(returns)),
-      ),
-    )
+  const {tags: {b, br, div, li, p, span, ul}} = van.vanWithDoc(doc)
+  const {ApiTable, Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
@@ -368,6 +347,7 @@ van.add(document.body, EditableList())
       li(SymLink("van._", "#api-_")),
       li(SymLink("van.val", "#api-val")),
       li(SymLink("van.oldVal", "#api-oldval")),
+      li(SymLink("van.hydrate", "ssr#api-hydrate")),
     ),
   )
 }
