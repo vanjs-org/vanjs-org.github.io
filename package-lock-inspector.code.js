@@ -5,12 +5,13 @@ const PackageLockInspector = () => {
     textarea({rows: 10, cols: 80, oninput: e => json.val = e.target.value}),
     () => {
       if (!json.val) return div()
+      const packagesEntries = Object.entries(JSON.parse(json.val).packages)
       try {
         return div(
-          h4("All Dependencies"),
+          h4("All Dependencies (", packagesEntries.length, ")"),
           table(
             thead(tr(th("Package"), th("Version"))),
-            tbody(Object.entries(JSON.parse(json.val).packages).map(([k, v]) => {
+            tbody(packagesEntries.map(([k, v]) => {
               if (!k) return null
               const name = k.slice("node_modules/".length), version = v.version
               return tr(
