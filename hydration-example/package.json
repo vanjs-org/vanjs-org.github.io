@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "finalhandler": "^1.2.0",
-    "mini-van-plate": "0.4.0-rc.5",
+    "mini-van-plate": "0.4.0",
     "serve-static": "^1.15.0",
-    "vanjs-core": "1.2.0-rc.3"
+    "vanjs-core": "1.2.0"
   }
 }
