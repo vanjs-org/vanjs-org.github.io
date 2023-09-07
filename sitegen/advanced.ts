@@ -1,10 +1,11 @@
 import van from "./mini-van.js"
 import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
+import miniVan from "./mini-van.js";
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, br, div, li, ol, p, span}} = van.vanWithDoc(doc)
-  const {Demo, H1, H2, H3, InlineJs, InlineHtml, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, MiniVan, Quote, SymLink, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Advanced Topics"),
@@ -12,13 +13,14 @@ export default (doc: HTMLDocument) => {
     H2("DOM Attributes vs. Properties"),
     p("In ", SymLink("tag functions", "/tutorial#api-tags"), ", while assigning values from ", Symbol("props"), " parameter to the created HTML element, there are 2 ways of doing it: via ", SymLink("HTML attributes", "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"), " (", InlineJs("dom.setAttribute(<key>, <value>)"), "), or via the properties of the created HTML element (", InlineJs("dom[<key>] = <value>"), "). ", VanJS(), " follows a consistent rule that makes sense for most use cases regarding which option to choose: when a settable property exists in a given ", Symbol("<key>"), " for the specific element type, we will assign the value via property, otherwise we will assign the value via attribute."),
     p("For instance, ", InlineJs('input({type: "text", value: "Hello 🍦VanJS"})'), " will create an ", Link("input box", "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text"), " with ", Symbol("Hello 🍦VanJS"), " as the value of the ", Symbol("value"), " property, while ", InlineJs('div({"data-index": 1})'), " will create the tag: ", InlineHtml('<div data-index="1"></div>'), "."),
-    p("Note that, for readonly properties of HTML elements, we will still assign ", Symbol("props"), " values via ", Symbol("setAttribute"), ". For instance, in the code snippet below, the ", Symbol("list"), " of the ", Symbol("<input>"), " element is set via ", Symbol("setAttribute"), ":"),
+    p("Note that, for readonly properties of HTML elements, we will still assign ", Symbol("props"), " values via ", Symbol("setAttribute"), ". For instance, in the code snippet below, the ", Symbol("list"), " of the ", InlineHtml("<input>"), " element is set via ", Symbol("setAttribute"), ":"),
     JsFile("datalist.code.js"),
     p({
       id: "jsfiddle-readonly-prop",
       "data-prefix": "const {div, input, option, datalist, label} = van.tags",
       "data-suffix": 'van.add(document.body, Datalist())',
     }),
+    p(b("NOTE:"), " for ", MiniVan(), ", since ", Symbol("0.4.0"), ", we consistently assign the ", Symbol("props"), " values via ", Symbol("setAttribute"), " for all property keys in tag functions. This is because for SSR (server-side rendering), which is ", MiniVan(), "'s primary use case, setting the properties of a DOM node won't be visible in the rendered HTML string unless the action of setting the property itself will also set the corresponding HTML attribute (e.g.: setting the ", Symbol("id"), " property of a DOM node will also set the ", Symbol("id"), " attribute). This is helpful as ", InlineJs(`input({type: "text", value: "value"})`), " can be rendered as ", InlineHtml(`<input type="text" value="value">`), " in ", MiniVan(), " but would be rendered as ", InlineHtml(`<input type="text">`), " if we set ", Symbol("value"), " via DOM property."),
     H2("State and State Binding"),
     H3({id: "why-not-dom-valued-states"}, "Why can't states have DOM node as values?"),
     p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:"),
@@ -88,7 +90,7 @@ const TextDiv = () => div(
   () => (renderPre.val ? pre : span)(text),
 )
 `),
-    p("In this piece of code, the ", Symbol("TextDiv"), " component has a ", Symbol("<div>"), " element whose only child is bound to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", Symbol("<div>"), " has a ", Symbol("<pre>"), " or ", Symbol("<span>"), " child. Inside the child element, the underlying text is bound to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", Symbol("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", Symbol("<div>"), " element."),
+    p("In this piece of code, the ", Symbol("TextDiv"), " component has a ", InlineHtml("<div>"), " element whose only child is bound to a ", Symbol("boolean"), " state - ", Symbol("renderPre"), ", which determines whether the ", InlineHtml("<div>"), " has a ", InlineHtml("<pre>"), " or ", InlineHtml("<span>"), " child. Inside the child element, the underlying text is bound to a ", Symbol("string"), " state - ", Symbol("text"), ". Whenever the value of ", Symbol("renderPre"), " is toggled, a new version of the ", InlineHtml("<div>"), " element will be generated, and we will add a new binding from ", Symbol("text"), " state to the child text node of the newly created ", InlineHtml("<div>"), " element."),
     p("Without proper garbage collection implemented, ", Symbol("text"), " state will eventually be bound to many text nodes after ", Symbol("renderPre"), " is toggled many times. All the of bindings, except for the most recently added one, are actually obsolete, as they bind the ", Symbol("text"), " state to a text node that is not currently being used. i.e.: disconnected from the document tree. Meanwhile, because internally, a ", Symbol("State"), " object holds the reference to all DOM elements are bound to it, these DOM elements won't be GC-ed by JavaScript runtime, causing ", Link("memory leaks", "https://en.wikipedia.org/wiki/Memory_leak"), "."),
     p("Garbage collection is implemented in ", VanJS(), " to resolve the issue. There are 2 ways a garbage collection activity can be triggered:"),
     ol(

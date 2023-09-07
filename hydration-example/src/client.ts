@@ -15,7 +15,7 @@ const hydrate = () => {
 
   const styleSelectDom = <HTMLSelectElement>document.getElementById("button-style")
   const buttonStyle = van.state(styleSelectDom.value)
-  styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e!.target).value
+  styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).value
   van.hydrate(document.getElementById("styled-counter")!, dom => Counter({
     van,
     id: dom.id,

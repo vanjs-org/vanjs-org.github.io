@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, br, div, li, p, span, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Demo, H1, H2, H3, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
+  const {ApiTable, Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
@@ -31,7 +31,7 @@ van.add(document.body, Hello())
     H3({id: "api-tags"}, "API reference: ", Symbol("van.tags")),
     p(Symbol("van.tags"), " is a top-level dynamic object in ", VanJS(), " implemented with ", SymLink("Proxy", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"), ". ", Symbol("van.tags.<name>"), " gets you a function that creates an HTML element with tag name ", Symbol("<name>"), ". A common way of using ", Symbol("van.tags"), " is like the line below:"),
     Js(`const {a, div, p} = van.tags`),
-    p("With the line, ", Symbol("a"), ", ", Symbol("div"), ", ", Symbol("p"), " are functions that create ", Symbol("<a>"), ", ", Symbol("<div>"), ", ", Symbol("<p>"), " HTML elements respectively."),
+    p("With the line, ", Symbol("a"), ", ", Symbol("div"), ", ", Symbol("p"), " are functions that create ", InlineHtml("<a>"), ", ", InlineHtml("<div>"), ", ", InlineHtml("<p>"), " HTML elements respectively."),
     p("We will use ", Symbol("div"), " function as an example, the API reference for ", Symbol("div"), " tag function is as below:"),
     ApiTable({
       signature: "div([props], ...children) => <the created DOM element>",
