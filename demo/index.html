@@ -573,7 +573,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
     return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
   })
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/Lgjmoku3/1/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
+</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/ytorjdb8/1/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
 
 const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
   const maxTotalCandidates = 10
