@@ -1,7 +1,6 @@
 import van from "./mini-van.js"
 import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import miniVan from "./mini-van.js";
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, br, div, li, ol, p, span}} = van.vanWithDoc(doc)
@@ -20,7 +19,7 @@ export default (doc: HTMLDocument) => {
       "data-prefix": "const {div, input, option, datalist, label} = van.tags",
       "data-suffix": 'van.add(document.body, Datalist())',
     }),
-    p(b("NOTE:"), " for ", MiniVan(), ", since ", Symbol("0.4.0"), ", we consistently assign the ", Symbol("props"), " values via ", Symbol("setAttribute"), " for all property keys in tag functions. This is because for SSR (server-side rendering), which is ", MiniVan(), "'s primary use case, setting the properties of a DOM node won't be visible in the rendered HTML string unless the action of setting the property itself will also set the corresponding HTML attribute (e.g.: setting the ", Symbol("id"), " property of a DOM node will also set the ", Symbol("id"), " attribute). This is helpful as ", InlineJs(`input({type: "text", value: "value"})`), " can be rendered as ", InlineHtml(`<input type="text" value="value">`), " in ", MiniVan(), " but would be rendered as ", InlineHtml(`<input type="text">`), " if we set ", Symbol("value"), " via DOM property."),
+    p(b("NOTE:"), " for ", MiniVan(), ", since ", Symbol("0.4.0"), ", we consistently assign the ", Symbol("props"), " values via ", Symbol("setAttribute"), " for all property keys in tag functions. This is because for SSR (server-side rendering), which is ", MiniVan(), "'s primary use case, setting the properties of a DOM node won't be visible in the rendered HTML string unless the action of setting the property itself will also set the corresponding HTML attribute (e.g.: setting the ", Symbol("id"), " property of a DOM node will also set the ", Symbol("id"), " attribute). This is helpful as ", InlineJs(`input({type: "text", value: "value"})`), " can be rendered as ", InlineHtml(`<input type="text" value="value">`), " in ", MiniVan(), " but would be rendered as ", InlineHtml(`<input type="text">`), " if we set the property value via DOM property."),
     H2("State and State Binding"),
     H3({id: "why-not-dom-valued-states"}, "Why can't states have DOM node as values?"),
     p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:"),

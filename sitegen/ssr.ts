@@ -6,7 +6,7 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, div, i, img, li, ol, p, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Code, InlineHtml, InlineJs, InlineTs, H1, H2, H3, Json, Link, MiniVan, Shell, Symbol, SymLink, Ts, TsFile, VanJS} = common(doc)
+  const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineJs, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/hydrate/hydration-example"
   const previewUrl = "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/hydrate/hydration-example?file=/package.json:1,1"
