@@ -40,7 +40,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(MiniVan(), ": A Minimalist Template Engine for Client/Server-side Rendering without JSX"),
-    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.5kB in the minified bundle size (0.4kB gzipped), ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
+    p(MiniVan(), " is an ", BI("ultra-lightweight"), " template engine for DOM composition and manipulation. With only 0.7kB in the minified bundle size (0.5kB gzipped), ", MiniVan(), " enables you to build comprehensive UI with elegant and expressive vanilla JavaScript code:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
 // Here we capitalize the first letter to follow React conventions.
 const Hello = () => div(
@@ -61,7 +61,7 @@ van.add(document.body, Hello())
       "data-details": "demo-mini-van.details",
     }),
     p("You can convert any HTML snippet into ", MiniVan(), " code with our online ", Link("converter", "/convert"), "."),
-    p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.4kB and can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
+    p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.5kB and (", i("more importantly"), ") can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
     H2("Server-Side: NPM Integration"),
     p(MiniVan(), " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ", Link("www.npmjs.com/package/mini-van-plate", "https://www.npmjs.com/package/mini-van-plate"), ". Thus it can be used in ", Link("Node.js", "https://nodejs.org/"), " or ", Link("Bun", "https://bun.sh/"), "."),
     p("There are 2 modes for server-side integration: ", Symbol("van-plate"), " mode (based on text templating, thus doesn't need the DOM dependency), and ", Symbol("mini-van"), " mode (based on DOM, thus needs the DOM dependency)."),
