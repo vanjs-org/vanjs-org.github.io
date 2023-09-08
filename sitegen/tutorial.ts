@@ -335,6 +335,7 @@ van.add(document.body, EditableList())
     ul(
       li("check out a list of ", Link("sample applications", "/demo"), " built with ", VanJS(), "."),
       li("read the in-depth discussion of a few ", Link("advanced topics", "/advanced"), "."),
+      li("check out how to build a ", Link("fullstack app", "/ssr"), " with SSR, CSR and hydration."),
     ),
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanJS(), ":"),

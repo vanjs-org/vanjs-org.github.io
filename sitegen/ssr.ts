@@ -19,6 +19,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Fullstack Rendering (SSR, CSR and Hydration)"),
+    i("Requires ", VanJS(), " ", Link("1.2.0", "https://github.com/vanjs-org/van/discussions/114"), " or later, and ", MiniVan(), " ", Link("0.4.0", "https://github.com/vanjs-org/mini-van/releases/tag/0.4.0"), " or later."),
     p(VanJS(), " offers a seamless and framework-agnostic solution for fullstack rendering. We will provide a walkthrough for a sample application with SSR (server-side rendering), CSR (client-side rendering) and hydration. As an outline, here are the major steps we're going to take to build the sample application:"),
     ol(
       li("Define common UI components that can be shared on both server-side and client-side."),
