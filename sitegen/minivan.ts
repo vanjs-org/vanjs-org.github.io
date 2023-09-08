@@ -70,7 +70,7 @@ van.add(document.body, Hello())
     H3({id: "npm-van-plate"}, Symbol("van-plate"), " mode"),
     p("In ", Symbol("van-plate"), " mode, HTML content is generated purely through text templating. It can be easily integrated with your HTTP server to render dynamic web content. See the sample code below:"),
     JsFile("sitegen/node-examples/van-plate-server/van-plate-server.mjs"),
-    p("Preview via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/sitegen/node-examples/van-plate-server?file=/van-plate-server.mjs:1,1"), "."),
+    p("Preview via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/hopeful-perlman-rh7wvk?file=/van-plate-server.mjs:1,1"), "."),
     p("As illustrated in the example, ", Symbol("render"), " method can be called on the object returned from the ", SymLink("tag function", "/tutorial#api-tags"), " to generate a ", Symbol("string"), " that can be used for serving."),
     p(Symbol("van.html"), " is a helper function defined in ", Symbol("van-plate.js"), " that is equivalent to:",
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).render()`)),
