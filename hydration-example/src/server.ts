@@ -48,4 +48,4 @@ createServer((req, res) => {
     )
   ))
 }).listen(Number(port), () => console.log(`Try visiting the server via http://localhost:${port}.
-Also try http://localhost:${port}?counter-init=5 to set the initial value of the counter.`))
+Also try http://localhost:${port}?counter-init=5 to set the initial value of the counters.`))
