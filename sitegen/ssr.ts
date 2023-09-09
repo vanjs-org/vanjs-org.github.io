@@ -9,7 +9,7 @@ export default (doc: HTMLDocument) => {
   const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineJs, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/hydration-example"
-  const previewUrl = "https://codesandbox.io/p/sandbox/vibrant-germain-w9wmzz?file=/package.json:1,1"
+  const previewUrl = "https://codesandbox.io/p/sandbox/jovial-leftpad-lxm4h5?file=/package.json:1,1"
 
   const Folder = (name: string, ...rest: ChildDom[]) =>
     li({class: "folder"}, Symbol(name), ...rest)
