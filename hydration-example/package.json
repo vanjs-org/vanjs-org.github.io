@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bash build.sh && node dist/server dev",
-    "build": "bash build.sh && bash minify.sh && echo Run the following command to start the server: node dist/server prod"
+    "build": "bash build.sh && bash minify.sh && echo Run the following command to start the server: node dist/server prod [port]"
   },
   "devDependencies": {
     "@types/finalhandler": "^1.2.0",
