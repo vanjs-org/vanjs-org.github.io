@@ -49,6 +49,7 @@ export default (doc: HTMLDocument) => {
       ),
     ),
     p("You can preview the sample application via ", Link("CodeSandbox", previewUrl), "."),
+    p(i("A Bun-based variation of this example can be found "), Link("here", "https://github.com/vanjs-org/van/tree/main/bun-examples/hydration"), "."),
     H2(Symbol("package-lock.json"), " File"),
     p("Dependencies are declared in ", SymLink("package.json", codeUrlBase + "/package.json"), " file:"),
     Json(`  "dependencies": {
