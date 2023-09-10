@@ -162,7 +162,7 @@ const PostBody = ({body}) => article(p(body))
       "data-suffix": "van.add(document.body, Blog())",
     }),
     p("The sample code in React is 29 lines. Thus ", VanJS(), "'s equivalent code is ~3 times shorter by eliminating unnecessary boilerplate."),
-    p("Note that: The result of ", Link("complex state binding", "/tutorial#complex-state-binding"), " can't be an array of elements. You can wrap the result into a pass-through container (", Symbol("span"), " for inline elements and ", Symbol("div"), " for block elements) if multiple elements need to be returned."),
+    p("Note that: The result of the binding function of a ", Link("state-derived child node", "/tutorial#state-derived-child"), " can't be an array of elements. You can wrap the result into a pass-through container (", Symbol("span"), " for inline elements and ", Symbol("div"), " for block elements) if multiple elements need to be returned."),
     H2("List"),
     p("As an ", b("unopinionated"), " framework, ", VanJS(), " supports multiple programming paradigms. You can construct the DOM tree in an imperative way (modifying the DOM tree via ", SymLink("van.add", "/tutorial#api-add"), "), or in a functional/declarative way."),
     p("Below is an example of building a list even numbers in ", Symbol("1..N"), ", using an imperative way:"),
