@@ -79,7 +79,7 @@ van.add(document.body, Counter())
     H3("Reactive Programming without React/JSX"),
     p("Declarative DOM tree composition, reusable components, reactive state binding - ", VanJS(), " offers every good aspect that React does, but without the need of React, JSX, transpiling, virtual DOM, or any hidden logic. Everything is built with simple JavaScript functions and DOM."),
     H3("Grab 'n Go"),
-    p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
+    p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. And any code with ", VanJS(), " can be pasted and executed directly in your browser's developer console. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
     H3("Ultra-Lightweight"),
     p(VanJS(), " is a very thin layer on top of Vanilla JavaScript and DOM, barely enough to make the DOM manipulation and state binding as ergonomic as (if not more than) React, and it delegates most of work to standard browser APIs implemented in native code. As a result, the minified bundled size of ", VanJS(), " is just 1.7kB (0.9kB gzipped), which is ", b("50~100 times"), " smaller than most popular UI frameworks, making it the smallest reactive UI framework in the world:"),
     p(
@@ -96,7 +96,7 @@ van.add(document.body, Counter())
     H3("TypeScript Support"),
     p(VanJS(), " provides first-class support for TypeScript. Simply download the corresponding ", Symbol(".d.ts"), " file along with your ", Symbol(".js") ," file, and you'll be able to take advantage of type-checking, IntelliSense, large-scale refactoring provided by your preferred development environment. Refer to the ", Link("Download Table", "/start#download-table"), " to find the right ", Symbol(".d.ts"), " file to work with."),
     H3("Easy to Learn"),
-    p("Simplicity at its core. 4 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
+    p("Simplicity at its core. 5 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ", ", Symbol("van.hydrate"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The ", Link("walkthrough tutorial", "/tutorial"), " is the same as the full API reference, and can be learned within 1 hour for most developers."),
     H2("Want to Learn More?"),
     ul(
       li(Link("Get Started", "/start"), " (CDN, NPM or local download)"),

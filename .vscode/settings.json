@@ -1,5 +1,6 @@
 {
   "deno.enablePaths": [
-    "sitegen/"
+    "sitegen/",
+    "-sitegen/codegen"
   ]
 }
