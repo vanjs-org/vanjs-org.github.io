@@ -1,9 +1,9 @@
 const quoteIfNeeded = key => /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ? key : `"${key}"`
 
-const attrsToVanCode = dom => dom.attributes.length > 0 ?
-  `{${[...dom.attributes].map(
+const attrsToVanCode = (attrs, childNodes) => attrs.length > 0 ?
+  `{${[...attrs].map(
     a => `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
-    .join(", ")}}${dom.childNodes.length > 0 ? "," : ""}` : ""
+    .join(", ")}}${childNodes.length > 0 ? "," : ""}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =>
   [...childNodes].filter(c => (c.nodeType === 1 || c.nodeType === 3) &&
@@ -16,22 +16,19 @@ const autoGrow = e => {
 
 const domToVanCode =
   (dom, {indent = 0, indentLevel, skipEmptyText, skipTrailingComma}, tagsUsed) => {
-  const prefix = " ".repeat(indent)
-  const suffix = skipTrailingComma ? "" : ","
-  if (dom.nodeName === "#text")
-    return [`${prefix}${JSON.stringify(dom.nodeValue)}${suffix}`]
+  const prefix = " ".repeat(indent), suffix = skipTrailingComma ? "" : ","
+  if (dom.nodeName === "#text") return [`${prefix}${JSON.stringify(dom.nodeValue)}${suffix}`]
   const lowerCaseTagName = dom.nodeName.toLowerCase()
   tagsUsed.add(lowerCaseTagName)
   if (lowerCaseTagName === "pre") skipEmptyText = false
-  return dom.childNodes.length > 0 ? [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
-    ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =>
-      domToVanCode(
-        c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
-        tagsUsed)),
+  const childNodes = filterChild(dom.childNodes, {skipEmptyText})
+  return childNodes.length > 0 ? [
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom.attributes, childNodes)}`,
+    ...childNodes.flatMap(c => domToVanCode(
+      c, {indent: indent + indentLevel, indentLevel, skipEmptyText}, tagsUsed)),
     `${prefix})${suffix}`,
   ] : [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)})${suffix}`,
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom.attributes, childNodes)})${suffix}`,
   ]
 }
 

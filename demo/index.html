@@ -623,10 +623,10 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-derived-props"></p><p id="jsfiddle-auto-complete-derived-props"><a href="https://jsfiddle.net/7ueod0pL/1/">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="html-to-vanjs-code-converter"><a class="self-link" href="#html-to-vanjs-code-converter">HTML to VanJS Code Converter</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The converter that converts HTML snippet to <b>VanJS</b> code, is also implemented with <b>VanJS</b>:</p><pre><code class="language-js">const quoteIfNeeded = key =&gt; /^[a-zA-Z_][a-zA-Z_0-9]+$/.test(key) ? key : `"${key}"`
 
-const attrsToVanCode = dom =&gt; dom.attributes.length &gt; 0 ?
-  `{${[...dom.attributes].map(
+const attrsToVanCode = (attrs, childNodes) =&gt; attrs.length &gt; 0 ?
+  `{${[...attrs].map(
     a =&gt; `${quoteIfNeeded(a.nodeName)}: ${JSON.stringify(a.nodeValue)}`)
-    .join(", ")}}${dom.childNodes.length &gt; 0 ? "," : ""}` : ""
+    .join(", ")}}${childNodes.length &gt; 0 ? "," : ""}` : ""
 
 const filterChild = (childNodes, {skipEmptyText}) =&gt;
   [...childNodes].filter(c =&gt; (c.nodeType === 1 || c.nodeType === 3) &amp;&amp;
@@ -639,22 +639,19 @@ const autoGrow = e =&gt; {
 
 const domToVanCode =
   (dom, {indent = 0, indentLevel, skipEmptyText, skipTrailingComma}, tagsUsed) =&gt; {
-  const prefix = " ".repeat(indent)
-  const suffix = skipTrailingComma ? "" : ","
-  if (dom.nodeName === "#text")
-    return [`${prefix}${JSON.stringify(dom.nodeValue)}${suffix}`]
+  const prefix = " ".repeat(indent), suffix = skipTrailingComma ? "" : ","
+  if (dom.nodeName === "#text") return [`${prefix}${JSON.stringify(dom.nodeValue)}${suffix}`]
   const lowerCaseTagName = dom.nodeName.toLowerCase()
   tagsUsed.add(lowerCaseTagName)
   if (lowerCaseTagName === "pre") skipEmptyText = false
-  return dom.childNodes.length &gt; 0 ? [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)}`,
-    ...filterChild(dom.childNodes, {skipEmptyText}).flatMap(c =&gt;
-      domToVanCode(
-        c, {indent: indent + indentLevel, indentLevel, skipEmptyText},
-        tagsUsed)),
+  const childNodes = filterChild(dom.childNodes, {skipEmptyText})
+  return childNodes.length &gt; 0 ? [
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom.attributes, childNodes)}`,
+    ...childNodes.flatMap(c =&gt; domToVanCode(
+      c, {indent: indent + indentLevel, indentLevel, skipEmptyText}, tagsUsed)),
     `${prefix})${suffix}`,
   ] : [
-    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom)})${suffix}`,
+    `${prefix}${lowerCaseTagName}(${attrsToVanCode(dom.attributes, childNodes)})${suffix}`,
   ]
 }
 
