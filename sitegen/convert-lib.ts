@@ -10,7 +10,7 @@ export default (doc: HTMLDocument) => {
   const {H1, H2, H3, Link, Symbol} = common(doc)
   return div({id: "content"},
     H1(
-      "MD and HTML to VanJS Code Converter",
+      "HTML and MD to VanJS Code Converter",
     ),
     p(
       "This is a library that can convert any MD or HTML snippet into valid ",

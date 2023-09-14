@@ -1,15 +1,13 @@
 # converter-ui
 
-To install dependencies:
+To build the 🍦VanJS code converter for development (`.js` file not minified):
 
-```bash
-bun install
+```shell
+bun dev
 ```
 
-To run:
+To build the 🍦VanJS code converter for production (`.js` file minified):
 
-```bash
-bun run convert.ts
+```shell
+bun run build
 ```
-
-This project was created using `bun init` in bun v1.0.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
