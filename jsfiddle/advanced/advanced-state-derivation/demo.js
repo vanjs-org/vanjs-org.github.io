@@ -37,7 +37,7 @@ const streamOf = s => {
     console.log("elapsed: ", v)
   }
   // You can also chain the data stream with `map`, `filter`, etc. by integrating with
-  // wu.js (https://fitzgen.github.io/wu.js/)
+  // rubico (https://rubico.land) or wu.js (https://fitzgen.github.io/wu.js/).
 })()
 
 van.add(document.body,
