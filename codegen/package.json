@@ -1,0 +1,19 @@
+{
+  "name": "codegen",
+  "module": "gen-code.ts",
+  "type": "module",
+  "scripts": {
+    "gen": "bash gen.sh && (cd .. && bash render.sh)"
+  },
+  "devDependencies": {
+    "@types/marked": "^5.0.1",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "marked": "^9.0.0",
+    "vanjs-converter": "^0.1.1"
+  }
+}

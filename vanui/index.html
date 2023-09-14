@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html><head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanUI: A Collection of Grab 'n Go Reusable UI Components for VanJS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/w3.css">
+    <link rel="stylesheet" href="/font.css">
+    <link rel="stylesheet" href="/prism.css">
+    <link rel="stylesheet" href="/vanjs.css">
+  </head>
+  <body class="line-numbers" data-prismjs-copy="📋">
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Q0NB75RY7E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q0NB75RY7E');
+    </script>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:280px;font-weight:bold;" id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+      <div class="w3-container">
+        <h1 class="w3-padding-16 w3-xxxlarge">
+          <img src="/logo.svg" alt="VanJS" width="192px" height="192px">
+        </h1>
+      </div>
+      <div id="nav" class="w3-bar-block"><a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a><a href="/start" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Getting Started</a><a href="/tutorial" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tutorial</a><a href="/demo" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">VanJS by Example</a><a href="/convert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Convert HTML to VanJS</a><a href="/vanui" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white current">VanUI</a><a href="/minivan" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Mini-Van</a><a href="/ssr" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">SSR &amp; Hydration</a><a href="/advanced" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Advanced Topics</a><a href="/media" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Media Mentions</a><a href="/about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a></div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+      <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+      <span id="title-bar">VanUI</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;">
+      <div id="page">
+        <div id="content"><h1 class="w3-xxlarge"><strong>VanUI</strong>: A Collection of Grab 'n Go Reusable UI Components for VanJS</h1><p>🙏 Feedback and contribution are welcome and greatly appreciated! (<a href="https://github.com/vanjs-org/van/tree/main/components" class="w3-hover-opacity">source code</a>)</p><h2 class="w3-xxlarge w3-text-red" id="installation"><a class="self-link" href="#installation">Installation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The library is published as NPM package <a href="https://www.npmjs.com/package/vanjs-ui" class="w3-hover-opacity">vanjs-ui</a>.</p><p>Run the following command to install the package:</p><pre><code class="language-shell">npm install vanjs-ui
+</code></pre><p>To use the NPM package, add this line to your script:</p><pre><code class="language-js">import { &lt;components you want to import&gt; } from "vanjs-ui"
+</code></pre><h2 class="w3-xxlarge w3-text-red" id="documentation"><a class="self-link" href="#documentation">Documentation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following UI components has been implemented so far:</p><ul><li><a href="#modal" class="w3-hover-opacity">Modal</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">preview</a>)</li><li><a href="#tabs" class="w3-hover-opacity">Tabs</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tabs?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">preview</a>)</li><li><a href="#message" class="w3-hover-opacity">MessageBoard</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=/src/main.ts" class="w3-hover-opacity">preview</a>)</li><li><a href="#tooltip" class="w3-hover-opacity">Tooltip</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=/src/main.ts:1,1" class="w3-hover-opacity">preview</a>)</li><li><a href="#toggle" class="w3-hover-opacity">Toggle</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/toggle?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">preview</a>)</li><li><a href="#optiongroup" class="w3-hover-opacity">OptionGroup</a> (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/option-group?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">preview</a>)</li></ul><h3 class="w3-large w3-text-red" id="modal"><a class="self-link" href="#modal">Modal</a></h3><p>Creates a modal window on top of the current page.</p><h4>Signature</h4><pre><code class="language-js">Modal({...props}, ...children) =&gt; &lt;The created modal window&gt;
+</code></pre><h4>Examples</h4><p>Example 1:</p><pre><code class="language-ts">const closed = van.state(false)
+van.add(document.body, Modal({closed},
+  p("Hello, World!"),
+  div({style: "display: flex; justify-content: center;"},
+    button({onclick: () =&gt; closed.val = true}, "Ok"),
+  ),
+))
+</code></pre><p>Example 2:</p><pre><code class="language-ts">const closed = van.state(false)
+const formDom = form(
+  div(input({type: "radio", name: "lang", value: "Zig", checked: true}), "Zig"),
+  div(input({type: "radio", name: "lang", value: "Rust"}), "Rust"),
+  div(input({type: "radio", name: "lang", value: "Kotlin"}), "Kotlin"),
+  div(input({type: "radio", name: "lang", value: "TypeScript"}), "TypeScript"),
+  div(input({type: "radio", name: "lang", value: "JavaScript"}), "JavaScript"),
+)
+
+const onOk = () =&gt; {
+  const lang = (&lt;HTMLInputElement&gt;formDom.querySelector("input:checked")).value
+  alert(lang + " is a good language 😀")
+  closed.val = true
+}
+
+van.add(document.body, Modal({closed, blurBackground: true},
+  p("What's your favorite programming language?"),
+  formDom,
+  p({style: "display: flex; justify-content: space-evenly;"},
+    button({onclick: onOk}, "Ok"),
+    button({onclick: () =&gt; closed.val = true}, "Cancel"),
+  )
+))
+</code></pre><p>You can live preview the examples with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">CodeSandbox</a>.</p><h4>Property Reference</h4><ul><li><code class="symbol">closed</code>: Type <code class="symbol">State&lt;boolean&gt;</code>. Required. A <code class="symbol">State</code> object used to close the created modal window. Basically, setting <code class="symbol">closed.val = true</code> will close the created modal window.</li><li><code class="symbol">backgroundColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"rgba(0,0,0,.5)"</code>. Optional. The color of the background overlay when the modal is activated.</li><li><code class="symbol">blurBackground</code>: Type <code class="symbol">boolean</code>. Default <code class="symbol">false</code>. Optional. Whether to blur the background.</li><li><code class="symbol">backgroundClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the background overlay. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">backgroundStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the background overlay.</li><li><code class="symbol">modalClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the created modal element. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">modalStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the created modal element.</li></ul><h3 class="w3-large w3-text-red" id="tabs"><a class="self-link" href="#tabs">Tabs</a></h3><p>Creates a tab-view for tabs specified by the user.</p><h4>Signature</h4><pre><code class="language-js">Tabs({...props}, tabContents) =&gt; &lt;The created tab-view&gt;
+</code></pre><p>The <code class="symbol">tabContents</code> parameter is an object whose keys are the titles of the tabs and values (type: <code class="symbol">ChildDom | ChildDom[]</code>) are the DOM element(s) for the tab contents.</p><h4>Example</h4><pre><code class="language-ts">van.add(document.body, Tabs(
+  {
+    style: "max-width: 500px;",
+    tabButtonActiveColor: "white",
+    tabButtonBorderStyle: "none",
+    tabButtonRowStyleOverrides: {
+      "padding-left": "12px",
+    },
+  },
+  {
+    Home: p(
+      "Welcome to ", b("VanJS"), " - the smallest reactive UI framework in the world.",
+    ),
+    "Getting Started": [
+      p("To install the ", b("VanJS"), " NPM package, run the line below:"),
+      pre(code("npm install vanjs-core")),
+    ],
+    About: p(
+      "The author of ", b("VanJS"), "&nbsp;is ",
+      a({href: "https://github.com/Tao-VanJS"}, " Tao Xin"), "."
+    ),
+  },
+))
+</code></pre><p>You can live preview the example with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tabs?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">CodeSandbox</a>.</p><h4>Property Reference</h4><ul><li><code class="symbol">activeTab</code>: Type <code class="symbol">State&lt;string&gt; | undefined</code>. Optional. If specified, you can activate a tab via the specified <code class="symbol">State</code> object with <code class="symbol">activeTab.val = "&lt;tab title&gt;"</code>, and subscribe to the changes of active tab via <a href="https://vanjs.org/tutorial#api-derive" class="w3-hover-opacity"><code class="symbol">van.derive</code></a>.</li><li><code class="symbol">resultClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the result DOM element. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">style</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">style</code> property of the result DOM element.</li><li><code class="symbol">tabButtonRowColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#f1f1f1"</code>. Optional. The background color of the container of tab buttons.</li><li><code class="symbol">tabButtonBorderStyle</code>: Type <code class="symbol">string</code>. Default <code class="symbol">1px solid #000</code>. Optional. The style of borders between tab buttons.</li><li><code class="symbol">tabButtonHoverColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#ddd"</code>. Optional. The color when the tab button is hovered.</li><li><code class="symbol">tabButtonActiveColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#ccc"</code>. Optional. The color of the tab button for the currently active tab.</li><li><code class="symbol">transitionSec</code>: Type <code class="symbol">number</code>. Default <code class="symbol">0.3</code>. Optional. The duration of the transition when tab buttons change color.</li><li><code class="symbol">tabButtonRowClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the container of tab buttons. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">tabButtonRowStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the container of tab buttons.</li><li><code class="symbol">tabButtonClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. The <code class="symbol">class</code> attribute of tab buttons. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">tabButtonStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for tab buttons. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">tabContentClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. The <code class="symbol">class</code> attribute of tab contents. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">tabContentStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for tab contents.</li></ul><h3 class="w3-large w3-text-red" id="messageboard"><a class="self-link" href="#messageboard">MessageBoard</a></h3><p>Creates a message board to show messages on the screen.</p><h4>Signature</h4><p>To create a message board:</p><pre><code class="language-js">const board = new MessageBoard({...props})
+</code></pre><p>Then you can show messages with <code class="symbol">show</code> method:</p><pre><code class="language-js">board.show({...props}) =&gt; &lt;The created DOM node for the message, which is also appended to the message board&gt;
+</code></pre><p>Optionally, you can remove the DOM node of the message board with <code class="symbol">remove</code> method:</p><pre><code class="language-js">board.remove()
+</code></pre><h4>Examples</h4><pre><code class="language-ts">const board = new MessageBoard({top: "20px"})
+
+const example1 = () =&gt; board.show({message: "Hi!", durationSec: 1})
+const example2 = () =&gt; board.show(
+  {message: ["Welcome to ", a({href: "https://vanjs.org/", style: "color: #0099FF"}, "🍦VanJS"), "!"], closer: "❌"})
+
+const closed = van.state(false)
+const example3 = () =&gt; {
+  closed.val = false
+  board.show({message: "Press ESC to close this message", closed})
+}
+document.addEventListener("keydown", e =&gt; e.key === "Escape" &amp;&amp; (closed.val = true))
+</code></pre><p>You can live preview the examples with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=/src/main.ts" class="w3-hover-opacity">CodeSandbox</a>.</p><h4>Property Reference</h4><p>Message board properties:</p><ul><li><code class="symbol">top</code>: Type <code class="symbol">string</code>. Optional. The <code class="symbol">top</code> CSS property of the message board.</li><li><code class="symbol">bottom</code>: Type <code class="symbol">string</code>. Optional. The <code class="symbol">bottom</code> CSS property of the message board. Exactly one of <code class="symbol">top</code> and <code class="symbol">bottom</code> should be specified.</li><li><code class="symbol">backgroundColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#333D"</code>. Optional. The background color of the messages shown on the message board.</li><li><code class="symbol">fontColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"white"</code>. Optional. The font color of the messages shown on the message board.</li><li><code class="symbol">fadeOutSec</code>: Type <code class="symbol">number</code>. Default <code class="symbol">0.3</code>. Optional. The duration of the fade out animation when messages are being closed.</li><li><code class="symbol">boardClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the message board. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">boardStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the message board.</li><li><code class="symbol">messageClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the message shown on the message board. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">messageStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the message shown on the message board.</li><li><code class="symbol">closerClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the message closer. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">closerStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the message closer.</li></ul><p>Message properties:</p><ul><li><code class="symbol">message</code>: Type <code class="symbol">ChildDom | readonly ChildDom[]</code>. Required. One or more <code class="symbol">ChildDom</code> for the message we want to show.</li><li><code class="symbol">closer</code>: Type <code class="symbol">ChildDom | readonly ChildDom[]</code>. Optional. If specified, we will render a closer DOM node with one or more <code class="symbol">ChildDom</code> which can be clicked to close the shown message.</li><li><code class="symbol">durationSec</code>: Type <code class="symbol">number</code>. Optional. If specified, the shown message will be automatically closed after <code class="symbol">durationSec</code> seconds.</li><li><code class="symbol">closed</code>: Type <code class="symbol">State&lt;boolean&gt;</code>. Optional. If specified, the shown message can be closed via the <code class="symbol">closed</code><code class="symbol">State</code> object with <code class="symbol">closed.val = true</code>.</li></ul><h3 class="w3-large w3-text-red" id="tooltip"><a class="self-link" href="#tooltip">Tooltip</a></h3><p>Creates a tooltip above a DOM node which typically shows when the DOM node is being hovered.</p><h4>Signature</h4><pre><code class="language-js">Tooltip({...props}) =&gt; &lt;The created tooltip element&gt;
+</code></pre><h4>Examples</h4><pre><code class="language-ts">const tooltip1Show = van.state(false)
+const tooltip2Show = van.state(false)
+const count = van.state(0)
+const tooltip2Text = van.derive(() =&gt; `Count: ${count.val}`)
+const tooltip3Show = van.state(false)
+
+van.add(document.body,
+  button({
+    style: "position: relative;",
+    onmouseenter: () =&gt; tooltip1Show.val = true,
+    onmouseleave: () =&gt; tooltip1Show.val = false,
+  }, "Normal Tooltip", Tooltip({text: "Hi!", show: tooltip1Show})), " ",
+  button({
+    style: "position: relative;",
+    onmouseenter: () =&gt; tooltip2Show.val = true,
+    onmouseleave: () =&gt; tooltip2Show.val = false,
+    onclick: () =&gt; ++count.val
+  }, "Increment Counter", Tooltip({text: tooltip2Text, show: tooltip2Show})), "&nbsp;",
+  button({
+    style: "position: relative;",
+    onmouseenter: () =&gt; tooltip3Show.val = true,
+    onmouseleave: () =&gt; tooltip3Show.val = false,
+  }, "Slow Fade-in", Tooltip({text: "Hi from the sloth!", show: tooltip3Show, fadeInSec: 5})),
+)
+</code></pre><p>You can live preview the examples with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=/src/main.ts:1,1" class="w3-hover-opacity">CodeSandbox</a>.</p><p>Note that the lines:</p><pre><code class="language-ts">{
+  style: "position: relative;",
+  onmouseenter: () =&gt; ...Show.val = true,
+  onmouseleave: () =&gt; ...Show.val = false,
+}
+</code></pre><p>are needed for the tooltip element to be shown properly.</p><h4>Property Reference</h4><ul><li><code class="symbol">text</code>: Type <code class="symbol">string | State&lt;string&gt;</code>. Required. The text shown in the tooltip. If a <code class="symbol">State</code> object is specified, you can set the text with <code class="symbol">text.val = ...</code>.</li><li><code class="symbol">show</code>: Type <code class="symbol">State&lt;boolean&gt;</code>. Required. The <code class="symbol">State</code> object to control whether to show the tooltip or not.</li><li><code class="symbol">width</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"200px"</code>. Optional. The width of the tooltip.</li><li><code class="symbol">backgroundColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#333D"</code>. Optional. The background color of the tooltip.</li><li><code class="symbol">fontColor</code>: Type <code class="symbol">string</code>. Default: <code class="symbol">"white"</code>. Optional. The font color of the tooltip.</li><li><code class="symbol">fadeInSec</code>: Type <code class="symbol">number</code>. Default <code class="symbol">0.3</code>. Optional. The duration of the fade-in animation.</li><li><code class="symbol">tooltipClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the tooltip. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">tooltipStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the tooltip.</li><li><code class="symbol">triangleClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the triangle in the bottom. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">triangleStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the triangle in the bottom.</li></ul><h3 class="w3-large w3-text-red" id="toggle"><a class="self-link" href="#toggle">Toggle</a></h3><p>Creates a toggle switch that can be turned on and off.</p><h4>Signature</h4><pre><code class="language-js">Toggle({...props}) =&gt; &lt;The created toggle switch&gt;
+</code></pre><h4>Example</h4><pre><code class="language-ts">van.add(document.body, Toggle({
+  size: 2,
+  onColor: "#4CAF50"
+}))
+</code></pre><p>You can live preview the example with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/toggle?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">CodeSandbox</a>.</p><h4>Property Reference</h4><ul><li><code class="symbol">on</code>: Type <code class="symbol">boolean | State&lt;boolean&gt;</code>. Default <code class="symbol">false</code>. Optional. A boolean or a boolean-typed <code class="symbol">State</code> object to indicate the status of the toggle. If a <code class="symbol">State</code> object is specified, you can turn on/off the toggle via the specified <code class="symbol">State</code> object with <code class="symbol">on.val = &lt;true|false&gt;</code>, and subscribe to the status change of the toggle via <a href="https://vanjs.org/tutorial#api-derive" class="w3-hover-opacity"><code class="symbol">van.derive</code></a>.</li><li><code class="symbol">size</code>: Type <code class="symbol">number</code>. Default <code class="symbol">1</code>. Optional. The size of the toggle. <code class="symbol">1</code> means the height of the toggle is <code class="symbol">1rem</code>.</li><li><code class="symbol">cursor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">pointer</code>. Optional. The <code class="symbol">cursor</code> CSS property of the toggle.</li><li><code class="symbol">ofColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#ccc"</code>. Optional. The color of the toggle when it's off.</li><li><code class="symbol">onColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#2196F3"</code>. Optional. The color of the toggle when it's on.</li><li><code class="symbol">circleColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"white"</code>. Optional. The color of the toggling circle.</li><li><code class="symbol">toggleClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the toggle. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">toggleStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the toggle.</li><li><code class="symbol">sliderClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the slider. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">sliderStyleOverrides</code>. Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the slider.</li><li><code class="symbol">circleClass</code>. Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the toggling circle. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">circleStyleOverrides</code>. Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the toggling circle.</li><li><code class="symbol">circleWhenOnStyleOverrides</code>. Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the toggling circle. Typically this is used to override the <code class="symbol">transform</code> CSS property if the dimensions of the toggle is overridden.</li></ul><h3 class="w3-large w3-text-red" id="optiongroup"><a class="self-link" href="#optiongroup">OptionGroup</a></h3><p>Creates a group of button-shaped options where only one option can be selected. This is functionally similar to a radio group but with a different appearance.</p><h4>Signature</h4><pre><code class="language-js">OptionGroup({...props}, options) =&gt; &lt;The created option group&gt;
+</code></pre><p>The <code class="symbol">options</code> parameter is a <code class="symbol">string[]</code> for all the options.</p><h4>Example</h4><pre><code class="language-ts">const selected = van.state("")
+const options = ["Water", "Coffee", "Juice"]
+
+van.add(document.body,
+  p("What would you like to drink?"),
+  OptionGroup({selected}, options),
+  p(() =&gt; options.includes(selected.val) ?
+    span(b("You selected:"), " ", selected) : b("You haven't selected anything.")),
+)
+</code></pre><p>You can live preview the example with <a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/option-group?file=%2Fsrc%2Fmain.ts%3A1%2C1" class="w3-hover-opacity">CodeSandbox</a>.</p><h4>Property Reference</h4><ul><li><code class="symbol">selected</code>: Type <code class="symbol">State&lt;string&gt;</code>. Required. A <code class="symbol">State</code> object for the currently selected option. You can change the selected option with <code class="symbol">selected.val = &lt;option string&gt;</code>, and subscribe to the selection change via <a href="https://vanjs.org/tutorial#api-derive" class="w3-hover-opacity"><code class="symbol">van.derive</code></a>.</li><li><code class="symbol">normalColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#e2eef7"</code>. Optional. The color of the option when it's not selected or hovered.</li><li><code class="symbol">hoverColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#c1d4e9"</code>. Optional. The color of the option when it's hovered.</li><li><code class="symbol">selectedColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#90b6d9"</code>. Optional. The color of the option when it's selected.</li><li><code class="symbol">selectedHoverColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"#7fa5c8"</code>. Optional. The color of the option when it's selected and hovered.</li><li><code class="symbol">fontColor</code>: Type <code class="symbol">string</code>. Default <code class="symbol">"black"</code>. Optional. The font color of the options.</li><li><code class="symbol">transitionSec</code>: Type <code class="symbol">number</code>. Default <code class="symbol">0.3</code>. Optional. The duration of the transition when the options change color.</li><li><code class="symbol">optionGroupClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the entire option group. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">optionGroupStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the entire option group.</li><li><code class="symbol">optionClass</code>: Type <code class="symbol">string</code>. Default <code class="symbol">""</code>. Optional. The <code class="symbol">class</code> attribute of the options. You can specify multiple CSS classes seperated by <code class="symbol">" "</code>.</li><li><code class="symbol">optionStyleOverrides</code>: Type <code class="symbol">object</code>. Default <code class="symbol">{}</code>. Optional. A <a href="#property-bag-for-style-overrides" class="w3-hover-opacity">property bag</a> for the styles you want to override for the options.</li></ul><h3 class="w3-large w3-text-red" id="planned-for-future"><a class="self-link" href="#planned-for-future">Planned for Future</a></h3><p>The following UI components are planned to be added in the future:</p><ul><li>Banner</li></ul><h3 class="w3-large w3-text-red" id="property-bag-for-style-overrides"><a class="self-link" href="#property-bag-for-style-overrides">Property Bag for Style Overrides</a></h3><p>In the API of <strong>VanUI</strong>, you can specify an object as a property bag to override the styles of the created elements. The keys of the property bag are CSS property names, and the values of the property bag are CSS property values. Sample values of the property bag:</p><pre><code class="language-js">{
+  "z-index": 1000,
+  "background-color": "rgba(0,0,0,.8)",
+}
+</code></pre><pre><code class="language-js">{
+  "border-radius": "0.2rem",
+  padding: "0.8rem",
+  "background-color": "yellow",
+}
+</code></pre></div>
+        <aside id="toc"><ul><li><a href="#installation" class="w3-hover-opacity">Installation</a></li><li><a href="#documentation" class="w3-hover-opacity">Documentation</a><ul><li><a href="#modal" class="w3-hover-opacity">Modal</a></li><li><a href="#tabs" class="w3-hover-opacity">Tabs</a></li><li><a href="#messageboard" class="w3-hover-opacity">MessageBoard</a></li><li><a href="#tooltip" class="w3-hover-opacity">Tooltip</a></li><li><a href="#toggle" class="w3-hover-opacity">Toggle</a></li><li><a href="#optiongroup" class="w3-hover-opacity">OptionGroup</a></li><li><a href="#planned-for-future" class="w3-hover-opacity">Planned for Future</a></li><li><a href="#property-bag-for-style-overrides" class="w3-hover-opacity">Property Bag for Style Overrides</a></li></ul></li></ul></aside>
+      </div>
+    </div>
+    <script>
+      // Script to open and close sidebar
+      const w3_open = () => {
+        document.getElementById("mySidebar").style.display = "block"
+        document.getElementById("myOverlay").style.display = "block"
+      }
+
+      const w3_close = () => {
+        document.getElementById("mySidebar").style.display = "none"
+        document.getElementById("myOverlay").style.display = "none"
+      }
+
+      const tocDom = document.getElementById("toc")
+
+      // Tracks the current toc item
+      const trackToc = () => {
+        const allHeadings = [...document.querySelectorAll("h2,h3")]
+        const currentHeadingIndex = allHeadings.findIndex(h => h.getBoundingClientRect().top >= 0)
+        let currentHeading
+        if (currentHeadingIndex < 0) currentHeading = allHeadings[allHeadings.length - 1]; else {
+          currentHeading = allHeadings[currentHeadingIndex]
+          if (currentHeadingIndex > 0 && currentHeading.getBoundingClientRect().top > innerHeight)
+            currentHeading = allHeadings[currentHeadingIndex - 1]
+        }
+        for (const e of document.querySelectorAll("#toc li a"))
+          if (e.href.split("#")[1] === currentHeading?.id) {
+            e.classList.add("w3-opacity")
+            const {top: tocTop, bottom: tocBottom} = tocDom.getBoundingClientRect()
+            const {top: eTop, bottom: eBottom} = e.getBoundingClientRect()
+            if (eBottom > tocBottom) tocDom.scrollTop += eBottom - tocBottom
+            else if (eTop < tocTop) tocDom.scrollTop -= tocTop - eTop
+          } else
+            e.classList.remove("w3-opacity")
+      }
+      trackToc()
+      document.addEventListener("scroll", trackToc)
+      addEventListener("resize", trackToc)
+    </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/diff.min.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script>
+      const copy = e => {
+        const file = e.previousElementSibling.innerText
+        const importLine = file.includes("nomodule") ?
+          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
+          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
+          navigator.clipboard.writeText(importLine)
+            .then(() => e.querySelector(".tooltip").innerText = "Copied")
+            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
+      }
+
+      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
+    </script>
+    <script class="inline"></script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+  
+
+</body></html>

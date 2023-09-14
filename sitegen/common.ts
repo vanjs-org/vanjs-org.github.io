@@ -6,8 +6,14 @@ type ChildDom = TypedChildDom<Element, Text>
 export default (doc: HTMLDocument) => {
   const {add, tags: {a, b, blockquote, br, code, h1, h2, h3, hr, i, li, pre, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
 
-  const genId = (text: string, id: string | undefined) =>
-    id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
+  const idMap: Record<string, number> = {}
+
+  const genId = (text: string, id: string | undefined) => {
+    const r = id ?? text.match(/\b(\w+)\b/g)!.map(s => s.toLowerCase()).join("-")
+    const seq = idMap[r]
+    idMap[r] = (seq ?? 0) + 1
+    return seq ? `${r}-${seq}` : r
+  }
 
   const addToHeading = (id: string | undefined, dom: Element, children: readonly ChildDom[]) => {
     const link = a({class: "self-link"}, children)

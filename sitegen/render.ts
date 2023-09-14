@@ -7,11 +7,14 @@ import start from "./start.ts"
 import tutorial from "./tutorial.ts"
 import demo from "./demo.ts"
 import convert from "./convert.ts"
+import vanui from "./vanui.ts"
 import minivan from "./minivan.ts"
 import ssr from "./ssr.ts"
 import advanced from "./advanced.ts"
 import media from "./media.ts"
 import about from "./about.ts"
+
+import converterLib from "./convert-lib.ts"
 
 const templateStr = Deno.readTextFileSync("template.html")
 
@@ -27,7 +30,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["Tutorial", "tutorial"],
     ["VanJS by Example", "demo"],
     ["Convert HTML to VanJS", "convert"],
-    ["VanUI", "https://github.com/vanjs-org/van/tree/main/components"],
+    ["VanUI", "vanui"],
     ["Mini-Van", "minivan"],
     ["SSR & Hydration", "ssr"],
     ["Advanced Topics", "advanced"],
@@ -66,9 +69,12 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   let docTitle = title
   if (title === "Home") docTitle = "A 0.9kB No-JSX Framework Based on Vanilla JavaScript"
   if (title === "Mini-Van")
-    doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"; else
+    doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"
+  else if (title === "VanUI")
+  doc.querySelector("title")!.innerText = "VanUI: A Collection of Grab 'n Go Reusable UI Components for VanJS"
+  else
     doc.querySelector("title")!.innerText += " - " + docTitle
-  let shortTitle = shortTitleToPath.find(([_, p]) => p === path)![0]
+  let shortTitle = shortTitleToPath?.find(([_, p]) => p === path)?.[0] ?? ""
   if (shortTitle === "Home") shortTitle = "VanJS"
   else if (shortTitle === "Tutorial") shortTitle = "VanJS Tutorial"
   doc.getElementById("title-bar")!.innerText = shortTitle
@@ -92,8 +98,11 @@ renderPage(start, "start", "start.html", "Getting Started")
 renderPage(tutorial, "tutorial", "tutorial.html", "Tutorial and API Reference")
 renderPage(demo, "demo", "demo.html", "Learning by Example")
 renderPage(convert, "convert", "convert.html", "Convert HTML Snippet to 🍦VanJS Code")
+renderPage(vanui, "vanui", "vanui.html", "VanUI")
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
 renderPage(ssr, "ssr", "ssr.html", "Fullstack Rendering (SSR, CSR and Hydration)")
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
 renderPage(media, "media", "media.html", "Media Mentions")
 renderPage(about, "about", "about.html", "About")
+
+renderPage(converterLib, "converter-lib", "converter-lib.html", "MD and HTML to VanJS Code Converter")

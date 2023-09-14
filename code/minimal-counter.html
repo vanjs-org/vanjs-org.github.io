@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>Minimal Counter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script type="module">
+      import van from "./van-latest.min.js"
+
+      const {button} = van.tags
+
+      const Counter = ({initValue}) => {
+        const counter = van.state(initValue)
+        return button({onclick: () => ++counter.val}, counter)
+      }
+
+      van.add(document.body, Counter({initValue: 5}))
+    </script>
+  </body>
+</html>
