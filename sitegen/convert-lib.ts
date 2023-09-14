@@ -654,7 +654,7 @@ export default (doc: HTMLDocument) => {
       Symbol(
         "README.md",
       ),
-      " files in sync with web pages (",
+      " files in sync with their corresponding web pages (",
       Link(
         "source code",
         "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/codegen",
