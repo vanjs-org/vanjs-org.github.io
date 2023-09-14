@@ -567,7 +567,7 @@ export default (doc: HTMLDocument) => {
         ),
         pre(
           code({class: "language-js"},
-            "{\n  codespan: s => `<Symbol>${s}</Symbol>`,\n  link: (href, _unused_title, text) => `<Link>${text}<dummy></dummy>${href}</Link>`,\n}\n",
+            "{\n  codespan: s => `<Symbol>${s}</Symbol>`,\n  link: (href, _unused_title, text) => `<Link>${text}<DUMMY></DUMMY>${href}</Link>`,\n}\n",
           ),
         ),
         p(
