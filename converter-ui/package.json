@@ -1,0 +1,16 @@
+{
+  "name": "converter-ui",
+  "module": "convert.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun build convert.ts > ../convert.inline.js && (cd .. && bash render.sh)",
+    "build": "bun build --minify convert.ts > ../convert.inline.js && (cd .. && bash render.sh)"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "vanjs-converter": "^0.1.2",
+    "vanjs-core": "^1.2.0"
+  }
+}

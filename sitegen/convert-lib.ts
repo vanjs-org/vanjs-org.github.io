@@ -6,7 +6,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {code, div, li, ol, p, pre, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {code, div, em, li, ol, p, pre, strong, ul}} = van.vanWithDoc(doc)
   const {H1, H2, H3, Link, Symbol} = common(doc)
   return div({id: "content"},
     H1(
@@ -17,7 +17,12 @@ export default (doc: HTMLDocument) => {
       strong(
         "VanJS",
       ),
-      " code.",
+      " code. The UI version of the code converter is ",
+      Link(
+        "here",
+        "https://vanjs.org/convert",
+      ),
+      ".",
     ),
     H2(
       "Installation",
@@ -70,6 +75,11 @@ export default (doc: HTMLDocument) => {
     ),
     H3(
       "Using VanJS Components",
+    ),
+    p(
+      em(
+        "This is only supported in the converter library, not in the UI.",
+      ),
     ),
     p(
       "The input HTML string can be a mix of HTML elements and custom UI components built with ",
@@ -323,6 +333,11 @@ export default (doc: HTMLDocument) => {
       ),
     ),
     p(
+      em(
+        "This is only supported in the converter library, not in the UI.",
+      ),
+    ),
+    p(
       "There are 2 special cases while specifying custom ",
       strong(
         "VanJS",
@@ -550,7 +565,11 @@ export default (doc: HTMLDocument) => {
           Symbol(
             "renderer",
           ),
-          ": Optional. A custom object used to override how tokens in the MD string are being rendered. The specification of the ",
+          ": Optional. ",
+          em(
+            "Custom renderer is only supported in the converter library, not in the UI.",
+          ),
+          " A custom object used to override how tokens in the MD string are being rendered. The specification of the ",
           Symbol(
             "renderer",
           ),

@@ -29,7 +29,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["Getting Started", "start"],
     ["Tutorial", "tutorial"],
     ["VanJS by Example", "demo"],
-    ["Convert HTML to VanJS", "convert"],
+    ["HTML/MD to VanJS", "convert"],
     ["VanUI", "vanui"],
     ["Mini-Van", "minivan"],
     ["SSR & Hydration", "ssr"],
@@ -71,7 +71,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   if (title === "Mini-Van")
     doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"
   else if (title === "VanUI")
-  doc.querySelector("title")!.innerText = "VanUI: A Collection of Grab 'n Go Reusable UI Components for VanJS"
+    doc.querySelector("title")!.innerText = "VanUI: A Collection of Grab 'n Go Reusable UI Components for VanJS"
   else
     doc.querySelector("title")!.innerText += " - " + docTitle
   let shortTitle = shortTitleToPath?.find(([_, p]) => p === path)?.[0] ?? ""
@@ -85,6 +85,10 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   try {
     doc.querySelector("script[type=module]")!.innerText =
       Deno.readTextFileSync(`${path === "" ? "home" : path}.js`)
+  } catch (e) {
+    if (!(e instanceof Deno.errors.NotFound)) throw e
+  }
+  try {
     doc.querySelector("script.inline")!.innerText =
       Deno.readTextFileSync(`${path === "" ? "home" : path}.inline.js`)
   } catch (e) {
@@ -97,7 +101,7 @@ renderPage(home, "", "index.html", "Home")
 renderPage(start, "start", "start.html", "Getting Started")
 renderPage(tutorial, "tutorial", "tutorial.html", "Tutorial and API Reference")
 renderPage(demo, "demo", "demo.html", "Learning by Example")
-renderPage(convert, "convert", "convert.html", "Convert HTML Snippet to 🍦VanJS Code")
+renderPage(convert, "convert", "convert.html", "HTML/MD Snippet to 🍦VanJS Code")
 renderPage(vanui, "vanui", "vanui.html", "VanUI")
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
 renderPage(ssr, "ssr", "ssr.html", "Fullstack Rendering (SSR, CSR and Hydration)")

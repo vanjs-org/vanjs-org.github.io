@@ -7,8 +7,8 @@ export default (doc: HTMLDocument) => {
   const {H1, Link, VanJS} = common(doc)
 
   return div({id: "content"},
-    H1("Convert HTML Snippet to 🍦VanJS Code"),
-    p(i("The library version of the converter with the support of converting MD and HTML snippets to ", VanJS(), " code is ", Link("here", "https://github.com/vanjs-org/van/tree/main/converter"), ".")),
+    H1("HTML/MD Snippet to 🍦VanJS Code"),
+    p(i("The library version of the converter with the support of custom ", VanJS(), " components is ", Link("here", "https://github.com/vanjs-org/van/tree/main/converter"), ".")),
     p({id: "converter"}),
   )
 }

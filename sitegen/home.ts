@@ -57,7 +57,7 @@ van.add(document.body, Hello())
       id: "jsfiddle-hello",
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
     }),
-    p("You can convert any HTML snippet into ", VanJS(), " code with our online ", Link("converter", "/convert"), "."),
+    p("You can convert any HTML or MD snippet into ", VanJS(), " code with our online ", Link("converter", "/convert"), "."),
     p({id: "code-counter"}, VanJS(), " helps you manage states and UI bindings as well, with a more natural API:"),
     Js(`const Counter = () => {
   const counter = van.state(0)
@@ -102,7 +102,7 @@ van.add(document.body, Counter())
       li(Link("Get Started", "/start"), " (CDN, NPM or local download)"),
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo"), " (and also ", Link("Community Examples", "/demo#community-examples"), ")"),
-      li("Convert HTML snippet to ", VanJS(), " code with our online ", Link("HTML to ", VanJS(), " Converter", "/convert")),
+      li("Convert HTML or MD snippet to ", VanJS(), " code with our online ", Link("HTML/MD to ", VanJS(), " Converter", "/convert")),
       li("Check out ", Link("VanUI", "https://github.com/vanjs-org/van/tree/main/components"), " - A collection of grab 'n go reusable UI components for ", VanJS()),
       li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
