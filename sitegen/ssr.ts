@@ -82,7 +82,7 @@ export default (doc: HTMLDocument) => {
     p("Notable differences from the ", SymLink("Counter", "/demo#counter"), " component in the \"VanJS by Example\" page:"),
     ul(
       li("Similar to the ", Symbol("Hello"), " component, it takes a ", Symbol("van"), " object as its input property to make the component environment-agnostic."),
-      li("You can define states and bind states to DOM nodes as you normally do on the client-side. This is because in ", MiniVan(), " ", Symbol("0.4.0"), " release, we adjusted its implementation to polyfill states and state-bindings related API, though with the absence of reactively (i.e.: changing a state won't lead to the update of the DOM tree), which is only possible on the client-side after hydration."),
+      li("You can define states and bind states to DOM nodes as you normally do on the client-side. This is because in ", MiniVan(), " ", Symbol("0.4.0"), " release, we adjusted its implementation to make it compatible to states and state-bindings related API, though with the absence of reactively (i.e.: changing a state won't lead to the update of the DOM tree), which is only possible on the client-side after hydration."),
       li("You can optionally specify the ID of the component with the ", Symbol("id"), " property. This is helpful to locate the component while hydrating."),
       li("You can optionally specify the initial counter value (default: ", Symbol("0"), ") with the ", Symbol("init"), " property."),
       li("You can optionally specify the style of the increment/decrement buttons. As illustrated later, we will see how to make the button style of the ", Symbol("Counter"), " component reactive to user selection."),
