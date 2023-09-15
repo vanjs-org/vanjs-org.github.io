@@ -237,7 +237,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the background overlay. You can specify multiple CSS classes seperated by ",
+        " attribute of the background overlay. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -278,7 +278,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the created modal element. You can specify multiple CSS classes seperated by ",
+        " attribute of the created modal element. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -390,7 +390,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the result DOM element. You can specify multiple CSS classes seperated by ",
+        " attribute of the result DOM element. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -500,7 +500,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the container of tab buttons. You can specify multiple CSS classes seperated by ",
+        " attribute of the container of tab buttons. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -541,7 +541,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of tab buttons. You can specify multiple CSS classes seperated by ",
+        " attribute of tab buttons. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -564,7 +564,7 @@ export default (doc: HTMLDocument) => {
           "property bag",
           "#property-bag-for-style-overrides",
         ),
-        " for the styles you want to override for tab buttons. You can specify multiple CSS classes seperated by ",
+        " for the styles you want to override for tab buttons. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -586,7 +586,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of tab contents. You can specify multiple CSS classes seperated by ",
+        " attribute of tab contents. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -770,7 +770,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the message board. You can specify multiple CSS classes seperated by ",
+        " attribute of the message board. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -811,7 +811,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the message shown on the message board. You can specify multiple CSS classes seperated by ",
+        " attribute of the message shown on the message board. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -852,7 +852,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the message closer. You can specify multiple CSS classes seperated by ",
+        " attribute of the message closer. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1095,7 +1095,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the tooltip. You can specify multiple CSS classes seperated by ",
+        " attribute of the tooltip. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1136,7 +1136,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the triangle in the bottom. You can specify multiple CSS classes seperated by ",
+        " attribute of the triangle in the bottom. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1331,7 +1331,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the toggle. You can specify multiple CSS classes seperated by ",
+        " attribute of the toggle. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1372,7 +1372,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the slider. You can specify multiple CSS classes seperated by ",
+        " attribute of the slider. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1413,7 +1413,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the toggling circle. You can specify multiple CSS classes seperated by ",
+        " attribute of the toggling circle. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1632,7 +1632,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the entire option group. You can specify multiple CSS classes seperated by ",
+        " attribute of the entire option group. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -1673,7 +1673,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the options. You can specify multiple CSS classes seperated by ",
+        " attribute of the options. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
