@@ -198,7 +198,7 @@ const PostBody = ({body}) => article(p(body))
       "data-suffix": "van.add(document.body, EvenNumbers({N: 20}))",
     }),
     H2("TODO List"),
-    p("Similarly, to build reactive applications, you can build in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with ", VanJS(), " as it doens't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
+    p("Similarly, to build reactive applications, you can build in a procedural way, which updates UI via the integration with native DOM API (it's easy to do with ", VanJS(), " as it doesn't introduce an ad-hoc virtual-DOM layer), or in a functional/reactive way, which delegates UI changes to ", Link("State Binding", "/tutorial#state-binding"), ". You can also choose a hybrid approach between the 2 paradigms, depending on which approach fits well for a specific problem."),
     Quote({text: ["道可道，非常道", br(), "(A rule that can be told by words, is not the rule that should universally apply)"], source: "老子，道德经"}),
     p("Below is an example of building a ", Symbol("TODO List"), " in a completely procedural way:"),
     Js(`const TodoItem = ({text}) => div(

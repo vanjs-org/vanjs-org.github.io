@@ -26,7 +26,7 @@ export default (doc: HTMLDocument) => {
       li("Implement server-side script with the help of ", MiniVan(), " for serving the HTML content to end users."),
       li("Implement client-side script with the help of ", VanJS(), " for adding client-side components and enabling hydration."),
     ),
-    p("The sample application requires a bare minimum of dependencies. The server-side script can be run by Node.js. We can also build a fullstack application with other JavaScript runtimes like Deno or Bun. Other front-end frameworks like Vite or Astro are not required, but it should be easy to integrate with them."),
+    p("The sample application requires a bare minimum of dependencies. The server-side script can be run by Node.js. We can also build a fullstack application with other JavaScript runtime like Deno or Bun. Other front-end frameworks like Vite or Astro are not required, but it should be easy to integrate with them."),
     p("The source code of the sample application can be found ", Link("here", codeUrlBase), " with the following directory structure:"),
     ul({class: "dir-tree"},
       Folder("hydration-example", ": Root of the sample application.",

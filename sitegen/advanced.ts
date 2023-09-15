@@ -40,7 +40,7 @@ export default (doc: HTMLDocument) => {
   b: 2,
 })
 `),
-    p("More granular ", Symbol("State"), " objects can help state bindings be more locally scoped, which make reactive UI updates more effient by eliminating unnecessary DOM tree construction and replacement."),
+    p("More granular ", Symbol("State"), " objects can help state bindings be more locally scoped, which make reactive UI updates more efficient by eliminating unnecessary DOM tree construction and replacement."),
     H3("Advanced state derivation"),
     Quote({text: ["道生一，一生二，二生三，三生万物", br(), "(Tao derives one, one derives two, two derive three, and three derive everything)"], source: "老子，道德经"}),
     p("A broad set of advanced state derivation (derived states and side effects) can indeed be defined with ", SymLink("van.derive", "/tutorial#api-derive"), ", as illustrated in the following piece of code:"),
