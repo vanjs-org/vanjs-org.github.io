@@ -351,7 +351,7 @@ const TodoList = () => {
     p(Demo()),
     p({id: "demo-auto-complete-stateful-binding"}),
     p({id: "jsfiddle-auto-complete-stateful-binding"},
-      a({href: "https://jsfiddle.net/ytorjdb8/1/"}, "Try on jsfiddle"),
+      a({href: "https://jsfiddle.net/p5e71ryw/"}, "Try on jsfiddle"),
     ),
     p("Alternatively, we can implement the same app with ", Link("State-derived properties", "/tutorial#state-derived-prop"), ":"),
     p(i("The code was implemented in TypeScript to validate ", VanJS(), "'s TypeScript support.")),

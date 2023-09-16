@@ -563,7 +563,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
     if (node &amp;&amp; candidates.val === candidates.oldVal) {
       const dom = &lt;HTMLElement&gt;node
       // If the candidate list doesn't change, we don't need to re-render the
-      // suggetion list. Just need to change the selected candidate.
+      // suggestion list. Just need to change the selected candidate.
       dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
         ?.classList?.remove("selected")
       dom.querySelector(`[data-index="${selectedIndex.val}"]`)
@@ -573,7 +573,7 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
     return SuggestionList({candidates: candidates.val, selectedIndex: selectedIndex.val})
   })
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/ytorjdb8/1/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
+</code></pre><p><b>Demo:</b></p><p id="demo-auto-complete-stateful-binding"></p><p id="jsfiddle-auto-complete-stateful-binding"><a href="https://jsfiddle.net/p5e71ryw/">Try on jsfiddle</a></p><p>Alternatively, we can implement the same app with <a href="/tutorial#state-derived-prop" class="w3-hover-opacity">State-derived properties</a>:</p><p><i>The code was implemented in TypeScript to validate <b>VanJS</b>'s TypeScript support.</i></p><pre><code class="language-ts">const lastWord = (text: string) =&gt; text.match(/\w+$/)?.[0] ?? ""
 
 const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
   const maxTotalCandidates = 10
