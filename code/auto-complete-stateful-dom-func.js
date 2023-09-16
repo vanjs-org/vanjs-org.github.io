@@ -45,7 +45,7 @@ const AutoComplete = ({ words }) => {
         if (node && candidates.val === candidates.oldVal) {
             const dom = node;
             // If the candidate list doesn't change, we don't need to re-render the
-            // suggetion list. Just need to change the selected candidate.
+            // suggestion list. Just need to change the selected candidate.
             (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
             (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
             return dom;
