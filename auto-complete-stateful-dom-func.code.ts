@@ -44,9 +44,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) => {
 
   const oninput = (e: Event) => prefix.val = lastWord((<HTMLTextAreaElement>e.target).value)
 
-  return div({class: "root"}, textarea({onkeydown, oninput}), node => {
-    if (node && candidates.val === candidates.oldVal) {
-      const dom = <HTMLElement>node
+  return div({class: "root"}, textarea({onkeydown, oninput}), (dom?: Element) => {
+    if (dom && candidates.val === candidates.oldVal) {
       // If the candidate list doesn't change, we don't need to re-render the
       // suggestion list. Just need to change the selected candidate.
       dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)

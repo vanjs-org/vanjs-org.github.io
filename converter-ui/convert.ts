@@ -66,7 +66,7 @@ const Converter = () => {
       ),
     ),
     pre({class: "err"}, err),
-    dom => {
+    (dom?: Element) => {
       if (!result.val) return div()
       if (!dom?.hasChildNodes()) dom = div(
         h5("Importing:"),
@@ -76,7 +76,7 @@ const Converter = () => {
       )
       const {code: lines, tags} = result.val
       const space = spacing.val ? " " : ""
-      const [tagsDom, codeDom] = (<Element>dom).querySelectorAll("pre code[class='language-js']")
+      const [tagsDom, codeDom] = dom.querySelectorAll("pre code[class='language-js']")
       tagsDom.textContent = tags.length ? `const {${space}${tags.join(", ")}${space}} = van.tags
 ` : ""
       codeDom.textContent = lines.map(l => l + "\n").join("")

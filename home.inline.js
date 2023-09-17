@@ -1,7 +1,7 @@
 google.charts.load('current', {packages: ['corechart']})
 
 const libs = [
-  ["VanJS", "1.2.0", 0.9, 1.7],
+  ["VanJS", "1.2.1", 0.9, 1.7],
   ["Preact", "10.15.1", 4.3, 10.9],
   ["jQuery", "3.7.0", 29.7, 85.4],
   ["ReactDOM", "18.2.0", 42, 130.5],

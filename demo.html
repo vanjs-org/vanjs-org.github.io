@@ -559,9 +559,8 @@ const AutoComplete = ({words}: {readonly words: readonly string[]}) =&gt; {
 
   const oninput = (e: Event) =&gt; prefix.val = lastWord((&lt;HTMLTextAreaElement&gt;e.target).value)
 
-  return div({class: "root"}, textarea({onkeydown, oninput}), node =&gt; {
-    if (node &amp;&amp; candidates.val === candidates.oldVal) {
-      const dom = &lt;HTMLElement&gt;node
+  return div({class: "root"}, textarea({onkeydown, oninput}), (dom?: Element) =&gt; {
+    if (dom &amp;&amp; candidates.val === candidates.oldVal) {
       // If the candidate list doesn't change, we don't need to re-render the
       // suggestion list. Just need to change the selected candidate.
       dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
@@ -1146,17 +1145,16 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           }
       };
       const oninput = (e) => prefix.val = lastWord(e.target.value);
-      return div({ class: "root" }, textarea({ onkeydown, oninput }), node => {
-        var _a, _b, _c, _d;
-        if (node && candidates.val === candidates.oldVal) {
-            const dom = node;
-            // If the candidate list doesn't change, we don't need to re-render the
-            // suggestion list. Just need to change the selected candidate.
-            (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-            (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
-            return dom;
-        }
-        return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
+      return div({ class: "root" }, textarea({ onkeydown, oninput }), (dom) => {
+          var _a, _b, _c, _d;
+          if (dom && candidates.val === candidates.oldVal) {
+              // If the candidate list doesn't change, we don't need to re-render the
+              // suggestion list. Just need to change the selected candidate.
+              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
+              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+              return dom;
+          }
+          return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
       });
   };
   fetch("https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt")
@@ -1478,7 +1476,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
         li(Snippet('plot([{Year:"2020",Sales:1000,Expenses:400},{Year:"2021",Sales:1170,Expenses:460},{Year:"2022",Sales:660,Expenses:1120},{Year:"2023",Sales:1030,Expenses:540}], "LineChart", {legend:{position:"bottom"}})')),
         li("The chart shown in the home page:", Snippet(`plot([
   ["Framework", "Size", {role: "style"}, {role: "annotation"}],
-  ["VanJS", 0.9, "#f44336", "VanJS-1.2.0 0.9kB"],
+  ["VanJS", 0.9, "#f44336", "VanJS-1.2.1 0.9kB"],
   ["Preact", 4.3, "#b7b7b7", "Preact-10.15.1 4.3kB"],
   ["jQuery", 29.7, "#b7b7b7", "jQuery-3.7.0 29.7kB"],
   ["ReactDOM", 42, "#b7b7b7", "ReactDOM-18.2.0 42kB"],

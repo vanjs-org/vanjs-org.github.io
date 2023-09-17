@@ -380,17 +380,16 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
           }
       };
       const oninput = (e) => prefix.val = lastWord(e.target.value);
-      return div({ class: "root" }, textarea({ onkeydown, oninput }), node => {
-        var _a, _b, _c, _d;
-        if (node && candidates.val === candidates.oldVal) {
-            const dom = node;
-            // If the candidate list doesn't change, we don't need to re-render the
-            // suggestion list. Just need to change the selected candidate.
-            (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-            (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
-            return dom;
-        }
-        return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
+      return div({ class: "root" }, textarea({ onkeydown, oninput }), (dom) => {
+          var _a, _b, _c, _d;
+          if (dom && candidates.val === candidates.oldVal) {
+              // If the candidate list doesn't change, we don't need to re-render the
+              // suggestion list. Just need to change the selected candidate.
+              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
+              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+              return dom;
+          }
+          return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
       });
   };
   fetch("https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt")
