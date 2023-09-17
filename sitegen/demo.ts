@@ -362,7 +362,7 @@ const TodoList = () => {
       a({href: "https://jsfiddle.net/7ueod0pL/1/"}, "Try on jsfiddle"),
     ),
     H2("HTML/MD to VanJS Code Converter"),
-    p("The ", Link("online UI", "/convert"), " for the HTML/MD snippet to ", VanJS(), " ", Link("code converter", "https://github.com/vanjs-org/van/tree/main/converter"), ", is also implemented with ", VanJS(), "."),
+    p("The ", Link("online UI", "/convert"), " for the HTML/MD snippet to ", VanJS(), " ", Link("code converter", "https://github.com/vanjs-org/converter"), ", is also implemented with ", VanJS(), "."),
     p("Source code: ", SymLink("convert.ts", "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/converter-ui/converter.ts")),
     H2("Jupyter-like JavaScript Console"),
     p("Next up, we're going to demonstrate a simplified Jupyter-like JavaScript console implemented in ", b("~100 lines"), " of code with ", VanJS(), ". The JavaScript console supports drawing tables (with the technique similar to ", Link("Table Viewer", "#table-viewer"), "), inspecting objects in a tree view (with the technique similar to ", Link("Json Inspector", "#json-inspector") , ") and plotting (with the integration of ", Link("Google Charts", "https://developers.google.com/chart"), ")."),

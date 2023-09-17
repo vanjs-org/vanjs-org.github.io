@@ -683,7 +683,7 @@ export default (doc: HTMLDocument) => {
           Symbol(
             "README.md",
           ),
-          "https://github.com/vanjs-org/van/tree/main/converter#readme",
+          "https://github.com/vanjs-org/converter#readme",
         ),
         " file is kept in sync with this ",
         Link(
