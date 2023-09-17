@@ -8,7 +8,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1("HTML/MD Snippet to 🍦VanJS Code"),
-    p(i("The library version of the converter with the support of custom ", VanJS(), " components is ", Link("here", "https://github.com/vanjs-org/van/tree/main/converter"), ".")),
+    p(i("The library version of the converter with the support of custom ", VanJS(), " components is ", Link("here", "https://github.com/vanjs-org/converter"), ".")),
     p({id: "converter"}),
   )
 }
