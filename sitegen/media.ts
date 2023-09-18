@@ -28,11 +28,12 @@ export default (doc: HTMLDocument) => {
     ol(
       li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
       li(Url("https://changelog.com/jsparty/277"), " (podcasts)"),
+      li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
+      li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
       li(Url("https://bytes.dev/archives/211")),
       li(Url("https://bytes.dev/archives/190")),
-      li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://echojs.com/news/41772")),
       li(Url("https://wweb.dev/weekly/150")),
       li(Url("https://javascript.thisweekin.io/javascript-weekly-issue-83-31f1d5c6c57f")),
