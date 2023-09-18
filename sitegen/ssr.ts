@@ -56,7 +56,7 @@ export default (doc: HTMLDocument) => {
     "finalhandler": "^1.2.0",
     "mini-van-plate": "^0.4.0",
     "serve-static": "^1.15.0",
-    "vanjs-core": "^1.2.0"
+    "vanjs-core": "^1.2.1"
   }
 `),
     ul(
