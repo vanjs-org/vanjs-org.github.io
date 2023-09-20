@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, br, div, i, iframe, li, p, span, table, tbody, td, th, thead, tr, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, br, button, div, i, iframe, li, p, span, table, tbody, td, th, thead, tr, ul}} = van.vanWithDoc(doc)
   const {Demo, H1, H2, Js, JsFile, Link, Quote, Symbol, SymLink, TsFile, User, VanJS} = common(doc)
 
   return div({id: "content"},
@@ -11,6 +11,7 @@ export default (doc: HTMLDocument) => {
     Quote({text: "Simplicity is the ultimate sophistication.", source: "Steve Jobs"}),
     p("Despite being an ", b("ultra-lightweight"), " UI framework, ", VanJS(), " allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with ", VanJS(), "."),
     p("See also ", Link("Community Examples", "#community-examples"), "."),
+    p(button({id: "random-demo"}, span({id: "dice"}, "🎲 "), "See a Random Demo")),
     H2("Hello World!"),
     p("This is the ", Symbol("Hello World"), " program shown in the ", Link("Home", "/"), " page:"),
     Js(`const Hello = () => div(

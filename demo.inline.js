@@ -1,5 +1,14 @@
 const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
+document.getElementById("random-demo").addEventListener("click", () => {
+  const allDemos = [...document.querySelectorAll("h2")].map(e => e.id).slice(0, -1)
+  const demo = allDemos[Math.floor(Math.random() * allDemos.length)]
+  const url = new URL(location)
+  url.hash = "#" + demo
+  history.pushState({}, "", url)
+  document.getElementById(demo).scrollIntoView()
+})
+
 {
   const autoGrow = e => {
     e.target.style.height = "5px"

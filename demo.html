@@ -42,7 +42,7 @@
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;">
       <div id="page">
-        <div id="content"><h1 class="w3-xxlarge"><b>VanJS</b>: Learning by Example</h1><blockquote><i>Simplicity is the ultimate sophistication.<br><br>-- Steve Jobs</i></blockquote><p>Despite being an <b>ultra-lightweight</b> UI framework, <b>VanJS</b>&nbsp;allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with <b>VanJS</b>.</p><p>See also <a href="#community-examples" class="w3-hover-opacity">Community Examples</a>.</p><h2 class="w3-xxlarge w3-text-red" id="hello-world"><a class="self-link" href="#hello-world">Hello World!</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is the <code class="symbol">Hello World</code> program shown in the <a href="/" class="w3-hover-opacity">Home</a> page:</p><pre><code class="language-js">const Hello = () =&gt; div(
+        <div id="content"><h1 class="w3-xxlarge"><b>VanJS</b>: Learning by Example</h1><blockquote><i>Simplicity is the ultimate sophistication.<br><br>-- Steve Jobs</i></blockquote><p>Despite being an <b>ultra-lightweight</b> UI framework, <b>VanJS</b>&nbsp;allows you to write incredibly elegant and expressive code for comprehensive application logic. This page is a curated list of cool things you can do with just a few lines of JavaScript code, including several handy utilities built with <b>VanJS</b>.</p><p>See also <a href="#community-examples" class="w3-hover-opacity">Community Examples</a>.</p><p><button id="random-demo"><span id="dice">🎲 </span>See a Random Demo</button></p><h2 class="w3-xxlarge w3-text-red" id="hello-world"><a class="self-link" href="#hello-world">Hello World!</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>This is the <code class="symbol">Hello World</code> program shown in the <a href="/" class="w3-hover-opacity">Home</a> page:</p><pre><code class="language-js">const Hello = () =&gt; div(
   p("👋Hello"),
   ul(
     li("🗺️World"),
@@ -1233,6 +1233,15 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
     </script>
     <script class="inline">const {button, code, div, input, li, p, pre, span, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
+document.getElementById("random-demo").addEventListener("click", () => {
+  const allDemos = [...document.querySelectorAll("h2")].map(e => e.id).slice(0, -1)
+  const demo = allDemos[Math.floor(Math.random() * allDemos.length)]
+  const url = new URL(location)
+  url.hash = "#" + demo
+  history.pushState({}, "", url)
+  document.getElementById(demo).scrollIntoView()
+})
+
 {
   const autoGrow = e => {
     e.target.style.height = "5px"
@@ -1491,7 +1500,8 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       Console()
     )
   )
-}</script>
+}
+</script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
   

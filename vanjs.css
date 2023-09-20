@@ -373,6 +373,34 @@ textarea {
   color: rgb(101, 109, 118);
 }
 
+#dice {
+  transition: transform 0.3s ease; /* Smoother transition for hover */
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+@keyframes spinDice {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+#random-demo:hover #dice {
+  animation: spinDice 0.1s infinite;
+}
+
+#random-demo:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media (max-width: 800px) {
   #toc {
     display: none;
