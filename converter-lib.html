@@ -70,7 +70,7 @@ The following result will be returned:
   components: [],
 }
 */
-</code></pre><h3 class="w3-large w3-text-red" id="using-vanjs-components"><a class="self-link" href="#using-vanjs-components">Using VanJS Components</a></h3><p><em>This is only supported in the converter library, not in the UI.</em></p><p>The input HTML string can be a mix of HTML elements and custom UI components built with <strong>VanJS</strong>. To use custom UI components, just specify the component similar to regular HTML tags. For instance, assume we have custom UI components similar to the ones shown in <a href="https://vanjs.org/" class="w3-hover-opacity">https://vanjs.org/</a> home page:</p><pre><code class="language-js">const Hello = text =&gt; div(
+</code></pre><h3 class="w3-large w3-text-red" id="using-vanjs-components"><a class="self-link" href="#using-vanjs-components">Using VanJS Components</a></h3><p><em>This is only supported in the converter library, not in the UI. The <a href="https://github.com/remarkablemark/html-react-parser/issues/168#issuecomment-699536994" class="w3-hover-opacity">root cause</a> is <a href="https://www.npmjs.com/package/html-dom-parser" class="w3-hover-opacity">html-dom-parser</a> doesn't support case-sensitive parsing on the client side.</em></p><p>The input HTML string can be a mix of HTML elements and custom UI components built with <strong>VanJS</strong>. To use custom UI components, just specify the component similar to regular HTML tags. For instance, assume we have custom UI components similar to the ones shown in <a href="https://vanjs.org/" class="w3-hover-opacity">https://vanjs.org/</a> home page:</p><pre><code class="language-js">const Hello = text =&gt; div(
   p("👋Hello"),
   ul(
     li(text),

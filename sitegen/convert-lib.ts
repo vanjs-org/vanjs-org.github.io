@@ -78,7 +78,17 @@ export default (doc: HTMLDocument) => {
     ),
     p(
       em(
-        "This is only supported in the converter library, not in the UI.",
+        "This is only supported in the converter library, not in the UI. The ",
+        Link(
+          "root cause",
+          "https://github.com/remarkablemark/html-react-parser/issues/168#issuecomment-699536994",
+        ),
+        " is ",
+        Link(
+          "html-dom-parser",
+          "https://www.npmjs.com/package/html-dom-parser",
+        ),
+        " doesn't support case-sensitive parsing on the client side.",
       ),
     ),
     p(
