@@ -7,6 +7,6 @@
     "dev": "node van-plate-server.mjs"
   },
   "dependencies": {
-    "mini-van-plate": "^0.4.0"
+    "mini-van-plate": "^0.4.2"
   }
 }
