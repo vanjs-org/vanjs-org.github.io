@@ -376,7 +376,7 @@ textarea {
 #dice {
   transition: transform 0.3s ease; /* Smoother transition for hover */
   display: inline-block;
-  margin-right: 0.3em;
+  margin-right: 5px;
 }
 
 @keyframes spinDice {
