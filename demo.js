@@ -211,15 +211,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       const appState = van.state(TodoListState.load());
       van.derive(() => appState.val.save());
       const inputDom = input({ type: "text" });
-      return div(inputDom, button({ onclick: () => appState.val = appState.val.add(inputDom.value) }, "Add"), (dom) => {
-          if (!dom)
-              return div(appState.val.todos.map(TodoItem));
-          const newItem = appState.val.todos.at(-1);
-          van.add(dom, TodoItem(newItem));
-          van.derive(() => (newItem.done.val, newItem.deleted.val,
-              requestIdleCallback(() => appState.val.save())));
-          return dom;
-      });
+      return div(inputDom, button({ onclick: () => appState.val = appState.val.add(inputDom.value) }, "Add"), (dom) => dom ?
+          van.add(dom, TodoItem(appState.val.todos.at(-1))) :
+          div(appState.val.todos.map(TodoItem)));
   };
   van.add(document.getElementById("demo-todo-fully-reactive"), TodoList());
 }
