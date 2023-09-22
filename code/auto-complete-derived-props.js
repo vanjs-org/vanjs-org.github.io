@@ -1,6 +1,6 @@
 import van from "./van-latest.min.js";
 const { a, div, p, pre, textarea } = van.tags;
-const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
 const AutoComplete = ({ words }) => {
     const maxTotalCandidates = 10;
     const getCandidates = (prefix) => {
@@ -17,10 +17,9 @@ const AutoComplete = ({ words }) => {
     const candidates = van.derive(() => getCandidates(prefix.val));
     // Resetting selectedIndex to 0 whenever candidates change
     const selectedIndex = van.derive(() => (candidates.val, 0));
-    const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
+    const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => candidates.val[index] ?? "");
     const suggestionList = div({ class: "suggestion" }, Array.from({ length: 10 }).map((_, index) => SuggestionListItem({ index })));
     const onkeydown = (e) => {
-        var _a;
         if (e.key === "ArrowDown") {
             selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
             e.preventDefault();
@@ -30,7 +29,7 @@ const AutoComplete = ({ words }) => {
             e.preventDefault();
         }
         else if (e.key === "Enter") {
-            const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+            const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
             const target = e.target;
             target.value += candidate.substring(prefix.val.length);
             target.setSelectionRange(target.value.length, target.value.length);

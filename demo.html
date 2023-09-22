@@ -207,7 +207,53 @@ const TodoList = () =&gt; {
   )
   return dom
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-functional"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="stargazers"><a class="self-link" href="#stargazers">Stargazers</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code can show the number of stars for a Github repo, and a list of most recent stargazers:</p><pre><code class="language-js">const Stars = async repo =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-functional"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-functional">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="todo-app"><a class="self-link" href="#todo-app">A Fully Reactive TODO App</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>You can also go fully reactive for the <code class="symbol">TODO App</code>. That is, the entire state of the app is captured by a global <code class="symbol">appState</code>. With the full reactivity it's easier to persist the <code class="symbol">appState</code> into <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" class="w3-hover-opacity">localStorage</a></code> so that the state is kept across page reloads.</p><p>Note that even if the app is fully reactive, we don't need to re-render the whole DOM tree for state updates, thanks to the optimization with <a href="/tutorial#stateful-binding" class="w3-hover-opacity">stateful binding</a>.</p><p><i>The code was implemented in TypeScript.</i></p><pre><code class="language-ts">class TodoItemState {
+  constructor(public text: string, public done: State&lt;boolean&gt;, public deleted: State&lt;boolean&gt;) {}
+  serialize() { return {text: this.text, done: this.done.val} }
+}
+
+const TodoItem = ({text, done, deleted}: TodoItemState) =&gt; () =&gt; deleted.val ? null : div(
+  input({type: "checkbox", checked: done, onclick: e =&gt; done.val = e.target.checked}),
+  () =&gt; (done.val ? strike : span)(text),
+  a({onclick: () =&gt; deleted.val = true}, "❌"),
+)
+
+class TodoListState {
+  private constructor(public todos: TodoItemState[]) {}
+
+  save() {
+    localStorage.setItem("appState", JSON.stringify(
+      (this.todos = this.todos.filter(t =&gt; !t.deleted.val)).map(t =&gt; t.serialize())))
+  }
+
+  static load = () =&gt; new TodoListState(
+    JSON.parse(localStorage.getItem("appState") ?? "[]")
+      .map((t: any) =&gt; new TodoItemState(t.text, van.state(t.done), van.state(false)))
+  )
+
+  add(text: string) {
+    this.todos.push(new TodoItemState(text, van.state(false), van.state(false)))
+    return new TodoListState(this.todos)
+  }
+}
+
+const TodoList = () =&gt; {
+  const appState = van.state(TodoListState.load())
+  van.derive(() =&gt; appState.val.save())
+  const inputDom = input({type: "text"})
+  return div(
+    inputDom, button({onclick: () =&gt; appState.val = appState.val.add(inputDom.value)}, "Add"),
+    (dom?: Element) =&gt; {
+      if (!dom) return div(appState.val.todos.map(TodoItem))
+      const newItem = appState.val.todos.at(-1)!
+      van.add(dom, TodoItem(newItem))
+      van.derive(() =&gt; (newItem.done.val, newItem.deleted.val,
+        requestIdleCallback(() =&gt; appState.val.save())))
+      return dom
+    }
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><h2 class="w3-xxlarge w3-text-red" id="stargazers"><a class="self-link" href="#stargazers">Stargazers</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code can show the number of stars for a Github repo, and a list of most recent stargazers:</p><pre><code class="language-js">const Stars = async repo =&gt; {
   const repoJson = await fetch(`https://api.github.com/repos/${repo}`).then(r =&gt; r.json())
   const pageNum = Math.floor((repoJson.stargazers_count - 1) / 100) + 1
   const starsJson = await fetch(
@@ -721,7 +767,7 @@ const Input = ({id}) =&gt; {
 
 const Console = () =&gt; div({class: "console"}, Input({id: 1}))
 </code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-terminal"><a class="self-link" href="#an-improved-unix-terminal">An Improved Unix Terminal</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Next up is a web-based Unix terminal that connects to your local computer, with notable improvements, all under 300 lines of code. This is to demonstrate that, with <b>VanJS</b>, we can easily provide great extension to commandline utilities with fancy GUI by leveraging all available HTML elements. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>See <a href="https://github.com/vanjs-org/van/tree/main/demo/terminal" class="w3-hover-opacity">github.com/vanjs-org/van/tree/main/demo/terminal</a> for the app (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/demo/terminal?file=/client.html:1,1" class="w3-hover-opacity">preview</a>).</p><h2 class="w3-xxlarge w3-text-red" id="community-examples"><a class="self-link" href="#community-examples">Community Examples</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Besides the official <b>VanJS</b> examples, there are also sample apps from the great <b>VanJS</b> community. Below is a curated list (contact <a href="mailto:tao@vanjs.org" class="w3-hover-opacity">tao@vanjs.org</a> to add yours):</p><ul><li><a href="https://github.com/artydev" class="w3-hover-opacity">@artydev</a>'s <a href="https://dev.to/artydev/series/23075" class="w3-hover-opacity"><b>VanJS</b> Series</a></li><li><a href="https://github.com/barrymun" class="w3-hover-opacity">@barrymun</a>'s <a href="https://github.com/barrymun/division-game" class="w3-hover-opacity">Division Game</a> (<a href="http://barrymun.vanjs-division-game.surge.sh/" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/enpitsuLin" class="w3-hover-opacity">@enpitsuLin</a>'s <a href="https://github.com/enpitsuLin/vanjs-todomvc" class="w3-hover-opacity">TODO app</a>&nbsp;(<a href="https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/ndrean" class="w3-hover-opacity">@ndrean</a>'s <a href="https://github.com/ndrean/vanjs-dialog-modal" class="w3-hover-opacity"><b>Modal</b> component &amp; routing with <b>VanJS</b></a>&nbsp;(<a href="https://githubbox.com/ndrean/vanjs-dialog-modal" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-kit" class="w3-hover-opacity">multi-page app starter kit under 5kB</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-playground" class="w3-hover-opacity">VanJS playground with Vite</a></li></ul></div>
-        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#blog" class="w3-hover-opacity">Blog</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#stargazers" class="w3-hover-opacity">Stargazers</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">Table-View Example: JSON/CSV Table Viewer</a></li><li><a href="#package-lock-inspector" class="w3-hover-opacity">package-lock.json Inspector</a></li><li><a href="#json-inspector" class="w3-hover-opacity">Tree-View Example: JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-md-to-vanjs-code-converter" class="w3-hover-opacity">HTML/MD to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-terminal" class="w3-hover-opacity">An Improved Unix Terminal</a></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
+        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#blog" class="w3-hover-opacity">Blog</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#todo-app" class="w3-hover-opacity">A Fully Reactive TODO App</a></li><li><a href="#stargazers" class="w3-hover-opacity">Stargazers</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">Table-View Example: JSON/CSV Table Viewer</a></li><li><a href="#package-lock-inspector" class="w3-hover-opacity">package-lock.json Inspector</a></li><li><a href="#json-inspector" class="w3-hover-opacity">Tree-View Example: JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-md-to-vanjs-code-converter" class="w3-hover-opacity">HTML/MD to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-terminal" class="w3-hover-opacity">An Improved Unix Terminal</a></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
       </div>
     </div>
     <script>
@@ -945,6 +991,51 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 }
 
 {
+  class TodoItemState {
+    text;
+    done;
+    deleted;
+    constructor(text, done, deleted) {
+        this.text = text;
+        this.done = done;
+        this.deleted = deleted;
+    }
+    serialize() { return { text: this.text, done: this.done.val }; }
+  }
+  const TodoItem = ({ text, done, deleted }) => () => deleted.val ? null : div(input({ type: "checkbox", checked: done, onclick: e => done.val = e.target.checked }), () => (done.val ? strike : span)(text), a({ onclick: () => deleted.val = true }, "❌"));
+  class TodoListState {
+      todos;
+      constructor(todos) {
+          this.todos = todos;
+      }
+      save() {
+          localStorage.setItem("appState", JSON.stringify((this.todos = this.todos.filter(t => !t.deleted.val)).map(t => t.serialize())));
+      }
+      static load = () => new TodoListState(JSON.parse(localStorage.getItem("appState") ?? "[]")
+          .map((t) => new TodoItemState(t.text, van.state(t.done), van.state(false))));
+      add(text) {
+          this.todos.push(new TodoItemState(text, van.state(false), van.state(false)));
+          return new TodoListState(this.todos);
+      }
+  }
+  const TodoList = () => {
+      const appState = van.state(TodoListState.load());
+      van.derive(() => appState.val.save());
+      const inputDom = input({ type: "text" });
+      return div(inputDom, button({ onclick: () => appState.val = appState.val.add(inputDom.value) }, "Add"), (dom) => {
+          if (!dom)
+              return div(appState.val.todos.map(TodoItem));
+          const newItem = appState.val.todos.at(-1);
+          van.add(dom, TodoItem(newItem));
+          van.derive(() => (newItem.done.val, newItem.deleted.val,
+              requestIdleCallback(() => appState.val.save())));
+          return dom;
+      });
+  };
+  van.add(document.getElementById("demo-todo-fully-reactive"), TodoList());
+}
+
+{
   const tsToDate = ts =>
     ts < 1e10 ? new Date(ts * 1e3) :
     ts < 1e13 ? new Date(ts) :
@@ -1109,7 +1200,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       "data-index": i,
       class: i === selectedIndex ? "text-row selected" : "text-row",
   }, s)));
-  const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+  const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
   const AutoComplete = ({ words }) => {
       const getCandidates = (prefix) => {
           const maxTotal = 10, result = [];
@@ -1126,7 +1217,6 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const onkeydown = (e) => {
-          var _a;
           if (e.key === "ArrowDown") {
               selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
               e.preventDefault();
@@ -1136,7 +1226,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
               e.preventDefault();
           }
           else if (e.key === "Enter") {
-              const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+              const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
               const target = e.target;
               target.value += candidate.substring(prefix.val.length);
               target.setSelectionRange(target.value.length, target.value.length);
@@ -1146,12 +1236,13 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const oninput = (e) => prefix.val = lastWord(e.target.value);
       return div({ class: "root" }, textarea({ onkeydown, oninput }), (dom) => {
-          var _a, _b, _c, _d;
           if (dom && candidates.val === candidates.oldVal) {
               // If the candidate list doesn't change, we don't need to re-render the
               // suggestion list. Just need to change the selected candidate.
-              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+              dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+                  ?.classList?.remove("selected");
+              dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+                  ?.classList?.add("selected");
               return dom;
           }
           return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
@@ -1161,12 +1252,12 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       .then(r => r.text())
       .then(t => t.split("\n"))
       .then(words => {
-      van.add(document.getElementById("demo-auto-complete-stateful-binding"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }))
+      van.add(document.getElementById("demo-auto-complete-stateful-binding"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }));
   });
 }
 
 {
-  const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+  const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
   const AutoComplete = ({ words }) => {
       const maxTotalCandidates = 10;
       const getCandidates = (prefix) => {
@@ -1183,10 +1274,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       const candidates = van.derive(() => getCandidates(prefix.val));
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
-      const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
+      const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => candidates.val[index] ?? "");
       const suggestionList = div({ class: "suggestion" }, Array.from({ length: 10 }).map((_, index) => SuggestionListItem({ index })));
       const onkeydown = (e) => {
-          var _a;
           if (e.key === "ArrowDown") {
               selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
               e.preventDefault();
@@ -1196,7 +1286,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
               e.preventDefault();
           }
           else if (e.key === "Enter") {
-              const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+              const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
               const target = e.target;
               target.value += candidate.substring(prefix.val.length);
               target.setSelectionRange(target.value.length, target.value.length);
@@ -1211,7 +1301,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       .then(r => r.text())
       .then(t => t.split("\n"))
       .then(words => {
-      van.add(document.getElementById("demo-auto-complete-derived-props"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }))
+      van.add(document.getElementById("demo-auto-complete-derived-props"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }));
   });
 }
 </script>

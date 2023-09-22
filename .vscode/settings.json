@@ -1,5 +1,8 @@
 {
   "deno.enablePaths": [
     "sitegen/"
+  ],
+  "cSpell.words": [
+    "todos"
   ]
 }

@@ -180,6 +180,51 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
 }
 
 {
+  class TodoItemState {
+    text;
+    done;
+    deleted;
+    constructor(text, done, deleted) {
+        this.text = text;
+        this.done = done;
+        this.deleted = deleted;
+    }
+    serialize() { return { text: this.text, done: this.done.val }; }
+  }
+  const TodoItem = ({ text, done, deleted }) => () => deleted.val ? null : div(input({ type: "checkbox", checked: done, onclick: e => done.val = e.target.checked }), () => (done.val ? strike : span)(text), a({ onclick: () => deleted.val = true }, "❌"));
+  class TodoListState {
+      todos;
+      constructor(todos) {
+          this.todos = todos;
+      }
+      save() {
+          localStorage.setItem("appState", JSON.stringify((this.todos = this.todos.filter(t => !t.deleted.val)).map(t => t.serialize())));
+      }
+      static load = () => new TodoListState(JSON.parse(localStorage.getItem("appState") ?? "[]")
+          .map((t) => new TodoItemState(t.text, van.state(t.done), van.state(false))));
+      add(text) {
+          this.todos.push(new TodoItemState(text, van.state(false), van.state(false)));
+          return new TodoListState(this.todos);
+      }
+  }
+  const TodoList = () => {
+      const appState = van.state(TodoListState.load());
+      van.derive(() => appState.val.save());
+      const inputDom = input({ type: "text" });
+      return div(inputDom, button({ onclick: () => appState.val = appState.val.add(inputDom.value) }, "Add"), (dom) => {
+          if (!dom)
+              return div(appState.val.todos.map(TodoItem));
+          const newItem = appState.val.todos.at(-1);
+          van.add(dom, TodoItem(newItem));
+          van.derive(() => (newItem.done.val, newItem.deleted.val,
+              requestIdleCallback(() => appState.val.save())));
+          return dom;
+      });
+  };
+  van.add(document.getElementById("demo-todo-fully-reactive"), TodoList());
+}
+
+{
   const tsToDate = ts =>
     ts < 1e10 ? new Date(ts * 1e3) :
     ts < 1e13 ? new Date(ts) :
@@ -344,7 +389,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       "data-index": i,
       class: i === selectedIndex ? "text-row selected" : "text-row",
   }, s)));
-  const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+  const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
   const AutoComplete = ({ words }) => {
       const getCandidates = (prefix) => {
           const maxTotal = 10, result = [];
@@ -361,7 +406,6 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
       const onkeydown = (e) => {
-          var _a;
           if (e.key === "ArrowDown") {
               selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
               e.preventDefault();
@@ -371,7 +415,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
               e.preventDefault();
           }
           else if (e.key === "Enter") {
-              const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+              const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
               const target = e.target;
               target.value += candidate.substring(prefix.val.length);
               target.setSelectionRange(target.value.length, target.value.length);
@@ -381,12 +425,13 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       };
       const oninput = (e) => prefix.val = lastWord(e.target.value);
       return div({ class: "root" }, textarea({ onkeydown, oninput }), (dom) => {
-          var _a, _b, _c, _d;
           if (dom && candidates.val === candidates.oldVal) {
               // If the candidate list doesn't change, we don't need to re-render the
               // suggestion list. Just need to change the selected candidate.
-              (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-              (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+              dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+                  ?.classList?.remove("selected");
+              dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+                  ?.classList?.add("selected");
               return dom;
           }
           return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });
@@ -396,12 +441,12 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       .then(r => r.text())
       .then(t => t.split("\n"))
       .then(words => {
-      van.add(document.getElementById("demo-auto-complete-stateful-binding"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }))
+      van.add(document.getElementById("demo-auto-complete-stateful-binding"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }));
   });
 }
 
 {
-  const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+  const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
   const AutoComplete = ({ words }) => {
       const maxTotalCandidates = 10;
       const getCandidates = (prefix) => {
@@ -418,10 +463,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       const candidates = van.derive(() => getCandidates(prefix.val));
       // Resetting selectedIndex to 0 whenever candidates change
       const selectedIndex = van.derive(() => (candidates.val, 0));
-      const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => { var _a; return (_a = candidates.val[index]) !== null && _a !== void 0 ? _a : ""; });
+      const SuggestionListItem = ({ index }) => pre({ class: () => index === selectedIndex.val ? "text-row selected" : "text-row" }, () => candidates.val[index] ?? "");
       const suggestionList = div({ class: "suggestion" }, Array.from({ length: 10 }).map((_, index) => SuggestionListItem({ index })));
       const onkeydown = (e) => {
-          var _a;
           if (e.key === "ArrowDown") {
               selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
               e.preventDefault();
@@ -431,7 +475,7 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
               e.preventDefault();
           }
           else if (e.key === "Enter") {
-              const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+              const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
               const target = e.target;
               target.value += candidate.substring(prefix.val.length);
               target.setSelectionRange(target.value.length, target.value.length);
@@ -446,6 +490,6 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
       .then(r => r.text())
       .then(t => t.split("\n"))
       .then(words => {
-      van.add(document.getElementById("demo-auto-complete-derived-props"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }))
+      van.add(document.getElementById("demo-auto-complete-derived-props"), p("Enter English words below with auto completion. Use ↓ and ↑ to change selection, and ↵ to select."), p(a({ href: "https://github.com/first20hours/google-10000-english/blob/master/20k.txt" }, "Dictionary Source")), AutoComplete({ words }));
   });
 }

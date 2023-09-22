@@ -4,7 +4,7 @@ const SuggestionList = ({ candidates, selectedIndex }) => div({ class: "suggesti
     "data-index": i,
     class: i === selectedIndex ? "text-row selected" : "text-row",
 }, s)));
-const lastWord = (text) => { var _a, _b; return (_b = (_a = text.match(/\w+$/)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : ""; };
+const lastWord = (text) => text.match(/\w+$/)?.[0] ?? "";
 const AutoComplete = ({ words }) => {
     const getCandidates = (prefix) => {
         const maxTotal = 10, result = [];
@@ -21,7 +21,6 @@ const AutoComplete = ({ words }) => {
     // Resetting selectedIndex to 0 whenever candidates change
     const selectedIndex = van.derive(() => (candidates.val, 0));
     const onkeydown = (e) => {
-        var _a;
         if (e.key === "ArrowDown") {
             selectedIndex.val = selectedIndex.val + 1 < candidates.val.length ? selectedIndex.val + 1 : 0;
             e.preventDefault();
@@ -31,7 +30,7 @@ const AutoComplete = ({ words }) => {
             e.preventDefault();
         }
         else if (e.key === "Enter") {
-            const candidate = (_a = candidates.val[selectedIndex.val]) !== null && _a !== void 0 ? _a : prefix.val;
+            const candidate = candidates.val[selectedIndex.val] ?? prefix.val;
             const target = e.target;
             target.value += candidate.substring(prefix.val.length);
             target.setSelectionRange(target.value.length, target.value.length);
@@ -41,12 +40,13 @@ const AutoComplete = ({ words }) => {
     };
     const oninput = (e) => prefix.val = lastWord(e.target.value);
     return div({ class: "root" }, textarea({ onkeydown, oninput }), (dom) => {
-        var _a, _b, _c, _d;
         if (dom && candidates.val === candidates.oldVal) {
             // If the candidate list doesn't change, we don't need to re-render the
             // suggestion list. Just need to change the selected candidate.
-            (_b = (_a = dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)) === null || _a === void 0 ? void 0 : _a.classList) === null || _b === void 0 ? void 0 : _b.remove("selected");
-            (_d = (_c = dom.querySelector(`[data-index="${selectedIndex.val}"]`)) === null || _c === void 0 ? void 0 : _c.classList) === null || _d === void 0 ? void 0 : _d.add("selected");
+            dom.querySelector(`[data-index="${selectedIndex.oldVal}"]`)
+                ?.classList?.remove("selected");
+            dom.querySelector(`[data-index="${selectedIndex.val}"]`)
+                ?.classList?.add("selected");
             return dom;
         }
         return SuggestionList({ candidates: candidates.val, selectedIndex: selectedIndex.val });

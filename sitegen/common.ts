@@ -80,6 +80,22 @@ export default (doc: HTMLDocument) => {
 
   const VanJS = () => b("VanJS")
 
+  interface FileOptions {trim?: boolean}
+  const File = (lang: string, file: string, {trim = false}: FileOptions) => {
+    let text = Deno.readTextFileSync(file)
+    if (trim) {
+      const lines = text.split("\n")
+      const tagImportingLine = lines.findIndex(l => l.includes("= van.tags"))
+      const addToBodyLine = lines.findIndex(l => l.includes("van.add(document.body"))
+      let firstLine = tagImportingLine + 1
+      while (!lines[firstLine]) ++firstLine
+      let lastLine = addToBodyLine - 1
+      while (!lines[lastLine]) --lastLine
+      text = lines.slice(firstLine, lastLine + 1).map(l => l + "\n").join("")
+    }
+    return pre(code({class: "language-" + lang}, text))
+  }
+
   return {
     VanJS,
 
@@ -118,13 +134,13 @@ export default (doc: HTMLDocument) => {
 
     Js: (text: string) => pre(code({class: "language-js"}, text)),
 
-    JsFile: (file: string) => pre(code({class: "language-js"}, Deno.readTextFileSync(file))),
+    JsFile: (file: string, options: FileOptions = {}) => File("js", file, options),
 
     InlineJs,
 
     Ts: (text: string) => pre(code({class: "language-ts"}, text)),
 
-    TsFile: (file: string) => pre(code({class: "language-ts"}, Deno.readTextFileSync(file))),
+    TsFile: (file: string, options: FileOptions = {}) => File("ts", file, options),
 
     InlineTs: (text: string) => code({class: "language-js"}, text),
 
@@ -132,7 +148,7 @@ export default (doc: HTMLDocument) => {
 
     Html: (text: string) => pre(code({class: "language-html"}, text)),
 
-    HtmlFile: (file: string) => pre(code({class: "language-html"}, Deno.readTextFileSync(file))),
+    HtmlFile: (file: string, options: FileOptions = {}) => File("html", file, options),
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
