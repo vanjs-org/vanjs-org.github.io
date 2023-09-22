@@ -21,7 +21,7 @@ class TodoListState {
       (this.todos = this.todos.filter(t => !t.deleted.val)).map(t => t.serialize())))
   }
 
-  static load = () => new TodoListState(
+  static readonly load = () => new TodoListState(
     JSON.parse(localStorage.getItem("appState") ?? "[]")
       .map((t: any) => new TodoItemState(t.text, van.state(t.done), van.state(false)))
   )
