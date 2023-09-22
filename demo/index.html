@@ -253,7 +253,7 @@ const TodoList = () =&gt; {
     }
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><h2 class="w3-xxlarge w3-text-red" id="stargazers"><a class="self-link" href="#stargazers">Stargazers</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code can show the number of stars for a Github repo, and a list of most recent stargazers:</p><pre><code class="language-js">const Stars = async repo =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><h2 class="w3-xxlarge w3-text-red" id="stargazers"><a class="self-link" href="#stargazers">Stargazers</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>The following code can show the number of stars for a Github repo, and a list of most recent stargazers:</p><pre><code class="language-js">const Stars = async repo =&gt; {
   const repoJson = await fetch(`https://api.github.com/repos/${repo}`).then(r =&gt; r.json())
   const pageNum = Math.floor((repoJson.stargazers_count - 1) / 100) + 1
   const starsJson = await fetch(

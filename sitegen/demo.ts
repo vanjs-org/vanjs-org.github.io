@@ -245,6 +245,7 @@ const TodoList = () => {
     TsFile("code/todo-app/src/main.ts", {trim: true}),
     p(Demo()),
     p({id: "demo-todo-fully-reactive"}),
+    p(Link("Try on CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1")),
     H2("Stargazers"),
     p("The following code can show the number of stars for a Github repo, and a list of most recent stargazers:"),
     JsFile("stars.code.js"),
