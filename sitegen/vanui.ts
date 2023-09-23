@@ -129,6 +129,18 @@ export default (doc: HTMLDocument) => {
         ),
         ")",
       ),
+      li(
+        Link(
+          "Banner",
+          "#banner",
+        ),
+        " (",
+        Link(
+          "preview",
+          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
+        ),
+        ")",
+      ),
     ),
     H3(
       "Modal",
@@ -1700,14 +1712,121 @@ export default (doc: HTMLDocument) => {
       ),
     ),
     H3(
-      "Planned for Future",
+      "Banner",
     ),
     p(
-      "The following UI components are planned to be added in the future:",
+      "Creates a banner element for the current container.",
+    ),
+    h4(
+      "Signature",
+    ),
+    pre(
+      code({class: "language-js"},
+        "Banner({...props}, ...children) => <The created banner element>\n",
+      ),
+    ),
+    h4(
+      "Examples",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body,\n  h2(\"Sticky Banner\"),\n  div({style: \"width: 300px; height: 200px; overflow-y: auto; border: 1px solid #000;\"},\n    Banner({sticky: true}, \"👋Hello 🗺️World\"),\n    div({style: \"padding: 0 10px\"}, Array.from({length: 10}).map((_, i) => p(\"Line \", i))),\n  ),\n  h2(\"Non-sticky Banner\"),\n  div({style: \"width: 300px; height: 200px; overflow-y: auto; border: 1px solid #000;\"},\n    Banner({sticky: false}, \"👋Hello \", a({href: \"https://vanjs.org/\"}, \"🍦VanJS\")),\n    div({style: \"padding: 0 10px\"}, Array.from({length: 10}).map((_, i) => p(\"Line \", i))),\n  ),\n)\n",
+      ),
+    ),
+    p(
+      "You can live preview the examples with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
+      ),
+      ".",
+    ),
+    h4(
+      "Property Reference",
     ),
     ul(
       li(
-        "Banner",
+        Symbol(
+          "backgroundColor",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "#fff1a8",
+        ),
+        ". Optional. The background color of the banner.",
+      ),
+      li(
+        Symbol(
+          "fontColor",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "currentcolor",
+        ),
+        ". Optional. The font color of the banner.",
+      ),
+      li(
+        Symbol(
+          "sticky",
+        ),
+        ": Type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. Whether the banner is sticky on the top.",
+      ),
+      li(
+        Symbol(
+          "bannerClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the created banner element. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "bannerStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "object",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the created banner element.",
       ),
     ),
     H3(
