@@ -26,6 +26,9 @@ export default (doc: HTMLDocument) => {
     H2(
       "Installation",
     ),
+    H3(
+      "Via NPM",
+    ),
     p(
       "The library is published as NPM package ",
       Link(
@@ -49,6 +52,59 @@ export default (doc: HTMLDocument) => {
       code({class: "language-js"},
         "import { <components you want to import> } from \"vanjs-ui\"\n",
       ),
+    ),
+    H3(
+      "Via a Script Tag",
+    ),
+    p(
+      "Alternatively, you can import ",
+      strong(
+        "VanUI",
+      ),
+      " from CDN via a ",
+      Symbol(
+        "<script type=\"text/javascript\">",
+      ),
+      " tag:",
+    ),
+    pre(
+      code({class: "language-html"},
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.8.1/dist/van-ui.nomodule.min.js\"></script>\n",
+      ),
+    ),
+    p(
+      Symbol(
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.8.1/dist/van-ui.nomodule.js",
+      ),
+      " can be used for the non-minified version.",
+    ),
+    p(
+      "Note that: ",
+      strong(
+        "VanJS",
+      ),
+      " needs to be imported via a ",
+      Symbol(
+        "<script type=\"text/javascript\">",
+      ),
+      " tag for ",
+      strong(
+        "VanUI",
+      ),
+      " to work properly.",
+    ),
+    p(
+      "Try on jsfiddle: ",
+      Link(
+        "Modal",
+        "https://jsfiddle.net/ez4gdjrs/",
+      ),
+      ", ",
+      Link(
+        "MessageBoard",
+        "https://jsfiddle.net/6aqmzwyv/1/",
+      ),
+      ".",
     ),
     H2(
       "Documentation",
