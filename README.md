@@ -5,5 +5,11 @@ This repo is for the website of [vanjs.org](https://vanjs.org/). The site genera
 To generate the website, run:
 
 ```shell
-bash render.sh
+npm run build
+```
+
+To preview the website, run:
+
+```shell
+npm run preview
 ```
