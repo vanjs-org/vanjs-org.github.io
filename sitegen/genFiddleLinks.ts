@@ -3,7 +3,7 @@ import { DOMParser, Element } from "https://deno.land/x/deno_dom@v0.1.38/deno-do
 import { emptyDirSync } from "https://deno.land/std@0.184.0/fs/mod.ts"
 import { join } from "https://deno.land/std@0.184.0/path/mod.ts"
 
-const jsFiddleRoot = "/Users/xintao/org/vanjs-org.github.io/jsfiddle"
+const jsFiddleRoot = "jsfiddle"
 const ghPath = "vanjs-org/vanjs-org.github.io/tree/master/jsfiddle"
 
 const mkdirIfNotExist = (dir: string) => {
