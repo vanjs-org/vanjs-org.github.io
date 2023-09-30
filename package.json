@@ -4,9 +4,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "bash render.sh"
+    "build": "bash render.sh",
+    "preview": "http-server"
   },
   "devDependencies": {
     "deno-bin": "^1.37.1"
+    "http-server": "^14.1.1"
   }
 }
