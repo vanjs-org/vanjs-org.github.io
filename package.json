@@ -8,7 +8,7 @@
     "preview": "http-server"
   },
   "devDependencies": {
-    "deno-bin": "^1.37.1"
+    "deno-bin": "^1.37.1",
     "http-server": "^14.1.1"
   }
 }
