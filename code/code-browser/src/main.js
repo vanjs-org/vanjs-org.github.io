@@ -32,8 +32,7 @@ const Browser = () => {
         a({href: "#" + f, class: () => f === file.val ? "selected" : "", onclick: browseFile, }, f),
       )),
     )))),
-    dom => {
-      if (!dom) dom = div({class: "right"}, pre(code()))
+    (dom = div({class: "right"}, pre(code()))) => {
       const codeDom = dom.querySelector("code")
       codeDom.textContent = content.val.text
       codeDom.className = content.val.lang ? "language-" + content.val.lang : ""
