@@ -21,5 +21,3 @@ const Hello = () => {
 }
 
 van.add(document.body, Hello())
-
-van.add(document.body, Hello())

@@ -17,5 +17,3 @@ const Hello = () => {
     button({onclick: () => van.add(dom, Run({sleepMs: 2}))}, "Hello 🚀"),
   )
 }
-
-van.add(document.body, Hello())
