@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/logo.svg">
+    <title>VanJS Source Code Browser</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/prism.css">
+    <style>
+      .row {
+        display: flex;
+      }
+
+      .left {
+        min-width: 210px;
+      }
+
+      .right {
+        flex-grow: 1;
+        max-width: 1000px;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 15px;
+      }
+
+      li {
+        text-indent: -1.5em;
+        padding-left: 0.5em;
+      }
+
+      li.folder::before {
+        content: "📂 ";
+      }
+
+      li.file::before {
+        content: "📄 ";
+      }
+
+      li.file a.selected, li.file a:hover {
+        font-weight: bold;
+      }
+
+      pre[class*=language-] {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
