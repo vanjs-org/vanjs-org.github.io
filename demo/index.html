@@ -241,21 +241,21 @@ const TodoList = () =&gt; {
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
   const file = van.state(location.hash.slice(1))
-  window.addEventListener("", () =&gt; file.val = location.hash.slice(1))
+  window.addEventListener("hashchange", () =&gt; file.val = location.hash.slice(1))
 
   const content = van.derive(() =&gt; file.val ? (
     fetch("https://api.github.com/repos/vanjs-org/van/contents/src/" + file.val)
       .then(r =&gt; r.json())
-      .then(json =&gt; content.val = {lang: file.val.split(".").at(-1), code: atob(json.content)})
-      .catch(e =&gt; content.val = {code: e.toString()}),
-    {code: "Loading"}
-  ) : {code: "Select a file to browse"})
+      .then(json =&gt; content.val = {lang: file.val.split(".").at(-1), text: atob(json.content)})
+      .catch(e =&gt; content.val = {text: e.toString()}),
+    {text: "Loading"}
+  ) : {text: "Select a file to browse"})
 
   const files = van.state([])
   fetch("https://api.github.com/repos/vanjs-org/van/contents/src")
     .then(r =&gt; r.json())
     .then(json =&gt; files.val = json.map(f =&gt; f.name).filter(n =&gt; /\.(ts|js)$/.test(n)))
-    .catch(e =&gt; content.val = {code: e.toString()})
+    .catch(e =&gt; content.val = {text: e.toString()})
 
   const browseFile = e =&gt; {
     e.preventDefault()
@@ -272,12 +272,9 @@ const TodoList = () =&gt; {
     dom =&gt; {
       if (!dom) dom = div({class: "right"}, pre(code()))
       const codeDom = dom.querySelector("code")
-      codeDom.textContent = content.val.code
-      if (content.val.lang) {
-        codeDom.className = "language-" + content.val.lang
-        setTimeout(() =&gt; Prism.highlightAll(), 5)
-      } else
-        codeDom.className = ""
+      codeDom.textContent = content.val.text
+      codeDom.className = content.val.lang ? "language-" + content.val.lang : ""
+      content.val.lang &amp;&amp; setTimeout(() =&gt; Prism.highlightAll(), 5)
       return dom
     },
   )
