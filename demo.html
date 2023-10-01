@@ -266,7 +266,7 @@ const TodoList = () =&gt; {
   return div({class: "row"},
     div({class: "left"}, ul(li({class: "folder"}, "src", () =&gt; ul(
       files.val.map(f =&gt; li({class: "file"},
-        a({href: "#" + f, class: () =&gt; f === file.val ? "selected" : "", onclick: browseFile, }, f),
+        a({href: "#" + f, class: () =&gt; f === file.val ? "selected" : "", onclick: browseFile}, f),
       )),
     )))),
     (dom = div({class: "right"}, pre(code()))) =&gt; {

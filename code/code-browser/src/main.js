@@ -29,7 +29,7 @@ const Browser = () => {
   return div({class: "row"},
     div({class: "left"}, ul(li({class: "folder"}, "src", () => ul(
       files.val.map(f => li({class: "file"},
-        a({href: "#" + f, class: () => f === file.val ? "selected" : "", onclick: browseFile, }, f),
+        a({href: "#" + f, class: () => f === file.val ? "selected" : "", onclick: browseFile}, f),
       )),
     )))),
     (dom = div({class: "right"}, pre(code()))) => {
