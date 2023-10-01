@@ -6,24 +6,24 @@ const Browser = () => {
   const file = van.state(location.hash.slice(1))
   window.addEventListener("hashchange", () => file.val = location.hash.slice(1))
 
-  const content = van.derive(() => file.val ? (
+  const text = van.derive(() => file.val ? (
     fetch("https://api.github.com/repos/vanjs-org/van/contents/src/" + file.val)
       .then(r => r.json())
-      .then(json => content.val = {lang: file.val.split(".").at(-1), text: atob(json.content)})
-      .catch(e => content.val = {text: e.toString()}),
-    {text: "Loading"}
-  ) : {text: "Select a file to browse"})
+      .then(json => text.val = {lang: file.val.split(".").at(-1), str: atob(json.content)})
+      .catch(e => text.val = {str: e.toString()}),
+    {str: "Loading"}
+  ) : {str: "Select a file to browse"})
 
   const files = van.state([])
   fetch("https://api.github.com/repos/vanjs-org/van/contents/src")
     .then(r => r.json())
     .then(json => files.val = json.map(f => f.name).filter(n => /\.(ts|js)$/.test(n)))
-    .catch(e => content.val = {text: e.toString()})
+    .catch(e => text.val = {str: e.toString()})
 
   const browseFile = e => {
     e.preventDefault()
-    history.pushState({}, "", "#" + e.target.textContent)
-    file.val = e.target.textContent
+    history.pushState({}, "", new URL(e.target.href).hash)
+    dispatchEvent(new Event("hashchange"))
   }
 
   return div({class: "row"},
@@ -34,9 +34,9 @@ const Browser = () => {
     )))),
     (dom = div({class: "right"}, pre(code()))) => {
       const codeDom = dom.querySelector("code")
-      codeDom.textContent = content.val.text
-      codeDom.className = content.val.lang ? "language-" + content.val.lang : ""
-      content.val.lang && setTimeout(() => Prism.highlightAll(), 5)
+      codeDom.textContent = text.val.str
+      codeDom.className = text.val.lang ? "language-" + text.val.lang : ""
+      text.val.lang && setTimeout(() => Prism.highlightAll(), 5)
       return dom
     },
   )
