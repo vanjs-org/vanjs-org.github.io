@@ -52,18 +52,9 @@
 </code></pre><p><b>Demo:</b></p><p id="demo-hello"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/hello">Try on jsfiddle</a></p><p>This is the funnier <code class="symbol">Hello</code>&nbsp;program shown in <a href="/start" class="w3-hover-opacity">Getting Started</a> page:</p><pre><code class="language-js">const sleep = ms =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms))
 
 const Run = ({sleepMs}) =&gt; {
-  const headingSpaces = van.state(40), trailingUnderscores = van.state(0)
-
-  const animate = async () =&gt; {
-    while (headingSpaces.val &gt; 0) {
-      await sleep(sleepMs)
-      --headingSpaces.val, ++trailingUnderscores.val
-    }
-  }
-  animate()
-
-  return pre(() =&gt;
-    `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`)
+  const steps = van.state(0)
+  ;(async () =&gt; { for (; steps.val &lt; 40; ++steps.val) await sleep(sleepMs) })()
+  return pre(() =&gt; `${" ".repeat(40 - steps.val)}🚐💨Hello VanJS!${"_".repeat(steps.val)}`)
 }
 
 const Hello = () =&gt; {
@@ -77,6 +68,8 @@ const Hello = () =&gt; {
     button({onclick: () =&gt; van.add(dom, Run({sleepMs: 2}))}, "Hello 🚀"),
   )
 }
+
+van.add(document.body, Hello())
 </code></pre><p><b>Demo:</b></p><p id="demo-hello-fun"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/hello-fun">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="dom-composition-and-manipulation"><a class="self-link" href="#dom-composition-and-manipulation">DOM Composition and Manipulation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Even without state and state binding, you can build interactive web pages thanks to <b>VanJS</b>'s flexible API for DOM composition and manipulation: <code class="symbol"><a href="/tutorial#api-tags" class="w3-hover-opacity">tag functions</a></code> and <code class="symbol"><a href="/tutorial#api-add" class="w3-hover-opacity">van.add</a></code>. Check out the example below:</p><pre><code class="language-js">const StaticDom = () =&gt; {
   const dom = div(
     div(
@@ -824,18 +817,9 @@ const {a, b, button, div, i, input, label, li, p, pre, span, strike, table, tbod
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const Run = ({sleepMs}) => {
-    const headingSpaces = van.state(40), trailingUnderscores = van.state(0)
-
-    const animate = async () => {
-      while (headingSpaces.val > 0) {
-        await sleep(sleepMs)
-        --headingSpaces.val, ++trailingUnderscores.val
-      }
-    }
-    animate()
-
-    return pre(() =>
-      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`)
+    const steps = van.state(0)
+    ;(async () => { for (; steps.val < 40; ++steps.val) await sleep(sleepMs) })()
+    return pre(() => `${" ".repeat(40 - steps.val)}🚐💨Hello VanJS!${"_".repeat(steps.val)}`)
   }
 
   const Hello = () => {

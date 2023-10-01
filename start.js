@@ -6,18 +6,9 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const Run = ({sleepMs}) => {
-    const headingSpaces = van.state(40), trailingUnderscores = van.state(0)
-
-    const animate = async () => {
-      while (headingSpaces.val > 0) {
-        await sleep(sleepMs)
-        --headingSpaces.val, ++trailingUnderscores.val
-      }
-    }
-    animate()
-
-    return pre(() =>
-      `${" ".repeat(headingSpaces.val)}🚐💨Hello VanJS!${"_".repeat(trailingUnderscores.val)}`)
+    const steps = van.state(0)
+    ;(async () => { for (; steps.val < 40; ++steps.val) await sleep(sleepMs) })()
+    return pre(() => `${" ".repeat(40 - steps.val)}🚐💨Hello VanJS!${"_".repeat(steps.val)}`)
   }
 
   const Hello = () => {
