@@ -98,7 +98,7 @@ van.add(document.body, Counter())
     H3("Performance"),
     p(VanJS(), " is among the fastest web frameworks, according to the ", Link("results", "https://krausest.github.io/js-framework-benchmark/2023/table_chrome_117.0.5938.62.html"), " by ", Link("krausest/js-framework-benchmark", "https://github.com/krausest/js-framework-benchmark"), ". For SSR, ", MiniVan(), " is ", Link(b("1.75X"), " to ", b("2X"), " more efficient", "https://github.com/vanjs-org/mini-van/tree/main/bench#react-vs-mini-van"), " compared to React."),
     H3("TypeScript Support"),
-    p(VanJS(), " provides first-class support for TypeScript. Simply download the corresponding ", Symbol(".d.ts"), " file along with your ", Symbol(".js") ," file, and you'll be able to take advantage of type-checking, IntelliSense, large-scale refactoring provided by your preferred development environment. Refer to the ", Link("Download Table", "/start#download-table"), " to find the right ", Symbol(".d.ts"), " file to work with."),
+    p(VanJS(), " provides first-class support for TypeScript. With the ", Symbol(".d.ts"), " file in place, you'll be able to take advantage of type-checking, IntelliSense, large-scale refactoring provided by your preferred development environment. Refer to the ", Link("Download Table", "/start#download-table"), " to find the right ", Symbol(".d.ts"), " file to work with."),
     H2("Want to Learn More?"),
     ul(
       li(Link("Get Started", "/start"), " (CDN, NPM or local download)"),
