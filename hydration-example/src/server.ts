@@ -8,7 +8,7 @@ import Counter from "./components/counter.js"
 
 const {body, div, h1, h2, head, link, meta, option, p, script, select, title} = van.tags
 
-const [env, port = "8080"] = process.argv.slice(2);
+const [env, port = 8080] = process.argv.slice(2);
 
 const serveFile = serveStatic(".")
 
