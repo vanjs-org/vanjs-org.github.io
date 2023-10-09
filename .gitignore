@@ -1,8 +1,7 @@
-sitegen/test.ts
-sitegen/test.js
-sitegen/test-plate.ts
-sitegen/showPlot.js
+test.ts
 test.js
+test-plate.ts
+showPlot.js
 code/test.html
 result
 node_modules

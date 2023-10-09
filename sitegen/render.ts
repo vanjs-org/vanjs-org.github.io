@@ -10,6 +10,7 @@ import convert from "./convert.ts"
 import vanui from "./vanui.ts"
 import minivan from "./minivan.ts"
 import ssr from "./ssr.ts"
+import x from "./x.ts"
 import advanced from "./advanced.ts"
 import media from "./media.ts"
 import about from "./about.ts"
@@ -33,6 +34,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
     ["VanUI", "vanui"],
     ["Mini-Van", "minivan"],
     ["SSR & Hydration", "ssr"],
+    ["X", "x"],
     ["Advanced Topics", "advanced"],
     ["Media Mentions", "media"],
     ["About", "about"],
@@ -105,6 +107,7 @@ renderPage(convert, "convert", "convert.html", "HTML/MD Snippet to 🍦VanJS Cod
 renderPage(vanui, "vanui", "vanui.html", "VanUI")
 renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
 renderPage(ssr, "ssr", "ssr.html", "Fullstack Rendering (SSR, CSR and Hydration)")
+renderPage(x, "x", "x.html", "VanX")
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
 renderPage(media, "media", "media.html", "Media Mentions")
 renderPage(about, "about", "about.html", "About")

@@ -145,6 +145,11 @@ ul.dir-tree li.folder, ul.dir-tree li.file {
   #demo-connected-props input {
     width: 120px;
   }
+
+  nav h1.w3-padding-16 {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
 }
 
 #demo-key-inspector .label {
