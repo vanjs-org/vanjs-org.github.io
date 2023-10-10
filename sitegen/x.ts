@@ -8,6 +8,6 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(strong("VanX")),
-    p(i("⏳ Coming soon. Stay tuned!")),
+    p("🤫 ", i("Coming soon. Stay tuned!")),
   )
 }
