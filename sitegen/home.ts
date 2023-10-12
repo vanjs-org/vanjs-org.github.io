@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, blockquote, div, g, i, input, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, blockquote, div, g, i, img, input, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: "16", height: "16", "aria-hidden": "true"},
@@ -29,6 +29,8 @@ export default (doc: HTMLDocument) => {
   const GithubIcon = ({style}: {style?: string}) => svg({...(style ? {style} : {}), height: "16", "aria-hidden": "true", viewBox: "0 0 16 16", version: "1.1", width: "16", "data-view-component": "true"},
     path({"d": "M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"}),
   )
+
+  const VSCodeIcon = ({style}: {style?: string}) => img({...(style ? {style} : {}), src: "/vs-code-16x16.png"})
 
   return div({id: "content"},
     H1(VanJS(), ": A 0.9kB Grab 'n Go Reactive UI Framework without React/JSX"),
@@ -108,6 +110,10 @@ van.add(document.body, Counter())
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},
       GithubIcon({style: "margin-right: 6px;"}), Link("github.com/vanjs-org/van", "https://github.com/vanjs-org/van"),
+    ),
+    H2("IDE Plug-ins"),
+    p({style: "display: flex; align-items: center;"},
+      VSCodeIcon({style: "margin-right: 6px;"}), Link("VS Code Extension", "https://marketplace.visualstudio.com/items?itemName=TaoXin.vanjs-importtag"),
     ),
     H2("Support & Feedback"),
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
