@@ -36,7 +36,7 @@ const Browser = () => {
       const codeDom = dom.querySelector("code")
       codeDom.textContent = text.val.str
       codeDom.className = text.val.lang ? "language-" + text.val.lang : ""
-      text.val.lang && setTimeout(() => Prism.highlightAll(), 5)
+      if (text.val.lang) setTimeout(() => Prism.highlightAll(), 5)
       return dom
     },
   )

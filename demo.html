@@ -273,7 +273,7 @@ const TodoList = () =&gt; {
       const codeDom = dom.querySelector("code")
       codeDom.textContent = text.val.str
       codeDom.className = text.val.lang ? "language-" + text.val.lang : ""
-      text.val.lang &amp;&amp; setTimeout(() =&gt; Prism.highlightAll(), 5)
+      if (text.val.lang) setTimeout(() =&gt; Prism.highlightAll(), 5)
       return dom
     },
   )
