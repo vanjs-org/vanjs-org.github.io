@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, p, strong}} = van.vanWithDoc(doc)
-  const {ApiTable, Caveat, Demo, H1, H2, H3, Html, InlineJs, Js, JsFile, Link, Shell, Symbol, VanJS, VanX} = common(doc)
+  const {ApiTable, Caveat, Demo, H1, H2, H3, Html, InlineHtml, InlineJs, Js, JsFile, Link, Shell, SymLink, Symbol, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
@@ -104,14 +104,51 @@ export default (doc: HTMLDocument) => {
       "data-suffix": "van.add(document.body, Name())",
     }),
     p(Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
-    H3({id: "api-reactivity"}, "API reference: ", Symbol("vanX.reactive")),
+    H3({id: "api-reactive"}, "API reference: ", Symbol("vanX.reactive")),
     ApiTable({
       signature: "vanX.reactive(obj) => <the created reactive object>",
-      description: ["Convert the input object ", Symbol("obj"), " into a reactive object."],
+      description: ["Converts the input object ", Symbol("obj"), " into a reactive object."],
       parameters: {
         obj: ["Can be a plain object or an object of an existing JavaScript class. ", Symbol("obj"), " can have deeply nested fields. ", Symbol("obj"), " shouldn't be accessed anymore after the ", InlineJs("vanX.reactive(obj)"), " call."],
       },
       returns: "The created reactive object.",
-    })
+    }),
+    p(Caveat(), "The passed-in ", Symbol("obj"), " object shouldn't have any ", Symbol("State"), " fields. Doing so will result in states of other ", Symbol("State"), " objects, which is ", Link("invalid", "/tutorial#public-interface-of-state-objects"), " in ", VanJS(), "."),
+    H3({id: "api-calc"}, "API reference: ", Symbol("vanX.calc")),
+    ApiTable({
+      signature: "vanX.calc(f) => <the created calculated field>",
+      description: ["Creates a calculated field for a reactive object based on the calculation function", Symbol("f"), "."],
+      parameters: {
+        f: "The calculation function.",
+      },
+      returns: "The created calculated field.",
+    }),
+    H3({id: "api-stateFields"}, "API reference: ", Symbol("vanX.stateFields")),
+    ApiTable({
+      signature: "vanX.stateFields(obj) => <an object for all underlying state fields of obj>",
+      description: ["Given a reactive object ", Symbol("obj"), ", returns an object for all the underlying state fields of ", Symbol("obj"), ". For instance, if ", Symbol("obj"), " is ", InlineJs(`{a: 1, b: 2}`), ", ", InlineJs(`{a: van.state(1), b: van.state(2)}`), " will be returned."],
+      parameters: {
+        obj: "The input reactive object.",
+      },
+      returns: ["An object for all the underlying state fields of ", Symbol("obj"), "."],
+    }),
+    H2(Symbol("vanX.list"), ": Reactive List that Minimizes DOM Updates"),
+    p(Symbol("vanX.list"), " take an input reactive object and build a list of UI elements whose content is updated whenever any field of the input reactive object changes. The input reactive object can either be an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " for non-keyed input, or a plain object for keyed input."),
+    p("Let's first take a look at some simple examples."),
+    p(Symbol("Array"), " for non-keyed input:"),
+    Js(`const items = vanX.reactive([1, 2, 3])
+return vanX.list(ul, items, v => li(v))
+`),
+    p("Plain object for keyed input:"),
+    Js(`const items = vanX.reactive({a: 1, b: 2, c: 3})
+return vanX.list(ul, items, v => li(v))
+`),
+    p("In both examples, ", InlineHtml("<ul><li>1</li><li>2</li><li>3</li></ul>"), " will be returned."),
+    p("You can add, update, and delete entries in the reactive object ", Symbol("items"), ", and the rendered UI elements are bound to the changes while minimizing DOM updates. For instance, if you do the following changes to the ", Symbol("Array"), " example:"),
+    Js(`++items[0]
+delete items[1]
+items.push(4)
+`),
+    p("the rendered UI elements will be updated to ", InlineHtml("<ul><li>2</li><li>2</li><li>4</li></ul>"), "."),
   )
 }
