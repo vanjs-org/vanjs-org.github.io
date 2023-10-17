@@ -149,11 +149,20 @@ return vanX.list(ul, items, v => li(v))
 delete items[1]
 items.push(4)
 `),
-    p("the rendered UI elements will be updated to ", InlineHtml("<ul><li>2</li><li>2</li><li>4</li></ul>"), "."),
+    p("the rendered UI elements will be updated to ", InlineHtml("<ul><li>2</li><li>3</li><li>4</li></ul>"), "."),
     p("For keyed object, the following changes will produce the same result:"),
     Js(`++items.a
 delete items.b
 items.d = 4
 `),
+    p("Note that for ", Symbol("Array"), "-based input ", Symbol("items"), ", you can call ", Symbol("shift"), ", ", Symbol("unshift"), " and ", Symbol("splice"), " as you would normally do to an array. The rendered UI elements are guaranteed to be in sync. For instance, after executing the following code:"),
+    Js(`const items = vanX.reactive([1, 2, 3])
+const dom = vanX.list(ul, items, v => li(v))
+
+items.shift()
+items.unshift(4)
+items.splice(1, 1, 5)
+`),
+    p(Symbol("dom"), " will become ", InlineHtml("<ul><li>4</li><li>5</li><li>3</li></ul>"), "."),
   )
 }

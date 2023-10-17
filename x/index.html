@@ -125,10 +125,16 @@ return vanX.list(ul, items, v =&gt; li(v))
 </code></pre><p>In both examples, <code class="language-html">&lt;ul&gt;&lt;li&gt;1&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&lt;li&gt;3&lt;/li&gt;&lt;/ul&gt;</code>&nbsp;will be returned.</p><p>You can add, update, and delete entries in the reactive object <code class="symbol">items</code>, and the rendered UI elements are bound to the changes while minimizing DOM updates. For instance, if you do the following changes to the <code class="symbol">Array</code> example:</p><pre><code class="language-js">++items[0]
 delete items[1]
 items.push(4)
-</code></pre><p>the rendered UI elements will be updated to <code class="language-html">&lt;ul&gt;&lt;li&gt;2&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&lt;li&gt;4&lt;/li&gt;&lt;/ul&gt;</code>.</p><p>For keyed object, the following changes will produce the same result:</p><pre><code class="language-js">++items.a
+</code></pre><p>the rendered UI elements will be updated to <code class="language-html">&lt;ul&gt;&lt;li&gt;2&lt;/li&gt;&lt;li&gt;3&lt;/li&gt;&lt;li&gt;4&lt;/li&gt;&lt;/ul&gt;</code>.</p><p>For keyed object, the following changes will produce the same result:</p><pre><code class="language-js">++items.a
 delete items.b
 items.d = 4
-</code></pre></div>
+</code></pre><p>Note that for <code class="symbol">Array</code>-based input <code class="symbol">items</code>, you can call <code class="symbol">shift</code>, <code class="symbol">unshift</code> and <code class="symbol">splice</code> as you would normally do to an array. The rendered UI elements are guaranteed to be in sync. For instance, after executing the following code:</p><pre><code class="language-js">const items = vanX.reactive([1, 2, 3])
+const dom = vanX.list(ul, items, v =&gt; li(v))
+
+items.shift()
+items.unshift(4)
+items.splice(1, 1, 5)
+</code></pre><p><code class="symbol">dom</code> will become <code class="language-html">&lt;ul&gt;&lt;li&gt;4&lt;/li&gt;&lt;li&gt;5&lt;/li&gt;&lt;li&gt;3&lt;/li&gt;&lt;/ul&gt;</code>.</p></div>
         <aside id="toc"><ul><li><a href="#installation" class="w3-hover-opacity">Installation</a><ul><li><a href="#via-npm" class="w3-hover-opacity">Via NPM</a></li><li><a href="#via-a-script-tag" class="w3-hover-opacity">Via a Script Tag</a></li></ul></li><li><a href="#vanx-reactive-reactive-object-to-hold-many-individual-states" class="w3-hover-opacity">vanX.reactive: Reactive Object to Hold Many Individual States</a><ul><li><a href="#a-practical-example" class="w3-hover-opacity">A practical example</a></li><li><a href="#calculated-fields" class="w3-hover-opacity">Calculated fields</a></li><li><a href="#get-the-underlying-state-object" class="w3-hover-opacity">Get the underlying State object</a></li><li><a href="#add-reactivity-to-existing-javascript-classes" class="w3-hover-opacity">Add reactivity to existing JavaScript classes</a></li><li><a href="#api-reactive" class="w3-hover-opacity">API reference: vanX.reactive</a></li><li><a href="#api-calc" class="w3-hover-opacity">API reference: vanX.calc</a></li><li><a href="#api-stateFields" class="w3-hover-opacity">API reference: vanX.stateFields</a></li></ul></li><li><a href="#vanx-list-reactive-list-that-minimizes-dom-updates" class="w3-hover-opacity">vanX.list: Reactive List that Minimizes DOM Updates</a></li></ul></aside>
       </div>
     </div>
