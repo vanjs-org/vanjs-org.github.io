@@ -150,5 +150,10 @@ delete items[1]
 items.push(4)
 `),
     p("the rendered UI elements will be updated to ", InlineHtml("<ul><li>2</li><li>2</li><li>4</li></ul>"), "."),
+    p("For keyed object, the following changes will produce the same result:"),
+    Js(`++items.a
+delete items.b
+items.d = 4
+`),
   )
 }
