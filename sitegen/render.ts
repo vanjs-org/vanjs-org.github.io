@@ -73,7 +73,9 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   if (title === "Mini-Van")
     doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"
   else if (title === "VanUI")
-    doc.querySelector("title")!.innerText = "VanUI: A Collection of Grab 'n Go Reusable UI Components for VanJS"
+    doc.querySelector("title")!.innerText = "VanUI - A Collection of Grab 'n Go Reusable UI Components for VanJS"
+  else if (title === "VanX")
+    doc.querySelector("title")!.innerText = "VanX - The 1.0 kB Official VanJS Extension"
   else
     doc.querySelector("title")!.innerText += " - " + docTitle
   let shortTitle = shortTitleToPath?.find(([_, p]) => p === path)?.[0] ?? ""

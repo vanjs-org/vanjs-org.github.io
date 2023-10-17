@@ -78,8 +78,6 @@ export default (doc: HTMLDocument) => {
       ),
     )
 
-  const VanJS = () => b("VanJS")
-
   interface FileOptions {trim?: boolean}
   const File = (lang: string, file: string, {trim = false}: FileOptions) => {
     let text = Deno.readTextFileSync(file)
@@ -97,11 +95,11 @@ export default (doc: HTMLDocument) => {
   }
 
   return {
-    VanJS,
-
+    VanJS: () => b("VanJS"),
+    VanX: () => b("VanX"),
     MiniVan: () => b("Mini-Van"),
-
     Demo: () => b("Demo:"),
+    Caveat: () => ["⚠️ ", b("Caveat"), ": "],
 
     H1: (...children: readonly ChildDom[]) => h1({class: "w3-xxlarge"}, ...children),
 

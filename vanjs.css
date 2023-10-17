@@ -215,6 +215,10 @@ ul.dir-tree li.folder, ul.dir-tree li.file {
   width: 100%;
 }
 
+[id^=demo-name] input {
+  width: 90px;
+}
+
 [id^=demo-auto-complete-] .root { display: flex; }
 
 [id^=demo-auto-complete-] textarea {

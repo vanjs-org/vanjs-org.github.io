@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
     <link rel="icon" href="/logo.svg">
-    <title>VanJS - VanX</title>
+    <title>VanX - The 1.0 kB Official VanJS Extension</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/w3.css">
@@ -42,8 +42,84 @@
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;">
       <div id="page">
-        <div id="content"><h1 class="w3-xxlarge"><strong>VanX</strong></h1><p>🤫 <i>Coming soon. Stay tuned!</i></p></div>
-        <aside id="toc"></aside>
+        <div id="content"><h1 class="w3-xxlarge"><strong>VanX: The 1.0 kB Official VanJS Extension</strong></h1><p><b>VanX</b> is the official extension of <b>VanJS</b>, which provides handy utility functions. With <b>VanX</b>, <b>VanJS</b> will be more ergonomic for certain use cases and its developer experience will be closer to other popular UI frameworks. Like <b>VanJS</b>, <b>VanX</b> is also ultra-lightweight, with just 1.0kB in the gzipped minified bundle.</p><h2 class="w3-xxlarge w3-text-red" id="installation"><a class="self-link" href="#installation">Installation</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><h3 class="w3-large w3-text-red" id="via-npm"><a class="self-link" href="#via-npm">Via NPM</a></h3><p><b>VanX</b> is published as NPM package <a href="vanjs-ext" class="w3-hover-opacity">https://www.npmjs.com/package/vanjs-ext</a>. Run the following command to install the package:</p><pre><code class="language-shell">npm install vanjs-ext</code></pre><p>Add this line to your script to import the package:</p><pre><code class="language-js">import * as vanX from "vanjs-ext"</code></pre><p>You can also import individual utility functions you're going to use:</p><pre><code class="language-js">import { &lt;functions you want to use&gt; } from "vanjs-ext"</code></pre><h3 class="w3-large w3-text-red" id="via-a-script-tag"><a class="self-link" href="#via-a-script-tag">Via a Script Tag</a></h3><p>Alternatively, you can import <b>VanX</b> from CDN via a <code class="language-js">&lt;script type="text/javascript"&gt;</code>&nbsp;tag:</p><pre><code class="language-html">&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@0.1.0-rc.7
+/dist/van-x.nomodule.min.js"&gt;&lt;/script&gt;</code></pre><p><code class="symbol">https://cdn.jsdelivr.net/npm/vanjs-ext@0.1.0-rc.7
+/dist/van-x.nomodule.js</code> can be used for the non-minified version.</p><p>Note that: <b>VanJS</b> needs to be imported via a <code class="language-js">&lt;script type="text/javascript"&gt;</code> tag for <b>VanX</b> to work properly.</p><h2 class="w3-xxlarge w3-text-red" id="vanx-reactive-reactive-object-to-hold-many-individual-states"><a class="self-link" href="#vanx-reactive-reactive-object-to-hold-many-individual-states"><code class="symbol">vanX.reactive</code>: Reactive Object to Hold Many Individual States</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p><code class="symbol">vanX.reactive</code> provides an ergonomic way to define a single reactive object where each of its individual fields corresponds to an underlying <code class="symbol">State</code> object. For instance:</p><pre><code class="language-js">const data = vanX.reactive({a: 1, b: 2})</code></pre><p>defines a reactive object with the following underlying state fields:</p><pre><code class="language-js">{a: van.state(1), b: van.state(2)}</code></pre><p>The reactive objects defined by <code class="symbol">vanX.reactive</code> can be deeply nested. For instance:</p><pre><code class="language-js">const data = vanX.reactive({
+  a: 1,
+  b: {
+    c: 2,
+    d: 3,
+  },
+})</code></pre><p>defines a reactive object with the following underlying state fields:</p><pre><code class="language-js">{
+  a: van.state(1),
+  b: van.state({
+    c: van.state(2),
+    d: van.state(3),
+  }),
+}</code></pre><p>Getting and setting values of the underlying states can be simply done by getting / setting the fields of the reactive object. For instance, <code class="language-js">data.b.c</code>&nbsp;is equivalent to what you would have to write <code class="language-js">data.b.val.c.val</code> had the underlying state object been accessed.</p><h3 class="w3-large w3-text-red" id="a-practical-example"><a class="self-link" href="#a-practical-example">A practical example</a></h3><p>Now, let's take a look at a practice example on how <code class="symbol">vanX.reactive</code> can help group multiple states into a single reactive object in your application:</p><pre><code class="language-js">const Name = () =&gt; {
+  const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+  return div(
+    "First name: ",
+    input({type: "text", value: () =&gt; data.name.first,
+      oninput: e =&gt; data.name.first = e.target.value}), "&nbsp;",
+    "Last name: ",
+    input({type: "text", value: () =&gt; data.name.last,
+      oninput: e =&gt; data.name.last = e.target.value}), " ",
+    "Full name: ", () =&gt; `${data.name.first} ${data.name.last}`, " ",
+    button({onclick: () =&gt; data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-name"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/x/name">Try on jsfiddle</a></p><p>Note that, you can set the entire object of the <code class="symbol">name</code> field, in addition to setting each of individual leaf fields, as what's being done in the <code class="symbol">onclick</code> handler of the <code class="symbol">Reset</code> button:</p><pre><code class="language-js">button({onclick: () =&gt; data.name = {first: "Tao", last: "Xin"}}, "Reset")</code></pre><p>⚠️ <b>Caveat</b>: Accessing to any sub-field of the reactive object needs to be wrapped inside a binding function. Otherwise, your app won't be reactive to the sub-field changes.</p><p id="caveat-no-aliasing">⚠️ <b>Caveat</b>: DO NOT alias any sub-field of the reactive object into other variables. Doing so will break the dependency detection when the sub-field alias is used in a binding function.</p><h3 class="w3-large w3-text-red" id="calculated-fields"><a class="self-link" href="#calculated-fields">Calculated fields</a></h3><p>You can specify calculated fields (similar to <a href="/tutorial#derived-state" class="w3-hover-opacity">derived states</a> in <b>VanJS</b>) with <code class="symbol">vanX.calc</code>. The example above can be rewritten to the code below:</p><pre><code class="language-js">const Name = () =&gt; {
+  const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+  data.fullName = vanX.calc(() =&gt; `${data.name.first} ${data.name.last}`)
+  return div(
+    "First name: ",
+    input({type: "text", value: () =&gt; data.name.first,
+      oninput: e =&gt; data.name.first = e.target.value}), "&nbsp;",
+    "Last name: ",
+    input({type: "text", value: () =&gt; data.name.last,
+      oninput: e =&gt; data.name.last = e.target.value}), " ",
+    "Full name: ", () =&gt; data.fullName, " ",
+    button({onclick: () =&gt; data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-name-calc"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/x/name-calc">Try on jsfiddle</a></p><p>⚠️ <b>Caveat</b>: Avoid self-referencing when specify calculated fields. For instance, the code below:</p><pre><code class="language-js">const data = vanX.reactive({
+  name: {first: "Tao", last: "Xin"},
+  fullName: vanX.calc(() =&gt; `${data.name.first} ${data.name.last}`),
+})</code></pre><p>will lead to <code class="symbol">ReferenceError</code> as <code class="symbol">data</code> variable is not yet defined when the calculation function is being executed.</p><p>You can either insert the new calculated fields after the reactive object is built (like what's done in the example above), or defining all the calculated fields in a separate reactive object.</p><h3 class="w3-large w3-text-red" id="get-the-underlying-state-object"><a class="self-link" href="#get-the-underlying-state-object">Get the underlying <code class="symbol">State</code> object</a></h3><p>Sometimes, it could be handy to get the underlying <code class="symbol">State</code> object for fields in a reactive object. This can be achieved with <code class="symbol">vanX.stateFields</code>. The example above can be modified to use underlying state field instead of the binding function for <code class="symbol">Full name</code>:</p><pre><code class="language-js">const Name = () =&gt; {
+  const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+  data.fullName = vanX.calc(() =&gt; `${data.name.first} ${data.name.last}`)
+  return div(
+    "First name: ",
+    input({type: "text", value: () =&gt; data.name.first,
+      oninput: e =&gt; data.name.first = e.target.value}), "&nbsp;",
+    "Last name: ",
+    input({type: "text", value: () =&gt; data.name.last,
+      oninput: e =&gt; data.name.last = e.target.value}), " ",
+    "Full name: ", vanX.stateFields(data).fullName, " ",
+    button({onclick: () =&gt; data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-name-state-fields"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/x/name-state-fields">Try on jsfiddle</a></p><p>Note that, <code class="symbol">stateFields</code> only gets the underlying state fields for one layer of the reactive object. For instance, to get the state field for <code class="symbol">First name</code>, you need to write:</p><pre><code class="language-js">vanX.stateFields(vanX.stateFields(data).name.val).first</code></pre><h3 class="w3-large w3-text-red" id="add-reactivity-to-existing-javascript-classes"><a class="self-link" href="#add-reactivity-to-existing-javascript-classes">Add reactivity to existing JavaScript classes</a></h3><p>It's possible to add reactivity to objects of existing JavaScript classes with the help of <code class="symbol">vanX.reactive</code>. For instance, the code below adds the reactivity to a <code class="symbol">Person</code>object:</p><pre><code class="language-js">class Person {
+  constructor(firstName, lastName) { this.firstName = firstName; this.lastName = lastName }
+  get fullName() { return `${this.firstName} ${this.lastName}` }
+}
+
+const Name = () =&gt; {
+  const person = vanX.reactive(new Person("Tao", "Xin"))
+  return div(
+    "First name: ",
+    input({type: "text", value: () =&gt; person.firstName,
+      oninput: e =&gt; person.firstName = e.target.value}), "&nbsp;",
+    "Last name: ",
+    input({type: "text", value: () =&gt; person.lastName,
+      oninput: e =&gt; person.lastName = e.target.value}), " ",
+    "Full name: ", () =&gt; person.fullName, " ",
+    button({onclick: () =&gt; (person.firstName = "Tao", person.lastName = "Xin")}, "Reset"),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-name-existing-class"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/x/name-existing-class">Try on jsfiddle</a></p><p>⚠️ <b>Caveat</b>: Once an object is turned reactive with <code class="symbol">vanX.reactive</code>, you shouldn't access the original object anymore. Doing so will create the same issue as <a href="#caveat-no-aliasing" class="w3-hover-opacity">aliasing</a>.</p><h3 class="w3-large w3-text-red" id="api-reactivity"><a class="self-link" href="#api-reactivity">API reference: <code class="symbol">vanX.reactive</code></a></h3><table><tbody><tr><td><b>Signature</b></td><td><code class="language-js">vanX.reactive(obj) =&gt; &lt;the created reactive object&gt;</code></td></tr><tr><td><b>Description</b></td><td>Convert the input object <code class="symbol">obj</code> into a reactive object.</td></tr><tr><td><b>Parameters</b></td><td><ul><li><b><code class="symbol">obj</code></b> - Can be a plain object or an object of an existing JavaScript class. <code class="symbol">obj</code> can have deeply nested fields. <code class="symbol">obj</code> shouldn't be accessed anymore after the <code class="language-js">vanX.reactive(obj)</code> call.</li></ul></td></tr><tr><td><b>Returns</b></td><td>The created reactive object.</td></tr></tbody></table></div>
+        <aside id="toc"><ul><li><a href="#installation" class="w3-hover-opacity">Installation</a><ul><li><a href="#via-npm" class="w3-hover-opacity">Via NPM</a></li><li><a href="#via-a-script-tag" class="w3-hover-opacity">Via a Script Tag</a></li></ul></li><li><a href="#vanx-reactive-reactive-object-to-hold-many-individual-states" class="w3-hover-opacity">vanX.reactive: Reactive Object to Hold Many Individual States</a><ul><li><a href="#a-practical-example" class="w3-hover-opacity">A practical example</a></li><li><a href="#calculated-fields" class="w3-hover-opacity">Calculated fields</a></li><li><a href="#get-the-underlying-state-object" class="w3-hover-opacity">Get the underlying State object</a></li><li><a href="#add-reactivity-to-existing-javascript-classes" class="w3-hover-opacity">Add reactivity to existing JavaScript classes</a></li><li><a href="#api-reactivity" class="w3-hover-opacity">API reference: vanX.reactive</a></li></ul></li></ul></aside>
       </div>
     </div>
     <script>
@@ -89,6 +165,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script type="text/javascript" src="/code/van-x.nomodule.min.js"></script>
     <script>
       const copy = e => {
         const file = e.previousElementSibling.innerText
@@ -102,7 +179,92 @@
 
       const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
     </script>
-    <script class="inline"></script>
+    <script class="inline">{
+  const {button, div, input} = van.tags
+
+  const Name = () => {
+    const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+    return div(
+      "First name: ",
+      input({type: "text", value: () => data.name.first,
+        oninput: e => data.name.first = e.target.value}), " ",
+      "Last name: ",
+      input({type: "text", value: () => data.name.last,
+        oninput: e => data.name.last = e.target.value}), " ",
+      "Full name: ", () => `${data.name.first} ${data.name.last}`, " ",
+      button({onclick: () => data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+    )
+  }
+
+  van.add(document.getElementById("demo-name"), Name())
+}
+
+{
+  const {button, div, input} = van.tags
+
+  const Name = () => {
+    const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+    data.fullName = vanX.calc(() => `${data.name.first} ${data.name.last}`)
+    return div(
+      "First name: ",
+      input({type: "text", value: () => data.name.first,
+        oninput: e => data.name.first = e.target.value}), " ",
+      "Last name: ",
+      input({type: "text", value: () => data.name.last,
+        oninput: e => data.name.last = e.target.value}), " ",
+      "Full name: ", () => data.fullName, " ",
+      button({onclick: () => data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+    )
+  }
+
+  van.add(document.getElementById("demo-name-calc"), Name())
+}
+
+{
+  const {button, div, input} = van.tags
+
+  const Name = () => {
+    const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
+    data.fullName = vanX.calc(() => `${data.name.first} ${data.name.last}`)
+    return div(
+      "First name: ",
+      input({type: "text", value: () => data.name.first,
+        oninput: e => data.name.first = e.target.value}), " ",
+      "Last name: ",
+      input({type: "text", value: () => data.name.last,
+        oninput: e => data.name.last = e.target.value}), " ",
+      "Full name: ", vanX.stateFields(data).fullName, " ",
+      button({onclick: () => data.name = {first: "Tao", last: "Xin"}}, "Reset"),
+    )
+  }
+
+  van.add(document.getElementById("demo-name-state-fields"), Name())
+}
+
+{
+  const {button, div, input} = van.tags
+
+  class Person {
+    constructor(firstName, lastName) { this.firstName = firstName; this.lastName = lastName }
+    get fullName() { return `${this.firstName} ${this.lastName}` }
+  }
+
+  const Name = () => {
+    const person = vanX.reactive(new Person("Tao", "Xin"))
+    return div(
+      "First name: ",
+      input({type: "text", value: () => person.firstName,
+        oninput: e => person.firstName = e.target.value}), " ",
+      "Last name: ",
+      input({type: "text", value: () => person.lastName,
+        oninput: e => person.lastName = e.target.value}), " ",
+      "Full name: ", () => person.fullName, " ",
+      button({onclick: () => (person.firstName = "Tao", person.lastName = "Xin")}, "Reset"),
+    )
+  }
+
+  van.add(document.getElementById("demo-name-existing-class"), Name())
+}</script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
   
