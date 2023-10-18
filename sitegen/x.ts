@@ -137,7 +137,7 @@ export default (doc: HTMLDocument) => {
       returns: ["An object for all the underlying state fields of ", Symbol("obj"), "."],
     }),
     H3("A comprehensive example"),
-    p("You can refer to this ", Link("file", "https://github.com/vanjs-org/van/blob/x/x/examples/reactive/src/main.js"), " for a comprehensive demo of all the features regarding to reactive objects discussed above. You can preview the app via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/x/x/examples/reactive?file=%2Fsrc%2Fmain.js%3A1%2C1"), "."),
+    p("You can refer to this ", Link("file", "https://github.com/vanjs-org/van/blob/main/x/examples/reactive/src/main.js"), " for a comprehensive demo of all the features regarding to reactive objects discussed above. You can preview the app via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/x/examples/reactive?file=%2Fsrc%2Fmain.js%3A1%2C1"), "."),
     H2({id: "reactive-list"}, Symbol("vanX.list"), ": Reactive List that Minimizes Re-rendering on Updates"),
     p(Symbol("vanX.list"), " takes an input reactive object and builds a list of UI elements whose contents are updated whenever any field of the input reactive object changes. The input reactive object can either be an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " for non-keyed input, or a plain object for keyed input."),
     p("Let's first take a look at some simple examples."),
