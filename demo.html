@@ -239,7 +239,20 @@ const TodoList = () =&gt; {
       div(appState.val.todos.map(TodoItem)),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p>With the help of <a href="/x" class="w3-hover-opacity">VanX</a>, the code above can be simplified to just 10+ lines:</p><pre><code class="language-js">const TodoList = () =&gt; {
+  const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
+  van.derive(() =&gt; localStorage.setItem("appState", JSON.stringify(items.filter(v =&gt; v))))
+  const inputDom = input({type: "text"})
+  return div(
+    inputDom, button({onclick: () =&gt; items.push({text: inputDom.value, done: false})}, "Add"),
+    vanX.list(div, items, ({val: v}, deleter) =&gt; div(
+      input({type: "checkbox", checked: () =&gt; v.done, onclick: e =&gt; v.done = e.target.checked}),
+      () =&gt; (v.done ? strike : span)(v.text),
+      a({onclick: deleter}, "❌"),
+    )),
+  )
+}
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive-vanx"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-fully-reactive-vanx">Try on jsfiddle</a></p><p>You can refer to <code class="symbol"><a href="/x#reactive-list" class="w3-hover-opacity">vanX.list</a></code> for more details.</p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
   const file = van.state(location.hash.slice(1))
   window.addEventListener("hashchange", () =&gt; file.val = location.hash.slice(1))
 
@@ -1602,6 +1615,26 @@ document.getElementById("random-demo").addEventListener("click", () => {
       Console()
     )
   )
+}
+
+{
+  const {a} = van.tags
+
+  const TodoList = () => {
+    const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
+    van.derive(() => localStorage.setItem("appState", JSON.stringify(items.filter(v => v))))
+    const inputDom = input({type: "text"})
+    return div(
+      inputDom, button({onclick: () => items.push({text: inputDom.value, done: false})}, "Add"),
+      vanX.list(div, items, ({val: v}, deleter) => div(
+        input({type: "checkbox", checked: () => v.done, onclick: e => v.done = e.target.checked}),
+        () => (v.done ? strike : span)(v.text),
+        a({onclick: deleter}, "❌"),
+      )),
+    )
+  }
+
+  van.add(document.getElementById("demo-todo-fully-reactive-vanx"), TodoList())
 }
 </script>
     <!-- Place this tag in your head or just before your close body tag. -->
