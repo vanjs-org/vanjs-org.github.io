@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {a, b, blockquote, div, g, i, img, input, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
-  const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
+  const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: "16", height: "16", "aria-hidden": "true"},
     path({"d": "M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"}),
@@ -34,7 +34,10 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": A 0.9kB Grab 'n Go Reactive UI Framework without React/JSX"),
-    p("📣 ", Link(VanJS(), " 1.0.0 is here →", "https://github.com/vanjs-org/van/discussions/72")),
+    p(
+      div("📣 ", Link(VanJS(), " 1.0.0 is here →", "https://github.com/vanjs-org/van/discussions/72")),
+      div("📣 ", Link("Introducing ", VanX(), " →", "https://github.com/vanjs-org/van/discussions/144"))
+    ),
     blockquote(i("Enable everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     p((VanJS()), " (", Link("abbreviated ", b("Van"), "illa ", b("J"), "ava", b("S"), "cript", "/about#name"), ") is an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Programming with ", VanJS(), " feels like building React apps in a ", Link("scripting language", "/about#story"), ", without JSX", ". Check-out the ", Symbol("Hello World"), " code below:"),
     Js(`// Reusable components can be just pure vanilla JavaScript functions.
