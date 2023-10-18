@@ -3,8 +3,8 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, p, strong}} = van.vanWithDoc(doc)
-  const {ApiTable, Caveat, Demo, H1, H2, H3, Html, InlineHtml, InlineJs, Js, JsFile, Link, Shell, SymLink, Symbol, VanJS, VanX} = common(doc)
+  const {tags: {div, li, p, strong, ul}} = van.vanWithDoc(doc)
+  const {ApiTable, Caveat, Demo, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
@@ -24,7 +24,7 @@ export default (doc: HTMLDocument) => {
     Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.min.js"></script>`),
     p(Symbol(`https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.js`)," can be used for the non-minified version."),
     p("Note that: ", VanJS(), " needs to be imported via a ", InlineJs(`<script type="text/javascript">`), " tag for ", VanX, " to work properly."),
-    H2(Symbol("vanX.reactive"), ": Reactive Object to Hold Many Individual States"),
+    H2({id: "reactive-object"}, Symbol("vanX.reactive"), ": Reactive Object to Hold Many Individual States"),
     p(Symbol("vanX.reactive"), " provides an ergonomic way to define a single reactive object where each of its individual fields corresponds to an underlying ", Symbol("State"), " object. For instance:"),
     Js(`const data = vanX.reactive({a: 1, b: 2})`),
     p("defines a reactive object with the following underlying state fields:"),
@@ -132,6 +132,8 @@ export default (doc: HTMLDocument) => {
       },
       returns: ["An object for all the underlying state fields of ", Symbol("obj"), "."],
     }),
+    H3("A comprehensive example"),
+    p("You can refer to this ", Link("file", "https://github.com/vanjs-org/van/blob/x/x/examples/reactive/src/main.js"), " for a comprehensive demo of all the features regarding to reactive objects discussed above. You can preview the app via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/x/x/examples/reactive?file=%2Fsrc%2Fmain.js%3A1%2C1"), "."),
     H2(Symbol("vanX.list"), ": Reactive List that Minimizes DOM Updates"),
     p(Symbol("vanX.list"), " take an input reactive object and build a list of UI elements whose content is updated whenever any field of the input reactive object changes. The input reactive object can either be an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " for non-keyed input, or a plain object for keyed input."),
     p("Let's first take a look at some simple examples."),
@@ -155,7 +157,7 @@ items.push(4)
 delete items.b
 items.d = 4
 `),
-    p("Note that for ", Symbol("Array"), "-based input ", Symbol("items"), ", you can call ", Symbol("shift"), ", ", Symbol("unshift"), " and ", Symbol("splice"), " as you would normally do to an array. The rendered UI elements are guaranteed to be in sync. For instance, after executing the following code:"),
+    p("Note that for ", Symbol("Array"), "-based input ", Symbol("items"), ", you can call ", SymLink("shift", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift"), ", ", SymLink("unshift", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift"), " and ", SymLink("splice", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"), " as you would normally do to an array. The rendered UI elements are guaranteed to be in sync. For instance, after executing the following code:"),
     Js(`const items = vanX.reactive([1, 2, 3])
 const dom = vanX.list(ul, items, v => li(v))
 
@@ -164,5 +166,99 @@ items.unshift(4)
 items.splice(1, 1, 5)
 `),
     p(Symbol("dom"), " will become ", InlineHtml("<ul><li>4</li><li>5</li><li>3</li></ul>"), "."),
+    H3({id: "api-list"}, "API Reference: ", Symbol("vanX.list")),
+    ApiTable({
+      signature: "vanX.list(containerFunc, items, itemFunc) => <the root element of the created DOM tree>",
+      description: ["Creates a DOM tree for a list of UI elements based on the input reactive object ", Symbol("items"), "."],
+      parameters: {
+        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
+        items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
+        itemFunc: ["The function (", InlineJs("(v, deleter) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
+          li(Symbol("v"), " - A ", Symbol("State"), " object corresponding to the input list item. You can directly use it as a ", Symbol("State"), "-based ", Link("property", "/tutorial#state-typed-prop"), "/", Link("child node", "/tutorial#state-typed-child"), ", read its value for building the UI element, and/or set its value in some event handlers."),
+          li(Symbol("deleter"), " - a function (", InlineJs("() => void"), ") that can be used in the event handler to delete the entire item. Typically the ", Symbol("deleter"), " function can be used as the ", Symbol("onclick"), " handler of a deletion button."),
+        )],
+      },
+      returns: "The root element of the created DOM tree.",
+    }),
+    H3("A simplified TODO App"),
+    p("Now, let's take a look at a practical example: The ", Link("Fully Reactive TODO App", "/demo#todo-app"), " in ", Link("VanJS by Example", "/demo"), " page can be re-implemented with the help of ", Symbol("vanX.list"), ". We can see how a 40+ lines of code is simplified to just over 10 lines:"),
+    JsFile("todo-app.code.js"),
+    p(Demo()),
+    p({id: "demo-todo-list"}),
+    p({
+      id: "jsfiddle-todo-list",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {a, button, div, input, span, strike} = van.tags",
+      "data-suffix": "van.add(document.body, TodoList())",
+    }),
+    p("You might notice how easy it is to serialize/deserialize a complex reactive object into/from the external storage, which is one notable benefit of reactive objects provided by ", SymLink("vanX.reactive", "#reactive-object"), "."),
+    p("Note that we are calling ", InlineJs("items.filter(v => v)"), " before serializing to the JSON string via ", InlineJs("JSON.stringify"), ". This is because after some deletions of items, there will be ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " in the ", Symbol("items"), " array, which can result ", Symbol("null"), " values in the result JSON string and cause problems when the JSON string is deserialized. ", InlineJs("items.filter(v => v)"), " will eliminate the holes."),
+    H3("Update, insert, delete and reorder items in batch with ", Symbol("vanX.replace")),
+    p("In addition to update the underlying data of ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
+    Js(`// Assume we're a few TODO items as following:
+const todoItems = vanX.reactive([
+  {text: "Implement VanX", done: true},
+  {text: "Test VanX", done: false},
+  {text: "Write tutorial for VanX", done: false},
+])
+
+// To delete items in batch
+const clearCompleted = () => vanX.replace(todoItems, l => l.filter(v => !v.done))
+
+// To update items in batch
+const appendText = () =>
+  vanX.replace(todoItems, l => l.map(v => ({text: v.text + "!", done: v.done})))
+
+// To reorder items in batch
+const appendText = () =>
+  vanX.replace(todoItems, l => l.map(v => ({text: v.text + "!", done: v.done})))
+
+// To insert items in batch
+const duplicateItems = () => vanX.replace(todoItems, l => l.flatMap(v => [
+  {text: v.text, done: v.done},
+  {text: v.text + " copy", done: v.done},
+]))
+`),
+    H3({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
+    ApiTable({
+      signature: "vanX.replace(items, f) => void",
+      description: ["Updates the reactive object ", Symbol("items"), " and UI elements bound to it based on the data returned by the replace function ", Symbol("f"), "."],
+      parameters: {
+        items: "The reactive object that you want to update.",
+        f: ["The replace function, which takes the current values of ", Symbol("items"), " as input and returns the new values of the update. If ", Symbol("items"), " is an array (for non-keyed data), ", Symbol("f"), " will take its values as an array (after eliminating holes with ", InlineJs("filter(v => v)"), ") and return the updated values as another array. If ", Symbol("items"), " is a plain object (for keyed data), ", Symbol("f"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."],
+      },
+      returns: InlineTs("void"),
+    }),
+    H3("Example 1: sortable list"),
+    p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items an ascending or descending order, and append a string to all items in the list:"),
+    JsFile("list1.code.js"),
+    p(Demo()),
+    p({id: "demo-example-list1"}),
+    p({
+      id: "jsfiddle-example-list1",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {a, button, div, input, li, ul} = van.tags",
+      "data-suffix": "van.add(document.body, List())",
+    }),
+    H3("Example 2: an advanced sortable TODO list"),
+    p("Now, let's take a look at a more advanced example - a sortable TODO list, which is implemented with keyed data. i.e.: reactive ", Symbol("items"), " is a plain object instead of an array. In additional to the addition, deletion, sorting and appending strings that are implemented in the previous example, you can edit an item, mark an item as complete, clear all completed items and duplicate the entire list. Furthermore, the application state is serialized and persisted into ", SymLink("localStorage", "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"), " thus the state is preserved across page reloads."),
+    JsFile("list2.code.js"),
+    p(Demo()),
+    p({id: "demo-example-list2"}),
+    p({
+      id: "jsfiddle-example-list2",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {a, button, div, input} = van.tags",
+      "data-suffix": "van.add(document.body, TodoList())",
+    }),
+    H2("API Index"),
+    p("Below is the list of all top-level APIs in ", VanX(), ":"),
+    ul(
+      li(SymLink("vanX.reactive", "#api-reactive")),
+      li(SymLink("vanX.calc", "#api-calc")),
+      li(SymLink("vanX.stateFields", "#api-stateFields")),
+      li(SymLink("vanX.list", "#api-list")),
+      li(SymLink("vanX.replace", "#api-replace")),
+    )
   )
 }

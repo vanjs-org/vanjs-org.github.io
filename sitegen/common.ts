@@ -140,7 +140,7 @@ export default (doc: HTMLDocument) => {
 
     TsFile: (file: string, options: FileOptions = {}) => File("ts", file, options),
 
-    InlineTs: (text: string) => code({class: "language-js"}, text),
+    InlineTs: (text: string) => code({class: "language-ts"}, text),
 
     Shell: (text: string) => pre(code({class: "language-shell"}, text)),
 
