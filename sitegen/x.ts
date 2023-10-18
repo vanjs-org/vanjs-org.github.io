@@ -57,7 +57,7 @@ export default (doc: HTMLDocument) => {
       "data-prefix": "const {button, div, input} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
     }),
-    p("Note that, not only you can set each individual leaf field, you can also set the entire object of the ", Symbol("name"), " field, as what's being done in the ", Symbol("onclick"), " handler of the ", Symbol("Reset"), " button:"),
+    p("Note that, not only you can set the value of each individual leaf field, you can also set the entire object of the ", Symbol("name"), " field, as what's being done in the ", Symbol("onclick"), " handler of the ", Symbol("Reset"), " button:"),
     Js(`button({onclick: () => data.name = {first: "Tao", last: "Xin"}}, "Reset")`),
     p(Caveat(), "Accessing to any sub-field of the reactive object needs to be wrapped inside a binding function. Otherwise, your app won't be reactive to the sub-field changes."),
     p({id: "caveat-no-aliasing"}, Caveat(), "DO NOT alias any sub-field of the reactive object into other variables. Doing so will break the dependency detection when the sub-field alias is used in a binding function."),
