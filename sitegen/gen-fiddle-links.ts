@@ -36,6 +36,7 @@ const process = (file: string) => {
 
   const vanVersion = Deno.readTextFileSync("code/van.version")
   const miniVanVersion = Deno.readTextFileSync("code/mini-van.version")
+  const vanXVersion = Deno.readTextFileSync("code/van-x.version")
 
   emptyDirSync(join(jsFiddleRoot, path))
 
@@ -56,8 +57,10 @@ const process = (file: string) => {
     const detailFile = dom.getAttribute("data-details") ?? "demo.details"
     const detailStr = Deno.readTextFileSync("jsfiddle/" + detailFile)
     Deno.writeTextFileSync(join(dir, "demo.details"),
-      detailStr.replace("van-latest.",
-        `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`))
+      detailStr
+        .replace("van-latest.", `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`)
+        .replace("@latest", "@" + vanXVersion)
+      )
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
     const css = dom.getAttribute("data-css")
     if (css) Deno.writeTextFileSync(join(dir, "demo.css"), css)
