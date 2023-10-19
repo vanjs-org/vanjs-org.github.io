@@ -241,7 +241,7 @@ const TodoList = () =&gt; {
 }
 </code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p>With the help of <a href="/x" class="w3-hover-opacity">VanX</a>, the code above can be simplified to just 10+ lines:</p><pre><code class="language-js">const TodoList = () =&gt; {
   const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
-  van.derive(() =&gt; localStorage.setItem("appState", JSON.stringify(items.filter(v =&gt; v))))
+  van.derive(() =&gt; localStorage.setItem("appState", JSON.stringify(items.filter(_ =&gt; 1))))
   const inputDom = input({type: "text"})
   return div(
     inputDom, button({onclick: () =&gt; items.push({text: inputDom.value, done: false})}, "Add"),
