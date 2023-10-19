@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "vanjs-converter": "^0.2.0",
-    "vanjs-core": "^1.2.1"
+    "vanjs-core": "^1.2.2"
   }
 }
