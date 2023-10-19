@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "terser": "^5.20.0",
-    "vanjs-core": "^1.2.2"
+    "vanjs-core": "^1.2.3"
   }
 }
