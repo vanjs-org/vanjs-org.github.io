@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, blockquote, br, div, i, img, li, p, ul}} = van.vanWithDoc(doc)
-  const {H1, H2, Js, Link, MiniVan, Quote, Symbol, VanJS} = common(doc)
+  const {H1, H2, InlineHtml, InlineJs, Js, Link, MiniVan, Quote, SymLink, Symbol, VanJS, VanX} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
@@ -48,6 +48,75 @@ export default (doc: HTMLDocument) => {
     H2({id: "coding-style"}, "A Note on Coding Styles"),
     p("The sample code snippets throughout this website follow a minimalist approach when it comes to coding styles. When readability is not impacted, we are leaning towards the choice that leads to more concise code, with the belief that brevity and simplicity generally make the code easier to read and write. This means that we're consciously choosing certain coding styles throughout this website: such as omitting optional semicolons, naked if statements, usage of ternary operator when appropriate, etc."),
     p("On the other hand, we acknowledge that different people might hold a somewhat different opinion regarding certain coding style choices, and some are among hotly debated issues among programmers. We understand the arguments from the other side that certain coding styles, might occasionally lead to slightly more misleading error messages for incorrect implementation in limited situations. As an ", b("unopinionated"), " framework, ", VanJS(), " doesn't take side on coding styles. If some style in the sample code doesn't align with your personal preference or your team's common practice, feel free to make the corresponding styling changes after copy/past-ing the sample code."),
+    H2({id: "source-guide"}, "A Guide to Reading VanJS Codebase"),
+    p("We believe that ", VanJS(), " is a good illustration of how modern UI frameworks work under the hood. The simplicity in its design, and conciseness in its implementation make it the perfect learning material for the core fundamentals of reactive UI programming, as well as advanced techniques in modern JavaScript. Here we recommend this ", Link("7-minute video", "https://www.youtube.com/watch?v=Oh2IEVqarHs"), " which breaks down and elucidates the underlying principles of ", VanJS(), " codebase."),
+    p("On the other hand, we do realize that some parts of ", VanJS(), " codebase might be hard to read for some people. We believe that this is mostly because ", VanJS(), " has chosen some programming techniques and language constructs that are not frequently used in the JavaScript community, despite their usefulness. Here we provide a brief explanation of those in the hope of easing the understanding of ", VanJS(), " codebase, its official extensions, and its sample applications."),
+    p("Modern JavaScript features:"),
+    ul(
+      li(SymLink("Proxy", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"), ": A type of JavaScript objects that allow you to intercept and redefine common operations of another object, such as getting and setting properties. The ", Symbol("van.tags"), " object in ", VanJS(), " leverages this technique to allow you declaring DOM trees like HTML but without the need of JSX. The operation of getting any properties of ", Symbol("van.tags"), " will be intercepted and redefined to a function that creates an HTML element with the property name as its tag name. e.g.: ", InlineJs("van.tags.div()"), " will create a ", InlineHtml("<div>"), " element. In addition, the ", Link("reactive object", "/x#reactive-object"), " in ", VanX(), " leverages ", Symbol("Proxy"), " so that getting and setting its fields will be redefined to getting and setting values of the underlying states."),
+      li(Link("prototype", "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes"), ": The foundation of OOP in JavaScript. Any object in JavaScript can specify a prototype object so that property access falls back to the prototype if the property doesn't exist in the object itself. Prototype is a lightweight alternative to ", Link("classes", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"), " in JavaScript. ", VanJS(), " is using prototype instead of classes to keep its size small."),
+    ),
+    p("Less frequently used JavaScript syntaxes:"),
+    ul(
+      li(Link("Ternary operator", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator"), ": Ternary operator is way to define conditional computations. Sometimes it can be used as an alternative to ", Symbol("if...else"), " statement for more concise and declarative code. For instance, the following code:", Js(`const getFruits(hasApple, hasOrange) = () => {
+  const fruits = []
+  if (hasApple) {
+    fruits.push("apple")
+  }
+  if (hasOrange) {
+    fruits.push("orange")
+  }
+  return fruits
+}
+`), " can be simplified with ternary operators:", Js(`const getFruits(hasApple, hasOrange) = () => [].concat(
+  hasApple ? "apple" : [],
+  hasOrange ? "orange": [],
+)
+`), "Even more complex ", Symbol("if...else if...else"), " statement can be simplified with ternary operators as well. For instance, the following code in the ", SymLink("Calculator App", "/demo#calculator"), ":", Js(`const calc = (lhs, op, rhs) =>
+  !op || lhs === null ? rhs :
+  op === "+" ? lhs + rhs :
+  op === "-" ? lhs - rhs :
+  op === "x" ? lhs * rhs : lhs / rhs
+`), " is the simplified version of:", Js(`const calc = (lhs, op, rhs) => {
+  if (!op || lhs === null) {
+    return rhs
+  } else if (op === "+") {
+    return lhs + rhs
+  } else if (op === "-") {
+    return lhs - rhs
+  } else if (op === "x") {
+    return lhs * rhs
+  } else {
+    return lhs / rhs
+  }
+}
+`)),
+      li(Link("Comma operator (,)", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comma_operator"), ": Comma operator evaluates each of its operands sequentially and returns the last value. ", VanJS(), " leverages comma operators in a few places to make the code concise. For instance, the logic of binding a state to a DOM property:", Js(`bind(() => {
+  setter(v.val)
+  return dom
+})
+`), " is simplified to ", InlineJs("bind(() => (setter(v.val), dom))"), " in ", SymLink("van.js", "https://github.com/vanjs-org/van/blob/main/src/van.js"), " (don't confuse this with calling a function with 2 arguments)."),
+      li(Link("Nullish coalescing operator (??)", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing"), ": Nullish coalescing expression ", InlineJs("a ?? b"), " means:", Js(`if (a !== null && a !== undefined) {
+  return a
+} else {
+  return b
+}
+`), VanJS(), " leverages this operator in a few places to simplify code. One notable example in ", SymLink("van.js", "https://github.com/vanjs-org/van/blob/main/src/van.js"), " is function ", Symbol("addAndScheduleOnFirst"), ":", Js(`let addAndScheduleOnFirst = (set, s, f, waitMs) =>
+  (set ?? (setTimeout(f, waitMs), new Set)).add(s)
+`), "which is equivalent to:", Js(`let addAndScheduleOnFirst = (set, s, f, waitMs) => {
+  if (set === null || set === undefined) {
+    setTimeout(f, waitMs)
+    set = new Set
+  }
+  set.add(s)
+  return set
+}
+`)),
+      li(Link("Short-circuit evaluation for ", Symbol("&&"), " and ", Symbol("||"), "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation"), ": Sometimes, we're leveraging the short-circuit evaluation for ", Symbol("&&"), " and ", Symbol("||"), " to simplify code. For instance, in ", SymLink("van-x.js", "https://github.com/vanjs-org/van/blob/main/x/src/van-x.js"), ", ", InlineJs("refDelete(obj[statesSym], name) && onDelete(obj, name)"), " is equivalent to:", Js(`if (refDelete(obj[statesSym], name)) {
+  onDelete(obj, name)
+}
+`)),
+    ),
     H2({id: "name"}, "How Did VanJS Get Its Name?"),
     p(VanJS(), " is short for ", b("Van"), "illa ", b("J"), "ava", b("S"), "cript, which is a metaphor that ", VanJS(), " provides an abbreviated way to write Vanilla JavaScript code. Meanwhile, the logo of ", VanJS(), " is a symbolic vanilla ice cream, which means ", VanJS(), " = ", b("Vanilla"), " JavaScript + syntax ", b("Sugar"), "."),
     p("Under the hood, ", VanJS(), " stays truthful to Vanilla JavaScript as close as possible, as there is no transpiling, virtual DOM or any hidden logic. ", VanJS(), " code can be translated to Vanilla JavaScript code in a very straightforward way. For instance, the following ", VanJS(), " code:"),
