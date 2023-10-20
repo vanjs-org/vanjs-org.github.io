@@ -29,6 +29,7 @@ export default (doc: HTMLDocument) => {
     ol(
       li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
       li(Url("https://changelog.com/jsparty/277"), " (podcasts)"),
+      li(Url("https://blog.stackademic.com/vanjs-the-ultra-lightweight-react-alternative-55c0f380376f")),
       li(Url("https://devm.io/javascript/javascript-vanjs-xin")),
       li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
@@ -61,6 +62,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://hkdeveloper.io/2023/05/26/%E5%89%B5%E6%96%B0%E9%96%8B%E6%BA%90ui%E6%A1%86%E6%9E%B6%EF%BC%9Avanjs-%E6%96%BCgithub%E4%B8%8A%E9%87%8B%E5%87%BA/"), " (", i("in Traditional Chinese"), ")"),
       li(Url("https://news.hada.io/topic?id=10202"), " (", i("in Korean"), ")"),
       li(Url("https://stupidk.com/dev-weekly-20230805/"), " (", i("in Korean"), ")"),
+      li(Url("https://zenn.dev/k_log24/articles/f5e2d4321f0b98"), " (", i("in Japanese"), ")"),
       li(Url("https://zenn.dev/ryo_kawamata/articles/1ad6e51eed13ae"), " (", i("in Japanese"), ")"),
       li(Url("https://zenn.dev/daifukuninja/articles/79ff6fa650a535"), " (", i("in Japanese"), ")"),
       li(Url("https://qiita.com/tags/vanjs"), " (", i("in Japanese"), ")"),
