@@ -114,7 +114,7 @@ van.add(document.body, Counter())
     p({style: "display: flex; align-items: center;"},
       GithubIcon({style: "margin-right: 6px;"}), Link("github.com/vanjs-org/van", "https://github.com/vanjs-org/van"),
     ),
-    p("See also: ", Link("A Guide to Reading VanJS Codebase", "/about#source-guide"), "."),
+    p("See also: ", Link("A Guide to Reading ", VanJS(), " Codebase", "/about#source-guide"), "."),
     H2("IDE Plug-ins"),
     p({style: "display: flex; align-items: center;"},
       VSCodeIcon({style: "margin-right: 6px;"}), Link("VS Code Extension", "https://marketplace.visualstudio.com/items?itemName=TaoXin.vanjs-importtag"),
