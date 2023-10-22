@@ -138,7 +138,7 @@ van.add(document.body, Counter())
         "Follow @vanjs-org",
       ),
     ),
-    blockquote(i("In the name of ", b("Van"), "illa of the House ", b("J"), "ava", b("S"), "cript, ", Link("the First of its name", "/about#name"), ", Smallest Reactive UI Framework, 0.9kB JSX-free Grab 'n Go Library, ", Link("Scripting Language", "https://vanjs.org/about#story"), " for GUI, ", Link("ChatGPT-Empowered", "https://chat.openai.com/share/d92cfaf6-b78e-45ca-a218-069f76fe1b9f"), " Toolkit, by the word of Tao of the House Xin, Founder and Maintainer of ", VanJS(), ", I do hereby grant you the permission of ", VanJS(), " under ", Link("MIT License", "https://github.com/vanjs-org/van/blob/main/LICENSE"), ".")),
+    blockquote(i("In the name of ", b("Van"), "illa of the House ", b("J"), "ava", b("S"), "cript, ", Link("the First of its name", "/about#name"), ", Smallest Reactive UI Framework, 0.9kB JSX-free Grab 'n Go Library, ", Link("Scripting Language", "https://vanjs.org/about#story"), " for GUI, ", Link("ChatGPT-Empowered", "https://chat.openai.com/share/7eb970f9-d395-41b5-9444-8e0d96c844e2"), " Toolkit, by the word of Tao of the House Xin, Founder and Maintainer of ", VanJS(), ", I do hereby grant you the permission of ", VanJS(), " under ", Link("MIT License", "https://github.com/vanjs-org/van/blob/main/LICENSE"), ".")),
     p({class: "contact"},
       "Contact us: ", twitterIcon, Link("@taoxin", "https://twitter.com/intent/follow?region=follow_link&screen_name=taoxin"), " / ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedInIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"),
     ),
