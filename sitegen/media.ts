@@ -33,6 +33,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://devm.io/javascript/javascript-vanjs-xin")),
       li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
+      li(Url("https://javascript.plainenglish.io/exciting-updates-in-the-web-dev-71c52563cee0")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
       li(Url("https://bytes.dev/archives/211")),
