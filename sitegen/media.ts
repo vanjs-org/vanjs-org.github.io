@@ -43,6 +43,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://us3.campaign-archive.com/?u=4ad274b490aa6da8c2d29b775&id=887df01416")),
       li(Url("https://dev.to/vincenius/weekly-web-development-resources-150-5819")),
       li(Url("https://dev.to/darkwiiplayer/making-the-case-for-skooma-4n70")),
+      li(Url("https://dev.to/nombrekeff/want-to-help-with-cardboard-jsts-vanilla-reactive-framework-jcl")),
       li(Url("https://webtoolsweekly.com/archives/issue-521/")),
       li(Url("https://fully-faltoo.com/p/weekly-review-gollum/")),
       li(Url("https://unsuckjs.com/")),
