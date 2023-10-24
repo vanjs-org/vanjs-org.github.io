@@ -46,6 +46,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://dev.to/darkwiiplayer/making-the-case-for-skooma-4n70")),
       li(Url("https://dev.to/nombrekeff/want-to-help-with-cardboard-jsts-vanilla-reactive-framework-jcl")),
       li(Url("https://webtoolsweekly.com/archives/issue-521/")),
+      li(Url("https://pkgtrends.com/topic/web-applications-framework-or-library/")),
       li(Url("https://fully-faltoo.com/p/weekly-review-gollum/")),
       li(Url("https://unsuckjs.com/")),
       li(Url("https://enpitsulin.xlog.app/reactive-framework-less-than-100-lines"), " (", i("in Simplified Chinese"), ")"),
