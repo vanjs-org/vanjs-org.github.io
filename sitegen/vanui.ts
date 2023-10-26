@@ -2014,6 +2014,14 @@ export default (doc: HTMLDocument) => {
         "van.add(document.body, FloatingWindow(\n  {title: \"Not Resizable\", x: 200, y: 200, disableResize: true},\n  div(\n    p({style: \"display: flex; justify-content: center;\"}, \"This window is not resizable!\"),\n  ),\n))\n",
       ),
     ),
+    p(
+      "You can live preview the examples with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
     H4(
       "Default ",
       Symbol(
