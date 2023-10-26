@@ -6,8 +6,8 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {code, div, h4, li, p, pre, strong, ul}} = van.vanWithDoc(doc)
-  const {H1, H2, H3, Link, Symbol} = common(doc)
+  const {tags: {code, div, em, li, p, pre, strong, ul}} = van.vanWithDoc(doc)
+  const {H1, H2, H3, H4, Link, Symbol} = common(doc)
   return div({id: "content"},
     H1(
       strong(
@@ -35,10 +35,7 @@ export default (doc: HTMLDocument) => {
         "vanjs-ui",
         "https://www.npmjs.com/package/vanjs-ui",
       ),
-      ".",
-    ),
-    p(
-      "Run the following command to install the package:",
+      ". Run the following command to install the package:",
     ),
     pre(
       code({class: "language-shell"},
@@ -97,12 +94,12 @@ export default (doc: HTMLDocument) => {
       "Try on jsfiddle: ",
       Link(
         "Modal",
-        "https://jsfiddle.net/ez4gdjrs/",
+        "https://jsfiddle.net/mks9253o/1/",
       ),
       ", ",
       Link(
         "MessageBoard",
-        "https://jsfiddle.net/6aqmzwyv/1/",
+        "https://jsfiddle.net/nwsduza3/",
       ),
       ".",
     ),
@@ -204,7 +201,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a modal window on top of the current page.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -212,7 +209,7 @@ export default (doc: HTMLDocument) => {
         "Modal({...props}, ...children) => <The created modal window>\n",
       ),
     ),
-    h4(
+    H4(
       "Examples",
     ),
     p(
@@ -239,7 +236,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -259,7 +256,14 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "closed.val = true",
         ),
-        " will close the created modal window.",
+        " will close the created modal window. You can also subscribe the closing event of the modal window via ",
+        Link(
+          Symbol(
+            "van.derive",
+          ),
+          "https://vanjs.org/tutorial#api-derive",
+        ),
+        ".",
       ),
       li(
         Symbol(
@@ -317,7 +321,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -358,7 +362,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -378,7 +382,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a tab-view for tabs specified by the user.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -393,11 +397,11 @@ export default (doc: HTMLDocument) => {
       ),
       " parameter is an object whose keys are the titles of the tabs and values (type: ",
       Symbol(
-        "ChildDom | ChildDom[]",
+        "ChildDom",
       ),
       ") are the DOM element(s) for the tab contents.",
     ),
-    h4(
+    H4(
       "Example",
     ),
     pre(
@@ -413,7 +417,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -423,7 +427,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "State<string> | undefined",
+          "State<string>",
         ),
         ". Optional. If specified, you can activate a tab via the specified ",
         Symbol(
@@ -580,7 +584,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -621,7 +625,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -666,7 +670,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -686,7 +690,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a message board to show messages on the screen.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     p(
@@ -721,7 +725,7 @@ export default (doc: HTMLDocument) => {
         "board.remove()\n",
       ),
     ),
-    h4(
+    H4(
       "Examples",
     ),
     pre(
@@ -737,7 +741,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     p(
@@ -850,7 +854,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -891,7 +895,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -932,7 +936,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -956,11 +960,19 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "ChildDom | readonly ChildDom[]",
+          "ChildDom",
         ),
-        ". Required. One or more ",
+        ". Required. One ",
         Symbol(
           "ChildDom",
+        ),
+        " or multiple ",
+        Symbol(
+          "ChildDom",
+        ),
+        " as an ",
+        Symbol(
+          "Array",
         ),
         " for the message we want to show.",
       ),
@@ -970,11 +982,19 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "ChildDom | readonly ChildDom[]",
+          "ChildDom",
         ),
-        ". Optional. If specified, we will render a closer DOM node with one or more ",
+        ". Optional. If specified, we will render a closer DOM node with one ",
         Symbol(
           "ChildDom",
+        ),
+        " or multiple ",
+        Symbol(
+          "ChildDom",
+        ),
+        "s as an ",
+        Symbol(
+          "Array",
         ),
         " which can be clicked to close the shown message.",
       ),
@@ -1011,6 +1031,13 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "closed.val = true",
         ),
+        ". You can also subscribe the closing event of the message via ",
+        Link(
+          Symbol(
+            "van.derive",
+          ),
+          "https://vanjs.org/tutorial#api-derive",
+        ),
         ".",
       ),
     ),
@@ -1020,7 +1047,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a tooltip above a DOM node which typically shows when the DOM node is being hovered.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -1028,7 +1055,7 @@ export default (doc: HTMLDocument) => {
         "Tooltip({...props}) => <The created tooltip element>\n",
       ),
     ),
-    h4(
+    H4(
       "Examples",
     ),
     pre(
@@ -1055,7 +1082,7 @@ export default (doc: HTMLDocument) => {
     p(
       "are needed for the tooltip element to be shown properly.",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -1175,7 +1202,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1216,7 +1243,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1236,7 +1263,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a toggle switch that can be turned on and off.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -1244,7 +1271,7 @@ export default (doc: HTMLDocument) => {
         "Toggle({...props}) => <The created toggle switch>\n",
       ),
     ),
-    h4(
+    H4(
       "Example",
     ),
     pre(
@@ -1260,7 +1287,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -1411,7 +1438,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1452,7 +1479,7 @@ export default (doc: HTMLDocument) => {
         ),
         ". Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1493,7 +1520,7 @@ export default (doc: HTMLDocument) => {
         ),
         ". Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1512,7 +1539,7 @@ export default (doc: HTMLDocument) => {
         ),
         ". Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1536,7 +1563,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a group of button-shaped options where only one option can be selected. This is functionally similar to a radio group but with a different appearance.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -1555,7 +1582,7 @@ export default (doc: HTMLDocument) => {
       ),
       " for all the options.",
     ),
-    h4(
+    H4(
       "Example",
     ),
     pre(
@@ -1571,7 +1598,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -1712,7 +1739,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1753,7 +1780,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1773,7 +1800,7 @@ export default (doc: HTMLDocument) => {
     p(
       "Creates a banner element for the current container.",
     ),
-    h4(
+    H4(
       "Signature",
     ),
     pre(
@@ -1781,7 +1808,7 @@ export default (doc: HTMLDocument) => {
         "Banner({...props}, ...children) => <The created banner element>\n",
       ),
     ),
-    h4(
+    H4(
       "Examples",
     ),
     pre(
@@ -1797,7 +1824,7 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
-    h4(
+    H4(
       "Property Reference",
     ),
     ul(
@@ -1871,7 +1898,7 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "object",
+          "Record<string, string | number>",
         ),
         ". Default ",
         Symbol(
@@ -1883,6 +1910,612 @@ export default (doc: HTMLDocument) => {
           "#property-bag-for-style-overrides",
         ),
         " for the styles you want to override for the created banner element.",
+      ),
+    ),
+    H3(
+      "FloatingWindow",
+    ),
+    p(
+      em(
+        "Author: ",
+        Link(
+          "@Duffscs",
+          "https://github.com/Duffscs",
+        ),
+      ),
+    ),
+    p(
+      "Creates a movable and resizable floating window.",
+    ),
+    H4(
+      "Signature",
+    ),
+    pre(
+      code({class: "language-js"},
+        "FloatingWindow({...props}, ...children) => <The created floating window>\n",
+      ),
+    ),
+    H4(
+      "Examples",
+    ),
+    p(
+      "Window with custom close button:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const closed = van.state(false)\nconst width = van.state(300), height = van.state(220)\n\nvan.add(document.body, FloatingWindow(\n  {title: \"Example Window 1\", closed, width, height, closeCross: null},\n  div({style: \"display: flex; flex-direction: column; justify-content: center;\"},\n    p(\"Hello, World!\"),\n    button({onclick: () => width.val *= 2}, \"Double Width\"),\n    button({onclick: () => height.val *= 2}, \"Double Height\"),\n    button({onclick: () => closed.val = true}, \"Close Window\"),\n  ),\n))\n",
+      ),
+    ),
+    p(
+      "Window with integrated close button:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, FloatingWindow(\n  {title: \"Example Window 2\", x: 150, y: 150, headerColor: \"lightblue\"},\n  div({style: \"display: flex; justify-content: center;\"},\n    p(\"This is another floating window!\"),\n  ),\n))\n",
+      ),
+    ),
+    p(
+      "Window with ",
+      Symbol(
+        "Tabs",
+      ),
+      " and custom close button:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const closed = van.state(false)\n\nvan.add(document.body, FloatingWindow(\n  {\n    closed, x: 200, y: 200, width: 500, height: 300,\n    childrenContainerStyleOverrides: { padding: 0 },\n  },\n  div(\n    span({\n      class: \"vanui-window-cross\",\n      style: \"position: absolute; top: 8px; right: 8px;cursor: pointer;\",\n      onclick: () => closed.val = true,\n    }, \"×\"),\n    Tabs(\n      {\n        style: \"width: 100%;\",\n        tabButtonActiveColor: \"white\",\n        tabButtonBorderStyle: \"none\",\n        tabButtonRowColor: \"lightblue\",\n        tabButtonRowStyleOverrides: {height: \"2.5rem\"},\n        tabButtonStyleOverrides: {height: \"100%\"},\n      },\n      {\n        Home: p(\n          \"Welcome to \", b(\"VanJS\"), \" - the smallest reactive UI framework in the world.\",\n        ),\n        \"Getting Started\": [\n          p(\"To install the \", b(\"VanJS\"), \" NPM package, run the line below:\"),\n          pre(code(\"npm install vanjs-core\")),\n        ],\n        About: p(\n          \"The author of \", b(\"VanJS\"), \" is \",\n          a({href: \"https://github.com/Tao-VanJS\"}, \" Tao Xin\"), \".\"\n        ),\n      },\n    )\n  )\n))\n",
+      ),
+    ),
+    p(
+      "Window without header or integrated close button:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const closed = van.state(false)\n\nvan.add(document.body, FloatingWindow(\n  {\n    closed, x: 300, y: 300, width: 500, height: 300,\n    windowStyleOverrides: {\"background-color\": \"lightgray\"},\n    childrenContainerStyleOverrides: {\n      display: \"flex\",\n      \"align-items\": \"center\",\n      \"justify-content\": \"center\",\n      height: \"100%\",\n    }\n  },\n  button({onclick: () => closed.val = true}, \"Close Window\"),\n))\n",
+      ),
+    ),
+    p(
+      "Window showing z-index:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const zIndex = van.state(1)\n\nvan.add(document.body, FloatingWindow(\n  {title: [\"z-index: \", zIndex], x: 200, y: 200, width: 300, height: 100, zIndex},\n))\n",
+      ),
+    ),
+    p(
+      "Window with custom stacking:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const zIndex = van.state(1)\n\nvan.add(document.body, FloatingWindow(\n  {title: \"Custom stacking\", x: 300, y: 300, customStacking: true, zIndex},\n  div({style: \"display: flex; justify-content: space-between;\"},\n    button({onclick: () => zIndex.val++}, \"+\"),\n    p(\"z-index: \", zIndex),\n    button({onclick: () => zIndex.val--}, \"-\"),\n  ),\n  div({style: \"display: flex; justify-content: center;\"},\n    button({onclick: () => zIndex.val = topMostZIndex()}, \"Bring to Front\"),\n  ),\n))\n",
+      ),
+    ),
+    p(
+      "Non-movable window:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, FloatingWindow(\n  {title: \"Not Movable\", disableMove: true},\n  div({style: \"display: flex; justify-content: center;\"},\n    p(\"This window is not movable!\"),\n  ),\n))\n",
+      ),
+    ),
+    p(
+      "Non-movable window without title:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const closed = van.state(false)\n\nvan.add(document.body, FloatingWindow(\n  {closed, x: 150, y: 150, disableMove: true},\n  div(\n    p(\"This window is not movable!\"),\n    p({style: \"display: flex; justify-content: center;\"},\n      button({onclick: () => closed.val = true}, \"Close\")\n    ),\n  ),\n))\n",
+      ),
+    ),
+    p(
+      "Non-resizable window:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, FloatingWindow(\n  {title: \"Not Resizable\", x: 200, y: 200, disableResize: true},\n  div(\n    p({style: \"display: flex; justify-content: center;\"}, \"This window is not resizable!\"),\n  ),\n))\n",
+      ),
+    ),
+    H4(
+      "Default ",
+      Symbol(
+        "z-index",
+      ),
+      " Stacking",
+    ),
+    p(
+      "By default, the ",
+      Symbol(
+        "z-index",
+      ),
+      " CSS property of each window comes from the sequence: ",
+      Symbol(
+        "1",
+      ),
+      ", ",
+      Symbol(
+        "2",
+      ),
+      ", ",
+      Symbol(
+        "3",
+      ),
+      ", ",
+      Symbol(
+        "...",
+      ),
+      ". Whenever a new window is created or is interacted with (",
+      Symbol(
+        "onmousedown",
+      ),
+      " event is triggered), we assign the ",
+      Symbol(
+        "z-index",
+      ),
+      " property of the window to the next number in the sequence. This way, we are making sure that newly created or interacted windows are always brought to the front.",
+    ),
+    p(
+      "You can override the default stacking behavior by specifying ",
+      Symbol(
+        "{customStacking: true}",
+      ),
+      " in ",
+      Symbol(
+        "props",
+      ),
+      ". This way, you can manually control the ",
+      Symbol(
+        "z-index",
+      ),
+      " of the window via a ",
+      strong(
+        "VanJS",
+      ),
+      " state.",
+    ),
+    H4(
+      "Property Reference",
+    ),
+    ul(
+      li(
+        Symbol(
+          "title",
+        ),
+        ": Type ",
+        Symbol(
+          "ChildDom",
+        ),
+        ". Optional. One ",
+        Symbol(
+          "ChildDom",
+        ),
+        " or multiple ",
+        Symbol(
+          "ChildDom",
+        ),
+        " as an ",
+        Symbol(
+          "Array",
+        ),
+        " for the title of the created window. If not specified, the window won't have a title.",
+      ),
+      li(
+        Symbol(
+          "closed",
+        ),
+        ": Type ",
+        Symbol(
+          "State<boolean>",
+        ),
+        ". Optional. If specified, the created window can be closed via the ",
+        Symbol(
+          "closed",
+        ),
+        Symbol(
+          "State",
+        ),
+        " object with ",
+        Symbol(
+          "closed.val = true",
+        ),
+        ". You can also subscribe the closing event of the created window via ",
+        Link(
+          Symbol(
+            "van.derive",
+          ),
+          "https://vanjs.org/tutorial#api-derive",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "x",
+        ),
+        ": Type ",
+        Symbol(
+          "number | State<number>",
+        ),
+        ". Default ",
+        Symbol(
+          "100",
+        ),
+        ". Optional. The x-coordinate of the created window, in pixels.",
+      ),
+      li(
+        Symbol(
+          "y",
+        ),
+        ": Type ",
+        Symbol(
+          "number | State<number>",
+        ),
+        ". Default ",
+        Symbol(
+          "100",
+        ),
+        ". Optional. The y-coordinate of the created window, in pixels.",
+      ),
+      li(
+        Symbol(
+          "width",
+        ),
+        ": Type ",
+        Symbol(
+          "number | State<number>",
+        ),
+        ". Default ",
+        Symbol(
+          "300",
+        ),
+        ". Optional. The width of the created window, in pixels.",
+      ),
+      li(
+        Symbol(
+          "height",
+        ),
+        ": Type ",
+        Symbol(
+          "number | State<number>",
+        ),
+        ". Default ",
+        Symbol(
+          "200",
+        ),
+        ". Optional. The height of the created window, in pixels.",
+      ),
+      li(
+        Symbol(
+          "closeCross",
+        ),
+        ": Type ",
+        Symbol(
+          "ChildDom",
+        ),
+        ". Default ",
+        Symbol(
+          "\"×\"",
+        ),
+        ". Optional. One ",
+        Symbol(
+          "ChildDom",
+        ),
+        " or multiple ",
+        Symbol(
+          "ChildDom",
+        ),
+        " as an ",
+        Symbol(
+          "Array",
+        ),
+        " for the close button of the created window. If its value is ",
+        Symbol(
+          "null",
+        ),
+        ", there won't be a close button. If ",
+        Symbol(
+          "title",
+        ),
+        " property is not specified, this property will be ignored and there won't be a close button.",
+      ),
+      li(
+        Symbol(
+          "customStacking",
+        ),
+        ": type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. If ",
+        Symbol(
+          "true",
+        ),
+        ", ",
+        Link(
+          "default ",
+          Symbol(
+            "z-index",
+          ),
+          " stacking rule",
+          "#default-z-index-stacking",
+        ),
+        " won't be triggered. Users are expected to manually set the ",
+        Symbol(
+          "z-index",
+        ),
+        " property of the created window via the ",
+        Symbol(
+          "State",
+        ),
+        " object for ",
+        Symbol(
+          "z-index",
+        ),
+        " property below.",
+      ),
+      li(
+        Symbol(
+          "zIndex",
+        ),
+        ": type ",
+        Symbol(
+          "number | State<number>",
+        ),
+        ". Optional. If a ",
+        Symbol(
+          "State",
+        ),
+        " object is specified, you can use the ",
+        Symbol(
+          "State",
+        ),
+        " object to track the change of ",
+        Symbol(
+          "z-index",
+        ),
+        " property via ",
+        Link(
+          Symbol(
+            "van.derive",
+          ),
+          "https://vanjs.org/tutorial#api-derive",
+        ),
+        ". If ",
+        Symbol(
+          "customTracking",
+        ),
+        " is ",
+        Symbol(
+          "true",
+        ),
+        ", you can use this property to manually set the ",
+        Symbol(
+          "z-index",
+        ),
+        " property of the created window.",
+      ),
+      li(
+        Symbol(
+          "disableMove",
+        ),
+        ": type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. If ",
+        Symbol(
+          "true",
+        ),
+        ", the created window can't be moved.",
+      ),
+      li(
+        Symbol(
+          "disableResize",
+        ),
+        ": type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. If ",
+        Symbol(
+          "true",
+        ),
+        ", the created window can't be resized.",
+      ),
+      li(
+        Symbol(
+          "headerColor",
+        ),
+        ": type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"lightgray\"",
+        ),
+        ". Optional. The background color of the window header (title bar).",
+      ),
+      li(
+        Symbol(
+          "windowClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the created window. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "windowStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the created window.",
+      ),
+      li(
+        Symbol(
+          "headerClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the window header (title bar). You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "headerStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the window header (title bar).",
+      ),
+      li(
+        Symbol(
+          "childrenContainerClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the container for ",
+        Symbol(
+          "children",
+        ),
+        " DOM nodes. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "childrenContainerStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the container of ",
+        Symbol(
+          "children",
+        ),
+        " DOM nodes.",
+      ),
+      li(
+        Symbol(
+          "crossClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the close button. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "crossStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the close button.",
       ),
     ),
     H3(

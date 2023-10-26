@@ -4,7 +4,7 @@ import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.3
 type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
-  const {add, tags: {a, b, blockquote, br, code, h1, h2, h3, hr, i, li, pre, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
+  const {add, tags: {a, b, blockquote, br, code, h1, h2, h3, h4, hr, i, li, pre, span, table, tbody, td, tr, ul}} = van.vanWithDoc(doc)
 
   const idMap: Record<string, number> = {}
 
@@ -120,6 +120,14 @@ export default (doc: HTMLDocument) => {
         [<HeadingProps>first, <readonly ChildDom[]>rest] :
         [<HeadingProps>{}, <readonly ChildDom[]>[first, ...rest]]
       return addToHeading(props.id, h3({class: "w3-large w3-text-red"}), children)
+    },
+
+    H4: (first: HeadingProps | ChildDom, ...rest: readonly ChildDom[]) => {
+      const [props, children] =
+        first?.constructor === Object ?
+        [<HeadingProps>first, <readonly ChildDom[]>rest] :
+        [<HeadingProps>{}, <readonly ChildDom[]>[first, ...rest]]
+      return addToHeading(props.id, h4({class: "w3-medium w3-text-red"}), children)
     },
 
     BI: (text: string) => b(i(text)),

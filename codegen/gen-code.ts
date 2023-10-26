@@ -8,7 +8,7 @@ const {code, tags, components} = mdToVanCode(await Bun.file(inFile).text(), {
     codespan: s => `<Symbol>${s}</Symbol>`,
     link: (href, _unused_title, text) => `<Link>${text}<DUMMY></DUMMY>${href}</Link>`,
     heading: (text, level) => {
-      const tag = level <= 3 ? "H" : "h"
+      const tag = level <= 4 ? "H" : "h"
       return `<${tag}${level}>${text}</${tag}${level}>`
     }
   }

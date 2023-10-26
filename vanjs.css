@@ -121,7 +121,7 @@ ul.dir-tree li.folder, ul.dir-tree li.file {
   overflow: auto;
 }
 
-#content :not(h2, h3) a:-webkit-any-link {
+#content :not(h2, h3, h4) a:-webkit-any-link {
   color: -webkit-link;
 }
 
