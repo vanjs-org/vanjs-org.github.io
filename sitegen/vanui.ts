@@ -6,7 +6,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {code, div, em, li, p, pre, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {code, div, em, li, p, pre, span, strong, ul}} = van.vanWithDoc(doc)
   const {H1, H2, H3, H4, Link, Symbol} = common(doc)
   return div({id: "content"},
     H1(
@@ -191,6 +191,23 @@ export default (doc: HTMLDocument) => {
         Link(
           "preview",
           "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
+        ),
+        ")",
+      ),
+      li(
+        span({style: "color:red; padding-right: 0.3rem;"},
+          strong(
+            "New!",
+          ),
+        ),
+        Link(
+          "FloatingWindow",
+          "#floatingwindow",
+        ),
+        " (",
+        Link(
+          "preview",
+          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
         ),
         ")",
       ),
