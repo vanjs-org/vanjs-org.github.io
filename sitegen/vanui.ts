@@ -194,6 +194,18 @@ export default (doc: HTMLDocument) => {
         ),
         ")",
       ),
+      li(
+        Link(
+          "FloatingWindow",
+          "#floatingwindow",
+        ),
+        " (",
+        Link(
+          "preview",
+          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+        ),
+        ")",
+      ),
     ),
     H3(
       "Modal",
