@@ -96,7 +96,7 @@ export default (doc: HTMLDocument) => {
     p("Note that, ", Symbol("stateFields"), " only gets the underlying state fields for one layer of the reactive object. For instance, to get the state field for ", Symbol("First name"), ", you need to write:"),
     Js(`vanX.stateFields(vanX.stateFields(data).name.val).first`),
     H3("Add reactivity to existing JavaScript classes"),
-    p("It's possible to add reactivity to objects of existing JavaScript classes with the help of ", Symbol("vanX.reactive"), ". For instance, the code below adds the reactivity to a ", Symbol("Person"), "object:"),
+    p("It's possible to add reactivity to objects of existing JavaScript classes with the help of ", Symbol("vanX.reactive"), ". For instance, the code below adds the reactivity to a ", Symbol("Person"), " object:"),
     JsFile("name-existing-class.code.js"),
     p(Demo()),
     p({id: "demo-name-existing-class"}),
@@ -108,6 +108,7 @@ export default (doc: HTMLDocument) => {
       "data-css": "input { width: 90px; }\n",
     }),
     p(Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
+    p(Caveat(), "There might be issues if you try to add reactivity to an object implemented in native code (not in JavaScript). Example: ", Link("#156", "https://github.com/vanjs-org/van/issues/156"), "."),
     H3({id: "api-reactive"}, "API reference: ", Symbol("vanX.reactive")),
     ApiTable({
       signature: "vanX.reactive(obj) => <the created reactive object>",
