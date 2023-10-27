@@ -1980,6 +1980,14 @@ export default (doc: HTMLDocument) => {
       ),
     ),
     p(
+      "Window with customized close button:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, FloatingWindow(\n  {\n    title: \"Example Window 3\", x: 175, y: 175, closeCross: \"❌\",\n    crossHoverStyleOverrides: {\"background-color\": \"transparent\"},\n  },\n  div({style: \"display: flex; justify-content: center;\"},\n    p(\"This is a floating window with custom cross button!\"),\n  ),\n))\n",
+      ),
+    ),
+    p(
       "Window with ",
       Symbol(
         "Tabs",
@@ -2541,6 +2549,47 @@ export default (doc: HTMLDocument) => {
           "#property-bag-for-style-overrides",
         ),
         " for the styles you want to override for the close button.",
+      ),
+      li(
+        Symbol(
+          "crossHoverClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the close button when it's hovered over. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "crossStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the close button when it's hovered over.",
       ),
     ),
     H3(
