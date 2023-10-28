@@ -107,109 +107,262 @@ export default (doc: HTMLDocument) => {
       "Documentation",
     ),
     p(
-      "The following UI components has been implemented so far:",
+      "The following components have been implemented so far:",
     ),
     ul(
       li(
-        Link(
-          "Modal",
-          "#modal",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "Tabs",
-          "#tabs",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tabs?file=%2Fsrc%2Fmain.ts%3A1%2C1",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "MessageBoard",
-          "#message",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=/src/main.ts",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "Tooltip",
-          "#tooltip",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=/src/main.ts:1,1",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "Toggle",
-          "#toggle",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/toggle?file=%2Fsrc%2Fmain.ts%3A1%2C1",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "OptionGroup",
-          "#optiongroup",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/option-group?file=%2Fsrc%2Fmain.ts%3A1%2C1",
-        ),
-        ")",
-      ),
-      li(
-        Link(
-          "Banner",
-          "#banner",
-        ),
-        " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
-        ),
-        ")",
-      ),
-      li(
-        span({style: "color:red; padding-right: 0.3rem;"},
-          strong(
-            "New!",
+        "Utility components:",
+        ul(
+          li(
+            Link(
+              "Await",
+              "#await",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/await?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
           ),
         ),
-        Link(
-          "FloatingWindow",
-          "#floatingwindow",
+      ),
+      li(
+        "UI components:",
+        ul(
+          li(
+            Link(
+              "Modal",
+              "#modal",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "Tabs",
+              "#tabs",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tabs?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "MessageBoard",
+              "#message",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=/src/main.ts",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "Tooltip",
+              "#tooltip",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=/src/main.ts:1,1",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "Toggle",
+              "#toggle",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/toggle?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "OptionGroup",
+              "#optiongroup",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/option-group?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+          li(
+            Link(
+              "Banner",
+              "#banner",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
+            ),
+            ")",
+          ),
+          li(
+            span({style: "color:red; padding-right: 0.3rem;"},
+              strong(
+                "New!",
+              ),
+            ),
+            Link(
+              "FloatingWindow",
+              "#floatingwindow",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+        ),
+      ),
+    ),
+    H3(
+      "Await",
+    ),
+    p(
+      Symbol(
+        "Await",
+      ),
+      " is a utility component that helps you build UI components based on asynchronous data (i.e.: a JavaScript ",
+      Link(
+        Symbol(
+          "Promise",
+        ),
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+      ),
+      " object).",
+    ),
+    H4(
+      "Signature",
+    ),
+    pre(
+      code({class: "language-js"},
+        "Await(\n  {\n    value,  // A `Promise` object for asynchronous data\n    container,  // The container of the result. Default `div`\n    Loading,  // What to render when the data is being loaded\n    Error,  // What to render when error occurs\n  },\n  children,\n) => <The created UI element>\n",
+      ),
+    ),
+    p(
+      "The ",
+      Symbol(
+        "children",
+      ),
+      " parameter (type: ",
+      Symbol(
+        "(data: T) => ValidChildDomValue",
+      ),
+      ") is a function that takes the resolved data as input and returns a valid child DOM value (",
+      Symbol(
+        "Node",
+      ),
+      ", primitives, ",
+      Symbol(
+        "null",
+      ),
+      " or ",
+      Symbol(
+        "undefined",
+      ),
+      "), used to indicate what to render after the data is loaded.",
+    ),
+    H4(
+      "Examples",
+    ),
+    p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/await?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
+    p(
+      "Example 1 (fetching the number of GitHub stars):",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const Example1 = () => {\n  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))\n\n  const fetchWithDelay = (url: string, waitMs: number) =>\n    sleep(waitMs).then(() => fetch(url)).then(r => r.json())\n\n  const fetchStar = () =>\n    fetchWithDelay(\"https://api.github.com/repos/vanjs-org/van\", 1000)\n      .then(data => data.stargazers_count)\n\n  const data = van.state(fetchStar())\n\n  return [\n    () => h2(\n      \"Github Star: \",\n      Await({\n        value: data.val, container: span,\n        Loading: () => \"🌀 Loading...\",\n        Error: () => \"🙀 Request failed.\",\n      }, starNumber => `⭐️ ${starNumber}!`)\n    ),\n    () => Await({\n      value: data.val,\n      Loading: () => '',\n    }, () => button({onclick: () => (data.val = fetchStar())}, \"Refetch\")),\n  ]\n}\n",
+      ),
+    ),
+    p(
+      "Example 2 (parallel ",
+      Symbol(
+        "Await",
+      ),
+      "):",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const Example2 = () => {\n  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))\n\n  const loadNumber = () =>\n    sleep(Math.random() * 1000).then(() => Math.floor(Math.random() * 10))\n\n  const a = van.state(loadNumber()), b = van.state(loadNumber())\n\n  return [\n    h2(\"Parallel Await\"),\n    () => {\n      const sum = van.derive(() => Promise.all([a.val, b.val]).then(([a, b]) => a + b))\n      return Await({\n        value: sum.val,\n        Loading: () => div(\n          Await({value: a.val, Loading: () => \"🌀 Loading a...\"}, () => \"Done\"),\n          Await({value: b.val, Loading: () => \"🌀 Loading b...\"}, () => \"Done\"),\n        ),\n      }, sum => \"a + b = \" + sum)\n    },\n    p(button({onclick: () => (a.val = loadNumber(), b.val = loadNumber())}, \"Reload\")),\n  ]\n}\n",
+      ),
+    ),
+    H4(
+      "Property Reference",
+    ),
+    ul(
+      li(
+        Symbol(
+          "value",
+        ),
+        ": Type ",
+        Symbol(
+          "Promise",
+        ),
+        ". Required. The asynchronous data that the result UI element is based on.",
+      ),
+      li(
+        Symbol(
+          "container",
+        ),
+        ": Type ",
+        Symbol(
+          "TagFunction<Element>",
+        ),
+        ". Default ",
+        Symbol(
+          "div",
         ),
         " (",
-        Link(
-          "preview",
-          "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+        Symbol(
+          "van.tags.div",
         ),
-        ")",
+        "). Optional. The type of the wrapper HTML element for the result.",
+      ),
+      li(
+        Symbol(
+          "Loading",
+        ),
+        ": Type ",
+        Symbol(
+          "() => ValidChildDomValue",
+        ),
+        ". Optional. If specified, indicates what to render when the asynchronous data is being loaded.",
+      ),
+      li(
+        Symbol(
+          "Error",
+        ),
+        ": Type ",
+        Symbol(
+          "(reason: Error) => ValidChildDomValue",
+        ),
+        ". Optional. If specified, indicates what to render when error occurs while fetching the asynchronous data.",
       ),
     ),
     H3(
@@ -230,6 +383,14 @@ export default (doc: HTMLDocument) => {
       "Examples",
     ),
     p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
+    p(
       "Example 1:",
     ),
     pre(
@@ -244,14 +405,6 @@ export default (doc: HTMLDocument) => {
       code({class: "language-ts"},
         "const closed = van.state(false)\nconst formDom = form(\n  div(input({type: \"radio\", name: \"lang\", value: \"Zig\", checked: true}), \"Zig\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Rust\"}), \"Rust\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Kotlin\"}), \"Kotlin\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"TypeScript\"}), \"TypeScript\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"JavaScript\"}), \"JavaScript\"),\n)\n\nconst onOk = () => {\n  const lang = (<HTMLInputElement>formDom.querySelector(\"input:checked\")).value\n  alert(lang + \" is a good language 😀\")\n  closed.val = true\n}\n\nvan.add(document.body, Modal({closed, blurBackground: true},\n  p(\"What's your favorite programming language?\"),\n  formDom,\n  p({style: \"display: flex; justify-content: space-evenly;\"},\n    button({onclick: onOk}, \"Ok\"),\n    button({onclick: () => closed.val = true}, \"Cancel\"),\n  )\n))\n",
       ),
-    ),
-    p(
-      "You can live preview the examples with ",
-      Link(
-        "CodeSandbox",
-        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/modal?file=%2Fsrc%2Fmain.ts%3A1%2C1",
-      ),
-      ".",
     ),
     H4(
       "Property Reference",
@@ -421,18 +574,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Example",
     ),
-    pre(
-      code({class: "language-ts"},
-        "van.add(document.body, Tabs(\n  {\n    style: \"max-width: 500px;\",\n    tabButtonActiveColor: \"white\",\n    tabButtonBorderStyle: \"none\",\n    tabButtonRowStyleOverrides: {\n      \"padding-left\": \"12px\",\n    },\n  },\n  {\n    Home: p(\n      \"Welcome to \", b(\"VanJS\"), \" - the smallest reactive UI framework in the world.\",\n    ),\n    \"Getting Started\": [\n      p(\"To install the \", b(\"VanJS\"), \" NPM package, run the line below:\"),\n      pre(code(\"npm install vanjs-core\")),\n    ],\n    About: p(\n      \"The author of \", b(\"VanJS\"), \" is \",\n      a({href: \"https://github.com/Tao-VanJS\"}, \" Tao Xin\"), \".\"\n    ),\n  },\n))\n",
-      ),
-    ),
     p(
-      "You can live preview the example with ",
+      "Preview with ",
       Link(
         "CodeSandbox",
         "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tabs?file=%2Fsrc%2Fmain.ts%3A1%2C1",
       ),
       ".",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, Tabs(\n  {\n    style: \"max-width: 500px;\",\n    tabButtonActiveColor: \"white\",\n    tabButtonBorderStyle: \"none\",\n    tabButtonRowStyleOverrides: {\n      \"padding-left\": \"12px\",\n    },\n  },\n  {\n    Home: p(\n      \"Welcome to \", b(\"VanJS\"), \" - the smallest reactive UI framework in the world.\",\n    ),\n    \"Getting Started\": [\n      p(\"To install the \", b(\"VanJS\"), \" NPM package, run the line below:\"),\n      pre(code(\"npm install vanjs-core\")),\n    ],\n    About: p(\n      \"The author of \", b(\"VanJS\"), \" is \",\n      a({href: \"https://github.com/Tao-VanJS\"}, \" Tao Xin\"), \".\"\n    ),\n  },\n))\n",
+      ),
     ),
     H4(
       "Property Reference",
@@ -745,18 +898,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Examples",
     ),
+    p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
     pre(
       code({class: "language-ts"},
         "const board = new MessageBoard({top: \"20px\"})\n\nconst example1 = () => board.show({message: \"Hi!\", durationSec: 1})\nconst example2 = () => board.show(\n  {message: [\"Welcome to \", a({href: \"https://vanjs.org/\", style: \"color: #0099FF\"}, \"🍦VanJS\"), \"!\"], closer: \"❌\"})\n\nconst closed = van.state(false)\nconst example3 = () => {\n  closed.val = false\n  board.show({message: \"Press ESC to close this message\", closed})\n}\ndocument.addEventListener(\"keydown\", e => e.key === \"Escape\" && (closed.val = true))\n",
       ),
-    ),
-    p(
-      "You can live preview the examples with ",
-      Link(
-        "CodeSandbox",
-        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/message?file=/src/main.ts",
-      ),
-      ".",
     ),
     H4(
       "Property Reference",
@@ -1075,18 +1228,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Examples",
     ),
+    p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
     pre(
       code({class: "language-ts"},
         "const tooltip1Show = van.state(false)\nconst tooltip2Show = van.state(false)\nconst count = van.state(0)\nconst tooltip2Text = van.derive(() => `Count: ${count.val}`)\nconst tooltip3Show = van.state(false)\n\nvan.add(document.body,\n  button({\n    style: \"position: relative;\",\n    onmouseenter: () => tooltip1Show.val = true,\n    onmouseleave: () => tooltip1Show.val = false,\n  }, \"Normal Tooltip\", Tooltip({text: \"Hi!\", show: tooltip1Show})), \" \",\n  button({\n    style: \"position: relative;\",\n    onmouseenter: () => tooltip2Show.val = true,\n    onmouseleave: () => tooltip2Show.val = false,\n    onclick: () => ++count.val\n  }, \"Increment Counter\", Tooltip({text: tooltip2Text, show: tooltip2Show})), \" \",\n  button({\n    style: \"position: relative;\",\n    onmouseenter: () => tooltip3Show.val = true,\n    onmouseleave: () => tooltip3Show.val = false,\n  }, \"Slow Fade-in\", Tooltip({text: \"Hi from the sloth!\", show: tooltip3Show, fadeInSec: 5})),\n)\n",
       ),
-    ),
-    p(
-      "You can live preview the examples with ",
-      Link(
-        "CodeSandbox",
-        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/tooltip?file=/src/main.ts:1,1",
-      ),
-      ".",
     ),
     p(
       "Note that the lines:",
@@ -1291,18 +1444,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Example",
     ),
-    pre(
-      code({class: "language-ts"},
-        "van.add(document.body, Toggle({\n  size: 2,\n  onColor: \"#4CAF50\"\n}))\n",
-      ),
-    ),
     p(
-      "You can live preview the example with ",
+      "Preview with ",
       Link(
         "CodeSandbox",
         "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/toggle?file=%2Fsrc%2Fmain.ts%3A1%2C1",
       ),
       ".",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "van.add(document.body, Toggle({\n  size: 2,\n  onColor: \"#4CAF50\"\n}))\n",
+      ),
     ),
     H4(
       "Property Reference",
@@ -1602,18 +1755,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Example",
     ),
-    pre(
-      code({class: "language-ts"},
-        "const selected = van.state(\"\")\nconst options = [\"Water\", \"Coffee\", \"Juice\"]\n\nvan.add(document.body,\n  p(\"What would you like to drink?\"),\n  OptionGroup({selected}, options),\n  p(() => options.includes(selected.val) ?\n    span(b(\"You selected:\"), \" \", selected) : b(\"You haven't selected anything.\")),\n)\n",
-      ),
-    ),
     p(
-      "You can live preview the example with ",
+      "Preview with ",
       Link(
         "CodeSandbox",
         "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/option-group?file=%2Fsrc%2Fmain.ts%3A1%2C1",
       ),
       ".",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const selected = van.state(\"\")\nconst options = [\"Water\", \"Coffee\", \"Juice\"]\n\nvan.add(document.body,\n  p(\"What would you like to drink?\"),\n  OptionGroup({selected}, options),\n  p(() => options.includes(selected.val) ?\n    span(b(\"You selected:\"), \" \", selected) : b(\"You haven't selected anything.\")),\n)\n",
+      ),
     ),
     H4(
       "Property Reference",
@@ -1828,18 +1981,18 @@ export default (doc: HTMLDocument) => {
     H4(
       "Examples",
     ),
+    p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+      ".",
+    ),
     pre(
       code({class: "language-ts"},
         "van.add(document.body,\n  h2(\"Sticky Banner\"),\n  div({style: \"width: 300px; height: 200px; overflow-y: auto; border: 1px solid #000;\"},\n    Banner({sticky: true}, \"👋Hello 🗺️World\"),\n    div({style: \"padding: 0 10px\"}, Array.from({length: 10}).map((_, i) => p(\"Line \", i))),\n  ),\n  h2(\"Non-sticky Banner\"),\n  div({style: \"width: 300px; height: 200px; overflow-y: auto; border: 1px solid #000;\"},\n    Banner({sticky: false}, \"👋Hello \", a({href: \"https://vanjs.org/\"}, \"🍦VanJS\")),\n    div({style: \"padding: 0 10px\"}, Array.from({length: 10}).map((_, i) => p(\"Line \", i))),\n  ),\n)\n",
       ),
-    ),
-    p(
-      "You can live preview the examples with ",
-      Link(
-        "CodeSandbox",
-        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/banner?file=/src/main.ts:1,1",
-      ),
-      ".",
     ),
     H4(
       "Property Reference",
@@ -1980,7 +2133,7 @@ export default (doc: HTMLDocument) => {
       ),
     ),
     p(
-      "Window with customized close button:",
+      "Close button with custom appearance:",
     ),
     pre(
       code({class: "language-ts"},
@@ -1992,7 +2145,7 @@ export default (doc: HTMLDocument) => {
       Symbol(
         "Tabs",
       ),
-      " and custom close button:",
+      ":",
     ),
     pre(
       code({class: "language-ts"},
