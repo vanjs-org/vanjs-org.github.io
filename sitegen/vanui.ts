@@ -238,6 +238,15 @@ export default (doc: HTMLDocument) => {
       "Await",
     ),
     p(
+      em(
+        "Author: ",
+        Link(
+          "@Hunter-Gu",
+          "https://github.com/Hunter-Gu",
+        ),
+      ),
+    ),
+    p(
       Symbol(
         "Await",
       ),
