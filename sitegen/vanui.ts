@@ -264,7 +264,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-js"},
-        "Await(\n  {\n    value,  // A `Promise` object for asynchronous data\n    container,  // The container of the result. Default `div`\n    Loading,  // What to render when the data is being loaded\n    Error,  // What to render when error occurs\n  },\n  children,\n) => <The created UI element>\n",
+        "Await({\n  value,  // A `Promise` object for asynchronous data\n  container,  // The container of the result. Default `div`\n  Loading,  // What to render when the data is being loaded\n  Error,  // What to render when error occurs\n}, children) => <The created UI element>\n",
       ),
     ),
     p(
