@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, blockquote, div, g, i, img, input, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, blockquote, div, g, i, img, input, label, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
@@ -85,8 +85,8 @@ van.add(document.body, Counter())
     p(VanJS(), " is the smallest reactive UI framework in the world, with just 0.9kB in the gzipped minified bundle. It's ", b("50~100 times"), " smaller than most popular alternatives. Guess what you can get from this 0.9kB framework? All essential features of reactive UI programming - DOM templating, state, state binding, state derivation, effect, SPA, client-side routing and even hydration!"),
     p(
       div({style: "text-align: center"},
-        input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({class: "fixed-width", style: "margin-right: 60px;"}, ".min.js.gz"), " ",
-        input({type: "radio", name: "bundle-type", id: "radioMin", onclick: "updateChart()"}), span({class: "fixed-width"}, ".min.js"),
+        label(input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({class: "fixed-width", style: "margin-right: 60px;"}, ".min.js.gz")), " ",
+        label(input({type: "radio", name: "bundle-type", id: "radioMin", onclick: "updateChart()"}), span({class: "fixed-width"}, ".min.js")),
       ),
       div({id: "size-comp"}),
     ),
