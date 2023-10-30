@@ -113,6 +113,18 @@ van.add(document.body, Counter())
       trackToc()
       document.addEventListener("scroll", trackToc)
       addEventListener("resize", trackToc)
+
+      const copy = e => {
+        const file = e.previousElementSibling.innerText
+        const importLine = file.includes("nomodule") ?
+          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
+          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
+          navigator.clipboard.writeText(importLine)
+            .then(() => e.querySelector(".tooltip").innerText = "Copied")
+            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
+      }
+
+      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
     </script>
     <script type="text/javascript" src="/prism.js"></script>
     <script type="module">import van from "/code/van-latest.min.js"
@@ -134,19 +146,6 @@ van.add(document.getElementById("demo-counter"), Counter())
     <script type="text/javascript" src="/code/diff.min.js"></script>
     <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
     <script type="text/javascript" src="/code/van-x.nomodule.min.js"></script>
-    <script>
-      const copy = e => {
-        const file = e.previousElementSibling.innerText
-        const importLine = file.includes("nomodule") ?
-          `<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"><\/script>` :
-          `import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/${file}"`
-          navigator.clipboard.writeText(importLine)
-            .then(() => e.querySelector(".tooltip").innerText = "Copied")
-            .catch(() => e.querySelector(".tooltip").innerText = "Copy failed")
-      }
-
-      const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
-    </script>
     <script class="inline">google.charts.load('current', {packages: ['corechart']})
 
 const libs = [

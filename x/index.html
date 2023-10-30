@@ -266,14 +266,7 @@ const duplicateItems = () =&gt; vanX.replace(todoItems, l =&gt;
       trackToc()
       document.addEventListener("scroll", trackToc)
       addEventListener("resize", trackToc)
-    </script>
-    <script type="text/javascript" src="/prism.js"></script>
-    <script type="module"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="/code/diff.min.js"></script>
-    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
-    <script type="text/javascript" src="/code/van-x.nomodule.min.js"></script>
-    <script>
+
       const copy = e => {
         const file = e.previousElementSibling.innerText
         const importLine = file.includes("nomodule") ?
@@ -286,6 +279,12 @@ const duplicateItems = () =&gt; vanX.replace(todoItems, l =&gt;
 
       const resetTooltip = e => e.querySelector(".tooltip").innerText = "Copy import line"
     </script>
+    <script type="text/javascript" src="/prism.js"></script>
+    <script type="module"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/code/diff.min.js"></script>
+    <script type="text/javascript" src="/code/van-latest.nomodule.min.js"></script>
+    <script type="text/javascript" src="/code/van-x.nomodule.min.js"></script>
     <script class="inline">{
   const {button, div, input} = van.tags
 
