@@ -146,7 +146,7 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
 {
   const Symbol = (...children) => code({class: "symbol"}, children)
 
-  const CopyButton = () => a({class: "copy", onclick: "copy(this)", onmouseout: "resetTooltip(this)"},
+  const CopyButton = () => a({class: "copy", onClick: "copy(this)", onmouseout: "resetTooltip(this)"},
     span({class: "tooltip"}, "Copy import line"),
     "📋",
   )
