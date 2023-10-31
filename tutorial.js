@@ -1,5 +1,3 @@
-import van from "/code/van-latest.min.js"
-
 {
   const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
 

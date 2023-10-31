@@ -17,12 +17,38 @@ import about from "./about.ts"
 
 import converterLib from "./convert-lib.ts"
 
+const scripts = {
+  prism: "/prism.js",
+  chart: "https://www.gstatic.com/charts/loader.js",
+  diff: "/code/diff.min.js",
+  van: "/code/van-latest.nomodule.min.js",
+  vanX: "/code/van-x.nomodule.min.js",
+}
+
+const pageToScripts = {
+  "": [scripts.prism, scripts.chart, scripts.van],
+  start: [scripts.prism, scripts.van],
+  tutorial: [scripts.prism, scripts.van],
+  demo: [scripts.prism, scripts.van, scripts.diff, scripts.chart, scripts.vanX],
+  convert: [scripts.prism, scripts.van],
+  vanui: [scripts.prism],
+  minivan: [scripts.prism],
+  ssr: [scripts.prism],
+  x: [scripts.prism, scripts.van, scripts.vanX],
+  advanced: [scripts.prism, scripts.van],
+  media: [],
+  about: [scripts.prism],
+  "converter-lib": [scripts.prism],
+}
+
+type Path = keyof typeof pageToScripts
+
 const templateStr = Deno.readTextFileSync("template.html")
 
-const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: string,
+const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: string,
   title: string) => {
   const doc = new DOMParser().parseFromString(templateStr, "text/html")!
-  const {tags: {a, aside, div, li, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, aside, div, li, link, script, ul}} = van.vanWithDoc(doc)
   const {Link} = common(doc)
 
   const shortTitleToPath = [
@@ -86,18 +112,22 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: string, file: st
   const pageDom = page(doc)
   doc.getElementById("content")!.replaceWith(pageDom)
   doc.getElementById("toc")!.replaceWith(Toc(pageDom))
+
+  const placeholderDom = doc.getElementById("script-placeholder")!
+  for (const src of pageToScripts[path])
+    doc.body.insertBefore(script({type: "text/javascript", src, defer: ""}), placeholderDom)
   try {
-    doc.querySelector("script[type=module]")!.innerText =
-      Deno.readTextFileSync(`${path === "" ? "home" : path}.js`)
+    const src = `${path === "" ? "home" : path}.js`
+    Deno.lstatSync(src)
+    doc.body.insertBefore(script({type: "text/javascript", src, defer: ""}), placeholderDom)
   } catch (e) {
     if (!(e instanceof Deno.errors.NotFound)) throw e
   }
-  try {
-    doc.querySelector("script.inline")!.innerText =
-      Deno.readTextFileSync(`${path === "" ? "home" : path}.inline.js`)
-  } catch (e) {
-    if (!(e instanceof Deno.errors.NotFound)) throw e
-  }
+  placeholderDom.remove()
+
+  for (const href of Object.values(scripts))
+    doc.body.appendChild(link({rel: "prefetch", href, as: "script"}))
+
   Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
 }
 

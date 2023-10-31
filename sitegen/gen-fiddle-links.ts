@@ -80,7 +80,11 @@ const process = (file: string) => {
       if (name.startsWith("data-") || name === "id") dom.removeAttribute(name)
   }
 
-  Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML)
+  Deno.writeTextFileSync(file, "<!DOCTYPE html>\n" + doc.documentElement!.outerHTML
+    .replaceAll('async=""', "async")
+    .replaceAll('defer=""', "defer")
+    .replaceAll('checked="true"', "checked")
+  )
 }
 
 for await (const f of Deno.readDir("."))

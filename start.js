@@ -1,5 +1,3 @@
-import van from "/code/van-latest.min.js"
-
 const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th, thead, tr} = van.tags
 
 {
