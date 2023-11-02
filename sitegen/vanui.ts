@@ -103,6 +103,32 @@ export default (doc: HTMLDocument) => {
       ),
       ".",
     ),
+    H3(
+      "TypeScript Support for Script Tag Integration",
+    ),
+    p(
+      "To get TypeScript support for ",
+      Symbol(
+        "<script>",
+      ),
+      " tag integration, download ",
+      Link(
+        Symbol(
+          "van-ui.d.ts",
+        ),
+        "https://vanjs.org/autodownload?file=van-ui.d.ts",
+      ),
+      " and add the code like following at the top of your ",
+      Symbol(
+        ".ts",
+      ),
+      " file:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "import type { Modal as ModalType } from \"./van-ui.d.ts\"\n\ndeclare const Modal: typeof ModalType\n",
+      ),
+    ),
     H2(
       "Documentation",
     ),
@@ -2146,7 +2172,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "van.add(document.body, FloatingWindow(\n  {\n    title: \"Example Window 3\", x: 175, y: 175, closeCross: \"❌\",\n    crossHoverStyleOverrides: {\"background-color\": \"transparent\"},\n  },\n  div({style: \"display: flex; justify-content: center;\"},\n    p(\"This is a floating window with custom cross button!\"),\n  ),\n))\n",
+        "van.add(document.body, FloatingWindow(\n  {\n    title: \"Example Window 3\", x: 175, y: 175, closeCross: \"❌\",\n    crossHoverStyleOverrides: {\"background-color\": \"white\"},\n  },\n  div({style: \"display: flex; justify-content: center;\"},\n    p(\"This is a floating window with custom cross button!\"),\n  ),\n))\n",
       ),
     ),
     p(
