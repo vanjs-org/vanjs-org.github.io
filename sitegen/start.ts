@@ -28,7 +28,7 @@ export default (doc: HTMLDocument) => {
     p("To get TypeScript support for your ESM modules, download the corresponding ", Symbol(".d.ts"), " file from the ", Link("Download Table", "#download-table"), " and store it alongside the ", Symbol(".js"), " source file, and then import the ", Symbol(".js"), " file as normal:"),
     Js(`import van from "./van-${version}.min.js"`),
     H3("For Script Tag"),
-    p("To get TypeScript support for code that would be imported via a ", InlineHtml(`<script>`), " tag, download a ", Symbol(".d.ts"), " file from the ", Link("Download Table", "#download-table"), " (any file from the table would work), and then add the following code at the top of your ", Symbol(".ts"), "file:"),
+    p("To get TypeScript support for code that would be imported via a ", InlineHtml(`<script>`), " tag, download a ", Symbol(".d.ts"), " file from the ", Link("Download Table", "#download-table"), " (any file from the table would work), and then add the following code at the top of your ", Symbol(".ts"), " file:"),
     Ts(`import type { Van } from "./van-${version}.d.ts"
 
 declare const van: Van

@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, li, p, strong, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Caveat, Demo, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, VanJS, VanX} = common(doc)
+  const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
@@ -24,6 +24,12 @@ export default (doc: HTMLDocument) => {
     Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.min.js"></script>`),
     p(Symbol(`https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.js`)," can be used for the non-minified version."),
     p("Note that: ", VanJS(), " needs to be ", Link("imported", "/start"), " via a ", InlineJs(`<script type="text/javascript">`), " tag for ", VanX, " to work properly."),
+    H3("TypeScript Support for Script Tag Integration"),
+    p("To get TypeScript support for ", InlineHtml("<script>"), " tag integration, download ", Download(`van-x-${version}.d.ts`), " and add the following code at the top of your ", Symbol(".ts"), " file:"),
+    Ts(`import type * as vanXType from "./van-x-${version}.d.ts"
+
+declare const vanX: typeof vanXType
+`),
     H2({id: "reactive-object"}, Symbol("vanX.reactive"), ": Reactive Object to Hold Many Individual States"),
     p(Symbol("vanX.reactive"), " provides an ergonomic way to define a single reactive object where each of its individual fields corresponds to an underlying ", Symbol("State"), " object. For instance:"),
     Js(`const obj = vanX.reactive({a: 1, b: 2})`),
