@@ -1,11 +1,9 @@
 import { Van } from "vanjs-core"
 import { htmlToVanCode, mdToVanCode } from "vanjs-converter"
 
-declare global {
-  interface Window { van: Van, Prism: any }
-}
+declare const van: Van, Prism: any
 
-const {van: {state, derive, add, tags: {code, div, h5, input, option, pre, select, span, textarea}}} = window
+const {state, derive, add, tags: {code, div, h5, input, option, pre, select, span, textarea}} = van
 
 const autogrow = (dom: HTMLTextAreaElement) => {
   dom.style.height = "5px"
@@ -80,7 +78,7 @@ const Converter = () => {
       tagsDom.textContent = tags.length ? `const {${space}${tags.join(", ")}${space}} = van.tags
 ` : ""
       codeDom.textContent = lines.map(l => l + "\n").join("")
-      setTimeout(() => window.Prism.highlightAll(), 5)
+      setTimeout(() => Prism.highlightAll(), 5)
 
       return dom
     }

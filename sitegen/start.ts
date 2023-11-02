@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, p}} = van.vanWithDoc(doc)
-  const {Demo, Download, H1, H2, Html, Js, Link, Shell, Symbol, SymLink, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, Html, Js, Link, Shell, SymLink, Symbol, Ts, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
@@ -23,6 +23,16 @@ export default (doc: HTMLDocument) => {
     p("or this line if you want to import the debug version of ", VanJS(), ":"),
     Js(`import van from "vanjs-core/debug"`),
     p("You can check out the ", SymLink("Hello World", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/npm-examples/hello?file=%2Fsrc%2Fmain.ts%3A1%2C1"), " app built with ", VanJS(), " NPM + Vite (", Link("source code", "https://github.com/vanjs-org/van/tree/main/npm-examples/hello"), ")."),
+    H2("TypeScript Support for Non-NPM Integration"),
+    H3("For ESM Modules"),
+    p("To have TypeScript support for your ESM modules, download the corresponding ", Symbol(".d.ts"), " file from the ", Link("Download Table", "#download-table"), " and store it alongside the ", Symbol(".js"), " source file, and then import the ", Symbol(".js"), " file as normal:"),
+    Js(`import van from "./van-${version}.min.js"`),
+    H3("For ", Symbol("<script>"), "tag"),
+    p("To have TypeScript support for code that would be imported via a ", Symbol("<script>"), " tag, download a ", Symbol(".d.ts"), " file from the ", Link("Download Table", "#download-table"), " (any file from the table would work), and then add the following code at the top of your ", Symbol(".ts"), "file:"),
+    Ts(`import type { Van } from "./van-${version}.d.ts"
+
+declare const van: Van
+`),
     H2("Test It Out"),
     p("The following code will produce a funnier ", Symbol("Hello"), " component:"),
     Js(`const {button, div, pre} = van.tags
