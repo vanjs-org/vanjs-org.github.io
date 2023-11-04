@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {a, b, br, button, div, i, iframe, li, p, span, table, tbody, td, th, thead, tr, ul}} = van.vanWithDoc(doc)
-  const {Demo, H1, H2, Js, JsFile, Link, Quote, Symbol, SymLink, TsFile, User, VanJS} = common(doc)
+  const {Demo, H1, H2, Js, JsFile, Link, Quote, SymLink, Symbol, TsFile, User, VanJS, VanX} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Learning by Example"),
@@ -246,7 +246,7 @@ const TodoList = () => {
     p(Demo()),
     p({id: "demo-todo-fully-reactive"}),
     p(Link("Try on CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1")),
-    p("With the help of ", Link("VanX", "/x"), ", the code above can be simplified to just 10+ lines:"),
+    p("With the help of ", Link(VanX(), "/x"), ", the code above can be simplified to just 10+ lines:"),
     JsFile("todo-app.code.js"),
     p(Demo()),
     p({id: "demo-todo-fully-reactive-vanx"}),
@@ -257,6 +257,28 @@ const TodoList = () => {
       "data-suffix": "van.add(document.body, TodoList())",
     }),
     p("You can refer to ", SymLink("vanX.list", "/x#reactive-list"), " for more details."),
+    H2({id: "game"}, "Fun Game: Emojis Pops"),
+    p("We're able to implement a mini game engine with ", VanJS(), " in just a few lines. Here is a fun game implemented under 60 lines with the help of ", VanJS(), " and ", Link(VanX(), "x"), ":"),
+    JsFile("game.code.js"),
+    p(Link("🕹️ Let's play!", "/code/game")),
+    p({
+      id: "jsfiddle-game",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {a, b, button, div, h1, li, p, span, ul} = van.tags",
+      "data-suffix": `van.add(document.body,
+  h1("Emoji Pops"),
+  p(b("Game rules: "), "Click emojis to pop:"),
+  ul(
+    li("👍: ", span({class: "good"}, "+1"), ". Score +1."),
+    li("🚀: ", span({class: "good"}, "+10"), ". Score +10."),
+    li("👎: ", span({class: "bad"}, "-5"), ". Score -5."),
+    li("🐌: ", span({class: "good"}, "Slowed"), ". Slow all emojis on the board."),
+    li("💣: ", span({class: "bad"}, "BOOM!"), ". All emojis disappear."),
+  ),
+  Game(),
+  div({class: "footer"}, "Powered by ", a({href: "https://vanjs.org/"}, b("VanJS")), " and ", a({href: "https://vanjs.org/x"}, b("VanX"))),
+)`,
+    }),
     H2({id: "code-browser"}, "SPA w/ Client-Side Routing: Code Browser"),
     p("With ", VanJS(), ", you can built a single-page application with client-side routing support, thanks to ", VanJS(), "'s powerful builtin state management and state derivation:"),
     TsFile("code/code-browser/src/main.js", {trim: true}),

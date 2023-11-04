@@ -247,7 +247,7 @@ const TodoList = () =&gt; {
       div(appState.val.todos.map(TodoItem)),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p>With the help of <a href="/x" class="w3-hover-opacity">VanX</a>, the code above can be simplified to just 10+ lines:</p><pre><code class="language-js">const TodoList = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p>With the help of <a href="/x" class="w3-hover-opacity"><b>VanX</b></a>, the code above can be simplified to just 10+ lines:</p><pre><code class="language-js">const TodoList = () =&gt; {
   const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
   van.derive(() =&gt; localStorage.setItem("appState", JSON.stringify(items.filter(_ =&gt; 1))))
   const inputDom = input({type: "text"})
@@ -260,7 +260,66 @@ const TodoList = () =&gt; {
     )),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive-vanx"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-fully-reactive-vanx">Try on jsfiddle</a></p><p>You can refer to <code class="symbol"><a href="/x#reactive-list" class="w3-hover-opacity">vanX.list</a></code> for more details.</p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive-vanx"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/todo-fully-reactive-vanx">Try on jsfiddle</a></p><p>You can refer to <code class="symbol"><a href="/x#reactive-list" class="w3-hover-opacity">vanX.list</a></code> for more details.</p><h2 class="w3-xxlarge w3-text-red" id="game"><a class="self-link" href="#game">Fun Game: Emojis Pops</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>We're able to implement a mini game engine with <b>VanJS</b> in just a few lines. Here is a fun game implemented under 60 lines with the help of <b>VanJS</b> and <a href="x" class="w3-hover-opacity"><b>VanX</b></a>:</p><pre><code class="language-js">const Game = () =&gt; {
+  const time = van.state(60), score = van.state(0), inGame = van.state(false), items = vanX.reactive([])
+  const fps = 60, height = 400, frameFns = Array(fps * time.val).fill().map(() =&gt; [])
+  let curFrame = 0
+
+  const Item = ({val: v}, deleter) =&gt; {
+    const x = Math.floor(Math.random() * (document.body.clientWidth - 42)), y = van.state(0)
+    let deleted = false
+    v.removing = false
+    van.derive(() =&gt; v.removing &amp;&amp; nextFrames(0.3 * fps).then(() =&gt; (deleted = true, deleter())))
+    ;(async () =&gt; {
+      do { await nextFrames(1) } while (!deleted &amp;&amp; (y.val += v.speed) &lt;= height)
+      if (!v.removing) deleter()
+    })()
+    return span({
+      class: "item",
+      style: () =&gt; `left: ${x}px; bottom: ${y.val}px; opacity: ${v.removing ? 0 : 1};`,
+      onclick: () =&gt; inGame.val &amp;&amp; !v.removing &amp;&amp;
+        frameFns[curFrame].push(() =&gt; (v.removing = v.msg, v.action())),
+    }, v.icon, () =&gt; v.removing ? span({class: "msg " + (v.bad ? "bad": "good")}, v.removing) : "")
+  }
+
+  const itemTypes = [
+    {icon: "👍", speed: 5, secs: 1, msg: "+1", action: () =&gt; ++score.val},
+    {icon: "🚀", speed: 10, secs: 5, msg: "+10", action: () =&gt; score.val += 10},
+    {icon: "👎", speed: 3, secs: 1, msg: "-5", bad: true, action: () =&gt; score.val -= 5},
+    {icon: "🐌", speed: 5, secs: 10, msg: "Slowed", action: () =&gt; items.forEach(it =&gt; it.speed /= 2)},
+    {icon: "💣", speed: 3, secs: 1, msg: "BOOM!", bad: true, action: () =&gt;
+      items.forEach(it =&gt; it.removing = "BOOM!")},
+  ]
+
+  const begin = () =&gt; {
+    setInterval(() =&gt; {
+      if (!inGame.val) return
+      for (const fn of frameFns[curFrame]) fn()
+      ++curFrame % 60 === 0 &amp;&amp; --time.val
+      curFrame === frameFns.length &amp;&amp; end()
+    }, 1000 / fps)
+    inGame.val = true
+    itemTypes.forEach(async type =&gt; {
+      while (1) {
+        await nextFrames(Math.floor(Math.random() * fps * type.secs * 2) + 1)
+        items.push({...type})
+      }
+    })
+  }
+  const end = () =&gt; (alert("Your score: " + score.val), location.reload())
+  const nextFrames = n =&gt; new Promise(r =&gt; frameFns[curFrame + n]?.push(r))
+
+  return div({class: "root"},
+    span({class: "time"}, "Time: ", time), span({class: "score"}, "Score: ", score),
+    vanX.list(() =&gt; div({class: "board"}), items, Item),
+    div({class: "panel"},
+      button({onclick: () =&gt; curFrame ? inGame.val = !inGame.val : begin()},
+        () =&gt; inGame.val ? "Pause" : "Start",
+      ),
+    ),
+  )
+}
+</code></pre><p><a href="/code/game" class="w3-hover-opacity">🕹️ Let's play!</a></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/game">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
   const file = van.state(location.hash.slice(1))
   window.addEventListener("hashchange", () =&gt; file.val = location.hash.slice(1))
 
@@ -813,7 +872,7 @@ const Input = ({id}) =&gt; {
 
 const Console = () =&gt; div({class: "console"}, Input({id: 1}))
 </code></pre><p><b>Demo:</b></p><p id="demo-js-console"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/js-console">Try on jsfiddle</a></p><p>You can also try out the JavaScript console in <a href="/code/console.html" class="w3-hover-opacity">this standalone page</a>.</p><h2 class="w3-xxlarge w3-text-red" id="an-improved-unix-terminal"><a class="self-link" href="#an-improved-unix-terminal">An Improved Unix Terminal</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Next up is a web-based Unix terminal that connects to your local computer, with notable improvements, all under 300 lines of code. This is to demonstrate that, with <b>VanJS</b>, we can easily provide great extension to commandline utilities with fancy GUI by leveraging all available HTML elements. The program is heavily tested in macOS, and should in theory works in Linux, or in any environment that has <code class="symbol"><a href="https://en.wikipedia.org/wiki/Bourne_shell" class="w3-hover-opacity">/bin/sh</a></code>.</p><p>See <a href="https://github.com/vanjs-org/van/tree/main/demo/terminal" class="w3-hover-opacity">github.com/vanjs-org/van/tree/main/demo/terminal</a> for the app (<a href="https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/demo/terminal" class="w3-hover-opacity">preview</a>).</p><h2 class="w3-xxlarge w3-text-red" id="community-examples"><a class="self-link" href="#community-examples">Community Examples</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Besides the official <b>VanJS</b> examples, there are also sample apps from the great <b>VanJS</b> community. Below is a curated list (contact <a href="mailto:tao@vanjs.org" class="w3-hover-opacity">tao@vanjs.org</a> to add yours):</p><ul><li><a href="https://github.com/artydev" class="w3-hover-opacity">@artydev</a>'s <a href="https://dev.to/artydev/series/23075" class="w3-hover-opacity"><b>VanJS</b> Series</a></li><li><a href="https://github.com/barrymun" class="w3-hover-opacity">@barrymun</a>'s <a href="https://github.com/barrymun/division-game" class="w3-hover-opacity">Division Game</a> (<a href="http://barrymun.vanjs-division-game.surge.sh/" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/enpitsuLin" class="w3-hover-opacity">@enpitsuLin</a>'s <a href="https://github.com/enpitsuLin/vanjs-todomvc" class="w3-hover-opacity">TODO app</a>&nbsp;(<a href="https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/ndrean" class="w3-hover-opacity">@ndrean</a>'s <a href="https://github.com/ndrean/vanjs-dialog-modal" class="w3-hover-opacity"><b>Modal</b> component &amp; routing with <b>VanJS</b></a>&nbsp;(<a href="https://githubbox.com/ndrean/vanjs-dialog-modal" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/b-rad-c" class="w3-hover-opacity">@b-rad-c</a>'s <a href="https://github.com/b-rad-c/vanjs-spa-template" class="w3-hover-opacity"><b>VanJS</b> SPA Template</a>&nbsp;(<a href="https://codesandbox.io/p/sandbox/github/b-rad-c/vanjs-spa-template/tree/main" class="w3-hover-opacity">live preview</a>)</li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-kit" class="w3-hover-opacity">multi-page app starter kit under 5kB</a></li><li><a href="https://github.com/FredericHeem" class="w3-hover-opacity">@FredericHeem</a>'s <a href="https://github.com/FredericHeem/van-playground" class="w3-hover-opacity">VanJS playground with Vite</a></li></ul></div>
-        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#blog" class="w3-hover-opacity">Blog</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#todo-app" class="w3-hover-opacity">A Fully Reactive TODO App</a></li><li><a href="#code-browser" class="w3-hover-opacity">SPA w/ Client-Side Routing: Code Browser</a></li><li><a href="#stargazers" class="w3-hover-opacity">Stargazers</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">Table-View Example: JSON/CSV Table Viewer</a></li><li><a href="#package-lock-inspector" class="w3-hover-opacity">package-lock.json Inspector</a></li><li><a href="#json-inspector" class="w3-hover-opacity">Tree-View Example: JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-md-to-vanjs-code-converter" class="w3-hover-opacity">HTML/MD to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-terminal" class="w3-hover-opacity">An Improved Unix Terminal</a></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
+        <aside id="toc"><ul><li><a href="#hello-world" class="w3-hover-opacity">Hello World!</a></li><li><a href="#dom-composition-and-manipulation" class="w3-hover-opacity">DOM Composition and Manipulation</a></li><li><a href="#counter" class="w3-hover-opacity">Counter</a></li><li><a href="#stopwatch" class="w3-hover-opacity">Stopwatch</a></li><li><a href="#blog" class="w3-hover-opacity">Blog</a></li><li><a href="#list" class="w3-hover-opacity">List</a></li><li><a href="#todo-list" class="w3-hover-opacity">TODO List</a></li><li><a href="#todo-app" class="w3-hover-opacity">A Fully Reactive TODO App</a></li><li><a href="#game" class="w3-hover-opacity">Fun Game: Emojis Pops</a></li><li><a href="#code-browser" class="w3-hover-opacity">SPA w/ Client-Side Routing: Code Browser</a></li><li><a href="#stargazers" class="w3-hover-opacity">Stargazers</a></li><li><a href="#epoch-timestamp-converter" class="w3-hover-opacity">Epoch Timestamp Converter</a></li><li><a href="#keyboard-event-inspector" class="w3-hover-opacity">Keyboard Event Inspector</a></li><li><a href="#diff" class="w3-hover-opacity">Diff</a></li><li><a href="#calculator" class="w3-hover-opacity">Calculator</a></li><li><a href="#table-viewer" class="w3-hover-opacity">Table-View Example: JSON/CSV Table Viewer</a></li><li><a href="#package-lock-inspector" class="w3-hover-opacity">package-lock.json Inspector</a></li><li><a href="#json-inspector" class="w3-hover-opacity">Tree-View Example: JSON Inspector</a></li><li><a href="#auto-complete" class="w3-hover-opacity">Textarea with Autocomplete</a></li><li><a href="#html-md-to-vanjs-code-converter" class="w3-hover-opacity">HTML/MD to VanJS Code Converter</a></li><li><a href="#jupyter-like-javascript-console" class="w3-hover-opacity">Jupyter-like JavaScript Console</a></li><li><a href="#an-improved-unix-terminal" class="w3-hover-opacity">An Improved Unix Terminal</a></li><li><a href="#community-examples" class="w3-hover-opacity">Community Examples</a></li></ul></aside>
       </div>
     </div>
     <script>

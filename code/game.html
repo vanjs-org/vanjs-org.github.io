@@ -70,11 +70,11 @@
         }
 
         const itemTypes = [
-          {icon: "👍", speed: 5, spawnSecs: 1, msg: "+1", action: () => ++score.val},
-          {icon: "🚀", speed: 10, spawnSecs: 5, msg: "+10", action: () => score.val += 10},
-          {icon: "👎", speed: 3, spawnSecs: 1, msg: "-5", bad: true, action: () => score.val -= 5},
-          {icon: "🐌", speed: 5, spawnSecs: 10, msg: "Slowed", action: () => items.forEach(it => it.speed /= 2)},
-          {icon: "💣", speed: 3, spawnSecs: 1, msg: "BOOM!", bad: true, action: () =>
+          {icon: "👍", speed: 5, secs: 1, msg: "+1", action: () => ++score.val},
+          {icon: "🚀", speed: 10, secs: 5, msg: "+10", action: () => score.val += 10},
+          {icon: "👎", speed: 3, secs: 1, msg: "-5", bad: true, action: () => score.val -= 5},
+          {icon: "🐌", speed: 5, secs: 10, msg: "Slowed", action: () => items.forEach(it => it.speed /= 2)},
+          {icon: "💣", speed: 3, secs: 1, msg: "BOOM!", bad: true, action: () =>
             items.forEach(it => it.removing = "BOOM!")},
         ]
 
@@ -88,7 +88,7 @@
           inGame.val = true
           itemTypes.forEach(async type => {
             while (1) {
-              await nextFrames(Math.floor(Math.random() * fps * type.spawnSecs * 2) + 1)
+              await nextFrames(Math.floor(Math.random() * fps * type.secs * 2) + 1)
               items.push({...type})
             }
           })
