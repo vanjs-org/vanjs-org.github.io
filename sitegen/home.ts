@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {a, b, blockquote, div, g, i, img, input, label, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
-  const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS, VanX} = common(doc)
+  const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS, VanUI, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
     path({"d": "M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"}),
@@ -106,7 +106,8 @@ van.add(document.body, Counter())
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo"), " (and also ", Link("Community Examples", "/demo#community-examples"), ")"),
       li("Convert HTML or MD snippet to ", VanJS(), " code with our online ", Link("HTML/MD to ", VanJS(), " Converter", "/convert")),
-      li("Check out ", Link("VanUI", "https://github.com/vanjs-org/van/tree/main/components"), " - A collection of grab 'n go reusable UI components for ", VanJS()),
+      li("Check out ", Link(VanUI(), "/vanui"), " - A collection of grab 'n go reusable UI components for ", VanJS()),
+      li("Check out ", Link(VanX(), "/x"), " - The 1.0 kB official ", VanJS(), " extension"),
       li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
     ),
