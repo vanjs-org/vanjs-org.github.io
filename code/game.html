@@ -37,13 +37,15 @@
       .score { position: absolute; right: 5px; z-index: 1; }
 
       .panel { display: flex; justify-content: center; }
+
+      .footer { font-size: 0.9rem; text-align: right; }
     </style>
   </head>
   <body>
     <script type="text/javascript" src="van-latest.nomodule.js"></script>
     <script type="text/javascript" src="van-x.nomodule.js"></script>
     <script>
-      const {b, button, div, h1, li, p, span, ul} = van.tags
+      const {a, b, button, div, h1, li, p, span, ul} = van.tags
 
       const Game = () => {
         const time = van.state(60), score = van.state(0), inGame = van.state(false), items = vanX.reactive([])
@@ -122,6 +124,7 @@
           li("💣: ", span({class: "bad"}, "BOOM!"), ". All emojis disappear."),
         ),
         Game(),
+        div({class: "footer"}, "Powered by ", a({href: "https://vanjs.org/"}, b("VanJS")), " and ", a({href: "https://vanjs.org/x"}, b("VanX"))),
       )
     </script>
   </body>
