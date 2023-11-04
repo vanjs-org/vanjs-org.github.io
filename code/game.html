@@ -82,7 +82,8 @@
           setInterval(() => {
             if (!inGame.val) return
             for (const fn of frameFns[curFrame]) fn()
-            ++curFrame === frameFns.length && end()
+            ++curFrame % 60 === 0 && --time.val
+            curFrame === frameFns.length && end()
           }, 1000 / fps)
           inGame.val = true
           itemTypes.forEach(async type => {
@@ -94,13 +95,6 @@
         }
         const end = () => (alert("Your score: " + score.val), location.reload())
         const nextFrames = n => new Promise(r => frameFns[curFrame + n]?.push(r))
-
-        ;(async () => {
-          while (1) {
-            await nextFrames(fps)
-            --time.val
-          }
-        })()
 
         return div({class: "root"},
           span({class: "time"}, "Time: ", time), span({class: "score"}, "Score: ", score),
