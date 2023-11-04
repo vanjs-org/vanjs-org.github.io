@@ -96,6 +96,7 @@ export default (doc: HTMLDocument) => {
 
   return {
     VanJS: () => b("VanJS"),
+    VanUI: () => b("VanUI"),
     VanX: () => b("VanX"),
     MiniVan: () => b("Mini-Van"),
     Demo: () => b("Demo:"),
