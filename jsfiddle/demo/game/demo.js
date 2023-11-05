@@ -9,10 +9,11 @@ const Game = () => {
     const x = Math.floor(Math.random() * (document.body.clientWidth - 42)), y = van.state(0)
     let deleted = false
     v.removing = false
-    van.derive(() => v.removing && nextFrames(0.3 * fps).then(() => (deleted = true, deleter())))
+    van.derive(() => v.removing &&
+      nextFrames(Math.floor(0.3 * fps)).then(() => (deleted = true, deleter())))
     ;(async () => {
       do { await nextFrames(1) } while (!deleted && (y.val += v.speed) <= height)
-      if (!v.removing) deleter()
+      v.removing || deleter()
     })()
     return span({
       class: "item",
@@ -23,11 +24,11 @@ const Game = () => {
   }
 
   const itemTypes = [
-    {icon: "👍", speed: 5, secs: 1, msg: "+1", action: () => ++score.val},
-    {icon: "🚀", speed: 10, secs: 5, msg: "+10", action: () => score.val += 10},
-    {icon: "👎", speed: 3, secs: 1, msg: "-5", bad: true, action: () => score.val -= 5},
-    {icon: "🐌", speed: 5, secs: 10, msg: "Slowed", action: () => items.forEach(it => it.speed /= 2)},
-    {icon: "💣", speed: 3, secs: 1, msg: "BOOM!", bad: true, action: () =>
+    {icon: "👍", speed: 5, n: 60, msg: "+1", action: () => ++score.val},
+    {icon: "🚀", speed: 10, n: 12, msg: "+10", action: () => score.val += 10},
+    {icon: "👎", speed: 3, n: 60, msg: "-5", bad: true, action: () => score.val -= 5},
+    {icon: "🐌", speed: 5, n: 6, msg: "Slowed", action: () => items.forEach(it => it.speed /= 2)},
+    {icon: "💣", speed: 3, n: 60, msg: "BOOM!", bad: true, action: () =>
       items.forEach(it => it.removing = "BOOM!")},
   ]
 
@@ -39,12 +40,9 @@ const Game = () => {
       curFrame === frameFns.length && end()
     }, 1000 / fps)
     inGame.val = true
-    itemTypes.forEach(async type => {
-      while (1) {
-        await nextFrames(Math.floor(Math.random() * fps * type.secs * 2) + 1)
-        items.push({...type})
-      }
-    })
+    for (const type of itemTypes)
+      for (let i = 0; i < type.n; ++i)
+        frameFns[Math.floor(Math.random() * frameFns.length)].push(() => items.push({...type}))
   }
   const end = () => (alert("Your score: " + score.val), location.reload())
   const nextFrames = n => new Promise(r => frameFns[curFrame + n]?.push(r))

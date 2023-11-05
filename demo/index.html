@@ -269,10 +269,11 @@ const TodoList = () =&gt; {
     const x = Math.floor(Math.random() * (document.body.clientWidth - 42)), y = van.state(0)
     let deleted = false
     v.removing = false
-    van.derive(() =&gt; v.removing &amp;&amp; nextFrames(0.3 * fps).then(() =&gt; (deleted = true, deleter())))
+    van.derive(() =&gt; v.removing &amp;&amp;
+      nextFrames(Math.floor(0.3 * fps)).then(() =&gt; (deleted = true, deleter())))
     ;(async () =&gt; {
       do { await nextFrames(1) } while (!deleted &amp;&amp; (y.val += v.speed) &lt;= height)
-      if (!v.removing) deleter()
+      v.removing || deleter()
     })()
     return span({
       class: "item",
@@ -283,11 +284,11 @@ const TodoList = () =&gt; {
   }
 
   const itemTypes = [
-    {icon: "👍", speed: 5, secs: 1, msg: "+1", action: () =&gt; ++score.val},
-    {icon: "🚀", speed: 10, secs: 5, msg: "+10", action: () =&gt; score.val += 10},
-    {icon: "👎", speed: 3, secs: 1, msg: "-5", bad: true, action: () =&gt; score.val -= 5},
-    {icon: "🐌", speed: 5, secs: 10, msg: "Slowed", action: () =&gt; items.forEach(it =&gt; it.speed /= 2)},
-    {icon: "💣", speed: 3, secs: 1, msg: "BOOM!", bad: true, action: () =&gt;
+    {icon: "👍", speed: 5, n: 60, msg: "+1", action: () =&gt; ++score.val},
+    {icon: "🚀", speed: 10, n: 12, msg: "+10", action: () =&gt; score.val += 10},
+    {icon: "👎", speed: 3, n: 60, msg: "-5", bad: true, action: () =&gt; score.val -= 5},
+    {icon: "🐌", speed: 5, n: 6, msg: "Slowed", action: () =&gt; items.forEach(it =&gt; it.speed /= 2)},
+    {icon: "💣", speed: 3, n: 60, msg: "BOOM!", bad: true, action: () =&gt;
       items.forEach(it =&gt; it.removing = "BOOM!")},
   ]
 
@@ -299,12 +300,9 @@ const TodoList = () =&gt; {
       curFrame === frameFns.length &amp;&amp; end()
     }, 1000 / fps)
     inGame.val = true
-    itemTypes.forEach(async type =&gt; {
-      while (1) {
-        await nextFrames(Math.floor(Math.random() * fps * type.secs * 2) + 1)
-        items.push({...type})
-      }
-    })
+    for (const type of itemTypes)
+      for (let i = 0; i &lt; type.n; ++i)
+        frameFns[Math.floor(Math.random() * frameFns.length)].push(() =&gt; items.push({...type}))
   }
   const end = () =&gt; (alert("Your score: " + score.val), location.reload())
   const nextFrames = n =&gt; new Promise(r =&gt; frameFns[curFrame + n]?.push(r))
