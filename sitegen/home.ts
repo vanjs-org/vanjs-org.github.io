@@ -95,7 +95,7 @@ van.add(document.body, Counter())
       source: "Antoine de Saint-Exupéry, Airman's Odyssey",
     }),
     H3("Easy to Learn"),
-    p("Simplicity at its core. 5 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ", ", Symbol("van.hydrate"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The the entire tutorial plus the API reference is ", Link("just one single web page", "/tutorial"), ", and can be learned within 1 hour for most developers."),
+    p("Simplicity at its core. 5 major functions (", Symbol("van.tags"), ", ", Symbol("van.add"), ", ", Symbol("van.state"), ", ", Symbol("van.derive"), ", ", Symbol("van.hydrate"), ") + 4 auxiliary functions (", Symbol("van.tagsNS"), ", ", Symbol("van._"), ", ", Symbol("van.val"), ", ", Symbol("van.oldVal"), "). The entire tutorial plus the API reference is ", Link("just one single web page", "/tutorial"), ", and can be learned within 1 hour for most developers."),
     H3("Performance"),
     p(VanJS(), " is among the fastest web frameworks, according to the ", Link("results", "https://krausest.github.io/js-framework-benchmark/2023/table_chrome_117.0.5938.62.html"), " by ", Link("krausest/js-framework-benchmark", "https://github.com/krausest/js-framework-benchmark"), ". For SSR, ", MiniVan(), " is ", Link(b("1.75X"), " to ", b("2.25X"), " more efficient", "https://github.com/vanjs-org/mini-van/tree/main/bench#react-vs-mini-van"), " compared to React."),
     H3("TypeScript Support"),
