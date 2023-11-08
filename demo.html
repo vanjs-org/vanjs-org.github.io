@@ -317,7 +317,7 @@ const TodoList = () =&gt; {
     ),
   )
 }
-</code></pre><p><a href="/code/game" class="w3-hover-opacity">🎮 Let's play!</a></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/game">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
+</code></pre><p><a href="/code/game" class="w3-hover-opacity">🎮 Let's play!</a> (you can share your score here: <a href="https://github.com/vanjs-org/van/discussions/174" class="w3-hover-opacity">#174</a>)</p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/game">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
   const file = van.state(location.hash.slice(1))
   window.addEventListener("hashchange", () =&gt; file.val = location.hash.slice(1))
 

@@ -260,7 +260,7 @@ const TodoList = () => {
     H2({id: "game"}, "Fun Game: Emojis Pops"),
     p("We're able to implement a mini game engine with ", VanJS(), " in just a few lines. Here is a fun game implemented under 60 lines with the help of ", VanJS(), " and ", Link(VanX(), "x"), ":"),
     JsFile("game.code.js"),
-    p(Link("🎮 Let's play!", "/code/game")),
+    p(Link("🎮 Let's play!", "/code/game"), " (you can share your score here: ", Link("#174", "https://github.com/vanjs-org/van/discussions/174"), ")"),
     p({
       id: "jsfiddle-game",
       "data-details": "demo-van-x.details",
