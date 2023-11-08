@@ -13,7 +13,7 @@ export default (doc: HTMLDocument) => {
       strong(
         "VanUI",
       ),
-      ": A Collection of Grab 'n Go Reusable UI Components for VanJS",
+      ": A Collection of Grab 'n Go Reusable Utility and UI Components for VanJS",
     ),
     p(
       "🙏 Feedback and contribution are welcome and greatly appreciated! (",
