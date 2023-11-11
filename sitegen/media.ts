@@ -25,6 +25,9 @@ export default (doc: HTMLDocument) => {
     ),
     Video("https://www.youtube.com/embed/er5er7zfMkg"),
     p("(", i("In Dutch"), ")"),
+    p({class: "video-wrapper"},
+      iframe({src: "//player.bilibili.com/player.html?aid=319967399&bvid=BV1iw411X7YZ&cid=1307016397&p=1&&autoplay=0", scrolling: "no", border: "0", frameborder: "no", framespacing: "0", allowfullscreen: "true"}),
+    ),
     H2("Articles / Podcasts"),
     ol(
       li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
