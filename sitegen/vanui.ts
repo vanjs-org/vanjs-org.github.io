@@ -94,12 +94,12 @@ export default (doc: HTMLDocument) => {
       "Try on jsfiddle: ",
       Link(
         "Modal",
-        "https://jsfiddle.net/mks9253o/1/",
+        "https://jsfiddle.net/k61m70vz/",
       ),
       ", ",
       Link(
         "MessageBoard",
-        "https://jsfiddle.net/nwsduza3/",
+        "https://jsfiddle.net/2kp3mu6b/1/",
       ),
       ".",
     ),
