@@ -121,6 +121,13 @@ van.add(document.body, Counter())
     p({style: "display: flex; align-items: center;"},
       VSCodeIcon({style: "margin-right: 6px;"}), Link("VS Code Extension", "https://marketplace.visualstudio.com/items?itemName=TaoXin.vanjs-importtag"),
     ),
+    H2("Community Add-ons"),
+    p(VanJS(), " can be extended via add-ons. Add-ons add more features to ", VanJS(), " and/or provide an alternative styled API. Below is a curated list of add-ons built by ", VanJS(), " community:"),
+    ul(
+      li(Link("van_dml.js", "https://github.com/vanjs-org/van/blob/main/addons/van_dml"), ": adds a a new flavour of composition to ", VanJS(), ". Author: ", Link("Eckehard", "https://github.com/efpage"), "."),
+      li(Link("van-jsx", "https://github.com/vanjs-org/van/blob/main/addons/van_jsx"), ": a JSX wrapper for ", VanJS(), ", for people who like the JSX syntax more. Author: ", Link("cqh963852", "https://github.com/cqh963852"), "."),
+      li(Link("Van Cone", "https://github.com/vanjs-org/van/blob/main/addons/van_cone"), ": an SPA framework add-on for ", VanJS(), ". Author: ", Link("b-rad-c", "https://github.com/b-rad-c"), "."),
+    ),
     H2("Support & Feedback"),
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
     p(
