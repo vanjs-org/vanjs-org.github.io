@@ -109,7 +109,7 @@ van.add(document.body, Counter())
       li("Convert HTML or MD snippet to ", VanJS(), " code with our online ", Link("HTML/MD to ", VanJS(), " Converter", "/convert")),
       li("Check out ", Link(VanUI(), "/vanui"), " - A collection of grab 'n go reusable utility and UI components for ", VanJS()),
       li("Check out ", Link(VanX(), "/x"), " - The 1.0 kB official ", VanJS(), " extension"),
-      li("Want server-side rendering? Check out ", Link("Mini-Van", "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
+      li("Want server-side rendering? Check out ", Link(MiniVan(), "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
     ),
     H2("Source Code"),
