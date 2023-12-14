@@ -465,7 +465,7 @@ google.charts.setOnLoadCallback(() =>
       li(User("barrymun"), "'s ", Link("Division Game", "https://github.com/barrymun/division-game"), " (", Link("live preview", "http://barrymun.vanjs-division-game.surge.sh/"), ")"),
       li(User("enpitsuLin"), "'s ", Link("TODO App", "https://github.com/enpitsuLin/vanjs-todomvc"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1"), ")"),
       li(User("ndrean"), "'s ", Link(b("Modal"), " Component & Routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal"), " (", Link("live preview", "https://githubbox.com/ndrean/vanjs-dialog-modal"), ")"),
-      li(User("b-rad-c"), "'s ", Link(VanJS(), " SPA Template", "https://github.com/b-rad-c/vanjs-spa-template"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/b-rad-c/vanjs-spa-template/tree/main"), ")"),
+      li(User("b-rad-c"), "'s ", Link(VanJS(), " SPA Template", "https://github.com/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), " (", Link("live preview", "https://codesandbox.io/p/devbox/github/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), ")"),
       li(User("FredericHeem"), "'s ", Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
       li(User("FredericHeem"), "'s ", Link("VanJS Playground with Vite", "https://github.com/FredericHeem/van-playground")),
     ),
