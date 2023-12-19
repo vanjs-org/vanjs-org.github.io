@@ -34,6 +34,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
       li(Url("https://changelog.com/jsparty/277"), " (podcasts)"),
       li(Url("https://blog.stackademic.com/vanjs-the-ultra-lightweight-react-alternative-55c0f380376f")),
+      li(Url("https://thenewstack.io/vanjs-a-minimalist-vanilla-javascript-ui-framework/")),
       li(Url("https://devm.io/javascript/javascript-vanjs-xin")),
       li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
