@@ -11,7 +11,7 @@ export default (doc: HTMLDocument) => {
   )
 
   return div({id: "content"},
-    H1(VanJS(), ": Media Mentions"),
+    H1(VanJS(), ": Media Coverage"),
     p("🙏🙏🙏 ", VanJS(), " is a personal project, which means I don't have the time and resources to promote it to a wider audience. My heartfelt gratitude extends towards to all content creators and tech bloggers who are helping spread good words about ", VanJS(), ". Your help is invaluable in our pursuit of ", VanJS(), "'s mission: ", i("Enabling everyone to build useful UI apps with a few lines of code, anywhere, any time, on any device.")),
     H2("Videos"),
     Video("https://www.youtube.com/embed/Oh2IEVqarHs"),
@@ -38,6 +38,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://devm.io/javascript/javascript-vanjs-xin")),
       li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
+      li(Url("https://www.linkedin.com/posts/stefanofago_vanjs-a-09kb-grab-n-go-reactive-ui-framework-activity-7092964871117451264-RYnu/")),
       li(Url("https://javascript.plainenglish.io/exciting-updates-in-the-web-dev-71c52563cee0")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),

@@ -62,7 +62,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: stri
     ["SSR & Hydration", "ssr"],
     ["X", "x"],
     ["Advanced Topics", "advanced"],
-    ["Media Mentions", "media"],
+    ["Media Coverage", "media"],
     ["About", "about"],
   ]
 
@@ -141,7 +141,7 @@ renderPage(minivan, "minivan", "minivan.html", "Mini-Van")
 renderPage(ssr, "ssr", "ssr.html", "Fullstack Rendering (SSR, CSR and Hydration)")
 renderPage(x, "x", "x.html", "VanX")
 renderPage(advanced, "advanced", "advanced.html", "Advanced Topics")
-renderPage(media, "media", "media.html", "Media Mentions")
+renderPage(media, "media", "media.html", "Media Coverage")
 renderPage(about, "about", "about.html", "About")
 
 renderPage(converterLib, "converter-lib", "converter-lib.html", "MD and HTML to VanJS Code Converter")
