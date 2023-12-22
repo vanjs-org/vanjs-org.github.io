@@ -53,6 +53,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://dev.to/nombrekeff/want-to-help-with-cardboard-jsts-vanilla-reactive-framework-jcl")),
       li(Url("https://dev.to/efpage/the-fantastic-speed-of-template-literals-4f0p")),
       li(Url("https://webtoolsweekly.com/archives/issue-521/")),
+      li(Url("https://webtoolsweekly.com/archives/issue-544/")),
       li(Url("https://pkgtrends.com/topic/web-applications-framework-or-library/")),
       li(Url("https://ulitza.net/about")),
       li(Url("https://fully-faltoo.com/p/weekly-review-gollum/")),
