@@ -128,6 +128,7 @@ van.add(document.body, Counter())
       li(Link("van-jsx", "https://github.com/vanjs-org/van/blob/main/addons/van_jsx"), ": a JSX wrapper for ", VanJS(), ", for people who like the JSX syntax more. Author: ", Link("cqh963852", "https://github.com/cqh963852"), "."),
       li(Link("Van Cone", "https://github.com/vanjs-org/van/blob/main/addons/van_cone"), ": an SPA framework add-on for ", VanJS(), ". Author: ", Link("b-rad-c", "https://github.com/b-rad-c"), "."),
       li(Link("vanjs-router", "https://github.com/iuroc/vanjs-router"), ": A router solution for ", VanJS(), " (", Symbol("README.md"), " in simplified Chinese). Author: ", Link("欧阳鹏", "https://github.com/iuroc"), "."),
+      li(Link("VanJS Routing", "https://github.com/kwameopareasiedu/vanjs-routing"), ": Yet another routing solution for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
       li(Link("van_component", "https://github.com/vanjs-org/van/blob/main/addons/van_component"), ": An add-on to easily add web components with ", VanJS(), ". Author: ", Link("Atmos4", "https://github.com/Atmos4"), "."),
 
     ),
