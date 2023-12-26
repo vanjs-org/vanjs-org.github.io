@@ -4,7 +4,7 @@ authors:
   - Tao Xin
 resources:
   - https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.7.nomodule.min.js
-  - https://cdn.jsdelivr.net/npm/vanjs-ext@0.1.3/dist/van-x.nomodule.min.js
+  - https://cdn.jsdelivr.net/npm/vanjs-ext@0.2.0/dist/van-x.nomodule.min.js
 panel_js: 2
 ...
 */

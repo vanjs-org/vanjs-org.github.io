@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, li, p, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {div, i, li, p, strong, ul}} = van.vanWithDoc(doc)
   const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
@@ -184,9 +184,10 @@ items.splice(1, 1, 5)
       parameters: {
         containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
         items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
-        itemFunc: ["The function (", InlineJs("(v, deleter) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
+        itemFunc: ["The function (", InlineJs("(v, deleter, k) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
           li(Symbol("v"), " - A ", Symbol("State"), " object corresponding to each list item. You can directly use it as a ", Symbol("State"), "-based ", Link("property", "/tutorial#state-typed-prop"), " / ", Link("child node", "/tutorial#state-typed-child"), ", read its value for building the UI element, and/or set its value in some event handlers."),
           li(Symbol("deleter"), " - a function (", InlineJs("() => void"), ") that can be used in the event handler to delete the entire item. Typically the ", Symbol("deleter"), " function can be used as the ", Symbol("onclick"), " handler of a deletion button."),
+          li(Symbol("k"), " - ", i("(requires ", VanX(), " 0.2.0 or later)"), " the key of the corresponding list item, which is the index if ", Symbol("items"), " is an ", Symbol("Array"), " or the property key if ", Symbol("items"), " is a plain object."),
         )],
       },
       returns: "The root element of the created DOM tree.",
