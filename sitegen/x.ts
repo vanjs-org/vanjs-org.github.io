@@ -113,7 +113,7 @@ declare const vanX: typeof vanXType
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
     }),
-    p({id: "caveat-access-sub-field"}, Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
+    p({id: "caveat-no-reuse-reactive"}, Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
     p(Caveat(), "There might be issues if you try to add reactivity to an object implemented in native code (not in JavaScript). Example: ", Link("#156", "https://github.com/vanjs-org/van/issues/156"), "."),
     H3({id: "api-reactive"}, "API reference: ", Symbol("vanX.reactive")),
     ApiTable({
