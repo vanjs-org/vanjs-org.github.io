@@ -30,6 +30,11 @@ export default (doc: HTMLDocument) => {
     p({class: "video-wrapper"},
       iframe({src: "//player.bilibili.com/player.html?aid=319967399&bvid=BV1iw411X7YZ&cid=1307016397&p=1&&autoplay=0", scrolling: "no", border: "0", frameborder: "no", framespacing: "0", allowfullscreen: "true"}),
     ),
+    p("(", i("In Simplified Chinese"), ")"),
+    p({class: "video-wrapper"},
+      iframe({src: "//player.bilibili.com/player.html?aid=495545037&bvid=BV13K411474d&cid=1388577329&p=1&&autoplay=0", scrolling: "no", border: "0", frameborder: "no", framespacing: "0", allowfullscreen: "true"}),
+    ),
+    p("(", i("In Simplified Chinese"), ")"),
     H2("Articles / Podcasts"),
     ol(
       li(Url("https://youtu.be/eop7r4oV2gc?si=XrOmUcr7fTQX8H5C"), " (podcasts)"),
