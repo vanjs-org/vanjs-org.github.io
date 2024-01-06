@@ -129,7 +129,7 @@ van.add(document.body, Counter())
       li(Link("Van Cone", "https://github.com/vanjs-org/van/blob/main/addons/van_cone"), ": an SPA framework add-on for ", VanJS(), ". Author: ", Link("b-rad-c", "https://github.com/b-rad-c"), "."),
       li(Link("vanjs-router", "https://github.com/iuroc/vanjs-router"), ": A router solution for ", VanJS(), " (", Symbol("README.md"), " in simplified Chinese). Author: ", Link("欧阳鹏", "https://github.com/iuroc"), "."),
       li(Link("VanJS Routing", "https://github.com/kwameopareasiedu/vanjs-routing"), ": Yet another routing solution for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
-      li(Link("van_element", "https://github.com/vanjs-org/van/blob/main/addons/van_element"), ": WebComponents with ", VanJS(), ". Author: ", Link("Atmos4", "https://github.com/Atmos4"), "."),
+      li(Link("van_element", "https://github.com/vanjs-org/van/blob/main/addons/van_element"), ": Web Components with ", VanJS(), ". Author: ", Link("Atmos4", "https://github.com/Atmos4"), "."),
       li(Link("VanJS Form", "https://github.com/kwameopareasiedu/vanjs-form"), ": Fully typed form state management library (with validation) for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
     ),
     H2("Support & Feedback"),
