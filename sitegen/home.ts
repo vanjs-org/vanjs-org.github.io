@@ -131,6 +131,7 @@ van.add(document.body, Counter())
       li(Link("VanJS Routing", "https://github.com/kwameopareasiedu/vanjs-routing"), ": Yet another routing solution for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
       li(Link("van_element", "https://github.com/vanjs-org/van/blob/main/addons/van_element"), ": Web Components with ", VanJS(), ". Author: ", Link("Atmos4", "https://github.com/Atmos4"), "."),
       li(Link("VanJS Form", "https://github.com/kwameopareasiedu/vanjs-form"), ": Fully typed form state management library (with validation) for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
+      li(Link("vanjs-bootstrap", "https://github.com/WilliCommer/vanjs-bootstrap"), ": ", VanJS(), " Bootstrap Components. Author: ", Link("Willi Commer", "https://github.com/WilliCommer"), "."),
     ),
     H2("Support & Feedback"),
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
