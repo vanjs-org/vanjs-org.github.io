@@ -46,6 +46,8 @@ export default (doc: HTMLDocument) => {
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
       li(Url("https://www.linkedin.com/posts/stefanofago_vanjs-a-09kb-grab-n-go-reactive-ui-framework-activity-7092964871117451264-RYnu/")),
       li(Url("https://javascript.plainenglish.io/exciting-updates-in-the-web-dev-71c52563cee0")),
+      li(Url("https://www.smashingmagazine.com/2024/01/top-frontend-tools-2023/#vanjs-https-vanjs-org")),
+      li(Url("https://risingstars.js.org/2023/en")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
       li(Url("https://bytes.dev/archives/211")),
