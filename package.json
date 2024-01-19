@@ -1,14 +1,63 @@
 {
   "name": "vanjs-org-website",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "bash render.sh",
-    "preview": "http-server"
+    "build": "wireit",
+    "preview": "wireit"
   },
   "devDependencies": {
-    "deno-bin": "^1.37.1",
-    "http-server": "^14.1.1"
+    "@swc/html": "^0.0.28",
+    "@types/jsdom": "^21.1.6",
+    "@types/minify": "^9.1.4",
+    "@types/web": "^0.0.134",
+    "esbuild": "^0.19.11",
+    "http-server": "^14.1.1",
+    "jsdom": "^23.1.0",
+    "mini-van-plate": "^0.5.4-perf.0",
+    "minify": "^11.0.1",
+    "tsx": "^4.7.0",
+    "vanjs-core": "^1.2.7",
+    "wireit": "^0.14.1"
+  },
+  "wireit": {
+    "preview": {
+      "command": "http-server dist",
+      "service": true,
+      "dependencies": [
+        "build"
+      ]
+    },
+    "build": {
+      "dependencies": [
+        "build-template",
+        "build-static"
+      ]
+    },
+    "build-template": {
+      "command": "tsx ./src/build-template.ts",
+      "files": [
+        "src",
+        "template.html"
+      ],
+      "output": [
+        "dist/*.html",
+        "dist/client.js"
+      ]
+    },
+    "build-static": {
+      "command": "node ./src/build-static.js",
+      "files": [
+        "assert",
+        "src/build-static.js"
+      ],
+      "output": [
+        "dist/*.{css,svg,png}",
+        "dist/prism.js",
+        "dist/home.js",
+        "dist/code"
+      ]
+    }
   }
 }

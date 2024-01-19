@@ -17,5 +17,4 @@ const TodoList = () => {
   )
   return dom
 }
-
 van.add(document.body, TodoList())

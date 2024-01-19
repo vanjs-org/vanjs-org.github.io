@@ -1,9 +1,4 @@
-test.ts
-test.js
-test-plate.ts
-showPlot.js
-code/test.html
-result
 node_modules
 dist
-*~
+.wireit
+diff
