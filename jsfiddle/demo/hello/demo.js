@@ -7,5 +7,4 @@ const Hello = () => div(
     li(a({href: "https://vanjs.org/"}, "🍦VanJS")),
   ),
 )
-
 van.add(document.body, Hello())

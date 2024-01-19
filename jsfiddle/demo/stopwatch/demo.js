@@ -11,5 +11,4 @@ const Stopwatch = () => {
     button({onclick: () => (clearInterval(id), id = 0, elapsed.val = 0)}, "Reset"),
   )
 }
-
 van.add(document.body, Stopwatch())

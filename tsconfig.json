@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "lib": ["DOM"],
+  },
+  "include": [
+    "src/**/*",
+    "src/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -8,5 +8,4 @@ const EvenNumbers = ({N}) => div(
       .map(i => li(i)),
   ),
 )
-
 van.add(document.body, EvenNumbers({N: 20}))

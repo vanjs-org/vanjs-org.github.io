@@ -30,5 +30,4 @@ const CounterSet = () => {
     ),
   )
 }
-
 van.add(document.body, CounterSet())

@@ -17,5 +17,4 @@ const StaticDom = () => {
   )
   return dom
 }
-
 van.add(document.body, StaticDom())

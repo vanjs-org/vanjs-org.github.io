@@ -12,5 +12,4 @@ const Post = ({title, body}) => [
 
 const PostTitle = ({title}) => h1(title)
 const PostBody = ({body}) => article(p(body))
-
 van.add(document.body, Blog())

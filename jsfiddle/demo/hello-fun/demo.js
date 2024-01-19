@@ -1,5 +1,7 @@
 const {button, div, pre} = van.tags
 
+const {button, div, pre} = van.tags
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const Run = ({sleepMs}) => {
@@ -20,4 +22,5 @@ const Hello = () => {
   )
 }
 
+van.add(document.body, Hello())
 van.add(document.body, Hello())

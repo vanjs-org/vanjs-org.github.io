@@ -8,5 +8,4 @@ const Counter = () => {
     button({onclick: () => --counter.val}, "👎"),
   )
 }
-
 van.add(document.body, Counter())
