@@ -56,7 +56,7 @@ export default (doc: HTMLDocument) => {
     "finalhandler": "^1.2.0",
     "mini-van-plate": "^0.5.3",
     "serve-static": "^1.15.0",
-    "vanjs-core": "^1.2.7"
+    "vanjs-core": "^1.2.8"
   }
 `),
     ul(
@@ -164,11 +164,5 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
     p("You can verified that all the ", Symbol("Counter"), " components are non-reactive before the ", Symbol("Hydrate"), " button is clicked and can be turned reactive upon clicking the ", Symbol("Hydrate"), " button."),
     H2("The End"),
     p("🎉 Congratulations! You have completed the walkthrough for fullstack rendering. With the knowledge you have learned, you will be able to build sophisticated applications that take advantage of SSR, CSR and hydration."),
-    H2("Appendix"),
-    H3(Symbol("on..."), " Properties"),
-    p("Since ", MiniVan(), " ", Symbol("0.4.0"), ", properties specified in tag functions will be consistently set as ", SymLink("HTML attributes", "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"), ". This is because for SSR (which is ", MiniVan(), "'s primary use case), setting the properties of a DOM node won't be visible in the rendered HTML string unless the action of setting the property itself will also set the corresponding HTML attribute (e.g.: setting the ", Symbol("id"), " property of a DOM node will also set the ", Symbol("id"), " attribute)."),
-    p("There is a special situation of this handling - ", Symbol("on..."), " properties. For DOM nodes, the valid values of ", Symbol("on..."), " properties are ", Symbol("function"), " or ", Symbol("null"), ". However, functions are not valid value for HTML attributes. It doesn't make too much sense to specify a function-valued ", Symbol("on..."), " attribute for an SSR DOM node. As a result, since ", MiniVan(), " ", Symbol("0.4.0"), ", all function-valued properties specified in tag functions will be ignored."),
-    p("Sometimes, it might be desirable to specify some string-valued ", Symbol("on..."), " attribute for SSR DOM nodes. For instance, DOM nodes like ", InlineHtml(`<button onclick="play()">Play</button>`), " might have legitimate use cases. But, if we render the DOM node with code ", InlineJs(`button({onclick: "play()"}, "Play")`), ", there will be problems if the code is inside a component shared between server-side and client-side. The problem is on the client-side, ", Symbol("onclick"), " property, instead of", Symbol("onclick"), " attribute will be set for the DOM node, and strings are not valid values for ", Symbol("onclick"), " property (only functions are valid values for ", Symbol("onclick"), " property), causing the ", Symbol("onclick"), " event handler to be lost on the client-side."),
-    p("One solution to the problem is to use camelCase for the ", Symbol("on..."), " property of the tag function. i.e.: to use ", Symbol("onClick"), " property instead of ", Symbol("onclick"), ". This way, ", InlineJs(`button({onClick: "play()"}, "Play")`), " will generate ", InlineHtml(`<button onclick="play()">Play</button>`), " in both ", VanJS(), " and ", MiniVan(), ". This is because ", Symbol("onClick"), " is not a valid DOM property, thus in tag functions, we will set the specified corresponding string value ", InlineJs('"play()"'), " as an HTML attribute (You can refer to the ", Link("property resolution rule", "/advanced#dom-attributes-vs-properties"), " for more information). And also ", InlineJs(`dom.setAttribute(<key>, <value>)`), " will first lowercase the ", Symbol("<key>"), " before setting the attribute value, which means ", InlineJs(`dom.setAttribute("onClick", "play()")`), " is equivalent to ", InlineJs(`dom.setAttribute("onclick", "play()")`), "."),
   )
 }

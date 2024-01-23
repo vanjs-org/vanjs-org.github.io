@@ -33,7 +33,7 @@ export default (doc: HTMLDocument) => {
   const VSCodeIcon = ({style}: {style?: string}) => img({...(style ? {style} : {}), src: "/vs-code-16x16.png", height: "16", width: "16", "aria-hidden": true})
 
   return div({id: "content"},
-    H1(VanJS(), ": A 0.9kB Grab 'n Go Reactive UI Framework without React/JSX"),
+    H1(VanJS(), ": A 1.0kB Grab 'n Go Reactive UI Framework without React/JSX"),
     p(
       div("📣 ", Link("Introducing ", VanX(), " →", "https://github.com/vanjs-org/van/discussions/144")),
       div("📣 ", Link("Introducing ", VanJS(), " App Builder →", "https://github.com/vanjs-org/van/discussions/179")),
@@ -82,7 +82,7 @@ van.add(document.body, Counter())
     H3("Grab 'n Go"),
     p(BI("No installation"), ", ", BI("no configuration"), ", ", BI("no dependencies"), ", ", BI("no transpiling"), ", ", BI("no IDE setups"), ". Adding a line to your script or HTML file is all you need to start coding. And any code with ", VanJS(), " can be pasted and executed directly in your browser's developer console. ", VanJS(), " allows you to focus on the business logic of your application, rather than getting bogged down in frameworks and tools."),
     H3("Ultra-Lightweight"),
-    p(VanJS(), " is the smallest reactive UI framework in the world, with just 0.9kB in the gzipped minified bundle. It's ", b("50~100 times"), " smaller than most popular alternatives. Guess what you can get from this 0.9kB framework? All essential features of reactive UI programming - DOM templating, state, state binding, state derivation, effect, SPA, client-side routing and even hydration!"),
+    p(VanJS(), " is the smallest reactive UI framework in the world, with just 1.0kB in the gzipped minified bundle. It's ", b("50~100 times"), " smaller than most popular alternatives. Guess what you can get from this 1.0kB framework? All essential features of reactive UI programming - DOM templating, state, state binding, state derivation, effect, SPA, client-side routing and even hydration!"),
     p(
       div({style: "text-align: center"},
         label(input({type: "radio", name: "bundle-type", id: "radioMinGz", checked: true, onclick: "updateChart()"}), span({class: "fixed-width", style: "margin-right: 60px;"}, ".min.js.gz")), " ",
@@ -152,7 +152,7 @@ van.add(document.body, Counter())
         "Follow @vanjs-org",
       ),
     ),
-    blockquote(i("In the name of ", b("Van"), "illa of the House ", b("J"), "ava", b("S"), "cript, ", Link("the First of its name", "/about#name"), ", Smallest Reactive UI Framework, 0.9kB JSX-free Grab 'n Go Library, ", Link("Scripting Language", "https://vanjs.org/about#story"), " for GUI, ", Link("GPT-Empowered", "https://chat.openai.com/g/g-7tcSHUu27-vanjs-app-builder"), " Toolkit, by the word of Tao of the House Xin, Founder and Maintainer of ", VanJS(), ", I do hereby grant you the permission of ", VanJS(), " under ", Link("MIT License", "https://github.com/vanjs-org/van/blob/main/LICENSE"), ".")),
+    blockquote(i("In the name of ", b("Van"), "illa of the House ", b("J"), "ava", b("S"), "cript, ", Link("the First of its name", "/about#name"), ", Smallest Reactive UI Framework, 1.0kB JSX-free Grab 'n Go Library, ", Link("Scripting Language", "https://vanjs.org/about#story"), " for GUI, ", Link("GPT-Empowered", "https://chat.openai.com/g/g-7tcSHUu27-vanjs-app-builder"), " Toolkit, by the word of Tao of the House Xin, Founder and Maintainer of ", VanJS(), ", I do hereby grant you the permission of ", VanJS(), " under ", Link("MIT License", "https://github.com/vanjs-org/van/blob/main/LICENSE"), ".")),
     p({class: "contact"},
       "Contact us: ", twitterIcon, Link("@taoxin", "https://twitter.com/intent/follow?region=follow_link&screen_name=taoxin"), " / ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedInIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"),
     ),

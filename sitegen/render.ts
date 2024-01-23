@@ -95,7 +95,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: stri
   console.log(`Rendering ${file}...`)
 
   let docTitle = title
-  if (title === "Home") docTitle = "A 0.9kB No-JSX Framework Based on Vanilla JavaScript"
+  if (title === "Home") docTitle = "A 1.0kB No-JSX Framework Based on Vanilla JavaScript"
   if (title === "Mini-Van")
     doc.querySelector("title")!.innerText = "Mini-Van - A Minimalist Template Engine for Client/Server-side Rendering"
   else if (title === "VanUI")
