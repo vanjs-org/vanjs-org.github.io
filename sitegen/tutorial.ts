@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {b, br, div, li, p, span, ul}} = van.vanWithDoc(doc)
+  const {tags: {b, br, div, i, li, p, span, ul}} = van.vanWithDoc(doc)
   const {ApiTable, Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
 
   return div({id: "content"},
@@ -136,6 +136,7 @@ van.add(document.body, Table({
       "data-prefix": "const {button} = van.tags",
       "data-replace-code": "van.add(document.body, $CODE)\n",
     }),
+    p(i("The support of custom event handlers was added in ", VanJS(), " ", Link("1.2.8", "https://github.com/vanjs-org/van/discussions/246"), ".")),
     p("🎉 Congratulations! You have mastered the skills for building and manipulating DOM trees using ", VanJS(), "'s declarative API, which is incredibly powerful for creating comprehensive applications with elegant code. In the sections below, you will continue to learn how to build reactive applications with state and state binding."),
     p("If your application doesn't rely on state and state binding, you can use the slimmed-down version of ", VanJS(), " - ", Link("Mini-Van", "/minivan"), "."),
     H2("State"),
