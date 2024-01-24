@@ -2,11 +2,11 @@ google.charts.load('current', {packages: ['corechart']})
 
 const libs = [
   ["VanJS", "1.2.8", 1.0, 1.8],
-  ["Solid", "1.7.12", 8, 22.7],
+  ["Solid", "1.8.12", 8.1, 23],
   ["jQuery", "3.7.1", 29.7, 85.1],
-  ["Vue", "3.3.4", 34.7, 97.1],
+  ["Vue", "3.4.15", 40, 110.4],
   ["ReactDOM", "18.2.0", 42, 130.2],
-  ["Angular", "16.2.7", 85.8, 271.6],
+  ["Angular", "17.1.0", 104, 310],
 ]
 
 const renderSizeCompChart = gz => {

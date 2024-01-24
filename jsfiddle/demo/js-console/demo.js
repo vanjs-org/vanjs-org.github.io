@@ -117,11 +117,11 @@ google.charts.setOnLoadCallback(() =>
       li("The chart shown in the home page:", Snippet(`plot([
   ["Framework", "Size", {role: "style"}, {role: "annotation"}],
   ["VanJS", 1, "#f44336", "VanJS-1.2.8 1kB"],
-  ["Solid", 8, "#b7b7b7", "Solid-1.7.12 8kB"],
+  ["Solid", 8.1, "#b7b7b7", "Solid-1.8.12 8.1kB"],
   ["jQuery", 29.7, "#b7b7b7", "jQuery-3.7.1 29.7kB"],
-  ["Vue", 34.7, "#b7b7b7", "Vue-3.3.4 34.7kB"],
+  ["Vue", 40, "#b7b7b7", "Vue-3.4.15 40kB"],
   ["ReactDOM", 42, "#b7b7b7", "ReactDOM-18.2.0 42kB"],
-  ["Angular", 85.8, "#b7b7b7", "Angular-16.2.7 85.8kB"],
+  ["Angular", 104, "#b7b7b7", "Angular-17.1.0 104kB"],
 ], "BarChart", {
   legend: {position: "none"},
   hAxis: {gridlines: {count: 0}, textPosition: "none"},
