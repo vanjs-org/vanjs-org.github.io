@@ -470,6 +470,7 @@ google.charts.setOnLoadCallback(() =>
       li(User("b-rad-c"), "'s ", Link(VanJS(), " SPA Template", "https://github.com/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), " (", Link("live preview", "https://codesandbox.io/p/devbox/github/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), ")"),
       li(User("FredericHeem"), "'s ", Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
       li(User("FredericHeem"), "'s ", Link("VanJS Playground with Vite", "https://github.com/FredericHeem/van-playground")),
+      li(User("SirenkoVladd"), "'s ", Link(VanJS(), " with Leaflet", "https://github.com/sirenkovladd/vanjs-leaflet-example"), " (", Link("live preview", "https://githubbox.com/sirenkovladd/vanjs-leaflet-example"), ")"),
     ),
   )
 }
