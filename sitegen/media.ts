@@ -49,6 +49,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://www.smashingmagazine.com/2024/01/top-frontend-tools-2023/#vanjs-https-vanjs-org")),
       li(Url("https://risingstars.js.org/2023/en#section-framework")),
       li(Url("https://github.com/thoughtspile/awesome-tiny-js?tab=readme-ov-file#ui-frameworks")),
+      li(Url("https://dhtmlx.medium.com/javascript-news-updates-and-tutorials-august-2023-edition-d9fda0b268df")),
       li(Url("https://javascript.plainenglish.io/exciting-updates-in-the-web-dev-71c52563cee0")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
