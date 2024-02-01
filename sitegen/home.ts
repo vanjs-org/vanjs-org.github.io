@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, blockquote, div, g, i, img, input, label, li, p, path, span, svg, title, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, blockquote, div, g, i, img, input, label, li, p, path, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanJS, VanUI, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
@@ -123,15 +123,50 @@ van.add(document.body, Counter())
     ),
     H2("Community Add-ons"),
     p(VanJS(), " can be extended via add-ons. Add-ons add more features to ", VanJS(), " and/or provide an alternative styled API. Below is a curated list of add-ons built by ", VanJS(), " community:"),
-    ul(
-      li(Link("Van Cone", "https://medium-tech.github.io/van-cone-website/"), ": an SPA framework add-on for ", VanJS(), ". Author: ", Link("b-rad-c", "https://github.com/b-rad-c"), "."),
-      li(Link("van_element", "https://van-element.pages.dev/"), ": Web Components with ", VanJS(), ". Author: ", Link("Atmos4", "https://github.com/Atmos4"), "."),
-      li(Link("van_dml.js", "https://github.com/vanjs-org/van/blob/main/addons/van_dml"), ": adds a a new flavour of composition to ", VanJS(), ". Author: ", Link("Eckehard", "https://github.com/efpage"), "."),
-      li(Link("van-jsx", "https://github.com/vanjs-org/van/blob/main/addons/van_jsx"), ": a JSX wrapper for ", VanJS(), ", for people who like the JSX syntax more. Author: ", Link("cqh963852", "https://github.com/cqh963852"), "."),
-      li(Link("vanjs-router", "https://github.com/iuroc/vanjs-router"), ": A router solution for ", VanJS(), " (", Symbol("README.md"), " in simplified Chinese). Author: ", Link("欧阳鹏", "https://github.com/iuroc"), "."),
-      li(Link("VanJS Routing", "https://github.com/kwameopareasiedu/vanjs-routing"), ": Yet another routing solution for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
-      li(Link("VanJS Form", "https://github.com/kwameopareasiedu/vanjs-form"), ": Fully typed form state management library (with validation) for ", VanJS(), ". Author: ", Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu"), "."),
-      li(Link("vanjs-bootstrap", "https://github.com/WilliCommer/vanjs-bootstrap"), ": ", VanJS(), " Bootstrap Components. Author: ", Link("Willi Commer", "https://github.com/WilliCommer"), "."),
+    table(
+      thead(tr(th("Add-on"), th("Description"), th("Author"))),
+      tbody(
+        tr(
+          td(Link("Van Cone", "https://medium-tech.github.io/van-cone-website/")),
+          td("An SPA framework add-on for ", VanJS()),
+          td(Link("b-rad-c", "https://github.com/b-rad-c")),
+        ),
+        tr(
+          td(Link("van_element", "https://van-element.pages.dev/")),
+          td("Web Components with ", VanJS()),
+          td(Link("Atmos4", "https://github.com/Atmos4")),
+        ),
+        tr(
+          td(Link("van_dml.js", "https://github.com/vanjs-org/van/blob/main/addons/van_dml")),
+          td("A new flavour of composition for ", VanJS()),
+          td(Link("Eckehard", "https://github.com/efpage")),
+        ),
+        tr(
+          td(Link("van-jsx", "https://github.com/vanjs-org/van/blob/main/addons/van_jsx")),
+          td("A JSX wrapper for ", VanJS(), ", for people who like the JSX syntax more"),
+          td(Link("cqh963852", "https://github.com/cqh963852")),
+        ),
+        tr(
+          td(Link("vanjs-router", "https://github.com/iuroc/vanjs-router")),
+          td("A router solution for ", VanJS(), " (", Symbol("README.md"), " in simplified Chinese)"),
+          td(Link("欧阳鹏", "https://github.com/iuroc")),
+        ),
+        tr(
+          td(Link("VanJS Routing", "https://github.com/kwameopareasiedu/vanjs-routing")),
+          td("Yet another routing solution for ", VanJS()),
+          td(Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu")),
+        ),
+        tr(
+          td(Link("VanJS Form", "https://github.com/kwameopareasiedu/vanjs-form")),
+          td("Fully typed form state management library (with validation) for ", VanJS()),
+          td(Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu")),
+        ),
+        tr(
+          td(Link("vanjs-bootstrap", "https://github.com/WilliCommer/van©js-bootstrap")),
+          td(VanJS(), " Bootstrap Components"),
+          td(Link("Willi Commer", "https://github.com/WilliCommer")),
+        ),
+      ),
     ),
     H2("Support & Feedback"),
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier for UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
