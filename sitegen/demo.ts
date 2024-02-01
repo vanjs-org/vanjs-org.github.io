@@ -459,6 +459,66 @@ google.charts.setOnLoadCallback(() =>
     p("See ", Link("github.com/vanjs-org/van/tree/main/demo/terminal", "https://github.com/vanjs-org/van/tree/main/demo/terminal"), " for the app (", Link("preview", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/demo/terminal"), ")."),
     H2("Community Examples"),
     p("Besides the official ", VanJS(), " examples, there are also sample apps from the great ", VanJS(), " community. Below is a curated list (contact ", Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " to add yours):"),
+    table(
+      thead(tr(th("Author"), th("Project"), th("Preview"))),
+      tbody(
+        tr(
+          td(Link("Yahia Berashish", "https://github.com/yahia-berashish")),
+          td(Link(VanJS(), " JavaScript and TypeScript Vite Template", "https://github.com/vitejs/awesome-vite#vanjs")),
+          td(Link("link", "https://codesandbox.io/p/sandbox/github/yahia-berashish/vite-vanjs-ts/tree/main")),
+        ),
+        tr(
+          td(Link("artydev", "https://github.com/artydev")),
+          td(Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
+          td(),
+        ),
+        tr(
+          td(Link("barrymun", "https://github.com/barrymun")),
+          td(Link("Division Game", "https://github.com/barrymun/division-game")),
+          td(Link("link", "http://barrymun.vanjs-division-game.surge.sh/")),
+        ),
+        tr(
+          td(Link("enpitsuLin", "https://github.com/enpitsuLin")),
+          td(Link("TODO App", "https://github.com/enpitsuLin/vanjs-todomvc")),
+          td(Link("link", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1")),
+        ),
+        tr(
+          td(Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu")),
+          td(Link("TODO App", "https://github.com/kwameopareasiedu/vanjs-todo"), " with routing and authentication"),
+          td(Link("link", "https://kwameopareasiedu.github.io/vanjs-todo/")),
+        ),
+        tr(
+          td(Link("Kane", "https://github.com/csm-kb")),
+          td(Link(VanJS(), " Chart.js graph render", "https://github.com/csm-kb/vanjs-chartjs-example")),
+          td(Link("link", "https://codesandbox.io/p/devbox/github/csm-kb/vanjs-chartjs-example/tree/main/?file=%2Fsrc%2Fmain.ts")),
+        ),
+        tr(
+          td(Link("Neven DREAN", "https://github.com/ndrean")),
+          td(Link(b("Modal"), " Component & Routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal")),
+          td(Link("link", "https://githubbox.com/ndrean/vanjs-dialog-modal")),
+        ),
+        tr(
+          td(Link("b rad c", "https://github.com/b-rad-c")),
+          td(Link(VanJS(), " SPA Template", "https://github.com/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app")),
+          td(Link("link", "https://codesandbox.io/p/devbox/github/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app")),
+        ),
+        tr(
+          td(Link("Vlad Sirenko", "https://github.com/SirenkoVladd")),
+          td(Link(VanJS(), " with Leaflet", "https://github.com/sirenkovladd/vanjs-leaflet-example")),
+          td(Link("link", "https://codesandbox.io/p/devbox/github/sirenkovladd/vanjs-leaflet-example/tree/main/?file=%2Fsrc%2Fmain.js")),
+        ),
+        tr(
+          td(Link("FredericHeem", "https://github.com/FredericHeem")),
+          td(Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
+          td(),
+        ),
+        tr(
+          td(Link("FredericHeem", "https://github.com/FredericHeem")),
+          td(Link("VanJS Playground with Vite", "https://github.com/FredericHeem/van-playground")),
+          td(),
+        ),
+      ),
+    ),
     ul(
       li(User("yahia-berashish"), "'s ", Link(VanJS(), " JavaScript and TypeScript Vite Template", "https://github.com/vitejs/awesome-vite#vanjs"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/yahia-berashish/vite-vanjs-ts/tree/main"), ")"),
       li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
