@@ -165,8 +165,6 @@ export default (doc: HTMLDocument) => {
     DownloadRow,
     ApiTable,
 
-    User: (id: string) => Link("@" + id, "https://github.com/" + id),
-
     Quote: ({text, source}: {text: string | readonly ChildDom[], source: string}) =>
       blockquote(i(text, br(), br(), "-- " + source)),
 

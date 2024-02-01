@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {a, b, br, button, div, i, iframe, li, p, span, table, tbody, td, th, thead, tr, ul}} = van.vanWithDoc(doc)
-  const {Demo, H1, H2, InlineHtml, Js, JsFile, Link, Quote, SymLink, Symbol, TsFile, User, VanJS, VanX} = common(doc)
+  const {Demo, H1, H2, InlineHtml, Js, JsFile, Link, Quote, SymLink, Symbol, TsFile, VanJS, VanX} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Learning by Example"),
@@ -494,7 +494,7 @@ google.charts.setOnLoadCallback(() =>
         ),
         tr(
           td(Link("Neven DREAN", "https://github.com/ndrean")),
-          td(Link(b("Modal"), " Component & Routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal")),
+          td(Link("Modal Component & Routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal")),
           td(Link("link", "https://githubbox.com/ndrean/vanjs-dialog-modal")),
         ),
         tr(
@@ -514,23 +514,10 @@ google.charts.setOnLoadCallback(() =>
         ),
         tr(
           td(Link("FredericHeem", "https://github.com/FredericHeem")),
-          td(Link("VanJS Playground with Vite", "https://github.com/FredericHeem/van-playground")),
+          td(Link(VanJS(), " Playground with Vite", "https://github.com/FredericHeem/van-playground")),
           td(),
         ),
       ),
-    ),
-    ul(
-      li(User("yahia-berashish"), "'s ", Link(VanJS(), " JavaScript and TypeScript Vite Template", "https://github.com/vitejs/awesome-vite#vanjs"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/yahia-berashish/vite-vanjs-ts/tree/main"), ")"),
-      li(User("artydev"), "'s ", Link(VanJS(), " Series", "https://dev.to/artydev/series/23075")),
-      li(User("barrymun"), "'s ", Link("Division Game", "https://github.com/barrymun/division-game"), " (", Link("live preview", "http://barrymun.vanjs-division-game.surge.sh/"), ")"),
-      li(User("enpitsuLin"), "'s ", Link("TODO App", "https://github.com/enpitsuLin/vanjs-todomvc"), " (", Link("live preview", "https://codesandbox.io/p/sandbox/github/enpitsuLin/vanjs-todomvc/tree/master?file=%2Fsrc%2Fmain.ts%3A8%2C1"), ")"),
-      li(User("kwameopareasiedu"), "'s ", Link("TODO App", "https://github.com/kwameopareasiedu/vanjs-todo"), " with routing and authentication (", Link("live preview", "https://kwameopareasiedu.github.io/vanjs-todo/"), ")"),
-      li(User("csm-kb"), "'s ", Link(VanJS(), " Chart.js graph render", "https://github.com/csm-kb/vanjs-chartjs-example"), " (", Link("live preview", "https://codesandbox.io/p/devbox/github/csm-kb/vanjs-chartjs-example/tree/main/?file=%2Fsrc%2Fmain.ts"), ")"),
-      li(User("ndrean"), "'s ", Link(b("Modal"), " Component & Routing with ", VanJS(), "https://github.com/ndrean/vanjs-dialog-modal"), " (", Link("live preview", "https://githubbox.com/ndrean/vanjs-dialog-modal"), ")"),
-      li(User("b-rad-c"), "'s ", Link(VanJS(), " SPA Template", "https://github.com/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), " (", Link("live preview", "https://codesandbox.io/p/devbox/github/vanjs-org/van/tree/main/addons/van_cone/examples/spa-app"), ")"),
-      li(User("SirenkoVladd"), "'s ", Link(VanJS(), " with Leaflet", "https://github.com/sirenkovladd/vanjs-leaflet-example"), " (", Link("live preview", "https://codesandbox.io/p/devbox/github/sirenkovladd/vanjs-leaflet-example/tree/main/?file=%2Fsrc%2Fmain.js"), ")"),
-      li(User("FredericHeem"), "'s ", Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
-      li(User("FredericHeem"), "'s ", Link("VanJS Playground with Vite", "https://github.com/FredericHeem/van-playground")),
     ),
   )
 }
