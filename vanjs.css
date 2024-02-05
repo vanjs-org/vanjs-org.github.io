@@ -377,7 +377,8 @@ textarea {
 }
 
 .contact svg {
-  padding-top: 3px;
+  padding-top: 4px;
+  margin-bottom: -1px;
   margin-right: 3px;
   color: rgb(101, 109, 118);
 }
