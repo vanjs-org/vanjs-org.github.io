@@ -488,6 +488,11 @@ google.charts.setOnLoadCallback(() =>
           td(Link("link", "https://kwameopareasiedu.github.io/vanjs-todo/")),
         ),
         tr(
+          td(Link("董凯", "https://github.com/CodeByZack")),
+          td(Link("Local Share", "https://github.com/CodeByZack/local-share"), " - A tool for transferring files over LAN, using the WebRTC tech"),
+          td(Link("link", "https://share.zackdk.com/")),
+        ),
+        tr(
           td(Link("Kane", "https://github.com/csm-kb")),
           td(Link(VanJS(), " Chart.js graph render", "https://github.com/csm-kb/vanjs-chartjs-example")),
           td(Link("link", "https://codesandbox.io/p/devbox/github/csm-kb/vanjs-chartjs-example/tree/main/?file=%2Fsrc%2Fmain.ts")),
