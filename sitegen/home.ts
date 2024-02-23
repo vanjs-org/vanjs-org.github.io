@@ -169,9 +169,14 @@ van.add(document.body, Counter())
           td(Link("Kwame Opare Asiedu", "https://github.com/kwameopareasiedu")),
         ),
         tr(
-          td(Link("vanjs-bootstrap", "https://github.com/WilliCommer/van©js-bootstrap")),
+          td(Link("vanjs-bootstrap", "https://github.com/WilliCommer/vanjs-bootstrap")),
           td(VanJS(), " Bootstrap Components"),
           td(Link("Willi Commer", "https://github.com/WilliCommer")),
+        ),
+        tr(
+          td(Link("vanrx", "https://github.com/MeddahAbdellah/vanrx")),
+          td("An ultra-lightweight Redux addon for ", VanJS()),
+          td(Link("Meddah Abdallah", "https://github.com/MeddahAbdellah")),
         ),
       ),
     ),
