@@ -179,7 +179,7 @@ const streamOf = s =&gt; {
     div("Binding function triggered: ", triggeredTimes, " time(s)"),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-conditional-derive"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/conditional-derive">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="self-referencing-in-side-effects"><a class="self-link" href="#self-referencing-in-side-effects">Self-referencing in side effects</a></h3><blockquote><i>A barber states that he shaves all who do not shave themselves.<br><br>-- Bertrand Russell, Barber paradox</i></blockquote><p>Sometimes side effects could lead to trick situations:</p><pre><code class="language-js">const CheckboxCounter = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-conditional-derive"></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/advanced/conditional-derive">Try on jsfiddle</a></p><h3 class="w3-large w3-text-red" id="self-referencing-in-side-effects"><a class="self-link" href="#self-referencing-in-side-effects">Self-referencing in side effects</a></h3><blockquote><i>The barber is the "one who shaves all those, and those only, who do not shave themselves". The question is, does the barber shave himself?<br><br>-- Bertrand Russell, Barber paradox</i></blockquote><p>Sometimes side effects could lead to trick situations:</p><pre><code class="language-js">const CheckboxCounter = () =&gt; {
   const checked = van.state(false), numChecked = van.state(0)
   van.derive(() =&gt; {
     if (checked.val) ++numChecked.val
