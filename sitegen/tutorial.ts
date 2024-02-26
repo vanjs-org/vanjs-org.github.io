@@ -330,7 +330,7 @@ van.add(document.body, EditableList())
     }),
     H3("A practical example"),
     p("Now, let's take a look at a practical example - a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be either state or non-state objects:"),
-    JsFile("nonstate-deps.code.js"),
+    JsFile("poly-binding.code.js"),
     p(Demo(), span({id: "demo-nonstate-deps"})),
     p({id: "jsfiddle-nonstate-deps"}),
     H2("The End"),

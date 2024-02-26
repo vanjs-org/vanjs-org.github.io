@@ -94,6 +94,13 @@ export default (doc: HTMLDocument) => {
     return pre(code({class: "language-" + lang}, text))
   }
 
+  interface CodeOptions {jsfiddleIgnore?: boolean}
+  const Code = (lang: string, text: string, {jsfiddleIgnore = false}: CodeOptions = {}) => {
+    const codeDom = code({class: "language-" + lang}, text)
+    if (jsfiddleIgnore) codeDom.setAttribute("data-jsfiddle-ignore", 1)
+    return pre(codeDom)
+  }
+
   return {
     VanJS: () => b("VanJS"),
     VanUI: () => b("VanUI"),
@@ -139,27 +146,27 @@ export default (doc: HTMLDocument) => {
 
     Json: (text: string) => pre(code({class: "language-json"}, text)),
 
-    Js: (text: string) => pre(code({class: "language-js"}, text)),
+    Js: (text: string, options: CodeOptions = {}) => Code("js", text, options),
 
     JsFile: (file: string, options: FileOptions = {}) => File("js", file, options),
 
     InlineJs,
 
-    Ts: (text: string) => pre(code({class: "language-ts"}, text)),
+    Ts: (text: string, options: CodeOptions = {}) => Code("ts", text, options),
 
     TsFile: (file: string, options: FileOptions = {}) => File("ts", file, options),
 
     InlineTs: (text: string) => code({class: "language-ts"}, text),
 
-    Shell: (text: string) => pre(code({class: "language-shell"}, text)),
+    Shell: (text: string, options: CodeOptions = {}) => Code("shell", text, options),
 
-    Html: (text: string) => pre(code({class: "language-html"}, text)),
+    Html: (text: string, options: CodeOptions = {}) => Code("html", text, options),
 
     HtmlFile: (file: string, options: FileOptions = {}) => File("html", file, options),
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
-    Code: (text: string) => pre(code({class: "language-"}, text)),
+    Code,
 
     Download,
     DownloadRow,

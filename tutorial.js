@@ -210,9 +210,16 @@
     }
     const onclickState = van.state(turnRed)
 
+    const lightness = van.state(255)
+
     return span(
       Button({color: "yellow", text: "Click Me", onclick: () => alert("Clicked")}), " ",
-      Button({color: colorState, text: textState, onclick: onclickState}),
+      Button({color: colorState, text: textState, onclick: onclickState}), " ",
+      Button({
+        color: van.derive(() => `rgb(${lightness.val}, ${lightness.val}, ${lightness.val})`),
+        text: "Get Darker",
+        onclick: () => lightness.val = Math.max(lightness.val - 10, 0),
+      }),
     )
   }
 

@@ -6,7 +6,7 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, div, i, img, li, ol, p, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineJs, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS} = common(doc)
+  const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/hydration-example"
   const previewUrl = "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/hydration-example?file=%2Fsrc%2Fserver.ts%3A1%2C1"
@@ -56,7 +56,7 @@ export default (doc: HTMLDocument) => {
     "finalhandler": "^1.2.0",
     "mini-van-plate": "^0.5.3",
     "serve-static": "^1.15.0",
-    "vanjs-core": "^1.2.8"
+    "vanjs-core": "^1.3.0"
   }
 `),
     ul(
@@ -148,7 +148,7 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
       li("Clone the GitHub repo:", Shell("git clone " + "https://github.com/vanjs-org/vanjs-org.github.io.git")),
       li("Go to the directory for the demo:", Shell("cd vanjs-org.github.io/hydration-example")),
       li("Install NPM packages:", Shell("npm install")),
-      li("Launch the development server:", Shell("npm run dev"), "You will see something like this in the terminal:", Code(`Try visiting the server via http://localhost:8080.
+      li("Launch the development server:", Shell("npm run dev"), "You will see something like this in the terminal:", Code("", `Try visiting the server via http://localhost:8080.
       Also try http://localhost:8080?counter-init=5 to set the initial value of the counter.
 `)),
       li("By clicking the links printed in the terminal, you will go to the demo page."),

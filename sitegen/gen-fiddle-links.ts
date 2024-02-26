@@ -14,9 +14,13 @@ const mkdirIfNotExist = (dir: string) => {
   }
 }
 
-const findCode = (dom: Element) => {
-  while (!dom.firstElementChild?.matches("code[class^=language-]"))
+const findCode = (dom: Element, upDomLevels?: number) => {
+  for (let i = 0; i < (upDomLevels ?? 0); ++i) dom = <Element>dom.parentNode
+  while (
+    !dom.firstElementChild?.matches("code[class^=language-]") ||
+    dom.firstElementChild?.hasAttribute("data-jsfiddle-ignore")) {
     dom = dom.previousElementSibling!
+  }
   return dom.querySelector("code")!.innerText
 }
 
@@ -43,13 +47,15 @@ const process = (file: string) => {
   for (const node of doc.querySelectorAll("[id^=jsfiddle-]")) {
     const dom = <Element>node
     if (dom.querySelector("a")) continue
-    let code = findCode(dom)
+    let code = findCode(dom, Number(dom.getAttribute("data-code-uplevels")))
     const replaceCode = dom.getAttribute("data-replace-code")
     if (replaceCode) code = replaceCode.replace("$CODE", code)
     const prefix = dom.getAttribute("data-prefix")
     if (prefix) code = prefix + "\n\n" + code
     const suffix = dom.getAttribute("data-suffix")
     if (suffix) code += "\n" + suffix + "\n"
+    const vanVersionOverride = dom.getAttribute("data-van-version")
+    const linkText = dom.getAttribute("data-link-text")
 
     const subdir = join(path ? path : "home", dom.id.substring(9))
     const dir = join(jsFiddleRoot, subdir)
@@ -58,7 +64,7 @@ const process = (file: string) => {
     const detailStr = Deno.readTextFileSync("jsfiddle/" + detailFile)
     Deno.writeTextFileSync(join(dir, "demo.details"),
       detailStr
-        .replace("van-latest.", `van-${detailFile.includes("mini-van") ? miniVanVersion : vanVersion}.`)
+        .replace("van-latest.", `van-${vanVersionOverride ?? (detailFile.includes("mini-van") ? miniVanVersion : vanVersion)}.`)
         .replace("@latest", "@" + vanXVersion)
       )
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
@@ -73,7 +79,7 @@ const process = (file: string) => {
 
     add(dom,
       a({href: "https://jsfiddle.net/gh/get/library/pure/" + join(ghPath, subdir)},
-        "Try on jsfiddle",
+        linkText ?? "Try on jsfiddle",
       ),
     )
     for (const name of dom.getAttributeNames())

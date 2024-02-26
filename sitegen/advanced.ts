@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {b, br, div, li, ol, p, span}} = van.vanWithDoc(doc)
+  const {tags: {b, br, div, li, ol, p, span, ul}} = van.vanWithDoc(doc)
   const {Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, MiniVan, Quote, SymLink, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
@@ -81,6 +81,33 @@ export default (doc: HTMLDocument) => {
       "data-prefix": "const {div, input, option, select} = van.tags",
       "data-suffix": "van.add(document.body, ConditionalDerive())",
     }),
+    H3("Self-referencing in side effects"),
+    p("Sometimes side effects could lead to trick situations:"),
+    JsFile("self-ref.code.js"),
+    p("Prior to ", VanJS(), " 1.3.0, the code above is problematic. The intention of the code is to count the number of times that the checkbox is checked. The code:"),
+    Js(`  van.derive(() => {
+    if (checked.val) ++numChecked.val
+  })`, {jsfiddleIgnore: true}),
+    p("defines the side effect to increment ", Symbol("numChecked"), " whenever ", Symbol("checked"), " state is turned to be ", Symbol("true"), ". However, since ", InlineJs("++numChecked.val"), " de-sugars to ", InlineJs("numChecked.val = numChecked.val + 1"), ", the side effect actually depends on ", Symbol("numChecked"), " state as well. As a result, when the ", Symbol("Reset"), " button is clicked, it updates the ", Symbol("numChecked"), " state, which leads to the side effect to increment ", Symbol("numChecked"), " state, which will further trigger the same side effect and increment ", Symbol("numChecked"), ", over and over again - an endless loop. Eventually a stack overflow error will occur to stop the loop, leaving ", Symbol("numChecked"), " state ending in an arbitrary number."),
+    p(VanJS(), " 1.3.0 adjusts the dependency detection mechanism in this situation to avoid the problem. That is, if we're setting the ", Symbol("val"), " property of some state inside a binding function (be it in ", Symbol("van.derive"), ", for state-derived properties, or for state-derived child nodes), that state will not be consider as a dependency of the binding function, even if its ", Symbol("val"), " property is being read there. The adjustment is aimed to avoid the self-referencing problem discussed above, making it impossible to trigger an side effect to update a state that re-triggers the same side effect again. Thus in ", VanJS(), " 1.3.0 or later, the code above has the correct behavior - clicking the ", Symbol("Reset"), " button will just reset ", Symbol("numChecked"), " to ", Symbol("0"), "."),
+    p("You can try out the program before and after the 1.3.0 update:"),
+    ul(
+      li({
+        id: "jsfiddle-self-ref-old",
+        "data-code-uplevels": 1,
+        "data-prefix": "const {button, div, input} = van.tags",
+        "data-suffix": "van.add(document.body, CheckboxCounter())",
+        "data-van-version": "1.2.8",
+        "data-link-text": "Before 1.3.0 update"
+      }),
+      li({
+        id: "jsfiddle-self-ref-new",
+        "data-code-uplevels": 1,
+        "data-prefix": "const {button, div, input} = van.tags",
+        "data-suffix": "van.add(document.body, CheckboxCounter())",
+        "data-link-text": "After 1.3.0 update"
+      }),
+    ),
     H2({id: "gc"}, "Garbage Collection"),
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)
