@@ -82,6 +82,7 @@ export default (doc: HTMLDocument) => {
       "data-suffix": "van.add(document.body, ConditionalDerive())",
     }),
     H3("Self-referencing in side effects"),
+    Quote({text: "A barber states that he shaves all who do not shave themselves.", source: "Bertrand Russell, Barber paradox"}),
     p("Sometimes side effects could lead to trick situations:"),
     JsFile("self-ref.code.js"),
     p("Prior to ", VanJS(), " 1.3.0, the code above is problematic. The intention of the code is to count the number of times that the checkbox is checked. The code:"),
