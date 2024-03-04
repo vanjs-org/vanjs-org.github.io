@@ -8,7 +8,7 @@ const Counter = () => {
     select({oninput: e => action.val = e.target.value, value: action},
       option({value: "👍"}, "👍"), option({value: "👎"}, "👎"),
     ), " ",
-    button({onclick: van._(() => action.val === "👍" ?
+    button({onclick: van.derive(() => action.val === "👍" ?
       () => ++counter.val : () => --counter.val)}, "Run"),
   )
 }

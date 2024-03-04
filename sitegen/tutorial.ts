@@ -46,8 +46,8 @@ van.add(document.body, Hello())
       returns: ["The ", SymLink("HTMLDivElement", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement"), " object just created."],
     }),
     H3("SVG and MathML Support"),
-    p("HTML elements with ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), " can be created via ", SymLink("van.tagsNS", "#api-tagsns"), ", a variant of ", Symbol("van.tags"), " that allows you to specify the ", Symbol("namespaceURI"), " of the created elements. Here is an example of composing the SVG DOM tree with ", Symbol("van.tagsNS"), ":"),
-    Js(`const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+    p("To create HTML elements with custom ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), ", you can declare tag functions via ", InlineJs("van.tags(<namespaceURI>)"), ". Here is an example of composing the SVG DOM tree:"),
+    Js(`const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
 
 const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
   circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
@@ -60,8 +60,8 @@ van.add(document.body, Smiley())
 `),
     p(Demo(), " ", span({id: "demo-smiley"})),
     p({id: "jsfiddle-smiley"}),
-    p("Similarly, math formulas can be created with ", SymLink("MathML", "https://developer.mozilla.org/en-US/docs/Web/MathML/Element"), " elements via ", Symbol("van.tagsNS"), ":"),
-    Js(`const {math, mi, mn, mo, mrow, msup} = van.tagsNS("http://www.w3.org/1998/Math/MathML")
+    p("Similarly, math formulas can be created with ", SymLink("MathML", "https://developer.mozilla.org/en-US/docs/Web/MathML/Element"), " elements:"),
+    Js(`const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
 
 const Euler = () => math(
   msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"),
@@ -71,9 +71,9 @@ van.add(document.body, Euler())
 `),
     p(Demo(), " ", span({id: "demo-euler"})),
     p({id: "jsfiddle-euler"}),
-    H3({id: "api-tagsns"}, "API reference: ", Symbol("van.tagsNS")),
+    H3({id: "api-tagsns"}, "API reference ", Symbol("van.tags"), " (for elements with custom namespace URI)"),
     ApiTable({
-      signature: "van.tagsNS(namespaceURI) => <the created tags object for elements with specified namespaceURI>",
+      signature: "van.tags(namespaceURI) => <the created tags object for elements with specified namespaceURI>",
       description: ["Creates a tags ", SymLink("Proxy", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy"), " object similar to ", SymLink("van.tags", "#api-tags"), " for elements with specified ", Symbol("namespaceURI"), "."],
       parameters: {namespaceURI: ["a string for the ", Symbol("namespaceURI"), " property of elements created via tag functions."]},
       returns: "The created tags object.",
@@ -232,9 +232,9 @@ van.add(document.body, Timer({totalSecs: 5}))
     JsFile("font-preview.code.js"),
     p(Demo(), " ", span({id: "demo-font-preview"})),
     p({id: "jsfiddle-font-preview"}),
-    H3({id: "api-_"}, Symbol("van._(...)"), " to escape ", Symbol("on..."), " event handlers"),
-    p("When declaring a ", Symbol("State"), "-derived property for an ", Symbol("on..."), " event handler, you should wrap around the binding function with ", InlineJs("van._(...)"), ". Otherwise, the function you provide will be consider as the event handler, rather than the binding function for the ", Symbol("State"), "-derived property. See the example below:"),
-    JsFile("escape-derived-prop.code.js"),
+    H3({id: "state-derived-event-handlers"}, "State-derived ", Symbol("on..."), " event handlers"),
+    p("When declaring a ", Symbol("State"), "-derived property for an ", Symbol("on..."), " event handler, you should wrap around the binding function with ", InlineJs("van.derive(...)"), " (i.e.: defining an ad-hoc ", Link("derived state", "#derived-state"), "). Otherwise, the function you provide will be consider as the event handler, rather than the binding function for the ", Symbol("State"), "-derived property. See the example below:"),
+    JsFile("state-derived-event-handler.code.js"),
     p(Demo(), " ", span({id: "demo-escape-derived-prop"})),
     p({id: 'jsfiddle-escape-derived-prop'}),
     H3({id: "state-derived-child"}, Symbol("State"), "-derived child nodes"),
@@ -299,17 +299,26 @@ van.add(document.body, EditableList())
     JsFile("stateful-binding.snippet.js"),
     p("The piece of code above is building a suggestion list that is reactive to the changes of selection ", Symbol("candidates"), " and ", Symbol("selectedIndex"), ". When selection ", Symbol("candidates"), " change, the ", Symbol("suggestionList"), " needs to be regenerated. However, if only ", Symbol("selectedIndex"), " changes, we only need to update the DOM element to indicate that the new candidate is being selected now, which can be achieved by changing the ", SymLink("classList", "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"), " of relevant candidate elements."),
     p("To facilitate stateful binding, the binding function takes the ", Symbol("dom"), " parameter, which is the current version of the DOM node prior to UI updates (or ", Symbol("undefined"), " when the binding function is first called). The binding function can either return ", Symbol("dom"), " (which means we don't want to update the DOM node to a new version), a primitive value (a new ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for it), or a new DOM node (whose ", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), ")."),
-    H2("Polymorphic Binding"),
-    p("If you use ", VanJS(), " to build reusable UI components, it's desirable for your components to accept both state and non-state property values. For instance, for a reusable ", Symbol("Button"), " component like that:"),
+    H3("Polymorphic Binding"),
+    p("If you use ", VanJS(), " to build reusable UI components, it might be desirable for your components, just like tag functions, to accept a static value, a ", Symbol("State"), " object, or a binding function as a property value. For instance, for a reusable ", Symbol("Button"), " component like that:"),
     Js(`const Button = ({color, ...}) = button(
   ...
 )
 `),
-    p("it would be desirable for the ", Symbol("Button"), " component to accept both static ", Symbol("color"), " value and ", Symbol("color"), " state. If the ", Symbol("color"), " property is used as a DOM node property or as a child node, things can work out of the box, as tag functions and ", Symbol("van.add"), " support both state and non-state values in ", Symbol("props"), " and ", Symbol("children"), " parameter. However, if the ", Symbol("color"), " property is used as a ", Symbol("State"), "-derived property or a ", Symbol("State"), "-derived child, it would be hard for your component to work in both ways. Consider the example below:"),
+    p("it would be desirable for the ", Symbol("color"), " property of ", Symbol("Button"), " component to accept a static value, a ", Symbol("State"), " object, or a binding function. If the ", Symbol("color"), " property is used as a DOM node property or as a child node, things can work out of the box, as tag functions and ", Symbol("van.add"), " support static values, ", Symbol("State"), " objects, and binding functions in ", Symbol("props"), " and ", Symbol("children"), " parameter. However, if the ", Symbol("color"), " property is used inside a binding function for a ", Symbol("State"), "-derived property or a ", Symbol("State"), "-derived child, it would be hard for your component to work with different types of input. Consider the example below:"),
     Js(`button({style: () => \`background-color: \${color};\`},
   ...
 )`),
-    p("When ", Symbol("color"), " is a static value, we should use ", InlineJs("${color}"), ". However, when ", Symbol("color"), " is a state, we should use ", InlineJs("${color.val}"), " instead. This makes it hard to build reusable UI component that accepts both state and non-state property values. ", VanJS(), " has 2 helper functions: ", Symbol("van.val"), " and ", Symbol("van.oldVal"), " to help you in this situation:"),
+    p("When ", Symbol("color"), " is a static value, we should use ", InlineJs("${color}"), ". However, when ", Symbol("color"), " is a state, we should use ", InlineJs("${color.val}"), ", and when ", Symbol("color"), " is a binding function, we should use ", InlineJs("${color()}"), " . This makes it hard to build reusable UI component that accepts all types of property values."),
+    p("To tackle this issue, you can define an ad-hoc value resolver to get value for different types of property inputs. The value resolver can be something like this:"),
+    Js(`const stateProto = Object.getPrototypeOf(van.state())
+const val = v => {
+  const protoOfV = Object.getPrototypeOf(v ?? 0)
+  if (protoOfV === stateProto) return v.val
+  if (protoOfV === Function.prototype) return v()
+  return v
+}
+`),
     H3({id: "api-val"}, "API reference: ", Symbol("van.val")),
     ApiTable({
       signature: "van.val(s) => <The value of s>",

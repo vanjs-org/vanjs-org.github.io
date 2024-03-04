@@ -1,4 +1,4 @@
-const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
 
 const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
   circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
