@@ -1,5 +1,5 @@
 {
-  const {circle, path, svg} = van.tagsNS("http://www.w3.org/2000/svg")
+  const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
 
   const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
     circle({cx: "25", cy: "25", "r": "20", stroke: "black", "stroke-width": "2", fill: "yellow"}),
@@ -12,7 +12,7 @@
 }
 
 {
-  const {math, mi, mn, mo, mrow, msup} = van.tagsNS("http://www.w3.org/1998/Math/MathML")
+  const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
 
   const Euler = () => math(
     msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"),
@@ -89,27 +89,6 @@
   van.add(document.getElementById("demo-timer"), Timer({totalSecs: 5}))
 }
 
-// {
-//   const {button, pre, span} = van.tags
-
-//   const StopWatch = () => {
-//     const elapsed = van.state("0.00")
-//     let id
-//     const start = () =>
-//       id = id || setInterval(() =>
-//         elapsed.val = (Number(elapsed.val) + 0.01).toFixed(2), 10)
-//     return span(
-//       pre({style: "display: inline;"}, elapsed, "s "),
-//       button({onclick: start}, "Start"),
-//       button({onclick: () => (clearInterval(id), id = 0)}, "Stop"),
-//       button({onclick: () =>
-//         (clearInterval(id), id = 0, elapsed.val = "0.00")}, "Reset"),
-//     )
-//   }
-
-//   van.add(document.getElementById("demo-stopwatch"), StopWatch())
-// }
-
 {
   const {input, span} = van.tags
 
@@ -157,7 +136,7 @@
       select({oninput: e => action.val = e.target.value, value: action},
         option({value: "👍"}, "👍"), option({value: "👎"}, "👎"),
       ), " ",
-      button({onclick: van._(() => action.val === "👍" ?
+      button({onclick: van.derive(() => action.val === "👍" ?
         () => ++counter.val : () => --counter.val)}, "Run"),
     )
   }
@@ -191,8 +170,16 @@
 {
   const {button, span} = van.tags
 
+  const stateProto = Object.getPrototypeOf(van.state())
+  const val = v => {
+    const protoOfV = Object.getPrototypeOf(v ?? 0)
+    if (protoOfV === stateProto) return v.val
+    if (protoOfV === Function.prototype) return v()
+    return v
+  }
+
   const Button = ({color, text, onclick}) =>
-    button({style: () => `background-color: ${van.val(color)};`, onclick}, text)
+    button({style: () => `background-color: ${val(color)};`, onclick}, text)
 
   const App = () => {
     const colorState = van.state("green")
@@ -216,7 +203,7 @@
       Button({color: "yellow", text: "Click Me", onclick: () => alert("Clicked")}), " ",
       Button({color: colorState, text: textState, onclick: onclickState}), " ",
       Button({
-        color: van.derive(() => `rgb(${lightness.val}, ${lightness.val}, ${lightness.val})`),
+        color: () => `rgb(${lightness.val}, ${lightness.val}, ${lightness.val})`,
         text: "Get Darker",
         onclick: () => lightness.val = Math.max(lightness.val - 10, 0),
       }),
