@@ -31,3 +31,5 @@ const App = () => {
     }),
   )
 }
+
+van.add(document.body, App())
