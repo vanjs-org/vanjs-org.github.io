@@ -233,7 +233,7 @@ van.add(document.body, Timer({totalSecs: 5}))
     p(Demo(), " ", span({id: "demo-font-preview"})),
     p({id: "jsfiddle-font-preview"}),
     H3({id: "api-_"}, Symbol("van._(...)"), " to escape ", Symbol("on..."), " event handlers"),
-    p("When declaring a ", Symbol("State"), "-derived property for an ", Symbol("on..."), " event handler, you should wrap around the binding function with ", Symbol("van._(...)"), ". Otherwise, the function you provide will be consider as the event handler, rather than the binding function for the ", Symbol("State"), "-derived property. See the example below:"),
+    p("When declaring a ", Symbol("State"), "-derived property for an ", Symbol("on..."), " event handler, you should wrap around the binding function with ", InlineJs("van._(...)"), ". Otherwise, the function you provide will be consider as the event handler, rather than the binding function for the ", Symbol("State"), "-derived property. See the example below:"),
     JsFile("escape-derived-prop.code.js"),
     p(Demo(), " ", span({id: "demo-escape-derived-prop"})),
     p({id: 'jsfiddle-escape-derived-prop'}),
