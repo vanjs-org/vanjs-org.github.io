@@ -313,7 +313,7 @@ van.add(document.body, EditableList())
     H3({id: "api-val"}, "API reference: ", Symbol("van.val")),
     ApiTable({
       signature: "van.val(s) => <The value of s>",
-      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("val"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
+      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("val"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
       parameters: {
         s: "The input value, which can be either a state or a non-state value."
       },
@@ -322,7 +322,7 @@ van.add(document.body, EditableList())
     H3({id: "api-oldval"}, "API reference: ", Symbol("van.oldVal")),
     ApiTable({
       signature: "van.oldVal(s) => <The old value of s>",
-      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("oldVal"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
+      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("oldVal"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
       parameters: {
         s: "The input value, which can be either a state or a non-state value."
       },
