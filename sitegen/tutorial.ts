@@ -319,29 +319,11 @@ const val = v => {
   return v
 }
 `),
-    H3({id: "api-val"}, "API reference: ", Symbol("van.val")),
-    ApiTable({
-      signature: "van.val(s) => <The value of s>",
-      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("val"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
-      parameters: {
-        s: "The input value, which can be either a state or a non-state value."
-      },
-      returns: ["The value of ", Symbol("s"), "."],
-    }),
-    H3({id: "api-oldval"}, "API reference: ", Symbol("van.oldVal")),
-    ApiTable({
-      signature: "van.oldVal(s) => <The old value of s>",
-      description: ["If ", Symbol("s"), " is a ", Symbol("State"), " object, returns the ", Symbol("oldVal"), " property of ", Symbol("s"), "; otherwise, returns ", Symbol("s"), "itself."],
-      parameters: {
-        s: "The input value, which can be either a state or a non-state value."
-      },
-      returns: ["The old value of ", Symbol("s"), "."],
-    }),
-    H3("A practical example"),
-    p("Now, let's take a look at a practical example - a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be either state or non-state objects:"),
+    p("Note that we're using ", InlineJs("Object.getPrototypeOf(van.state())"), " (", InlineJs("van.state()"), " returns a dummy ", Symbol("State"), " object) to get the ", Link("prototype object", "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes"), " of ", Symbol("State"), " objects. It's guaranteed that all ", Symbol("State"), " objects in ", VanJS(), " share the same prototype."),
+    p("Let's look at a practical example - a reuseable button whose ", Symbol("color"), ", ", Symbol("text"), " and ", Symbol("onclick"), " properties can be a static value, a ", Symbol("State"), " object, or a binding function:"),
     JsFile("poly-binding.code.js"),
-    p(Demo(), span({id: "demo-nonstate-deps"})),
-    p({id: "jsfiddle-nonstate-deps"}),
+    p(Demo(), span({id: "demo-poly-binding"})),
+    p({id: "jsfiddle-poly-binding"}),
     H2("The End"),
     p("🎉 Congratulations! You have completed the entire tutorial of ", VanJS(), ". Now you can start your journey of building feature-rich applications!"),
     p("To learn more, you can:"),
