@@ -210,7 +210,7 @@
     )
   }
 
-  van.add(document.getElementById("demo-nonstate-deps"), App())
+  van.add(document.getElementById("demo-poly-binding"), App())
 }
 
 {
