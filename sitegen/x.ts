@@ -182,7 +182,7 @@ items.splice(1, 1, 5)
       signature: "vanX.list(containerFunc, items, itemFunc) => <the root element of the created DOM tree>",
       description: ["Creates a DOM tree for a list of UI elements based on the input reactive object ", Symbol("items"), "."],
       parameters: {
-        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
+        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
         items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
         itemFunc: ["The function (", InlineJs("(v, deleter, k) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
           li(Symbol("v"), " - A ", Symbol("State"), " object corresponding to each list item. You can directly use it as a ", Symbol("State"), "-based ", Link("property", "/tutorial#state-typed-prop"), " / ", Link("child node", "/tutorial#state-typed-child"), ", read its value for building the UI element, and/or set its value in some event handlers."),
@@ -206,8 +206,9 @@ items.splice(1, 1, 5)
     }),
     p("You might notice how easy it is to serialize/deserialize a complex reactive object into/from external storage. This is indeed one notable benefit of reactive objects provided by ", SymLink("vanX.reactive", "#reactive-object"), "."),
     p("Note that we are calling ", InlineJs("items.filter(_ => 1)"), " before serializing to the JSON string via ", InlineJs("JSON.stringify"), ". This is because after some deletions of items, there will be ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " in the ", Symbol("items"), " array, which can result ", Symbol("null"), " values in the result JSON string and cause problems when the JSON string is deserialized. ", InlineJs("items.filter(_ => 1)"), " eliminates the holes (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
+    p({id: "array-holes"}, Caveat(), "Because there might be holes in the reactive array after deletions of the items, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
     H3("Update, insert, delete and reorder items in batch with ", Symbol("vanX.replace")),
-    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
+    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
 const todoItems = vanX.reactive([
   {text: "Implement VanX", done: true},
@@ -241,7 +242,7 @@ const duplicateItems = () => vanX.replace(todoItems, l =>
       returns: InlineTs("void"),
     }),
     H3("Example 1: sortable list"),
-    p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items in ascending or descending order, and append a string to all items in the list:"),
+    p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items in ascending or descending order, and append a string to all items in the list:"),
     JsFile("list1.code.js"),
     p(Demo()),
     p({id: "demo-example-list1"}),
@@ -253,7 +254,7 @@ const duplicateItems = () => vanX.replace(todoItems, l =>
       "data-css": "a { cursor: pointer; }\n",
     }),
     H3("Example 2: an advanced sortable TODO list"),
-    p("Now, let's take a look at a more advanced example - a sortable TODO list, which is implemented with keyed data. i.e.: reactive ", Symbol("items"), " is a plain object instead of an array. In additional to the addition, deletion, sorting and appending strings that are implemented in the previous example, you can edit an item, mark an item as complete, clear all completed items and duplicate the entire list. Furthermore, the application state is serialized and persisted into ", SymLink("localStorage", "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"), " thus the state is preserved across page loads."),
+    p("Now, let's take a look at a more advanced example - a sortable TODO list, which is implemented with keyed data. i.e.: reactive ", Symbol("items"), " is a plain object instead of an array. In additional to the addition, deletion, sorting and appending strings that are implemented in the previous example, you can edit an item, mark an item as complete, clear all completed items and duplicate the entire list. Furthermore, the application state is serialized and persisted into ", SymLink("localStorage", "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"), " thus the state is preserved across page loads."),
     JsFile("list2.code.js"),
     p(Demo()),
     p({id: "demo-example-list2"}),

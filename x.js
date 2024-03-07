@@ -6,7 +6,7 @@
     return div(
       "First name: ",
       input({type: "text", value: () => data.name.first,
-        oninput: e => data.name.first = e.target.value}), " ",
+        oninput: e => data.name.first = e.target.value}), " ",
       "Last name: ",
       input({type: "text", value: () => data.name.last,
         oninput: e => data.name.last = e.target.value}), " ",
@@ -27,7 +27,7 @@
     return div(
       "First name: ",
       input({type: "text", value: () => data.name.first,
-        oninput: e => data.name.first = e.target.value}), " ",
+        oninput: e => data.name.first = e.target.value}), " ",
       "Last name: ",
       input({type: "text", value: () => data.name.last,
         oninput: e => data.name.last = e.target.value}), " ",
@@ -48,7 +48,7 @@
     return div(
       "First name: ",
       input({type: "text", value: () => data.name.first,
-        oninput: e => data.name.first = e.target.value}), " ",
+        oninput: e => data.name.first = e.target.value}), " ",
       "Last name: ",
       input({type: "text", value: () => data.name.last,
         oninput: e => data.name.last = e.target.value}), " ",
@@ -73,7 +73,7 @@
     return div(
       "First name: ",
       input({type: "text", value: () => person.firstName,
-        oninput: e => person.firstName = e.target.value}), " ",
+        oninput: e => person.firstName = e.target.value}), " ",
       "Last name: ",
       input({type: "text", value: () => person.lastName,
         oninput: e => person.lastName = e.target.value}), " ",
@@ -114,6 +114,7 @@
 
     return div(
       div(inputDom, button({onclick: () => items.push(inputDom.value)}, "Add")),
+      div(() => Object.keys(items).length, " item(s) in total"),
       vanX.list(ul, items, (v, deleter) => li(v, " ", a({onclick: deleter}, "❌"))),
       div(
         button({onclick: () => vanX.replace(items, l => l.toSorted())}, "A -> Z"),
@@ -160,7 +161,7 @@
         button({onclick: () => vanX.replace(items, l =>
           l.flatMap(([k1, v1]) => [
             [k1, v1],
-            ["k" + ++id, {text: v1.text + " - copy", done: v1.done}],
+            ["k" + ++id, {text: v1.text + " - copy", done: v1.done}],
           ]))},
           "Duplicate List"),
         button({onclick: () => Object.values(items).forEach(v => v.text += "!")}, 'Append "!"'),
