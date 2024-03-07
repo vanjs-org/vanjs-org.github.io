@@ -48,14 +48,10 @@ type BrowserTags = Tags<Element, Text> & {
 }
 
 export interface VanObj<ElementType extends HasFirstChild, TextNodeType> {
-  readonly state: <T>(initVal: T) => State<T>
-  readonly val: <T>(s: T | StateView<T>) => T
-  readonly oldVal: <T>(s: T | StateView<T>) => T
+  readonly state: <T>(initVal?: T) => State<T>
   readonly derive: <T>(f: () => T) => State<T>
   readonly add: AddFunc<ElementType, TextNodeType>
-  readonly _: (f: () => PropValue) => () => PropValue
-  readonly tags: Tags<ElementType, TextNodeType>
-  readonly tagsNS: (namespaceURI: string) => Tags<ElementType, TextNodeType>
+  readonly tags: Tags<ElementType, TextNodeType> & ((namespaceURI: string) => Tags<ElementType, TextNodeType>)
 
   // Mini-Van specific API
   html: (first?: Props | ChildDom<ElementType, TextNodeType>,
@@ -67,7 +63,7 @@ export interface Van extends VanObj<Element, Text> {
     createElement(s: any): ElementType,
     createTextNode(s: any): TextNodeType,
   }) => VanObj<ElementType, TextNodeType>
-  readonly tags: BrowserTags
+  readonly tags: BrowserTags & ((namespaceURI: string) => Tags<Element, Text>)
 }
 
 declare const van: Van
