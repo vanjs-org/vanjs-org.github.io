@@ -203,6 +203,7 @@ const duplicateItems = () =&gt; vanX.replace(todoItems, l =&gt;
   return div(
     div(inputDom, button(
       {onclick: () =&gt; items["k" + ++id] = {text: inputDom.value, done: false}}, "Add")),
+    div(() =&gt; Object.keys(items).length, " item(s) in total"),
     vanX.list(div, items, ({val: v}, deleter) =&gt; div(
       input({type: "checkbox", checked: () =&gt; v.done,
         onclick: e =&gt; v.done = e.target.checked}), " ",
