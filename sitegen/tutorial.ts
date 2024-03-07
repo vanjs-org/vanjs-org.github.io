@@ -336,13 +336,9 @@ const val = v => {
     p("Below is the list of all top-level APIs in ", VanJS(), ":"),
     ul(
       li(SymLink("van.tags", "#api-tags")),
-      li(SymLink("van.tagsNS", "#api-tagsns")),
       li(SymLink("van.add", "#api-add")),
       li(SymLink("van.state", "#api-state")),
       li(SymLink("van.derive", "#api-derive")),
-      li(SymLink("van._", "#api-_")),
-      li(SymLink("van.val", "#api-val")),
-      li(SymLink("van.oldVal", "#api-oldval")),
       li(SymLink("van.hydrate", "ssr#api-hydrate")),
     ),
   )
