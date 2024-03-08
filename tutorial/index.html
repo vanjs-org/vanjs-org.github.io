@@ -291,7 +291,7 @@ const val = v =&gt; {
 </code></pre><p>Note that we're using <code class="language-js">Object.getPrototypeOf(van.state())</code> (<code class="language-js">van.state()</code> returns a dummy <code class="symbol">State</code> object) to get the <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes" class="w3-hover-opacity">prototype object</a> of <code class="symbol">State</code> objects. It's guaranteed that all <code class="symbol">State</code> objects in <b>VanJS</b> share the same prototype.</p><p>Let's look at a practical example - a reuseable button whose <code class="symbol">color</code>, <code class="symbol">text</code> and <code class="symbol">onclick</code> properties can be a static value, a <code class="symbol">State</code> object, or a binding function:</p><pre><code class="language-js">const {button, span} = van.tags
 
 const Button = ({color, text, onclick}) =&gt;
-  button({style: () =&gt; `background-color: ${van.val(color)};`, onclick}, text)
+  button({style: () =&gt; `background-color: ${val(color)};`, onclick}, text)
 
 const App = () =&gt; {
   const colorState = van.state("green")
