@@ -10,7 +10,7 @@ const Name = () => {
   return div(
     "First name: ",
     input({type: "text", value: () => person.firstName,
-      oninput: e => person.firstName = e.target.value}), " ",
+      oninput: e => person.firstName = e.target.value}), " ",
     "Last name: ",
     input({type: "text", value: () => person.lastName,
       oninput: e => person.lastName = e.target.value}), " ",

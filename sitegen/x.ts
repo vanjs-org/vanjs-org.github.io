@@ -51,7 +51,7 @@ declare const vanX: typeof vanXType
     d: van.state(3),
   }),
 }`),
-    p("Getting and setting values of the underlying states can be simply done by getting / setting the fields of the reactive object. For instance, ", InlineJs(`obj.b.c`), " is equivalent to what you would have to write ", InlineJs(`obj.b.val.c.val`), " had the underlying state object been accessed."),
+    p("Getting and setting values of the underlying states can be simply done by getting / setting the fields of the reactive object. For instance, ", InlineJs(`obj.b.c`), " is equivalent to what you would have to write ", InlineJs(`obj.b.val.c.val`), " had the underlying state object been accessed."),
     H3("A practical example"),
     p("Now, let's take a look at a practice example on how ", Symbol("vanX.reactive"), " can help group multiple states into a single reactive object in your application:"),
     JsFile("name.code.js"),
@@ -156,7 +156,7 @@ return vanX.list(ul, items, v => li(v))
     Js(`const items = vanX.reactive({a: 1, b: 2, c: 3})
 return vanX.list(ul, items, v => li(v))
 `),
-    p("In both examples, ", InlineHtml("<ul><li>1</li><li>2</li><li>3</li></ul>"), " will be returned."),
+    p("In both examples, ", InlineHtml("<ul><li>1</li><li>2</li><li>3</li></ul>"), " will be returned."),
     p("You can add, update, and delete entries in the reactive object ", Symbol("items"), ", and the rendered UI elements are bound to the changes while minimizing the re-rendering of the DOM tree. For instance, if you do the following changes to the ", Symbol("Array"), " example:"),
     Js(`++items[0]
 delete items[1]
@@ -182,18 +182,18 @@ items.splice(1, 1, 5)
       signature: "vanX.list(containerFunc, items, itemFunc) => <the root element of the created DOM tree>",
       description: ["Creates a DOM tree for a list of UI elements based on the input reactive object ", Symbol("items"), "."],
       parameters: {
-        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
+        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
         items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
         itemFunc: ["The function (", InlineJs("(v, deleter, k) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
           li(Symbol("v"), " - A ", Symbol("State"), " object corresponding to each list item. You can directly use it as a ", Symbol("State"), "-based ", Link("property", "/tutorial#state-typed-prop"), " / ", Link("child node", "/tutorial#state-typed-child"), ", read its value for building the UI element, and/or set its value in some event handlers."),
-          li(Symbol("deleter"), " - a function (", InlineJs("() => void"), ") that can be used in the event handler to delete the entire item. Typically the ", Symbol("deleter"), " function can be used as the ", Symbol("onclick"), " handler of a deletion button."),
+          li(Symbol("deleter"), " - a function (", InlineJs("() => void"), ") that can be used in the event handler to delete the entire item. Typically the ", Symbol("deleter"), " function can be used as the ", Symbol("onclick"), " handler of a deletion button."),
           li(Symbol("k"), " - ", i("(requires ", VanX(), " 0.2.0 or later)"), " the key of the corresponding list item, which is the index if ", Symbol("items"), " is an ", Symbol("Array"), " or the property key if ", Symbol("items"), " is a plain object."),
         )],
       },
       returns: "The root element of the created DOM tree.",
     }),
     H3("A simplified TODO App"),
-    p("Now, let's take a look at a practical example: The ", Link("Fully Reactive TODO App", "/demo#todo-app"), " in ", Link("VanJS by Example", "/demo"), " page can be re-implemented with the help of ", Symbol("vanX.list"), ". We can see how a 40+ lines of code is simplified to just over 10 lines:"),
+    p("Now, let's take a look at a practical example: The ", Link("Fully Reactive TODO App", "/demo#todo-app"), " in ", Link("VanJS by Example", "/demo"), " page can be re-implemented with the help of ", Symbol("vanX.list"), ". We can see how a 40+ lines of code is simplified to just over 10 lines:"),
     JsFile("todo-app.code.js"),
     p(Demo()),
     p({id: "demo-todo-list"}),
@@ -205,10 +205,10 @@ items.splice(1, 1, 5)
       "data-css": "a { cursor: pointer; }\n",
     }),
     p("You might notice how easy it is to serialize/deserialize a complex reactive object into/from external storage. This is indeed one notable benefit of reactive objects provided by ", SymLink("vanX.reactive", "#reactive-object"), "."),
-    p("Note that we are calling ", InlineJs("items.filter(_ => 1)"), " before serializing to the JSON string via ", InlineJs("JSON.stringify"), ". This is because after some deletions of items, there will be ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " in the ", Symbol("items"), " array, which can result ", Symbol("null"), " values in the result JSON string and cause problems when the JSON string is deserialized. ", InlineJs("items.filter(_ => 1)"), " eliminates the holes (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
+    p("Note that we are calling ", InlineJs("items.filter(_ => 1)"), " before serializing to the JSON string via ", InlineJs("JSON.stringify"), ". This is because after some deletions of items, there will be ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " in the ", Symbol("items"), " array, which can result ", Symbol("null"), " values in the result JSON string and cause problems when the JSON string is deserialized. ", InlineJs("items.filter(_ => 1)"), " eliminates the holes (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
     p({id: "caveat-array-holes"}, Caveat(), "Because there might be holes in the reactive array after deletions of the items, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
     H3("Update, insert, delete and reorder items in batch with ", Symbol("vanX.replace")),
-    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
+    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
 const todoItems = vanX.reactive([
   {text: "Implement VanX", done: true},
@@ -237,7 +237,7 @@ const duplicateItems = () => vanX.replace(todoItems, l =>
       description: ["Updates the reactive object ", Symbol("items"), " and UI elements bound to it based on the data returned by the replace function ", Symbol("f"), "."],
       parameters: {
         items: "The reactive object that you want to update.",
-        f: ["The replace function, which takes the current values of ", Symbol("items"), " as input and returns the new values of the update. If ", Symbol("items"), " is an array (for non-keyed data), ", Symbol("f"), " will take its values as an array (after eliminating holes with ", InlineJs("filter(_ => 1)"), ", see a ", Link("detailed explanation", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), " of hole elimination) and return the updated values as another array. If ", Symbol("items"), " is a plain object (for keyed data), ", Symbol("f"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."],
+        f: ["The replace function, which takes the current values of ", Symbol("items"), " as input and returns the new values of the update. If ", Symbol("items"), " is an array (for non-keyed data), ", Symbol("f"), " will take its values as an array (after eliminating holes with ", InlineJs("filter(_ => 1)"), ", see a ", Link("detailed explanation", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), " of hole elimination) and return the updated values as another array. If ", Symbol("items"), " is a plain object (for keyed data), ", Symbol("f"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."],
       },
       returns: InlineTs("void"),
     }),

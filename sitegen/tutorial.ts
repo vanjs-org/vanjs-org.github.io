@@ -63,7 +63,7 @@ van.add(document.body, Smiley())
 `),
     p(Demo(), " ", span({id: "demo-smiley"})),
     p({id: "jsfiddle-smiley"}),
-    p("Similarly, math formulas can be created with ", SymLink("MathML", "https://developer.mozilla.org/en-US/docs/Web/MathML/Element"), " elements:"),
+    p("Similarly, math formulas can be created with ", SymLink("MathML", "https://developer.mozilla.org/en-US/docs/Web/MathML/Element"), " elements:"),
     Js(`const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
 
 const Euler = () => math(

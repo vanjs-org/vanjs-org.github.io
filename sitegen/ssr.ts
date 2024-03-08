@@ -35,8 +35,8 @@ export default (doc: HTMLDocument) => {
             ul(
               Folder("components", ": Common components that are shared on both server-side and client-side.",
                 ul(
-                  File("hello.ts", "/src/components/", ": ", Symbol("Hello"), " component."),
-                  File("counter.ts", "/src/components/", ": ", Symbol("Counter"), " component."),
+                  File("hello.ts", "/src/components/", ": ", Symbol("Hello"), " component."),
+                  File("counter.ts", "/src/components/", ": ", Symbol("Counter"), " component."),
                 ),
               ),
               File("server.ts", "/src/", ": server-side script to serve the HTML content."),
@@ -60,7 +60,7 @@ export default (doc: HTMLDocument) => {
   }
 `),
     ul(
-      li(NpmLink("finalhandler"), " and ", NpmLink("serve-static"), ": Server-side packages for serving static files (primarily used for serving ", Symbol(".js"), " files)."),
+      li(NpmLink("finalhandler"), " and ", NpmLink("serve-static"), ": Server-side packages for serving static files (primarily used for serving ", Symbol(".js"), " files)."),
       li(NpmLink("mini-van-plate"), ": The ", MiniVan(), " package used for SSR."),
       li(NpmLink("vanjs-core"), ": The ", VanJS(), " package used for CSR."),
     ),
@@ -71,10 +71,10 @@ export default (doc: HTMLDocument) => {
     TsFile("hydration-example/src/components/hello.ts"),
     p("Compared to the ", SymLink("Hello", "/demo#hello-world"), " component in the \"VanJS by Example\" page, there are following notable differences:"),
     ul(
-      li("The shared ", Symbol("Hello"), " component takes a ", Symbol("van"), " object as its input property. This is crucial to make ", Symbol("Hello"), " component cross-platform. Callers are responsible for providing the ", Symbol("van"), " object based on what's available in their specific environment so that the component can be agnostic to the execution environment. On the server-side, the ", Symbol("van"), " object from ", MiniVan(), " will be used (we can choose the ", Symbol("van"), " object from ", Symbol("van-plate"), " mode or from ", Symbol("mini-van"), " mode), whereas on the client-side, the ", Symbol("van"), " object from ", VanJS(), " will be used."),
+      li("The shared ", Symbol("Hello"), " component takes a ", Symbol("van"), " object as its input property. This is crucial to make ", Symbol("Hello"), " component cross-platform. Callers are responsible for providing the ", Symbol("van"), " object based on what's available in their specific environment so that the component can be agnostic to the execution environment. On the server-side, the ", Symbol("van"), " object from ", MiniVan(), " will be used (we can choose the ", Symbol("van"), " object from ", Symbol("van-plate"), " mode or from ", Symbol("mini-van"), " mode), whereas on the client-side, the ", Symbol("van"), " object from ", VanJS(), " will be used."),
       li("We can determine if the component is being rendered on the server-side or client-side:", Ts(`const fromServer = typeof window === "undefined"`), " and show different content based on it:", Ts('p(() => `👋Hello (from ${fromServer ? "server" : "client"})'), "This will help us differentiate whether the component is rendered from server or from client."),
     ),
-    p("To help with typechecking if you're working with TypeScript, you can import the ", Symbol("VanObj"), " type from ", Symbol("mini-van-plate/shared"), " (part of the ", MiniVan(), " package: ", Link("source file", "https://github.com/vanjs-org/mini-van/blob/main/src/shared.ts"), ")."),
+    p("To help with typechecking if you're working with TypeScript, you can import the ", Symbol("VanObj"), " type from ", Symbol("mini-van-plate/shared"), " (part of the ", MiniVan(), " package: ", Link("source file", "https://github.com/vanjs-org/mini-van/blob/main/src/shared.ts"), ")."),
     p(b("Limitations: "), i("The typechecking for tag functions and ", Symbol("van.add"), " is quite limited. This is because it's hard to unify the type system across the common types between server-side and client-side.")),
     H3("Reactive Component"),
     p("Next, let's take a look at a reactive component - ", Symbol("Counter"), ":"),
@@ -108,7 +108,7 @@ export default (doc: HTMLDocument) => {
     Ts(`van.add(document.getElementById("hello-container")!, Hello({van}))`),
     p("This will append a CSR ", Symbol("Hello"), " component right after the SSR ", Symbol("Hello"), " component. You can tell whether the component is rendered on the server-side or on the client-side by checking whether the text is ", Symbol("👋Hello (from server)"), " or ", Symbol("👋Hello (from client)"), "."),
     H3("Hydration"),
-    p("Next, let's hydrate the counter components rendered on the server side to add the reactivity. We can use ", Symbol("van.hydrate"), " to achieve that:"),
+    p("Next, let's hydrate the counter components rendered on the server side to add the reactivity. We can use ", Symbol("van.hydrate"), " to achieve that:"),
     Ts(`van.hydrate(document.getElementById("basic-counter")!, dom => Counter({
   van,
   id: dom.id,
@@ -129,7 +129,7 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
   buttonStyle,
 }))
 `),
-    p("Since ", Symbol("buttonStyle"), " is passed into the ", Symbol("Counter"), " component where its ", Symbol("val"), " property is referenced, the hydrated ", Symbol("Counter"), " component will be reactive to the change of ", Symbol("buttonStyle"), " state."),
+    p("Since ", Symbol("buttonStyle"), " is passed into the ", Symbol("Counter"), " component where its ", Symbol("val"), " property is referenced, the hydrated ", Symbol("Counter"), " component will be reactive to the change of ", Symbol("buttonStyle"), " state."),
     p("Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of ", Symbol("Counter"), " component can be optimized to only make the ", InlineHtml("<button>"), "s' child text nodes of the ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), " state. This can be achieved by binding more localized DOM nodes (i.e.: the child text nodes of ", InlineHtml("<button>"), "s) to the ", Symbol("buttonStyle"), " state. You can check out the implementation below for an optimized ", Symbol("Counter"), " component:"),
     TsFile("hydration-example/src/components/optimized-counter.ts"),
     H3({id: "api-hydrate"}, "API reference: ", Symbol("van.hydrate")),
@@ -156,8 +156,8 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
     ),
     p("Let's go to the demo page now. You will probably first notice the ", Symbol("Hello"), " components of the demo:"),
     img({src: "/code/hydration-hello-screenshot.png", width: "300px"}),
-    p("You can see an SSR ", Symbol("Hello"), " component followed by a CSR ", Symbol("Hello"), " component."),
-    p("The second part of the demo page is for hydrating the ", Symbol("Counter"), " components. In real-world use cases, hydration typically happens immediately after the page load, or when the application is idle. But if we do that in our sample application, hydration will happen so fast that we won't even be able to notice how hydration happens. Thus, for illustration purpose, we introduce a ", InlineHtml("<button>"), " where hydration only happens upon user click:"),
+    p("You can see an SSR ", Symbol("Hello"), " component followed by a CSR ", Symbol("Hello"), " component."),
+    p("The second part of the demo page is for hydrating the ", Symbol("Counter"), " components. In real-world use cases, hydration typically happens immediately after the page load, or when the application is idle. But if we do that in our sample application, hydration will happen so fast that we won't even be able to notice how hydration happens. Thus, for illustration purpose, we introduce a ", InlineHtml("<button>"), " where hydration only happens upon user click:"),
     Ts(`van.add(document.getElementById("counter-container")!, p(button({onclick: hydrate}, "Hydrate")))`),
     p("As a result, the second part of the demo will look like this:"),
     img({src: "/code/hydration-counter-screenshot.png", width: "300px"}),

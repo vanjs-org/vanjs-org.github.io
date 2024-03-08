@@ -3,7 +3,7 @@ const Name = () => {
   return div(
     "First name: ",
     input({type: "text", value: () => data.name.first,
-      oninput: e => data.name.first = e.target.value}), " ",
+      oninput: e => data.name.first = e.target.value}), " ",
     "Last name: ",
     input({type: "text", value: () => data.name.last,
       oninput: e => data.name.last = e.target.value}), " ",

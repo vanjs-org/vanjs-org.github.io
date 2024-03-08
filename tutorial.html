@@ -71,7 +71,7 @@ const Smiley = () =&gt; svg({width: "16px", viewBox: "0 0 50 50"},
 )
 
 van.add(document.body, Smiley())
-</code></pre><p><b>Demo:</b> <span id="demo-smiley"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/smiley">Try on jsfiddle</a></p><p>Similarly, math formulas can be created with <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/MathML/Element" class="w3-hover-opacity">MathML</a></code>&nbsp;elements:</p><pre><code class="language-js">const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
+</code></pre><p><b>Demo:</b> <span id="demo-smiley"></span></p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/tutorial/smiley">Try on jsfiddle</a></p><p>Similarly, math formulas can be created with <code class="symbol"><a href="https://developer.mozilla.org/en-US/docs/Web/MathML/Element" class="w3-hover-opacity">MathML</a></code> elements:</p><pre><code class="language-js">const {math, mi, mn, mo, mrow, msup} = van.tags("http://www.w3.org/1998/Math/MathML")
 
 const Euler = () =&gt; math(
   msup(mi("e"), mrow(mi("i"), mi("π"))), mo("+"), mn("1"), mo("="), mn("0"),

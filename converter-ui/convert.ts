@@ -1,4 +1,4 @@
-import { Van } from "vanjs-core"
+import { Van } from "vanjs-core"
 import { htmlToVanCode, mdToVanCode } from "vanjs-converter"
 
 declare const van: Van, Prism: any
@@ -73,7 +73,7 @@ const Converter = () => {
         pre(code({class: "language-js"})),
       )
       const {code: lines, tags} = result.val
-      const space = spacing.val ? " " : ""
+      const space = spacing.val ? " " : ""
       const [tagsDom, codeDom] = dom.querySelectorAll("pre code[class='language-js']")
       tagsDom.textContent = tags.length ? `const {${space}${tags.join(", ")}${space}} = van.tags
 ` : ""
