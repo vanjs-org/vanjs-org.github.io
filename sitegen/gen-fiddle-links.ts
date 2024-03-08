@@ -21,6 +21,7 @@ const findCode = (dom: Element, upDomLevels?: number) => {
     dom.firstElementChild?.hasAttribute("data-jsfiddle-ignore")) {
     dom = dom.previousElementSibling!
   }
+  if (dom.firstElementChild!.hasAttribute("data-hidden")) dom.remove()
   return dom.querySelector("code")!.innerText
 }
 

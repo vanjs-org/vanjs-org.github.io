@@ -41,6 +41,12 @@ export default (doc: HTMLDocument) => {
 })
 `),
     p("More granular ", Symbol("State"), " objects can help state bindings be more locally scoped, which make reactive UI updates more efficient by eliminating unnecessary DOM tree construction and replacement."),
+    H3("Minimize the scope of DOM updates"),
+    p("It's encouraged to organize your code in way that the scope of DOM updates is minimized upon the changes of ", Symbol("State"), " objects. For instance, the 2 components below (", Symbol("Name1"), " and ", Symbol("Name2"), ") are semantically equivalent:"),
+    JsFile("minimize-dom-updates.code.js"),
+    p("But ", Symbol("Name2"), "'s implementation is more preferable. With ", Symbol("Name1"), "'s implementation, the entire ", InlineHtml("<p>"), " element will be refreshed whenever ", Symbol("name"), " state is updated. This is because the entire ", InlineHtml("<p>"), " element is bound to ", Symbol("name"), " state as specified in the binding function. On the other hand, with ", Symbol("Name2"), "'s implementation, the ", InlineHtml("<p>"), " element is only refreshed when ", Symbol("name"), " state is changed from empty to non-empty, or vice versa, as the ", InlineHtml("<p>"), " element is bound to derived state - ", Symbol("isNameEmpty"), ". For other changes to ", Symbol("name"), " state, only the ", Symbol("Text node"), " inside the ", InlineHtml("<b>"), " element will be refreshed."),
+    JsFile("minimize-dom-updates-tracking.code.js", {}, {hidden: true}),
+    p({id: "jsfiddle-minimize-dom-updates"}),
     H3("Advanced state derivation"),
     Quote({text: ["道生一，一生二，二生三，三生万物", br(), "(Tao derives one, one derives two, two derive three, and three derive everything)"], source: "老子，道德经"}),
     p("A broad set of advanced state derivation (derived states and side effects) can indeed be defined with ", SymLink("van.derive", "/tutorial#api-derive"), ", as illustrated in the following piece of code:"),

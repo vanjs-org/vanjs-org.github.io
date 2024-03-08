@@ -1,3 +1,4 @@
+import { hidden } from "https://deno.land/std@0.184.0/fmt/colors.ts";
 import van, { ChildDom as TypedChildDom } from "./mini-van.js"
 import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
@@ -78,8 +79,17 @@ export default (doc: HTMLDocument) => {
       ),
     )
 
+  interface CodeOptions {jsfiddleIgnore?: boolean, hidden?: boolean}
+  const Code = (lang: string, text: string,
+    {jsfiddleIgnore = false, hidden = false}: CodeOptions = {}) => {
+    const codeDom = code({class: "language-" + lang}, text)
+    if (jsfiddleIgnore) codeDom.setAttribute("data-jsfiddle-ignore", 1)
+    if (hidden) codeDom.setAttribute("data-hidden", 1)
+    return pre(codeDom)
+  }
+
   interface FileOptions {trim?: boolean}
-  const File = (lang: string, file: string, {trim = false}: FileOptions) => {
+  const File = (lang: string, file: string, {trim = false}: FileOptions, codeOptions: CodeOptions) => {
     let text = Deno.readTextFileSync(file)
     if (trim) {
       const lines = text.split("\n")
@@ -91,14 +101,7 @@ export default (doc: HTMLDocument) => {
       while (!lines[lastLine]) --lastLine
       text = lines.slice(firstLine, lastLine + 1).map(l => l + "\n").join("")
     }
-    return pre(code({class: "language-" + lang}, text))
-  }
-
-  interface CodeOptions {jsfiddleIgnore?: boolean}
-  const Code = (lang: string, text: string, {jsfiddleIgnore = false}: CodeOptions = {}) => {
-    const codeDom = code({class: "language-" + lang}, text)
-    if (jsfiddleIgnore) codeDom.setAttribute("data-jsfiddle-ignore", 1)
-    return pre(codeDom)
+    return Code(lang, text, codeOptions)
   }
 
   return {
@@ -148,13 +151,15 @@ export default (doc: HTMLDocument) => {
 
     Js: (text: string, options: CodeOptions = {}) => Code("js", text, options),
 
-    JsFile: (file: string, options: FileOptions = {}) => File("js", file, options),
+    JsFile: (file: string, options: FileOptions = {}, codeOptions: CodeOptions = {}) =>
+      File("js", file, options, codeOptions),
 
     InlineJs,
 
     Ts: (text: string, options: CodeOptions = {}) => Code("ts", text, options),
 
-    TsFile: (file: string, options: FileOptions = {}) => File("ts", file, options),
+    TsFile: (file: string, options: FileOptions = {}, codeOptions: CodeOptions = {}) =>
+      File("ts", file, options, codeOptions),
 
     InlineTs: (text: string) => code({class: "language-ts"}, text),
 
@@ -162,7 +167,8 @@ export default (doc: HTMLDocument) => {
 
     Html: (text: string, options: CodeOptions = {}) => Code("html", text, options),
 
-    HtmlFile: (file: string, options: FileOptions = {}) => File("html", file, options),
+    HtmlFile: (file: string, options: FileOptions = {}, codeOptions: CodeOptions = {}) =>
+      File("html", file, options, codeOptions),
 
     InlineHtml: (text: string) => code({class: "language-html"}, text),
 
