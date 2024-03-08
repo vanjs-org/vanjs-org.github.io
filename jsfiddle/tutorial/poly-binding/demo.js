@@ -1,7 +1,7 @@
 const {button, span} = van.tags
 
 const Button = ({color, text, onclick}) =>
-  button({style: () => `background-color: ${van.val(color)};`, onclick}, text)
+  button({style: () => `background-color: ${val(color)};`, onclick}, text)
 
 const App = () => {
   const colorState = van.state("green")
