@@ -8,6 +8,9 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
+    p(
+      div("📣 ", Link(VanJS(), "'s API was simplified in 1.4.0, see the release notes and migration guide →", "https://github.com/vanjs-org/van/discussions/280")),
+    ),
     Quote({text: ["Entia non sunt multiplicanda praeter necessitatem", br(), "(The best solution is usually the one with the least unnecessary complexity)"], source: "Occam's Razor"}),
     p("In this tutorial, we will break down into 3 core functionalities ", VanJS(), " supports: DOM composition / manipulation, State and State binding."),
     H2({id: "dom"}, "DOM Composition and Manipulation"),
