@@ -7,6 +7,7 @@
     "dev": "deno run --allow-net mini-van-server.ts"
   },
   "devDependencies": {
-    "deno-bin": "^1.36.0"
+    "deno-bin": "^1.36.0",
+    "mini-van-plate": "^0.5.4"
   }
 }
