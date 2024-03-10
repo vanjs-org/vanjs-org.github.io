@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, blockquote, br, div, i, img, li, p, ul}} = van.vanWithDoc(doc)
-  const {H1, H2, InlineHtml, InlineJs, Js, Link, MiniVan, Quote, SymLink, Symbol, VanJS, VanX} = common(doc)
+  const {H1, H2, InlineHtml, InlineJs, Js, Link, MiniVan, Quote, SymLink, Symbol, Url, VanJS, VanX} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": About"),
@@ -49,6 +49,7 @@ export default (doc: HTMLDocument) => {
     ul(
       li("A browser-based test suite, with 70+ test cases, covering different versions of ", VanX(), " files, including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), "."),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
+      li("Sample applications in ", Url("https://vanjs.org/x"), " will keep working in every single ", VanX(), " release."),
     ),
     H2({id: "coding-style"}, "A Note on Coding Styles"),
     p("The sample code snippets throughout this website follow a minimalist approach when it comes to coding styles. When readability is not impacted, we are leaning towards the choice that leads to more concise code, with the belief that brevity and simplicity generally make the code easier to read and write. This means that we're consciously choosing certain coding styles throughout this website: such as omitting optional semicolons, naked if statements, usage of ternary operator when appropriate, etc."),

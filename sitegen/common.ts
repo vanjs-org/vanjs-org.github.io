@@ -1,4 +1,3 @@
-import { hidden } from "https://deno.land/std@0.184.0/fmt/colors.ts";
 import van, { ChildDom as TypedChildDom } from "./mini-van.js"
 import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
