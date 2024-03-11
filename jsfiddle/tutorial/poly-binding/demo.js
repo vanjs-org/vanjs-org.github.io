@@ -1,5 +1,13 @@
 const {button, span} = van.tags
 
+const stateProto = Object.getPrototypeOf(van.state())
+const val = v => {
+  const protoOfV = Object.getPrototypeOf(v ?? 0)
+  if (protoOfV === stateProto) return v.val
+  if (protoOfV === Function.prototype) return v()
+  return v
+}
+
 const Button = ({color, text, onclick}) =>
   button({style: () => `background-color: ${val(color)};`, onclick}, text)
 
