@@ -79,7 +79,7 @@ declare const vanX: typeof vanXType
     }),
     p(Caveat(), "The passed-in ", Symbol("obj"), " object shouldn't have any ", Symbol("State"), " fields. Doing so will result in states of other ", Symbol("State"), " objects, which is ", Link("invalid", "/tutorial#public-interface-of-state-objects"), " in ", VanJS(), "."),
     H3("Calculated fields"),
-    p("You can specify calculated fields (similar to ", Link("derived states", "/tutorial#derived-state"), " in ", VanJS(), ") with ", Symbol("vanX.calc"), ". The example above can be rewritten to the code below:"),
+    p("You can specify calculated fields (similar to ", Link("derived states", "/tutorial#derived-state"), " in ", VanJS(), ") via ", Symbol("vanX.calc"), ". The example above can be rewritten to the code below:"),
     JsFile("name-calc.code.js"),
     p(Demo()),
     p({id: "demo-name-calc"}),
