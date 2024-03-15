@@ -130,6 +130,7 @@ declare const vanX: typeof vanXType
       returns: ["An object for all the underlying state fields of ", Symbol("obj"), "."],
     }),
     H3({id: "get-the-raw-field-value"}, "Get the raw field value without registering the dependency"),
+    p(i("requires ", VanX(), " 0.3.0 or later.")),
     p("Similar to the ", SymLink("rawVal", "/tutorial#api-rawVal"), " property of ", VanJS(), " states. You can use ", Symbol("vanX.raw"), " for getting the raw field value without registering the dependency. For instance:"),
     Js("data.s = vanX.calc(() => vanX.raw(data).a + data.b)"),
     p("will make ", Symbol("data.s"), " updated when ", Symbol("data.b"), " changes, but ", Symbol("data.s"), " won't be updated when ", Symbol("data.a"), " changes. The same effect goes to derived states and side effects registered via ", SymLink("van.derive", "/tutorial#api-derive"), " as well as ", Symbol("State"), "-derived DOM nodes."),
