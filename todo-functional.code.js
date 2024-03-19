@@ -2,7 +2,7 @@ const TodoItem = ({text}) => {
   const done = van.state(false), deleted = van.state(false)
   return () => deleted.val ? null : div(
     input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
-    () => (done.val ? strike : span)(text),
+    () => (done.val ? del : span)(text),
     a({onclick: () => deleted.val = true}, "❌"),
   )
 }

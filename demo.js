@@ -1,4 +1,4 @@
-const {a, b, button, code, div, i, input, label, li, p, pre, span, strike, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
+const {a, b, button, code, del, div, i, input, label, li, p, pre, span, table, tbody, td, textarea, th, thead, tr, ul} = van.tags
 
 document.getElementById("random-demo").addEventListener("click", () => {
   const allDemos = [...document.querySelectorAll("h2")].map(e => e.id).slice(0, -1)
@@ -160,7 +160,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
     const done = van.state(false), deleted = van.state(false)
     return () => deleted.val ? null : div(
       input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
-      () => (done.val ? strike : span)(text),
+      () => (done.val ? del : span)(text),
       a({onclick: () => deleted.val = true}, "❌"),
     )
   }
@@ -189,7 +189,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
     }
     serialize() { return { text: this.text, done: this.done.val }; }
   }
-  const TodoItem = ({ text, done, deleted }) => () => deleted.val ? null : div(input({ type: "checkbox", checked: done, onclick: e => done.val = e.target.checked }), () => (done.val ? strike : span)(text), a({ onclick: () => deleted.val = true }, "❌"));
+  const TodoItem = ({ text, done, deleted }) => () => deleted.val ? null : div(input({ type: "checkbox", checked: done, onclick: e => done.val = e.target.checked }), () => (done.val ? del : span)(text), a({ onclick: () => deleted.val = true }, "❌"));
   class TodoListState {
       todos;
       constructor(todos) {
@@ -217,8 +217,6 @@ document.getElementById("random-demo").addEventListener("click", () => {
 }
 
 {
-  const {a} = van.tags
-
   const TodoList = () => {
     const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
     van.derive(() => localStorage.setItem("appState", JSON.stringify(items.filter(v => v))))
@@ -227,7 +225,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
       inputDom, button({onclick: () => items.push({text: inputDom.value, done: false})}, "Add"),
       vanX.list(div, items, ({val: v}, deleter) => div(
         input({type: "checkbox", checked: () => v.done, onclick: e => v.done = e.target.checked}),
-        () => (v.done ? strike : span)(v.text),
+        () => (v.done ? del : span)(v.text),
         a({onclick: deleter}, "❌"),
       )),
     )

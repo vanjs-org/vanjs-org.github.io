@@ -1,6 +1,6 @@
 import van, { State } from "vanjs-core"
 
-const {a, button, div, input, span, strike} = van.tags
+const {a, button, del, div, input, span} = van.tags
 
 class TodoItemState {
   constructor(public text: string, public done: State<boolean>, public deleted: State<boolean>) {}
@@ -9,7 +9,7 @@ class TodoItemState {
 
 const TodoItem = ({text, done, deleted}: TodoItemState) => () => deleted.val ? null : div(
   input({type: "checkbox", checked: done, onclick: e => done.val = e.target.checked}),
-  () => (done.val ? strike : span)(text),
+  () => (done.val ? del : span)(text),
   a({onclick: () => deleted.val = true}, "❌"),
 )
 

@@ -214,7 +214,7 @@ items.splice(1, 1, 5)
     p({
       id: "jsfiddle-todo-list",
       "data-details": "demo-van-x.details",
-      "data-prefix": "const {a, button, div, input, span, strike} = van.tags",
+      "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n",
     }),

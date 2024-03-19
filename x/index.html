@@ -151,7 +151,7 @@ items.splice(1, 1, 5)
     inputDom, button({onclick: () =&gt; items.push({text: inputDom.value, done: false})}, "Add"),
     vanX.list(div, items, ({val: v}, deleter) =&gt; div(
       input({type: "checkbox", checked: () =&gt; v.done, onclick: e =&gt; v.done = e.target.checked}),
-      () =&gt; (v.done ? strike : span)(v.text),
+      () =&gt; (v.done ? del : span)(v.text),
       a({onclick: deleter}, "❌"),
     )),
   )

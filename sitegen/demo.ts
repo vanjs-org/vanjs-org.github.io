@@ -234,7 +234,7 @@ const TodoList = () => {
     p({id: "demo-todo-functional"}),
     p({
       id: "jsfiddle-todo-functional",
-      "data-prefix": "const {a, button, div, input, span, strike} = van.tags",
+      "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n",
     }),
@@ -253,7 +253,7 @@ const TodoList = () => {
     p({
       id: "jsfiddle-todo-fully-reactive-vanx",
       "data-details": "demo-van-x.details",
-      "data-prefix": "const {a, button, div, input, span, strike} = van.tags",
+      "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
     }),
     p("You can refer to ", SymLink("vanX.list", "/x#reactive-list"), " for more details."),

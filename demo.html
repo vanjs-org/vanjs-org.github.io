@@ -193,7 +193,7 @@ const TodoList = () =&gt; {
   const done = van.state(false), deleted = van.state(false)
   return () =&gt; deleted.val ? null : div(
     input({type: "checkbox", checked: done, onclick: e =&gt; done.val = e.target.checked}),
-    () =&gt; (done.val ? strike : span)(text),
+    () =&gt; (done.val ? del : span)(text),
     a({onclick: () =&gt; deleted.val = true}, "❌"),
   )
 }
@@ -213,7 +213,7 @@ const TodoList = () =&gt; {
 
 const TodoItem = ({text, done, deleted}: TodoItemState) =&gt; () =&gt; deleted.val ? null : div(
   input({type: "checkbox", checked: done, onclick: e =&gt; done.val = e.target.checked}),
-  () =&gt; (done.val ? strike : span)(text),
+  () =&gt; (done.val ? del : span)(text),
   a({onclick: () =&gt; deleted.val = true}, "❌"),
 )
 
@@ -255,7 +255,7 @@ const TodoList = () =&gt; {
     inputDom, button({onclick: () =&gt; items.push({text: inputDom.value, done: false})}, "Add"),
     vanX.list(div, items, ({val: v}, deleter) =&gt; div(
       input({type: "checkbox", checked: () =&gt; v.done, onclick: e =&gt; v.done = e.target.checked}),
-      () =&gt; (v.done ? strike : span)(v.text),
+      () =&gt; (v.done ? del : span)(v.text),
       a({onclick: deleter}, "❌"),
     )),
   )
