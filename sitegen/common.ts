@@ -57,7 +57,9 @@ export default (doc: HTMLDocument) => {
     td(description),
   )
 
-  const InlineJs = (text: string) => code({class: "language-js"}, text)
+  const InlineCode = (text: string, lang: string) => code({class: "language-" + lang}, text)
+
+  const InlineJs = (text: string) => InlineCode(text, "js")
 
   interface ApiTableProps {
     readonly signature: string
@@ -160,7 +162,7 @@ export default (doc: HTMLDocument) => {
     TsFile: (file: string, options: FileOptions = {}, codeOptions: CodeOptions = {}) =>
       File("ts", file, options, codeOptions),
 
-    InlineTs: (text: string) => code({class: "language-ts"}, text),
+    InlineTs: (text: string) => InlineCode(text, "ts"),
 
     Shell: (text: string, options: CodeOptions = {}) => Code("shell", text, options),
 
@@ -169,7 +171,7 @@ export default (doc: HTMLDocument) => {
     HtmlFile: (file: string, options: FileOptions = {}, codeOptions: CodeOptions = {}) =>
       File("html", file, options, codeOptions),
 
-    InlineHtml: (text: string) => code({class: "language-html"}, text),
+    InlineHtml: (text: string) => InlineCode(text, "html"),
 
     Code,
 

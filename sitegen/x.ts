@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, i, li, ol, p, span, strong, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
+  const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Json, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
@@ -311,6 +311,41 @@ const duplicateItems = () => vanX.replace(todoItems,
       "data-prefix": "const {div, input, li, ul} = van.tags",
       "data-suffix": "van.add(document.body, FilteredCountries())",
     }),
+    H2("Global App State and Serialization"),
+    p("With ", VanX(), ", it's possible consolidate the entire app state into a single reactive object, as reactive objects can hold states in arbitrary nested hierarchies. Below is the code for an upgraded version of the ", Link("TODO App", "#a-simplified-todo-app"), " above, which allows the text of the input box to be persisted in ", Symbol("localStorage"), " as well:"),
+    JsFile("todo-app-plus.code.js"),
+    p(Demo()),
+    p({id: "demo-todo-list-plus"}),
+    p({
+      id: "jsfiddle-todo-list-plus",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {a, button, del, div, input, span} = van.tags",
+      "data-suffix": "van.add(document.body, TodoListPlus())",
+      "data-css": "a { cursor: pointer; }\n",
+    }),
+    H3("Smart diff / update in ", Symbol("vanX.replace")),
+    p("When ", Symbol("vanX.replace"), " updates the reactive object ", Symbol("target"), ", it will traverse the entire object tree, do a diff between ", Symbol("source"), " and ", Symbol("target"), ", and only update leaf-level fields with different values. Thus, you can call ", Symbol("vanX.replace"), " to replace the entire app state object, and ", VanX(), " guarantees at the framework level that the minimum amount updates are applied to the reactive object and thus the DOM tree bound to it."),
+    p("For instance, if ", Symbol("appState"), " in the example above has the following value:"),
+    Json(`{
+  "input": "New Item",
+  "items": [
+    {"text": "Item 1", "done": true},
+    {"text": "Item 2", "done": false}
+  ]
+}
+`),
+    p("Calling"),
+    Js(`vanX.replace(appState, {
+  input: "New Item",
+  items: [
+    {text: "Item 1", done: true},
+    {text: "Item 2", done: true},
+  ]
+})
+`),
+    p("will only get the ", Symbol("done"), " field of 2nd element in ", Symbol("items"), " updated. i.e.: it's equivalent to ", InlineJs("appState.items[1].done = true"), "."),
+    H3("Server-driven UI (SDUI) with ", VanX()),
+    
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanX(), ":"),
     ul(
