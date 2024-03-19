@@ -134,6 +134,7 @@ declare const vanX: typeof vanXType
     p("Similar to the ", SymLink("rawVal", "/tutorial#api-rawVal"), " property of ", VanJS(), " states. You can use ", Symbol("vanX.raw"), " for getting the raw field value without registering the dependency. For instance:"),
     Js("data.s = vanX.calc(() => vanX.raw(data).a + data.b)"),
     p("will make ", Symbol("data.s"), " updated when ", Symbol("data.b"), " changes, but ", Symbol("data.s"), " won't be updated when ", Symbol("data.a"), " changes. The same effect goes to derived states and side effects registered via ", SymLink("van.derive", "/tutorial#api-derive"), " as well as ", Symbol("State"), "-derived DOM nodes."),
+    p("Note that, ", Symbol("vanX.raw"), " can access deeply nested fields without registering the dependency. For instance, you can use ", InlineJs("vanX.raw(data).a.a"), " to access the field ", InlineJs("data.a.a"), " without registering the dependency."),
     H3({id: "api-raw"}, "API reference: ", Symbol("vanX.raw")),
     ApiTable({
       signature: "vanX.raw(obj) => <an object for getting the field values of obj without registering the dependency>",
