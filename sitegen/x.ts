@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, i, li, p, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {div, i, li, ol, p, strong, ul}} = van.vanWithDoc(doc)
   const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
@@ -220,8 +220,22 @@ items.splice(1, 1, 5)
       "data-css": "a { cursor: pointer; }\n",
     }),
     p("You might notice how easy it is to serialize/deserialize a complex reactive object into/from external storage. This is indeed one notable benefit of reactive objects provided by ", SymLink("vanX.reactive", "#reactive-object"), "."),
-    p("Note that we are calling ", InlineJs("items.filter(_ => 1)"), " before serializing to the JSON string via ", InlineJs("JSON.stringify"), ". This is because after some deletions of items, there will be ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " in the ", Symbol("items"), " array, which can result ", Symbol("null"), " values in the result JSON string and cause problems when the JSON string is deserialized. ", InlineJs("items.filter(_ => 1)"), " eliminates the holes (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
-    p({id: "caveat-array-holes"}, Caveat(), "Because there might be holes in the reactive array after deletions of the items, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
+    H3("Holes in the array"),
+    p("Deleting items in the reactive array will create ", Link("holes", "https://2ality.com/2015/09/holes-arrays-es6.html"), " inside the array, which is an uncommon situation in JavaScript. Basically, if we execute the following code:"),
+    Js(`const a = [1, 2, 3]
+delete a[1]
+`),
+    p(Symbol("a"), " will become ", Symbol("[1, empty, 3]"), ". Note that, ", Symbol("empty"), " is different from ", SymLink("undefined", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined"), ". When we do:"),
+    Js("for (const key in a)"),
+    p(" or use higher-order functions like ", SymLink("map", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"), " or ", SymLink("filter", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"), ", holes will be skipped in the enumeration."),
+    p("Why do we allow holes in the array? Short answer: to minimize the re-rendering of DOM elements. Let's say if we have a reactive array: ", Symbol("[1, 2, 3, 4, 5]"), ", and the 3rd item is deleted by the user. If we allow holes, the array will become ", Symbol("[1, 2, empty, 4, 5]"), ". Based on how DOM elements are bound to the reactive array, only the 3rd element needs to be removed. However, if we don't allow holes, the array will become ", Symbol("[1, 2, 4, 5]"), ", then we need 3 DOM updates:"),
+    ol(
+      li("3rd DOM element: ", Symbol("3"), " -> ", Symbol("4"), ""),
+      li("4th DOM element: ", Symbol("4"), " -> ", Symbol("5"), ""),
+      li("Remove the 5th DOM element.")
+    ),
+    p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#remove-holes-in-reactive-object"), " before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
+    p({id: "caveat-array-holes"}, Caveat(), "Because of holes in the reactive array, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
     H3("Update, insert, delete and reorder items in batch with ", Symbol("vanX.replace")),
     p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
