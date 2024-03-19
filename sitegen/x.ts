@@ -157,7 +157,7 @@ declare const vanX: typeof vanXType
       "data-css": "input { width: 90px; }\n",
     }),
     p({id: "caveat-no-reuse-reactive"}, Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
-    p({id: "caveat-native-reactivity"}, Caveat(), "There might be issues if you try to add reactivity to an object implemented in native code (not in JavaScript). Example: ", Link("#156", "https://github.com/vanjs-org/van/issues/156"), "."),
+    p({id: "caveat-native-reactivity"}, Caveat(), "There might be issues if you try to add reactivity to a class implemented in native code (not in JavaScript), or a class from a 3rd party library. Example: ", Link("#156", "https://github.com/vanjs-org/van/issues/156"), "."),
     H3("A comprehensive example"),
     p("You can refer to this ", Link("file", "https://github.com/vanjs-org/van/blob/main/x/examples/reactive/src/main.js"), " for a comprehensive demo of all the features regarding to reactive objects discussed above. You can preview the app via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/x/examples/reactive?file=%2Fsrc%2Fmain.js%3A1%2C1"), "."),
     H2({id: "reactive-list"}, Symbol("vanX.list"), ": Reactive List that Minimizes Re-rendering on Updates"),
