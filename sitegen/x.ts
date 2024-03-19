@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, i, li, ol, p, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {div, i, li, ol, p, span, strong, ul}} = van.vanWithDoc(doc)
   const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
@@ -12,19 +12,16 @@ export default (doc: HTMLDocument) => {
     H1(strong("VanX: The 1.0 kB Official VanJS Extension")),
     p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.0kB in the gzipped minified bundle."),
     H2("Installation"),
-    H3("Via NPM"),
     p(VanX(), " is published as NPM package ", Link("vanjs-ext", "https://www.npmjs.com/package/vanjs-ext"), ". Run the following command to install the package:"),
     Shell("npm install vanjs-ext"),
     p("Add this line to your script to import the package:"),
     Js(`import * as vanX from "vanjs-ext"`),
     p("You can also import individual utility functions you're going to use:"),
     Js(`import { <functions you want to use> } from "vanjs-ext"`),
-    H3("Via a Script Tag"),
     p("Alternatively, you can import ", VanX(), " from CDN via a ", InlineJs(`<script type="text/javascript">`), " tag:"),
     Html(`<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.min.js"></script>`),
     p(Symbol(`https://cdn.jsdelivr.net/npm/vanjs-ext@${version}/dist/van-x.nomodule.js`)," can be used for the non-minified version."),
     p("Note that: ", VanJS(), " needs to be ", Link("imported", "/start"), " via a ", InlineJs(`<script type="text/javascript">`), " tag for ", VanX, " to work properly."),
-    H3("TypeScript Support for Script Tag Integration"),
     p("To get TypeScript support for ", InlineHtml("<script>"), " tag integration, download ", Download(`van-x-${version}.d.ts`), " and add the following code at the top of your ", Symbol(".ts"), " file:"),
     Ts(`import type * as vanXType from "./van-x-${version}.d.ts"
 
@@ -55,12 +52,11 @@ declare const vanX: typeof vanXType
     H3("A practical example"),
     p("Now, let's take a look at a practice example on how ", Symbol("vanX.reactive"), " can help group multiple states into a single reactive object in your application:"),
     JsFile("name.code.js"),
-    p(Demo()),
-    p({id: "demo-name"}),
+    p(Demo(), " ", span({id: "demo-name"})),
     p({
       id: "jsfiddle-name",
       "data-details": "demo-van-x.details",
-      "data-prefix": "const {button, div, input} = van.tags",
+      "data-prefix": "const {button, input, span} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
     }),
@@ -81,12 +77,11 @@ declare const vanX: typeof vanXType
     H3("Calculated fields"),
     p("You can specify calculated fields (similar to ", Link("derived states", "/tutorial#derived-state"), " in ", VanJS(), ") via ", Symbol("vanX.calc"), ". The example above can be rewritten to the code below:"),
     JsFile("name-calc.code.js"),
-    p(Demo()),
-    p({id: "demo-name-calc"}),
+    p(Demo(), " ", span({id: "demo-name-calc"})),
     p({
       id: "jsfiddle-name-calc",
       "data-details": "demo-van-x.details",
-      "data-prefix": "const {button, div, input} = van.tags",
+      "data-prefix": "const {button, input, span} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
     }),
@@ -95,8 +90,7 @@ declare const vanX: typeof vanXType
   name: {first: "Tao", last: "Xin"},
   fullName: vanX.calc(() => \`\${data.name.first} \${data.name.last}\`),
 })`),
-    p("will lead to ", Symbol("ReferenceError"), " as ", Symbol("data"), " variable is not yet defined when the calculation function is being executed."),
-    p("You can either insert the new calculated fields after the reactive object is built (like what's done in the example above), or defining all the calculated fields in a separate reactive object."),
+    p("will lead to ", Symbol("ReferenceError"), " as ", Symbol("data"), " variable is not yet defined when the calculation function is being executed. As shown in the ", Link("example", "#calculated-fields"), " above, it's recommended to define calculated fields in a separate reactive object."),
     H3({id: "api-calc"}, "API reference: ", Symbol("vanX.calc")),
     ApiTable({
       signature: "vanX.calc(f) => <the created calculated field>",
@@ -236,7 +230,7 @@ delete a[1]
     ),
     p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#remove-holes-in-reactive-object"), " before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
     p({id: "caveat-array-holes"}, Caveat(), "Because of holes in the reactive array, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
-    H2(Symbol("vanX.replace"), ": Update, insert, delete and reorder items in batch"),
+    H2(Symbol("vanX.replace"), ": Update, Insert, Delete and Reorder Items in Batch"),
     p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes a reactive object - ", Symbol("target"), ", and a replace function (or another object) - ", Symbol("source"), ", as its input parameters. ", Symbol("vanX.replace"), " is responsible for updating the ", Symbol("target"), " object as well as UI elements bound to it based on the new data provided by ", Symbol("source"), ". Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
 const todoItems = vanX.reactive([
@@ -282,6 +276,7 @@ const duplicateItems = () => vanX.replace(todoItems,
       },
       returns: InlineTs("target"),
     }),
+    p({id: "caveat-no-calc-fields-in-replace"}, Caveat(), Link("Calculated fields", "#calculated-fields"), " are not allowed in ", Symbol("target"), " and ", Symbol("source"), "."),
     H3("Example 1: sortable list"),
     p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items in ascending or descending order, and append a string to all items in the list:"),
     JsFile("list1.code.js"),
@@ -305,6 +300,16 @@ const duplicateItems = () => vanX.replace(todoItems,
       "data-prefix": "const {a, button, div, input} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n",
+    }),
+    H3(Symbol("vanX.list"), " for calculated fields"),
+    p(i("requires ", VanX(), " 0.4.0 or later.")),
+    p(SymLink("vanX.list", "#reactive-list"), " can take a ", Link("calculated field", "#calculated-fields"), " as ", Symbol("items"), " parameter. Whenever the calculated field is updated, ", Symbol("vanX.replace"), " will be called internally to update the reactive list, as well as all UI elements bound to it. Below is an example which leverages this technique to build a filterable list:"),
+    JsFile("calc-list.code.js"),
+    p({
+      id: "jsfiddle-calc-list",
+      "data-details": "demo-van-x.details",
+      "data-prefix": "const {div, input, li, ul} = van.tags",
+      "data-suffix": "van.add(document.body, FilteredCountries())",
     }),
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanX(), ":"),

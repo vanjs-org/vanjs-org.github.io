@@ -1,6 +1,6 @@
 const Name = () => {
   const data = vanX.reactive({name: {first: "Tao", last: "Xin"}})
-  return div(
+  return span(
     "First name: ",
     input({type: "text", value: () => data.name.first,
       oninput: e => data.name.first = e.target.value}), " ",
