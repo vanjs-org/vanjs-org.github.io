@@ -2,7 +2,7 @@ const {a, button, del, div, input, span} = van.tags
 
 const TodoList = () => {
   const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
-  van.derive(() => localStorage.setItem("appState", JSON.stringify(items.filter(_ => 1))))
+  van.derive(() => localStorage.setItem("appState", JSON.stringify(vanX.compact(items))))
   const inputDom = input({type: "text"})
   return div(
     inputDom, button({onclick: () => items.push({text: inputDom.value, done: false})}, "Add"),
