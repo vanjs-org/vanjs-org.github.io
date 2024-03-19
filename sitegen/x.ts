@@ -236,13 +236,20 @@ delete a[1]
     ),
     p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#remove-holes-in-reactive-object"), " before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
     p({id: "caveat-array-holes"}, Caveat(), "Because of holes in the reactive array, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
-    H3("Update, insert, delete and reorder items in batch with ", Symbol("vanX.replace")),
-    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes the ", Symbol("items"), " object and a replace function as its input parameters, and is responsible for updating the ", Symbol("items"), " object as well as UI elements bound to it based on the new data returned by the replace function. Let's take a look at a few examples:"),
+    H2(Symbol("vanX.replace"), ": Update, insert, delete and reorder items in batch"),
+    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes a reactive object - ", Symbol("target"), ", and a replace function (or another object) - ", Symbol("source"), ", as its input parameters. ", Symbol("vanX.replace"), " is responsible for updating the ", Symbol("target"), " object as well as UI elements bound to it based on the new data provided by ", Symbol("source"), ". Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
 const todoItems = vanX.reactive([
   {text: "Implement VanX", done: true},
   {text: "Test VanX", done: false},
   {text: "Write a tutorial for VanX", done: false},
+])
+
+// Directly specify the source object
+const refreshItems = () => vanX.replace(todoItems, [
+  {text: "Publishing VanX", done: true},
+  {text: "Refining VanX", done: false},
+  {text: "Releasing a new version of VanX", done: false},
 ])
 
 // To delete items in batch
@@ -257,18 +264,23 @@ const sortItems = () =>
   vanX.replace(todoItems, l => l.toSorted((a, b) => a.localeCompare(b)))
 
 // To insert items in batch
-const duplicateItems = () => vanX.replace(todoItems, l =>
-  l.flatMap(v => [v, {text: v.text + " copy", done: v.done}]))
+const duplicateItems = () => vanX.replace(todoItems,
+  l => l.flatMap(v => [v, {text: v.text + " copy", done: v.done}]))
 `),
     H3({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
     ApiTable({
-      signature: "vanX.replace(items, f) => void",
-      description: ["Updates the reactive object ", Symbol("items"), " and UI elements bound to it based on the data returned by the replace function ", Symbol("f"), "."],
+      signature: "vanX.replace(target, source) => target",
+      description: ["Updates the reactive object ", Symbol("target"), " and UI elements bound to it based on the data provided by ", Symbol("source"), "."],
       parameters: {
-        items: "The reactive object that you want to update.",
-        f: ["The replace function, which takes the current values of ", Symbol("items"), " as input and returns the new values of the update. If ", Symbol("items"), " is an array (for non-keyed data), ", Symbol("f"), " will take its values as an array (after eliminating holes with ", InlineJs("filter(_ => 1)"), ", see a ", Link("detailed explanation", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), " of hole elimination) and return the updated values as another array. If ", Symbol("items"), " is a plain object (for keyed data), ", Symbol("f"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."],
+        target: "The reactive object that you want to update.",
+        source: ["Can be a plain array / object, or a function.",
+          ul(
+            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("source"), " is a plain array / object, directly update ", Symbol("target"), " with the values provided in ", Symbol("source"), "."),
+            li("If ", Symbol("source"), " is a function, it will take the current values of ", Symbol("target"), " as input and returns the new values of the update. The input parameter of the function depends on the type of ", Symbol("target"), ". If ", Symbol("target"), " is an array (for non-keyed data), ", Symbol("source"), " will take its values as an array (after eliminating ", Link("holes", "#holes-in-the-array"), ") and return the updated values as another array. If ", Symbol("target"), " is a plain object (for keyed data), ", Symbol("source"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."),
+          ),
+        ],
       },
-      returns: InlineTs("void"),
+      returns: InlineTs("target"),
     }),
     H3("Example 1: sortable list"),
     p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items in ascending or descending order, and append a string to all items in the list:"),

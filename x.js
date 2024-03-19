@@ -133,7 +133,7 @@
 
   const TodoList = () => {
     const items = vanX.reactive(JSON.parse(localStorage.getItem("items") ?? "{}"))
-    van.derive(() => localStorage.setItem("items", JSON.stringify(items)))
+    van.derive(() => localStorage.setItem("items", JSON.stringify(vanX.compact(items))))
 
     const inputDom = input({type: "text"})
     let id = Math.max(0, ...Object.keys(items).map(v => Number(v.slice(1))))
