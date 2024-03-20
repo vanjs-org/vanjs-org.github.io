@@ -1,0 +1,10 @@
+/*
+---
+authors:
+  - Tao Xin
+resources:
+  - https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.5.0.nomodule.min.js
+  - https://www.gstatic.com/charts/loader.js
+panel_js: 2
+...
+*/

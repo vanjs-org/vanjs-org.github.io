@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.friend-list {
+  width: 180px;
+  background-color: #f3f3f3;
+  overflow-y: auto;
+}
+
+.friend-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friend-list ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  padding-left: 30px;
+}
+
+.status-indicator {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  margin-right: 10px;
+}
+
+.online {
+  background-color: #008000;
+}
+
+.offline {
+    background-color: #808080;
+}
+
+.chat-messages {
+    width: 80%;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}

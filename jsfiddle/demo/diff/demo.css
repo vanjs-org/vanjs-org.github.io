@@ -1,0 +1,15 @@
+.row { display: flex; }
+
+.column {
+  width: 500px;
+  margin: 2px;
+}
+
+.column textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.add { background-color: #B5EFDB; }
+.remove { background-color: #FFC4C1; }
+.merged .remove { text-decoration: line-through; }
