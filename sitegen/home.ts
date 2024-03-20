@@ -115,7 +115,7 @@ van.add(document.body, Counter())
       li("Get bored? ", Link("Play a fun game", "/demo#game"), " built with ", VanJS(), " under 60 lines"),
       li("Convert HTML or MD snippet to ", VanJS(), " code with our online ", Link("HTML/MD to ", VanJS(), " Converter", "/convert")),
       li("Check out ", Link(VanUI(), "/vanui"), " - A collection of grab 'n go reusable utility and UI components for ", VanJS()),
-      li("Want reactive list, global app state, server-driven UI, serialization and more? Check out ", Link(VanX(), "/x"), " - The 1.0 kB official ", VanJS(), " extension"),
+      li("Want reactive list, global app state, server-driven UI, serialization and more? Check out ", Link(VanX(), "/x"), " - The 1.1 kB official ", VanJS(), " extension"),
       li("Want server-side rendering? Check out ", Link(MiniVan(), "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
     ),
