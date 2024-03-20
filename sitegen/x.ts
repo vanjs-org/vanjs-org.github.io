@@ -188,10 +188,15 @@ items.splice(1, 1, 5)
     p(Symbol("dom"), " will become ", InlineHtml("<ul><li>4</li><li>5</li><li>3</li></ul>"), "."),
     H3({id: "api-list"}, "API Reference: ", Symbol("vanX.list")),
     ApiTable({
-      signature: "vanX.list(containerFunc, items, itemFunc) => <the root element of the created DOM tree>",
+      signature: "vanX.list(container, items, itemFunc) => <the root element of the created DOM tree>",
       description: ["Creates a DOM tree for a list of UI elements based on the input reactive object ", Symbol("items"), "."],
       parameters: {
-        containerFunc: ["The function (", InlineJs("() => Element"), ") that returns the container element for the list of UI elements. ", VanJS(), " ", SymLink("tag functions", "/tutorial#api-tags"), " can be used here. For instance, specifying ", InlineJs("van.tags.ul"), " means we want to create a ", InlineHtml("<ul>"), " element as the container of the list."],
+        container: ["Can be a ", Link("tag function", "/tutorial#api-tags"), " or a DOM element for the container element of the list of UI elements.",
+          ul(
+            li("If ", Symbol("container"), " is a tag function, such as ", InlineJs("van.tags.ul"), " it means we want to create a ", InlineHtml("<ul>"), " element as the container of the list. Indeed, any function that returns a DOM element can be passed as the ", Symbol("container"), " argument."),
+            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("container"), " is a DOM element, it will be used directly as the container of the list. Usually, this is useful to specify the container element with some customized property values, such as ", InlineJs('div({class: "item-list"})'), " for ", InlineHtml('<div class="item-list">'), "."),
+          ),
+        ],
         items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
         itemFunc: ["The function (", InlineJs("(v, deleter, k) => Node"), ") that is used to generate the UI element (or rarely, text node) for each list item. The function takes the following parameters:", ul(
           li(Symbol("v"), " - A ", Symbol("State"), " object corresponding to each list item. You can directly use it as a ", Symbol("State"), "-based ", Link("property", "/tutorial#state-typed-prop"), " / ", Link("child node", "/tutorial#state-typed-child"), ", read its value for building the UI element, and/or set its value in some event handlers."),
@@ -345,7 +350,6 @@ const duplicateItems = () => vanX.replace(todoItems,
 `),
     p("will only get the ", Symbol("done"), " field of 2nd element in ", Symbol("items"), " updated. i.e.: it's equivalent to ", InlineJs("appState.items[1].done = true"), "."),
     H3("Server-driven UI (SDUI) with ", VanX()),
-    
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanX(), ":"),
     ul(
