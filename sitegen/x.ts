@@ -233,7 +233,7 @@ delete a[1]
       li("4th DOM element: ", Symbol("4"), " -> ", Symbol("5"), ""),
       li("Remove the 5th DOM element.")
     ),
-    p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#remove-holes-in-reactive-object"), " before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
+    p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#serialization-and-compact"), " which recursively removes holes in all arrays of the input reactive object before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
     p({id: "caveat-array-holes"}, Caveat(), "Because of holes in the reactive array, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
     H2(Symbol("vanX.replace"), ": Update, Insert, Delete and Reorder Items in Batch"),
     p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes a reactive object - ", Symbol("target"), ", and a replace function (or another object) - ", Symbol("source"), ", as its input parameters. ", Symbol("vanX.replace"), " is responsible for updating the ", Symbol("target"), " object as well as UI elements bound to it based on the new data provided by ", Symbol("source"), ". Let's take a look at a few examples:"),
@@ -349,7 +349,67 @@ const duplicateItems = () => vanX.replace(todoItems,
 })
 `),
     p("will only get the ", Symbol("done"), " field of 2nd element in ", Symbol("items"), " updated. i.e.: it's equivalent to ", InlineJs("appState.items[1].done = true"), "."),
+    p("Because of the smart diff / update mechanism, it's usually more preferable to use ", Symbol("vanX.replace"), " instead of direct assignment to update the object-valued reactive fields. i.e.: prefer:"),
+    Js(`vanX.replace(data.field, <new value>)`),
+    p("instead of"),
+    Js(`data.field = <new value>`),
     H3("Server-driven UI (SDUI) with ", VanX()),
+    p("The smart diff / update mechanism in ", Symbol("vanX.replace"), " enables a new spectrum of modern programming paradigms, such as ", Link("server-driven UI", "https://techitup.io/blog/Build-a-Server-Driven-UI-TFdlnm"), ", where the server sends the entire global app state to the client via JSON or other forms. ", Symbol("vanX.replace"), " guarantees only minimum parts of the global app state to be updated, and thus minimum parts of the DOM tree need to be re-rendered."),
+    p("Below is a sample Chat app which receives the updates of app state completely from server. Note that with ", Symbol("vanX.replace"), ", only necessary DOM elements will be re-rendered upon receiving the server events:"),
+    JsFile("chat-app.code.js"),
+    p({
+      id: "jsfiddle-chat-app",
+      "data-details": "demo-van-x.details",
+      "data-prefix": `const {div, li, span, ul} = van.tags
+
+const serverState = {
+  friends: [
+    {name: "Aria Smith", online: true},
+    {name: "Evelyn Parker", online: true},
+    {name: "Liam Johnson", online: true},
+    {name: "Mateo Brown", online: true},
+    {name: "Ethan Wilson", online: false},
+    {name: "Jackson Garcia", online: false},
+    {name: "Lucas Anderson", online: false},
+    {name: "Mia Thomas", online: false},
+    {name: "Nora Martinez", online: false},
+    {name: "Zoe Davis", online: false},
+  ],
+  messages: [],
+}
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+async function* serverStateUpdates() {
+  yield serverState
+  while (true) {
+    await sleep(2000)
+    const friend = serverState.friends[Math.floor(Math.random() * serverState.friends.length)]
+    friend.online = !friend.online
+    serverState.friends.sort((a, b) => a.online !== b.online ?
+      (a.online ? -1 : 1) :
+      a.name.localeCompare(b.name))
+    serverState.messages.push(\`\${friend.name} has gone \${friend.online ? "online" : "offline"}\`)
+    if (serverState.messages.length > 5) serverState.messages.shift()
+    yield serverState
+  }
+}
+`,
+      "data-suffix": "van.add(document.body, ChatApp())",
+      "data-css-file": "chat-app.code.css",
+    }),
+    p("Note that in the jsfiddle preview link above, we're simulating the server-side state updates. In real-world applications, state updates can be sent from server via ", Link(Symbol("WebSocket"), " messages", "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/message_event"), ", or ", Link("HTTP polling", "https://medium.com/cache-me-out/http-polling-and-long-polling-bd3f662a14f"), "."),
+    H3({id: "serialization-and-compact"}, "Serialization app state and ", Symbol("vanX.compact")),
+    p("You can serialize the entire app state into a single string, via ", InlineJs("JSON.stringify"), " or ", Link("protobuf", "https://github.com/protobufjs/protobuf.js"), ". As mentioned in ", Link("a previous section", "#holes-in-the-array"), ", holes that might appear in reactive arrays need to be eliminated. ", Symbol("vanX.compact"), " does exactly that. It traverses the entire object tree of the input reactive object and returns a new object with holes in all encountered arrays eliminated."),
+    H3({id: "api-compact"}, "API reference: ", Symbol("vanX.compact")),
+    ApiTable({
+      signature: "vanX.compact(obj) => <a new object with holes in all arrays eliminated>",
+      description: ["Traverse the entire object tree of the input reactive object ", Symbol("obj"), " and returns a new object with holes in all encountered arrays eliminated. The input object ", Symbol("obj"), " remains unchanged."],
+      parameters: {
+        obj: ["The input reactive object."],
+      },
+      returns: "A new object with holes eliminated.",
+    }),
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanX(), ":"),
     ul(
@@ -359,6 +419,7 @@ const duplicateItems = () => vanX.replace(todoItems,
       li(SymLink("vanX.raw", "#api-raw")),
       li(SymLink("vanX.list", "#api-list")),
       li(SymLink("vanX.replace", "#api-replace")),
+      li(SymLink("vanX.compact", "#api-compact"))
     )
   )
 }
