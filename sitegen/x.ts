@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, i, li, ol, p, span, strong, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Caveat, Demo, Download, H1, H2, H3, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Json, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
+  const {ApiTable, Caveat, Demo, Download, H1, H2, H3, H4, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Json, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
@@ -64,7 +64,7 @@ declare const vanX: typeof vanXType
     Js(`button({onclick: () => data.name = {first: "Tao", last: "Xin"}}, "Reset")`),
     p({id: "caveat-access-sub-field"}, Caveat(), "Accessing to any sub-field of the reactive object needs to be wrapped inside a binding function. Otherwise, your app won't be reactive to the sub-field changes."),
     p({id: "caveat-no-aliasing"}, Caveat(), "DO NOT alias any sub-field of the reactive object into other variables. Doing so will break the dependency detection when the sub-field alias is used in a binding function."),
-    H3({id: "api-reactive"}, "API reference: ", Symbol("vanX.reactive")),
+    H4({id: "api-reactive"}, "API reference: ", Symbol("vanX.reactive")),
     ApiTable({
       signature: "vanX.reactive(obj) => <the created reactive object>",
       description: ["Converts the input object ", Symbol("obj"), " into a reactive object."],
@@ -91,7 +91,7 @@ declare const vanX: typeof vanXType
   fullName: vanX.calc(() => \`\${data.name.first} \${data.name.last}\`),
 })`),
     p("will lead to ", Symbol("ReferenceError"), " as ", Symbol("data"), " variable is not yet defined when the calculation function is being executed. As shown in the ", Link("example", "#calculated-fields"), " above, it's recommended to define calculated fields in a separate reactive object."),
-    H3({id: "api-calc"}, "API reference: ", Symbol("vanX.calc")),
+    H4({id: "api-calc"}, "API reference: ", Symbol("vanX.calc")),
     ApiTable({
       signature: "vanX.calc(f) => <the created calculated field>",
       description: ["Creates a calculated field for a reactive object based on the calculation function", Symbol("f"), "."],
@@ -114,7 +114,7 @@ declare const vanX: typeof vanXType
     }),
     p("Note that, ", Symbol("stateFields"), " only gets the underlying state fields for one layer of the reactive object. For instance, to get the state field for ", Symbol("First name"), ", you need to write:"),
     Js(`vanX.stateFields(vanX.stateFields(data).name.val).first`),
-    H3({id: "api-stateFields"}, "API reference: ", Symbol("vanX.stateFields")),
+    H4({id: "api-stateFields"}, "API reference: ", Symbol("vanX.stateFields")),
     ApiTable({
       signature: "vanX.stateFields(obj) => <an object for all underlying state fields of obj>",
       description: ["Given a reactive object ", Symbol("obj"), ", returns an object for all the underlying state fields of ", Symbol("obj"), ". For instance, if ", Symbol("obj"), " is ", InlineJs(`{a: 1, b: 2}`), ", ", InlineJs(`{a: van.state(1), b: van.state(2)}`), " will be returned."],
@@ -129,7 +129,7 @@ declare const vanX: typeof vanXType
     Js("data.s = vanX.calc(() => vanX.raw(data).a + data.b)"),
     p("will make ", Symbol("data.s"), " updated when ", Symbol("data.b"), " changes, but ", Symbol("data.s"), " won't be updated when ", Symbol("data.a"), " changes. The same effect goes to derived states and side effects registered via ", SymLink("van.derive", "/tutorial#api-derive"), " as well as ", Symbol("State"), "-derived DOM nodes."),
     p("Note that, ", Symbol("vanX.raw"), " can access deeply nested fields without registering the dependency. For instance, you can use ", InlineJs("vanX.raw(data).a.a"), " to access the field ", InlineJs("data.a.a"), " without registering the dependency."),
-    H3({id: "api-raw"}, "API reference: ", Symbol("vanX.raw")),
+    H4({id: "api-raw"}, "API reference: ", Symbol("vanX.raw")),
     ApiTable({
       signature: "vanX.raw(obj) => <an object for getting the field values of obj without registering the dependency>",
       description: ["Given a reactive object ", Symbol("obj"), ", returns an object whose field values equal to the field values of ", Symbol("obj"), ", but accessing its fields won't register the dependency."],
@@ -186,7 +186,7 @@ items.unshift(4)
 items.splice(1, 1, 5)
 `),
     p(Symbol("dom"), " will become ", InlineHtml("<ul><li>4</li><li>5</li><li>3</li></ul>"), "."),
-    H3({id: "api-list"}, "API Reference: ", Symbol("vanX.list")),
+    H4({id: "api-list"}, "API Reference: ", Symbol("vanX.list")),
     ApiTable({
       signature: "vanX.list(container, items, itemFunc) => <the root element of the created DOM tree>",
       description: ["Creates a DOM tree for a list of UI elements based on the input reactive object ", Symbol("items"), "."],
@@ -266,7 +266,7 @@ const sortItems = () =>
 const duplicateItems = () => vanX.replace(todoItems,
   l => l.flatMap(v => [v, {text: v.text + " copy", done: v.done}]))
 `),
-    H3({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
+    H4({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
     ApiTable({
       signature: "vanX.replace(target, source) => target",
       description: ["Updates the reactive object ", Symbol("target"), " and UI elements bound to it based on the data provided by ", Symbol("source"), "."],
@@ -401,7 +401,7 @@ async function* serverStateUpdates() {
     p("Note that in the jsfiddle preview link above, we're simulating the server-side state updates. In real-world applications, state updates can be sent from server via ", Link(Symbol("WebSocket"), " messages", "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/message_event"), ", or ", Link("HTTP polling", "https://medium.com/cache-me-out/http-polling-and-long-polling-bd3f662a14f"), "."),
     H3({id: "serialization-and-compact"}, "Serialization app state and ", Symbol("vanX.compact")),
     p("You can serialize the entire app state into a single string, via ", InlineJs("JSON.stringify"), " or ", Link("protobuf", "https://github.com/protobufjs/protobuf.js"), ". As mentioned in ", Link("a previous section", "#holes-in-the-array"), ", holes that might appear in reactive arrays need to be eliminated. ", Symbol("vanX.compact"), " does exactly that. It traverses the entire object tree of the input reactive object and returns a new object with holes in all encountered arrays eliminated."),
-    H3({id: "api-compact"}, "API reference: ", Symbol("vanX.compact")),
+    H4({id: "api-compact"}, "API reference: ", Symbol("vanX.compact")),
     ApiTable({
       signature: "vanX.compact(obj) => <a new object with holes in all arrays eliminated>",
       description: ["Traverse the entire object tree of the input reactive object ", Symbol("obj"), " and returns a new object with holes in all encountered arrays eliminated. The input object ", Symbol("obj"), " remains unchanged."],
