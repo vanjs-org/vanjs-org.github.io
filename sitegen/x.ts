@@ -236,7 +236,7 @@ delete a[1]
     p("In the TODO app above, we are calling ", SymLink("vanX.compact", "#serialization-and-compact"), " which recursively removes holes in all arrays of the input reactive object before serializing ", Symbol("items"), " to the JSON string via ", InlineJs("JSON.stringify"), ". This is because holes are turned into ", SymLink("null", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"), " values in the result JSON string and cause problems when the JSON string is deserialized (See a ", Link("detailed explanation here", "https://github.com/vanjs-org/van/discussions/144#discussioncomment-7342023"), ")."),
     p({id: "caveat-array-holes"}, Caveat(), "Because of holes in the reactive array, the ", Symbol("length"), " property can't reliable tell the number of items in the array. You can use ", InlineJs("Object.keys(items).length"), " instead as in the ", Link("example below", "#example-1-sortable-list"), "."),
     H2(Symbol("vanX.replace"), ": Update, Insert, Delete and Reorder Items in Batch"),
-    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes a reactive object - ", Symbol("target"), ", and a replace function (or another object) - ", Symbol("source"), ", as its input parameters. ", Symbol("vanX.replace"), " is responsible for updating the ", Symbol("target"), " object as well as UI elements bound to it based on the new data provided by ", Symbol("source"), ". Let's take a look at a few examples:"),
+    p("In addition to updating the ", Symbol("items"), " object one item at a time, we also provide the ", Symbol("vanX.replace"), " function that allows you to update, insert, delete and reorder items in batch. The ", Symbol("vanX.replace"), " function takes a reactive object - ", Symbol("obj"), ", and a replacement object (or a replacement function) - ", Symbol("replacement"), ", as its input parameters. ", Symbol("vanX.replace"), " is responsible for updating the ", Symbol("obj"), " object as well as UI elements bound to it based on the new data provided by ", Symbol("replacement"), ". Let's take a look at a few examples:"),
     Js(`// Assume we have a few TODO items as following:
 const todoItems = vanX.reactive([
   {text: "Implement VanX", done: true},
@@ -244,7 +244,7 @@ const todoItems = vanX.reactive([
   {text: "Write a tutorial for VanX", done: false},
 ])
 
-// Directly specify the source object
+// Directly specify the replacement object
 const refreshItems = () => vanX.replace(todoItems, [
   {text: "Publishing VanX", done: true},
   {text: "Refining VanX", done: false},
@@ -268,20 +268,20 @@ const duplicateItems = () => vanX.replace(todoItems,
 `),
     H4({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
     ApiTable({
-      signature: "vanX.replace(target, source) => target",
-      description: ["Updates the reactive object ", Symbol("target"), " and UI elements bound to it based on the data provided by ", Symbol("source"), "."],
+      signature: "vanX.replace(obj, replacement) => obj",
+      description: ["Updates the reactive object ", Symbol("obj"), " and UI elements bound to it based on the data provided by ", Symbol("replacement"), "."],
       parameters: {
-        target: "The reactive object that you want to update.",
-        source: ["Can be a plain array / object, or a function.",
+        obj: "The reactive object that you want to update.",
+        replacement: ["Can be a plain array / object, or a function.",
           ul(
-            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("source"), " is a plain array / object, directly update ", Symbol("target"), " with the values provided in ", Symbol("source"), "."),
-            li("If ", Symbol("source"), " is a function, it will take the current values of ", Symbol("target"), " as input and returns the new values of the update. The input parameter of the function depends on the type of ", Symbol("target"), ". If ", Symbol("target"), " is an array (for non-keyed data), ", Symbol("source"), " will take its values as an array (after eliminating ", Link("holes", "#holes-in-the-array"), ") and return the updated values as another array. If ", Symbol("target"), " is a plain object (for keyed data), ", Symbol("source"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."),
+            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("replacement"), " is a plain array / object, directly update ", Symbol("obj"), " with the values provided in ", Symbol("replacement"), "."),
+            li("If ", Symbol("replacement"), " is a function, it will take the current values of ", Symbol("obj"), " as input and returns the new values of the update. The input parameter of the function depends on the type of ", Symbol("obj"), ". If ", Symbol("obj"), " is an array (for non-keyed data), ", Symbol("replacement"), " will take its values as an array (after eliminating ", Link("holes", "#holes-in-the-array"), ") and return the updated values as another array. If ", Symbol("obj"), " is a plain object (for keyed data), ", Symbol("replacement"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."),
           ),
         ],
       },
-      returns: InlineTs("target"),
+      returns: InlineTs("obj"),
     }),
-    p({id: "caveat-no-calc-fields-in-replace"}, Caveat(), Link("Calculated fields", "#calculated-fields"), " are not allowed in ", Symbol("target"), " and ", Symbol("source"), "."),
+    p({id: "caveat-no-calc-fields-in-replace"}, Caveat(), Link("Calculated fields", "#calculated-fields"), " are not allowed in ", Symbol("obj"), " and ", Symbol("replacement"), "."),
     H3("Example 1: sortable list"),
     p("Let's look at a sample app that we can build with ", Symbol("vanX.list"), " and ", Symbol("vanX.replace"), " - a list that you can add/delete items, sort items in ascending or descending order, and append a string to all items in the list:"),
     JsFile("list1.code.js"),
@@ -330,7 +330,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     }),
     p("Note that ", Link("calculated fields", "#calculated-fields"), " are still recommended to be stored separately, to avoid issues like ", Link("self referencing", "#caveat-no-self-ref"), " or ", Link("calculated fields being replaced", "#caveat-no-calc-fields-in-replace"), "."),
     H3("Smart diff / update in ", Symbol("vanX.replace")),
-    p("When ", Symbol("vanX.replace"), " updates the reactive object ", Symbol("target"), ", it will traverse the entire object tree, do a diff between ", Symbol("source"), " and ", Symbol("target"), ", and only update leaf-level fields with different values. Thus, you can call ", Symbol("vanX.replace"), " to replace the entire app state object, and ", VanX(), " guarantees at the framework level that the minimum amount updates are applied to the reactive object and thus the DOM tree bound to it."),
+    p("When ", Symbol("vanX.replace"), " updates the reactive object ", Symbol("obj"), ", it will traverse the entire object tree, do a diff between ", Symbol("replacement"), " and ", Symbol("obj"), ", and only update leaf-level fields with different values. Thus, you can call ", Symbol("vanX.replace"), " to replace the entire app state object, and ", VanX(), " guarantees at the framework level that the minimum amount updates are applied to the reactive object and thus the DOM tree bound to it."),
     p("For instance, if ", Symbol("appState"), " in the example above has the following value:"),
     Json(`{
   "input": "New Item",
@@ -351,9 +351,9 @@ const duplicateItems = () => vanX.replace(todoItems,
 `),
     p("will only get the ", Symbol("done"), " field of 2nd element in ", Symbol("items"), " updated. i.e.: it's equivalent to ", InlineJs("appState.items[1].done = true"), "."),
     p("Because of the smart diff / update mechanism, it's usually more preferable to use ", Symbol("vanX.replace"), " instead of direct assignment to update the object-valued reactive fields. i.e.: prefer:"),
-    Js(`vanX.replace(data.field, <new value>)`),
+    Js(`vanX.replace(data.objField, <new value>)`),
     p("instead of"),
-    Js(`data.field = <new value>`),
+    Js(`data.objField = <new value>`),
     H3("Server-driven UI (SDUI) with ", VanX()),
     p("The smart diff / update mechanism in ", Symbol("vanX.replace"), " enables a new spectrum of modern programming paradigms, such as ", Link("server-driven UI", "https://techitup.io/blog/Build-a-Server-Driven-UI-TFdlnm"), ", where the server sends the entire global app state to the client via JSON or other forms. ", Symbol("vanX.replace"), " guarantees only minimum parts of the global app state to be updated, and thus minimum parts of the DOM tree need to be re-rendered."),
     p("Below is a sample Chat app which receives the updates of app state completely from server. Note that with ", Symbol("vanX.replace"), ", only necessary DOM elements will be re-rendered upon receiving the server events:"),
