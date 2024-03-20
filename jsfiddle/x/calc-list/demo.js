@@ -6,14 +6,14 @@ const FilteredCountries = () => {
     "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela",
   ]
 
-  const base = vanX.reactive({filter: ""})
+  const data = vanX.reactive({filter: ""})
   const derived = vanX.reactive({
     filteredCountries: vanX.calc(
-      () => countries.filter(c => c.toLowerCase().includes(base.filter.toLowerCase()))),
+      () => countries.filter(c => c.toLowerCase().includes(data.filter.toLowerCase()))),
   })
   return div(
     div("Countries in South America. Filter: ",
-      input({type: "text", value: () => base.filter, oninput: e => base.filter = e.target.value})),
+      input({type: "text", value: () => data.filter, oninput: e => data.filter = e.target.value})),
     vanX.list(ul, derived.filteredCountries, v => li(v)),
   )
 }
