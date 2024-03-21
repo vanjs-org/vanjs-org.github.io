@@ -10,6 +10,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(strong("VanX: The 1.1 kB Official VanJS Extension")),
+    div("📣 ", Link(VanX(), " 0.4.0 brings lots of new features →", "https://github.com/vanjs-org/van/discussions/292")),
     p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.1kB in the gzipped minified bundle."),
     H2("Installation"),
     p(VanX(), " is published as NPM package ", Link("vanjs-ext", "https://www.npmjs.com/package/vanjs-ext"), ". Run the following command to install the package:"),
@@ -128,7 +129,7 @@ declare const vanX: typeof vanXType
     p("Similar to the ", SymLink("rawVal", "/tutorial#api-rawVal"), " property of ", VanJS(), " states. You can use ", Symbol("vanX.raw"), " for getting the raw field value without registering the dependency. For instance:"),
     Js("data.s = vanX.calc(() => vanX.raw(data).a + data.b)"),
     p("will make ", Symbol("data.s"), " updated when ", Symbol("data.b"), " changes, but ", Symbol("data.s"), " won't be updated when ", Symbol("data.a"), " changes. The same effect goes to derived states and side effects registered via ", SymLink("van.derive", "/tutorial#api-derive"), " as well as ", Symbol("State"), "-derived DOM nodes."),
-    p("Note that, ", Symbol("vanX.raw"), " can access deeply nested fields without registering the dependency ", i("(this requires ", VanX(), " 0.4.0 or later)"), ". For instance, you can use ", InlineJs("vanX.raw(data).a.a"), " to access the field ", InlineJs("data.a.a"), " without registering the dependency."),
+    p("Note that, ", Symbol("vanX.raw"), " can access deeply nested fields without registering the dependency ", i("(this requires ", VanX(), " ", Link("0.4.0", "https://github.com/vanjs-org/van/discussions/292"), " or later)"), ". For instance, you can use ", InlineJs("vanX.raw(data).a.a"), " to access the field ", InlineJs("data.a.a"), " without registering the dependency."),
     H4({id: "api-raw"}, "API reference: ", Symbol("vanX.raw")),
     ApiTable({
       signature: "vanX.raw(obj) => <an object for getting the field values of obj without registering the dependency>",
@@ -194,7 +195,7 @@ items.splice(1, 1, 5)
         container: ["Can be a ", Link("tag function", "/tutorial#api-tags"), " or a DOM element for the container element of the list of UI elements.",
           ul(
             li("If ", Symbol("container"), " is a tag function, such as ", InlineJs("van.tags.ul"), " it means we want to create a ", InlineHtml("<ul>"), " element as the container of the list. Indeed, any function that returns a DOM element can be passed as the ", Symbol("container"), " argument."),
-            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("container"), " is a DOM element, it will be used directly as the container of the list. Usually, this is useful to specify the container element with some customized property values, such as ", InlineJs('div({class: "item-list"})'), " for ", InlineHtml('<div class="item-list">'), "."),
+            li(i("(requires ", VanX(), " ", Link("0.4.0", "https://github.com/vanjs-org/van/discussions/292"), " or later)"), " If ", Symbol("container"), " is a DOM element, it will be used directly as the container of the list. Usually, this is useful to specify the container element with some customized property values, such as ", InlineJs('div({class: "item-list"})'), " for ", InlineHtml('<div class="item-list">'), "."),
           ),
         ],
         items: ["A reactive object that holds the data for the list. Can be an ", Symbol("Array"), " (for non-keyed input) or a plain object (for keyed input)."],
@@ -274,7 +275,7 @@ const duplicateItems = () => vanX.replace(todoItems,
         obj: "The reactive object that you want to update.",
         replacement: ["Can be a plain array / object, or a function.",
           ul(
-            li(i("(requires ", VanX(), " 0.4.0 or later)"), " If ", Symbol("replacement"), " is a plain array / object, directly update ", Symbol("obj"), " with the values provided in ", Symbol("replacement"), "."),
+            li(i("(requires ", VanX(), " ", Link("0.4.0", "https://github.com/vanjs-org/van/discussions/292"), " or later)"), " If ", Symbol("replacement"), " is a plain array / object, directly update ", Symbol("obj"), " with the values provided in ", Symbol("replacement"), "."),
             li("If ", Symbol("replacement"), " is a function, it will take the current values of ", Symbol("obj"), " as input and returns the new values of the update. The input parameter of the function depends on the type of ", Symbol("obj"), ". If ", Symbol("obj"), " is an array (for non-keyed data), ", Symbol("replacement"), " will take its values as an array (after eliminating ", Link("holes", "#holes-in-the-array"), ") and return the updated values as another array. If ", Symbol("obj"), " is a plain object (for keyed data), ", Symbol("replacement"), " will take its values as an array of key value pairs (the data you would get with ", InlineJs("Object.entries(items)"), ") and return the updated values as another array of key value pairs."),
           ),
         ],
@@ -307,7 +308,7 @@ const duplicateItems = () => vanX.replace(todoItems,
       "data-css": "a { cursor: pointer; }\n",
     }),
     H3(Symbol("vanX.list"), " for calculated fields"),
-    p(i("requires ", VanX(), " 0.4.0 or later.")),
+    p(i("requires ", VanX(), " ", Link("0.4.0", "https://github.com/vanjs-org/van/discussions/292"), " or later.")),
     p(SymLink("vanX.list", "#reactive-list"), " can take a ", Link("calculated field", "#calculated-fields"), " as ", Symbol("items"), " parameter. Whenever the calculated field is updated, ", Symbol("vanX.replace"), " will be called internally to update the reactive list, as well as all UI elements bound to it. Below is an example which leverages this technique to build a filterable list:"),
     JsFile("calc-list.code.js"),
     p({
