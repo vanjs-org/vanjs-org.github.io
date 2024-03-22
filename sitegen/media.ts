@@ -53,6 +53,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://javascript.plainenglish.io/exciting-updates-in-the-web-dev-71c52563cee0")),
       li(Url("https://javascriptweekly.com/issues/650")),
       li(Url("https://javascriptweekly.com/issues/639")),
+      li(Url("https://javascriptweekly.com/issues/680")),
       li(Url("https://bytes.dev/archives/211")),
       li(Url("https://bytes.dev/archives/190")),
       li(Url("https://echojs.com/news/41772")),
