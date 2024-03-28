@@ -15,7 +15,7 @@ Deno.serve(async req => {
   else if (!path.includes(".")) path += ".html"
   try {
     return new Response(
-      await Deno.readTextFile(join(".", path)),
+      (await Deno.open(join(".", path))).readable,
       {status: 200, headers: {"content-type": `${contentType(path)}`}},
     )
   } catch (err) {
