@@ -1,6 +1,7 @@
 {
   "deno.enablePaths": [
-    "sitegen/"
+    "sitegen/",
+    "deno-serve.ts"
   ],
   "cSpell.words": [
     "autogrow",
