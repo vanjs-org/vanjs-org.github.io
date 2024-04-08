@@ -16,7 +16,6 @@ export default (doc: HTMLDocument) => {
     H2("Videos"),
     Video("https://www.youtube.com/embed/Oh2IEVqarHs"),
     Video("https://www.youtube.com/embed/GJAB2hp5psQ"),
-    Video("https://www.youtube.com/embed/Fpwcsp1QXbM"),
     Video("https://www.youtube.com/embed/grUihkwvALg"),
     Video("https://www.youtube.com/embed/DO_5HDn9fQ4"),
     Video("https://www.youtube.com/embed/KXwcCFdwjHU"),
