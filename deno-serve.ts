@@ -8,6 +8,8 @@ const contentType = (path: string) => {
   if (path.endsWith(".png")) return "image/png"
 }
 
+const maxAge = (path: string) => path.endsWith(".html") ? 1800 : 43200
+
 Deno.serve(async req => {
   const url = new URL(req.url)
   let path = url.pathname
@@ -16,7 +18,13 @@ Deno.serve(async req => {
   try {
     return new Response(
       (await Deno.open(join(".", path))).readable,
-      {status: 200, headers: {"content-type": `${contentType(path)}`}},
+      {
+        status: 200,
+        headers: {
+          "content-type": `${contentType(path)}`,
+          "Cache-Control": `public, max-age=${maxAge(path)}`,
+        },
+      },
     )
   } catch (err) {
     if (err instanceof Deno.errors.NotFound) return new Response("Not Found", {status: 404})

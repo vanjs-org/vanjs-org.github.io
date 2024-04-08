@@ -48,8 +48,8 @@ const templateStr = Deno.readTextFileSync("template.html")
 const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: string,
   title: string) => {
   const doc = new DOMParser().parseFromString(templateStr, "text/html")!
-  const {tags: {a, aside, div, li, link, script, ul}} = van.vanWithDoc(doc)
-  const {Link} = common(doc)
+  const {tags: {a, aside, div, i, li, link, p, script, ul}} = van.vanWithDoc(doc)
+  const {Link, MiniVan, VanJS} = common(doc)
 
   const shortTitleToPath = [
     ["Home", ""],
@@ -92,6 +92,20 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: stri
     )
   }
 
+  const hasAnnouncement = false
+
+  const Announcement = () => div({id: "announcement"},
+    p(i("🚨 My GitHub account was flagged due to some suspicious login activities (I've no idea what happened). As a result, all ", VanJS(), " repos hosted in GitHub and my GitHub accounts are currently unavailable. This website (which was hosted via GitHub Pages) was also down for 2 hours (recovered after migrated to ", Link("Deno Deploy", "https://deno.com/deploy"), "). I have reached out to GitHub support team and will do my best to restore the access of my GitHub repos. Sorry for all the inconvenience. 🙏🙏🙏")),
+    p(i("Meanwhile, to help you access the source code before GitHub repos are accessible, I have made backup repos in GitLab (you can also file issues there for feedback and support):")),
+    ul(
+      li(i(VanJS(), ": ", Link("gitlab.com/vanjs-org/van", "https://gitlab.com/vanjs-org/van"))),
+      li(i(MiniVan(), ": ", Link("gitlab.com/vanjs-org/mini-van", "https://gitlab.com/vanjs-org/mini-van"))),
+      li(i("This website: ", Link("gitlab.com/vanjs-org/www", "https://gitlab.com/vanjs-org/www"))),
+    ),
+    p(i("Preview links in this website, including jsfiddle links and CodeSandbox links aren't working now as they require GitHub integration.")),
+    p(i("Finally, in case it helps, I sent a post to GitHub Community: ", Link("#114684", "https://github.com/orgs/community/discussions/114684"), ". If you can kindly comment and/or upvote the post, it might help draw the awareness of GitHub team to the issue.")),
+  )
+
   console.log(`Rendering ${file}...`)
 
   let docTitle = title
@@ -110,6 +124,7 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: stri
   doc.getElementById("title-bar")!.innerText = shortTitle
   doc.getElementById("nav")!.replaceWith(Nav({page: path}))
   const pageDom = page(doc)
+  if (hasAnnouncement) pageDom.insertBefore(Announcement(), pageDom.firstChild)
   doc.getElementById("content")!.replaceWith(pageDom)
   doc.getElementById("toc")!.replaceWith(Toc(pageDom))
 

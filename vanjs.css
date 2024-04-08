@@ -113,6 +113,14 @@ ul.dir-tree li.folder, ul.dir-tree li.file {
   padding-left: 1.5em;
 }
 
+#announcement {
+  background-color: #FFFFE0;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.05em;
+  padding-bottom: 0.05em;
+}
+
 #content {
   flex: 70%;
   max-width: 800px;
