@@ -8,7 +8,37 @@ const contentType = (path: string) => {
   if (path.endsWith(".png")) return "image/png"
 }
 
-const maxAge = (path: string) => path.endsWith(".html") ? 1800 : 43200
+const pageLevelScripts: Record<string, 1 | undefined> = {
+  "home.js": 1,
+  "start.js": 1,
+  "tutorial.js": 1,
+  "demo.js": 1,
+  "convert.js": 1,
+  "vanui.js": 1,
+  "minivan.js": 1,
+  "ssr.js": 1,
+  "x.js": 1,
+  "advanced.js": 1,
+  "media.js": 1,
+  "about.js": 1,
+}
+
+const maxAge = (path: string) => path.endsWith(".html") || pageLevelScripts[path] ? 1800 : 43200
+
+interface FileInfo {
+  mtime: Date | null
+  content: Uint8Array
+}
+
+async function readFile(path: string): Promise<FileInfo> {
+  const result = {
+    mtime: (await Deno.stat(path)).mtime,
+    content: await Deno.readFile(path)
+  }
+
+  console.log({path, mtime: result.mtime})
+  return result
+}
 
 Deno.serve(async req => {
   const url = new URL(req.url)
@@ -17,7 +47,7 @@ Deno.serve(async req => {
   else if (!path.includes(".")) path += ".html"
   try {
     return new Response(
-      (await Deno.open(join(".", path))).readable,
+      (await readFile(join(".", path))).content,
       {
         status: 200,
         headers: {
