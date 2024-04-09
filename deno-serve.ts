@@ -30,11 +30,13 @@ interface FileInfo {
   content: Uint8Array
 }
 
+const cachedFiles: Record<string, FileInfo> = {}
+
 async function readFile(path: string): Promise<FileInfo> {
-  const result = {
+  const result = cachedFiles[path] ?? (cachedFiles[path] = {
     mtime: (await Deno.stat(path)).mtime,
     content: await Deno.readFile(path)
-  }
+  })
 
   console.log({path, mtime: result.mtime})
   return result
