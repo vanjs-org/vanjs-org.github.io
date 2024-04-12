@@ -21,7 +21,7 @@ const version = Deno.readTextFileSync("code/van.version")
 const vanXVersion = Deno.readTextFileSync("code/van-x.version")
 
 const scripts = {
-  prism: "/prism.js",
+  prism: "/code/prism-v1.js",
   chart: "https://www.gstatic.com/charts/loader.js",
   diff: "/code/diff.min.js",
   van: `/code/van-${version}.nomodule.min.js`,
