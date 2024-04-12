@@ -25,7 +25,11 @@
   ! Cache-Control
   Cache-Control: max-age=864000
 
-/code/*-latest*.js
+/code/van-latest*.js
+  ! Cache-Control
+  Cache-Control: max-age=3600
+
+/code/mini-van-latest*.js
   ! Cache-Control
   Cache-Control: max-age=3600
 
