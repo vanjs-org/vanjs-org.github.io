@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="/logo.svg">
+  <title>Auto Download</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <script>
+    window.onload = () => {
+      const file = new URLSearchParams(location.search).get("file")
+      const downloadLink = document.createElement('a')
+      downloadLink.href = "/code/" + file
+      downloadLink.download = file
+      downloadLink.click()
+    }
+  </script>
+</body>
+</html>
