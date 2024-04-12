@@ -10,6 +10,7 @@
   Cache-Control: max-age=864000
 
 /code/*
+  ! Cache-Control
   Cache-Control: max-age=864000
 
 /code/*.html
