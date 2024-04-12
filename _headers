@@ -2,16 +2,20 @@
   Cache-Control: max-age=3600
 
 /*.png
+  ! Cache-Control
   Cache-Control: max-age=864000
 
 /*.svg
+  ! Cache-Control
   Cache-Control: max-age=864000
 
 /code/*
   Cache-Control: max-age=864000
 
 /code/*.html
+  ! Cache-Control
   Cache-Control: max-age=3600
 
 /code/auto-complete-*.js
+  ! Cache-Control
   Cache-Control: max-age=3600
