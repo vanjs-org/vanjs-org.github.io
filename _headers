@@ -25,6 +25,10 @@
   ! Cache-Control
   Cache-Control: max-age=864000
 
+/code/*-latest*.js
+  ! Cache-Control
+  Cache-Control: max-age=3600
+
 /code/auto-complete-*.js
   ! Cache-Control
   Cache-Control: max-age=3600
