@@ -17,12 +17,15 @@ import about from "./about.ts"
 
 import converterLib from "./convert-lib.ts"
 
+const version = Deno.readTextFileSync("code/van.version")
+const vanXVersion = Deno.readTextFileSync("code/van-x.version")
+
 const scripts = {
   prism: "/prism.js",
   chart: "https://www.gstatic.com/charts/loader.js",
   diff: "/code/diff.min.js",
-  van: "/code/van-latest.nomodule.min.js",
-  vanX: "/code/van-x.nomodule.min.js",
+  van: `/code/van-${version}.nomodule.min.js`,
+  vanX: `/code/van-x-${vanXVersion}.nomodule.min.js`,
 }
 
 const pageToScripts = {
