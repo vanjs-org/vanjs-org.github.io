@@ -3,13 +3,13 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, i, li, ol, p, span, strong, ul}} = van.vanWithDoc(doc)
+  const {tags: {div, i, li, ol, p, span, ul}} = van.vanWithDoc(doc)
   const {ApiTable, Caveat, Demo, Download, H1, H2, H3, H4, Html, InlineHtml, InlineJs, InlineTs, Js, JsFile, Json, Link, Shell, SymLink, Symbol, Ts, VanJS, VanX} = common(doc)
 
   const version = Deno.readTextFileSync("code/van-x.version")
 
   return div({id: "content"},
-    H1(strong("VanX: The 1.1 kB Official VanJS Extension")),
+    H1(VanX(), ": The 1.1 kB Official VanJS Extension"),
     div("📣 ", Link(VanX(), " 0.4.0 brings lots of new features →", "https://github.com/vanjs-org/van/discussions/292")),
     p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.1kB in the gzipped minified bundle."),
     H2("Installation"),
