@@ -17,6 +17,8 @@ import about from "./about.ts"
 
 import converterLib from "./convert-lib.ts"
 
+import notFound from "./not-found.ts"
+
 const version = Deno.readTextFileSync("code/van.version")
 const vanXVersion = Deno.readTextFileSync("code/van-x.version")
 
@@ -42,6 +44,7 @@ const pageToScripts = {
   media: [],
   about: [scripts.prism],
   "converter-lib": [scripts.prism],
+  "not-found": [],
 }
 
 type Path = keyof typeof pageToScripts
@@ -163,3 +166,4 @@ renderPage(media, "media", "media.html", "Media Coverage")
 renderPage(about, "about", "about.html", "About")
 
 renderPage(converterLib, "converter-lib", "converter-lib.html", "MD and HTML to VanJS Code Converter")
+renderPage(notFound, "not-found", "404.html", "Not Found")
