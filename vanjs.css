@@ -90,9 +90,12 @@ a {
   text-decoration: none;
 }
 
+#toc a.current-heading {
+  text-decoration: underline;
+}
+
 #toc a.current-heading, #toc a:hover {
   opacity: 1;
-  text-decoration: underline;
   color: #f44336;
 }
 
