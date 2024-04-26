@@ -338,13 +338,13 @@ const duplicateItems = () =&gt; vanX.replace(todoItems,
         }
         for (const e of document.querySelectorAll("#toc li a"))
           if (e.href.split("#")[1] === currentHeading?.id) {
-            e.classList.add("w3-opacity")
+            e.classList.add("current-heading")
             const {top: tocTop, bottom: tocBottom} = tocDom.getBoundingClientRect()
             const {top: eTop, bottom: eBottom} = e.getBoundingClientRect()
             if (eBottom > tocBottom) tocDom.scrollTop += eBottom - tocBottom
             else if (eTop < tocTop) tocDom.scrollTop -= tocTop - eTop
           } else
-            e.classList.remove("w3-opacity")
+            e.classList.remove("current-heading")
       }
       trackToc()
       document.addEventListener("scroll", trackToc)

@@ -90,8 +90,10 @@ a {
   text-decoration: none;
 }
 
-#toc a.w3-opacity {
+#toc a.current-heading, #toc a:hover {
+  opacity: 1;
   text-decoration: underline;
+  color: #f44336;
 }
 
 ul.dir-tree, ul.dir-tree ul {
