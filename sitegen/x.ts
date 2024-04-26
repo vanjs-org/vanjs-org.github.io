@@ -154,7 +154,7 @@ declare const vanX: typeof vanXType
     p({id: "caveat-no-reuse-reactive"}, Caveat(), "Once an object is turned reactive with ", Symbol("vanX.reactive"), ", you shouldn't access the original object anymore. Doing so will create the same issue as ", Link("aliasing", "#caveat-no-aliasing"), "."),
     p({id: "caveat-native-reactivity"}, Caveat(), "There might be issues if you try to add reactivity to a class implemented in native code (not in JavaScript), or a class from a 3rd party library. Example: ", Link("#156", "https://github.com/vanjs-org/van/issues/156"), "."),
     H3(Symbol("vanX.noreactive"), ": exemption from reactivity conversion"),
-    p(i("requires ", VanX(), " 0.6.0 or later.")),
+    p(i("requires ", VanX(), " ", Link("0.6.0", "https://github.com/vanjs-org/van/discussions/311"), " or later.")),
     p("Sometimes it's desirable to exempt certain fields from being converted into reactive objects. For instance, for the reactive array below:"),
     Js(`const data = vanX.reactive([
   vanX.noreactive(new ArrayBuffer(8)),
