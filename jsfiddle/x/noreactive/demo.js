@@ -1,4 +1,4 @@
-const {div} = van.tags
+const {button, div} = van.tags
 
 const data = vanX.reactive([
   vanX.noreactive(new ArrayBuffer(8)),

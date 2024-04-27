@@ -166,7 +166,7 @@ declare const vanX: typeof vanXType
     p({
       id: "jsfiddle-noreactive",
       "data-details": "demo-van-x.details",
-      "data-prefix": "const {div} = van.tags",
+      "data-prefix": "const {button, div} = van.tags",
       "data-suffix": "van.add(document.body, App())",
     }),
     H4({id: "api-noreactive"}, "API reference: ", Symbol("vanX.noreactive")),
