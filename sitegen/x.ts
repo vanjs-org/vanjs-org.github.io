@@ -171,12 +171,12 @@ declare const vanX: typeof vanXType
     }),
     H4({id: "api-noreactive"}, "API reference: ", Symbol("vanX.noreactive")),
     ApiTable({
-      signature: "vanX.noreactive(obj) => <the same object but won't be converted into a reactive object>",
+      signature: "vanX.noreactive(obj) => <the object exempted from reactivity conversion>",
       description: ["Marks an object so that it won't be converted into a reactive object."],
       parameters: {
         obj: "The input object which you want to exempt from being converted into a reactive object.",
       },
-      returns: "The same object but won't be converted into a reactive object",
+      returns: "The object exempted from reactivity conversion.",
     }),
     H3("A comprehensive example"),
     p("You can refer to this ", Link("file", "https://github.com/vanjs-org/van/blob/main/x/examples/reactive/src/main.js"), " for a comprehensive demo of all the features regarding to reactive objects discussed above. You can preview the app via ", Link("CodeSandbox", "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/x/examples/reactive?file=%2Fsrc%2Fmain.js%3A1%2C1"), "."),
