@@ -178,6 +178,11 @@ van.add(document.body, Counter())
           td("An ultra-lightweight Redux addon for ", VanJS()),
           td(Link("Meddah Abdallah", "https://github.com/MeddahAbdellah")),
         ),
+        tr(
+          td(Link("VanFS", "https://github.com/ken-okabe/vanfs")),
+          td("1:1 bindings from F# to ", VanJS()),
+          td(Link("Ken Okabe", "https://github.com/ken-okabe")),
+        ),
       ),
     ),
     H2("Support & Feedback"),
