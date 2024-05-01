@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {b, br, div, li, ol, p, span, ul}} = van.vanWithDoc(doc)
+  const {tags: {b, br, div, i, li, ol, p, span, ul}} = van.vanWithDoc(doc)
   const {Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, MiniVan, Quote, SymLink, Symbol, VanJS} = common(doc)
 
   return div({id: "content"},
@@ -25,7 +25,11 @@ export default (doc: HTMLDocument) => {
     p("We might be prompted to assign a DOM node to a ", Symbol("State"), " object, especially when the ", Symbol("State"), " object is used as a ", Symbol("State"), "-typed child node. However, this is problematic when the state is bound in multiple places, like the example below:"),
     JsFile("dom-valued-state.code.js"),
     p(Demo(), " ", span({id: "demo-dom-valued-state"})),
-    p({id: "jsfiddle-dom-valued-state"}),
+    p({
+      id: "jsfiddle-dom-valued-state",
+      "data-prefix": "const {b, button, span} = van.tags",
+      "data-suffix": "van.add(document.body, TurnBold())",
+    }),
     p("In this example, if we click the \"Turn Bold\" button, the first \"", VanJS(), "\" text will disappear, which is unexpected. This is because the same DOM node ", InlineJs('b("VanJS")'), " is used twice in the DOM tree. For this reason, an error will be thrown in ", Symbol("van-{version}.debug.js"), " whenever we assign a DOM node to a ", Symbol("State"), " object."),
     H3("State granularity"),
     p("Whenever possible, it's encouraged to define states at a more granular level. That is, it's recommended to define states like this:"),
@@ -149,5 +153,23 @@ const TextDiv = () => div(() => {
 `),
     p("whenever ", Symbol("renderPre"), " is toggled, a new ", Symbol("text"), " state will be created and subscribe to changes of the ", Symbol("prefix"), " state. However, the derivation from ", Symbol("prefix"), " to the previous ", Symbol("text"), " state will be garbage collected as the derivation was created while executing a binding function whose result DOM node no longer connects to the document tree. This is the mechanism to avoid memory leaks caused by state derivations that hold onto memory indefinitely."),
     p(Link("Try out the example here", "/code/gc-derive"), " (You can use developer console to watch ", Symbol("prefix"), "'s ", Symbol("_listeners"), ")."),
+    H2("Lifecycle Hooks"),
+    p("To keep ", VanJS(), "'s simplicity, there isn't a direct support of lifecycle hooks in ", VanJS(), " API. That being said, there are multiple ways to inject custom code upon lifecycle events (mount/unmount) of DOM elements."),
+    H3("Using ", Symbol("setTimeout")),
+    p("A quick and dirty way to inject custom code upon a DOM element is mounted is to use ", Symbol("setTimeout"), " with a small ", Symbol("delay"), ". Since the rendering cycle starts right after the current thread of execution (internally, the rendering cycle is rescheduled via ", Symbol("setTimeout"), " with a ", Symbol("0"), " ", Symbol("delay"), "), the custom code injected via ", Symbol("setTimeout"), " with a small ", Symbol("delay"), " is guaranteed to be executed right after the upcoming rendering cycle, which ensures its execution upon the DOM element being mounted. This simple technique is used in a few places of the official ", VanJS(), " codebase (in the website and demos), e.g.: ", Link("1", "https://github.com/vanjs-org/vanjs-org.github.io/blob/e149ba503bf2da80d3023bb314e7fab57edbfa17/code/code-browser/src/main.js#L39"), ", ", Link("2", "https://github.com/vanjs-org/vanjs-org.github.io/blob/e149ba503bf2da80d3023bb314e7fab57edbfa17/converter-ui/convert.ts#L81"), "."),
+    H3("Registering a side effect via ", Symbol("van.derive")),
+    p(i("Requires ", VanJS(), " 1.5.0 or later.")),
+    p("If you want to get rid of ", Symbol("setTimeout"), " (thus the small ", Symbol("delay"), " introduced by it). You can leverage the technique of registering a side effect via ", SymLink("van.derive", "/tutorial#api-derive"), ", as demonstrated in the code below:"),
+    JsFile("onmount.code.js"),
+    p(Demo()),
+    p({id: "demo-onmount"}),
+    p({
+      id: "jsfiddle-onmount",
+      "data-prefix": "const {button, div} = van.tags",
+      "data-suffix": "van.add(document.body, App())",
+    }),
+    p("This technique works because in ", VanJS(), " 1.5.0 or later, derived states and side effects caused by state changes are scheduled asynchronously right in the next rendering cycle. Thus the side effects caused by the state changes of the current rendering cycle are guaranteed to be executed right after the completion of the current rendering cycle."),
+    H3("Register ", Symbol("connectedCallback"), " and ", Symbol("disconnectedCallback"), " of custom elements"),
+    p("Another option is to leverage the ", Symbol("connectedCallback"), " and ", Symbol("disconnectedCallback"), " of custom elements in ", Link("Web Components", "https://developer.mozilla.org/en-US/docs/Web/API/Web_components"), ". This is the only option to reliably inject custom code upon the unmount events of DOM elements. Note that in ", VanJS(), "'s add-on: ", Link("van_element", "https://van-element.pages.dev/"), ", you can easily ", Link("register mount/unmount handlers", "https://van-element.pages.dev/learn/lifecycle.html"), " with the help of the add-on.")
   )
 }
