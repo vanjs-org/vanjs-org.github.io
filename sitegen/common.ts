@@ -1,3 +1,4 @@
+import { join } from "https://deno.land/std@0.224.0/path/mod.ts"
 import van, { ChildDom as TypedChildDom } from "./mini-van.js"
 import { HTMLDocument, Element, Text } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
@@ -91,7 +92,7 @@ export default (doc: HTMLDocument) => {
 
   interface FileOptions {trim?: boolean}
   const File = (lang: string, file: string, {trim = false}: FileOptions, codeOptions: CodeOptions) => {
-    let text = Deno.readTextFileSync(file)
+    let text = Deno.readTextFileSync(join("sample-code", file))
     if (trim) {
       const lines = text.split("\n")
       const tagImportingLine = lines.findIndex(l => l.includes("= van.tags"))

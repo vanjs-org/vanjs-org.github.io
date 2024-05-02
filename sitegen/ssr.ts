@@ -68,7 +68,7 @@ export default (doc: HTMLDocument) => {
     p("Now, let's build some shared UI components that can run on both server-side and client-side."),
     H3("Static Component"),
     p("First, let's take a look at a static (non-reactive) component - ", Symbol("Hello"), ":"),
-    TsFile("hydration-example/src/components/hello.ts"),
+    TsFile("../hydration-example/src/components/hello.ts"),
     p("Compared to the ", SymLink("Hello", "/demo#hello-world"), " component in the \"VanJS by Example\" page, there are following notable differences:"),
     ul(
       li("The shared ", Symbol("Hello"), " component takes a ", Symbol("van"), " object as its input property. This is crucial to make ", Symbol("Hello"), " component cross-platform. Callers are responsible for providing the ", Symbol("van"), " object based on what's available in their specific environment so that the component can be agnostic to the execution environment. On the server-side, the ", Symbol("van"), " object from ", MiniVan(), " will be used (we can choose the ", Symbol("van"), " object from ", Symbol("van-plate"), " mode or from ", Symbol("mini-van"), " mode), whereas on the client-side, the ", Symbol("van"), " object from ", VanJS(), " will be used."),
@@ -78,7 +78,7 @@ export default (doc: HTMLDocument) => {
     p(b("Limitations: "), i("The typechecking for tag functions and ", Symbol("van.add"), " is quite limited. This is because it's hard to unify the type system across the common types between server-side and client-side.")),
     H3("Reactive Component"),
     p("Next, let's take a look at a reactive component - ", Symbol("Counter"), ":"),
-    TsFile("hydration-example/src/components/counter.ts"),
+    TsFile("../hydration-example/src/components/counter.ts"),
     p("Notable differences from the ", SymLink("Counter", "/demo#counter"), " component in the \"VanJS by Example\" page:"),
     ul(
       li("Similar to the ", Symbol("Hello"), " component, it takes a ", Symbol("van"), " object as its input property to make the component environment-agnostic."),
@@ -90,7 +90,7 @@ export default (doc: HTMLDocument) => {
     ),
     H2("Server-Side Script: HTML Template"),
     p("Now, let's build the server-side script that enables SSR:"),
-    TsFile("hydration-example/src/server.ts"),
+    TsFile("../hydration-example/src/server.ts"),
     p("The script implements a basic HTTP server with the built-in ", Symbol("node:http"), " module (no web framework needed). You will probably first notice this line:"),
     Ts('if (req.url?.endsWith(".js")) return serveFile(req, res, finalhandler(req, res))'),
     p("This is to tell the HTTP server to serve the file statically if any ", Symbol(".js"), " file is requested."),
@@ -131,7 +131,7 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
 `),
     p("Since ", Symbol("buttonStyle"), " is passed into the ", Symbol("Counter"), " component where its ", Symbol("val"), " property is referenced, the hydrated ", Symbol("Counter"), " component will be reactive to the change of ", Symbol("buttonStyle"), " state."),
     p("Note that, this is an illustrative example to show how to make the entire hydrated component reactive to external states. In practice, the implementation of ", Symbol("Counter"), " component can be optimized to only make the ", InlineHtml("<button>"), "s' child text nodes of the ", Symbol("Counter"), " component reactive to ", Symbol("buttonStyle"), " state. This can be achieved by binding more localized DOM nodes (i.e.: the child text nodes of ", InlineHtml("<button>"), "s) to the ", Symbol("buttonStyle"), " state. You can check out the implementation below for an optimized ", Symbol("Counter"), " component:"),
-    TsFile("hydration-example/src/components/optimized-counter.ts"),
+    TsFile("../hydration-example/src/components/optimized-counter.ts"),
     H3({id: "api-hydrate"}, "API reference: ", Symbol("van.hydrate")),
     ApiTable({
       signature: "van.hydrate(dom, f) => undefined",

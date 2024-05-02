@@ -424,7 +424,7 @@ async function* serverStateUpdates() {
 }
 `,
       "data-suffix": "van.add(document.body, ChatApp())",
-      "data-css-file": "chat-app.code.css",
+      "data-css-file": "sample-code/chat-app.code.css",
     }),
     p("Note that in the jsfiddle preview link above, we're simulating the server-side state updates. In real-world applications, state updates can be sent from server via ", Link(Symbol("WebSocket"), " messages", "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/message_event"), ", or ", Link("HTTP polling", "https://medium.com/cache-me-out/http-polling-and-long-polling-bd3f662a14f"), "."),
     H3({id: "serialization-and-compact"}, "Serialization app state and ", Symbol("vanX.compact")),
