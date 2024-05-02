@@ -247,7 +247,7 @@ const TodoList = () =&gt; {
       div(appState.val.todos.map(TodoItem)),
   )
 }
-</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p>With the help of <a href="/x" class="w3-hover-opacity"><b>VanX</b></a>, the code above can be simplified to just 10+ lines:</p><pre><code class="language-js">const TodoList = () =&gt; {
+</code></pre><p><b>Demo:</b></p><p id="demo-todo-fully-reactive"></p><p><a href="https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/code/todo-app?file=/src/main.ts:1,1" class="w3-hover-opacity">Try on CodeSandbox</a></p><p><i>You can also check <a href="https://github.com/vanjs-org/van/discussions/316" class="w3-hover-opacity">the example</a> by <a href="https://github.com/ArcaneEngineer" class="w3-hover-opacity">@ArcaneEngineer</a>, which is a slight variation of this <code class="symbol">TODO App</code> to allow TODO items to be editable.</i></p><p>With the help of <a href="/x" class="w3-hover-opacity"><b>VanX</b></a>, the code above can be simplified to just 10+ lines:</p><p></p><pre><code class="language-js">const TodoList = () =&gt; {
   const items = vanX.reactive(JSON.parse(localStorage.getItem("appState") ?? "[]"))
   van.derive(() =&gt; localStorage.setItem("appState", JSON.stringify(vanX.compact(items))))
   const inputDom = input({type: "text"})
@@ -467,10 +467,10 @@ const DiffApp = () =&gt; {
       const diffVal = diff.val, showMergedVal = showMerged.val, resultDom = div()
       for (let i = 0; i &lt; diffVal.length; ) {
         let line
-        if (diffVal[i].added &amp;&amp; diffVal[i + 1].removed) {
+        if (diffVal[i].added &amp;&amp; diffVal[i + 1]?.removed) {
           line = DiffLine(diffVal[i + 1].value, diffVal[i].value, showMergedVal)
           i += 2
-        } else if (diffVal[i].removed &amp;&amp; diffVal[i + 1].added) {
+        } else if (diffVal[i].removed &amp;&amp; diffVal[i + 1]?.added) {
           line = DiffLine(diffVal[i].value, diffVal[i + 1].value, showMergedVal)
           i += 2
         } else if (diffVal[i].added) {

@@ -69,10 +69,10 @@
             const diffVal = diff.val, showMergedVal = showMerged.val, resultDom = div()
             for (let i = 0; i < diffVal.length; ) {
               let line
-              if (diffVal[i].added && diffVal[i + 1].removed) {
+              if (diffVal[i].added && diffVal[i + 1]?.removed) {
                 line = DiffLine(diffVal[i + 1].value, diffVal[i].value, showMergedVal)
                 i += 2
-              } else if (diffVal[i].removed && diffVal[i + 1].added) {
+              } else if (diffVal[i].removed && diffVal[i + 1]?.added) {
                 line = DiffLine(diffVal[i].value, diffVal[i + 1].value, showMergedVal)
                 i += 2
               } else if (diffVal[i].added) {
