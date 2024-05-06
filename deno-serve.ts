@@ -42,7 +42,6 @@ async function getContentAndHash(path: string): Promise<FileInfo> {
 
 async function readFile(path: string): Promise<FileInfo> {
   const result = cachedFiles[path] ?? (cachedFiles[path] = await getContentAndHash(path))
-  console.log({path, ...result})
   return result
 }
 
