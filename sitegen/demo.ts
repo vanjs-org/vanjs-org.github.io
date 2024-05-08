@@ -291,7 +291,7 @@ const TodoList = () => {
     p({
       id: "jsfiddle-starts",
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
-      "data-suffix": '(async () => van.add(document.body, await Stars("vanjs-org/van")))()',
+      "data-suffix": ';(async () => van.add(document.body, await Stars("vanjs-org/van")))()',
     }),
     H2("Epoch Timestamp Converter"),
     p("Below is an application which converts a Unix epoch timestamp into a human-readable datetime string:"),

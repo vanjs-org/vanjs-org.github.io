@@ -14,4 +14,4 @@ const Stars = async repo => {
   )
 }
 
-(async () => van.add(document.body, await Stars("vanjs-org/van")))()
+;(async () => van.add(document.body, await Stars("vanjs-org/van")))()
