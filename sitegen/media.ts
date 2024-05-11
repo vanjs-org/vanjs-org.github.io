@@ -82,6 +82,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://zhuanlan.zhihu.com/p/633510308"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://zhuanlan.zhihu.com/p/633260358"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://zhuanlan.zhihu.com/p/630633744"), " (", i("in Simplified Chinese"), ")"),
+      li(Url("https://www.51cto.com/article/785563.html"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://www.cnblogs.com/xueweihan/p/17445043.html"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://segmentfault.com/a/1190000044087547"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://segmentfault.com/a/1190000044560268"), " (", i("in Simplified Chinese"), ")"),
