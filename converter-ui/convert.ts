@@ -28,15 +28,16 @@ const Converter = () => {
   })
   derive(() => (currentInput.val, setTimeout(autogrow.bind(null, inputDom), 5)))
 
-  const fromStorage = JSON.parse(localStorage.getItem('converter') ?? '{}');
-  const indent = state(2), spacing = state(fromStorage.spacing ?? false), skipEmpty = state(fromStorage.skipEmpty ?? false)
+  const fromStorage = JSON.parse(localStorage.getItem('ui-states') ?? '{}');
+  const indent = state(fromStorage.indent ?? 2)
+  const spacing = state(fromStorage.spacing ?? false)
+  const skipEmpty = state(fromStorage.skipEmpty ?? false)
   const err = state("")
-  derive(() => {
-    localStorage.setItem('converter', JSON.stringify({
-      spacing: spacing.val,
-      skipEmpty: skipEmpty.val
-    }))
-  })
+  derive(() => localStorage.setItem('ui-states', JSON.stringify({
+    indent: indent.val,
+    spacing: spacing.val,
+    skipEmpty: skipEmpty.val
+  })))
 
   const result = derive(() => {
     err.val = ""
