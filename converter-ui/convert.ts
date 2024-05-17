@@ -28,8 +28,15 @@ const Converter = () => {
   })
   derive(() => (currentInput.val, setTimeout(autogrow.bind(null, inputDom), 5)))
 
-  const indent = state(2), spacing = state(false), skipEmpty = state(false)
+  const fromStorage = JSON.parse(localStorage.getItem('converter') ?? '{}');
+  const indent = state(2), spacing = state(fromStorage.spacing ?? false), skipEmpty = state(fromStorage.skipEmpty ?? false)
   const err = state("")
+  derive(() => {
+    localStorage.setItem('converter', JSON.stringify({
+      spacing: spacing.val,
+      skipEmpty: skipEmpty.val
+    }))
+  })
 
   const result = derive(() => {
     err.val = ""
@@ -56,10 +63,10 @@ const Converter = () => {
     div(
       "Indent level: ", input({type: "number", min: 1, max: 8, value: indent,
         oninput: e => indent.val = e.target.value}), " ",
-      input({type: "checkbox", value: spacing, oninput: e => spacing.val = e.target.checked}),
+      input({type: "checkbox", checked: spacing, oninput: e => spacing.val = e.target.checked}),
       "Spacing ",
       span({style: showForHtml},
-        input({type: "checkbox", value: skipEmpty, oninput: e => skipEmpty.val = e.target.checked}),
+        input({type: "checkbox", checked: skipEmpty, oninput: e => skipEmpty.val = e.target.checked}),
         "Skip empty text "
       ),
     ),
