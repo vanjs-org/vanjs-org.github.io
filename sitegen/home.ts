@@ -139,6 +139,11 @@ van.add(document.body, Counter())
           td(Link("b-rad-c", "https://github.com/b-rad-c")),
         ),
         tr(
+          td(Link("VanJS Feather", "https://thednp.github.io/vanjs-feather/")),
+          td("🫦 Feather Icons for ", VanJS()),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
           td(Link("van_element", "https://van-element.pages.dev/")),
           td("Web Components with ", VanJS()),
           td(Link("Atmos4", "https://github.com/Atmos4")),
