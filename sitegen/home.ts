@@ -145,7 +145,7 @@ van.add(document.body, Counter())
         ),
         tr(
           td(Link("VanJS Feather", "https://thednp.github.io/vanjs-feather/")),
-          td("🫦 Feather Icons for ", VanJS()),
+          td("Feather Icons for ", VanJS()),
           td(Link("thednp", "https://github.com/thednp")),
         ),
         tr(
