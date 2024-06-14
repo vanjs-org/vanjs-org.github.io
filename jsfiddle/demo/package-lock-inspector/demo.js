@@ -7,15 +7,14 @@ const PackageLockInspector = () => {
     textarea({rows: 10, cols: 80, oninput: e => json.val = e.target.value}),
     () => {
       if (!json.val) return div()
-      const packagesEntries = Object.entries(JSON.parse(json.val).packages)
       try {
+        const packages = Object.entries(JSON.parse(json.val).packages).filter(([k]) => k)
         return div(
-          h4("All Dependencies (", packagesEntries.length, ")"),
+          h4("All Dependencies (", packages.length, ")"),
           table(
             thead(tr(th("Package"), th("Version"))),
-            tbody(packagesEntries.map(([k, v]) => {
-              if (!k) return null
-              const name = k.slice("node_modules/".length), version = v.version
+            tbody(packages.map(([k, {version}]) => {
+              const name = k.slice("node_modules/".length)
               return tr(
                 td(a({href: "https://www.npmjs.com/package/" + name}, name)),
                 td(a({href: `https://www.npmjs.com/package/${name}/v/${version}`}, version)),
