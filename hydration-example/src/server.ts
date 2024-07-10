@@ -3,6 +3,7 @@ import { parse } from "node:url"
 import serveStatic from "serve-static"
 import finalhandler from "finalhandler"
 import van from "mini-van-plate/van-plate"
+import { registerEnv } from "mini-van-plate/shared"
 import Hello from "./components/hello.js"
 import Counter from "./components/counter.js"
 
@@ -11,6 +12,8 @@ const {body, div, h1, h2, head, link, meta, option, p, script, select, title} = 
 const [env, port = 8080] = process.argv.slice(2);
 
 const serveFile = serveStatic(".")
+
+registerEnv({van})
 
 createServer((req, res) => {
   if (req.url?.endsWith(".js")) return serveFile(req, res, finalhandler(req, res))
@@ -26,13 +29,11 @@ createServer((req, res) => {
     body(
       script({type: "text/javascript", src: `dist/client.bundle${env === "dev" ? "" : ".min"}.js`, defer: true}),
       h1("Hello Components"),
-      div({id: "hello-container"},
-        Hello({van}),
-      ),
+      div({id: "hello-container"}, Hello()),
       h1("Counter Components"),
       div({id: "counter-container"},
         h2("Basic Counter"),
-        Counter({van, id: "basic-counter", init: counterInit}),
+        Counter({id: "basic-counter", init: counterInit}),
         h2("Styled Counter"),
         p("Select the button style: ",
           select({id: "button-style", value: "👆👇"},
@@ -43,7 +44,7 @@ createServer((req, res) => {
             option("📈📉"),
           ),
         ),
-        Counter({van, id: "styled-counter", init: counterInit, buttonStyle: "👆👇"}),
+        Counter({id: "styled-counter", init: counterInit, buttonStyle: "👆👇"}),
       ),
     )
   ))

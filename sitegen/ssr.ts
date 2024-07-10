@@ -6,10 +6,13 @@ type ChildDom = TypedChildDom<Element, Text>
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, div, i, img, li, ol, p, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS} = common(doc)
+  const {ApiTable, Code, H1, H2, H3, InlineHtml, InlineTs, Json, Link, MiniVan, Shell, SymLink, Symbol, Ts, TsFile, VanJS, VanX} = common(doc)
 
   const codeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/hydration-example"
   const previewUrl = "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/hydration-example?file=%2Fsrc%2Fserver.ts%3A1%2C1"
+
+  const vanXCodeUrlBase = "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/hydration-example2"
+  const vanXPreviewUrl = "https://codesandbox.io/p/sandbox/github/vanjs-org/vanjs-org.github.io/tree/master/hydration-example2?file=%2Fsrc%2Fserver.ts%3A1%2C1"
 
   const Folder = (name: string, ...rest: ChildDom[]) =>
     li({class: "folder"}, Symbol(name), ...rest)
@@ -19,7 +22,7 @@ export default (doc: HTMLDocument) => {
 
   return div({id: "content"},
     H1(VanJS(), ": Fullstack Rendering (SSR, CSR and Hydration)"),
-    p(i("Requires ", VanJS(), " ", Link("1.2.0", "https://github.com/vanjs-org/van/discussions/114"), " or later, and ", MiniVan(), " ", Link("0.4.0", "https://github.com/vanjs-org/mini-van/releases/tag/0.4.0"), " or later.")),
+    p(i("Requires ", VanJS(), " ", Link("1.2.0", "https://github.com/vanjs-org/van/discussions/114"), " or later, and ", MiniVan(), " ", Link("0.6.0", "https://github.com/vanjs-org/mini-van/releases/tag/0.6.0"), " or later.")),
     p(VanJS(), " offers a seamless and framework-agnostic solution for fullstack rendering. We will provide a walkthrough for a sample application with SSR (server-side rendering), CSR (client-side rendering) and hydration. As an outline, here are the major steps we're going to take to build the sample application:"),
     ol(
       li("Define common UI components that can be shared on both server-side and client-side."),
@@ -54,7 +57,7 @@ export default (doc: HTMLDocument) => {
     p("Dependencies are declared in ", SymLink("package.json", codeUrlBase + "/package.json"), " file:"),
     Json(`  "dependencies": {
     "finalhandler": "^1.2.0",
-    "mini-van-plate": "^0.5.7",
+    "mini-van-plate": "^0.6.0",
     "serve-static": "^1.15.0",
     "vanjs-core": "^1.5.0"
   }
@@ -71,17 +74,16 @@ export default (doc: HTMLDocument) => {
     TsFile("../hydration-example/src/components/hello.ts"),
     p("Compared to the ", SymLink("Hello", "/demo#hello-world"), " component in the \"VanJS by Example\" page, there are following notable differences:"),
     ul(
-      li("The shared ", Symbol("Hello"), " component takes a ", Symbol("van"), " object as its input property. This is crucial to make ", Symbol("Hello"), " component cross-platform. Callers are responsible for providing the ", Symbol("van"), " object based on what's available in their specific environment so that the component can be agnostic to the execution environment. On the server-side, the ", Symbol("van"), " object from ", MiniVan(), " will be used (we can choose the ", Symbol("van"), " object from ", Symbol("van-plate"), " mode or from ", Symbol("mini-van"), " mode), whereas on the client-side, the ", Symbol("van"), " object from ", VanJS(), " will be used."),
+      li("We import the ", Symbol("env"), " object from ", Symbol("mini-van-plate/shared"), ". The purpose of the ", Symbol("env"), " object is to provide an abstract ", Symbol("van"), " object for shared components so that shared components don't have to depend on a concrete ", Symbol("van"), " object. The client-side and server-side scripts are expected to provide the actual ", Symbol("van"), " object (from ", VanJS(), " or ", MiniVan(), ", respectively) via function ", Symbol("registerEnv"), ", as shown later."),
       li("We can determine if the component is being rendered on the server-side or client-side:", Ts(`const fromServer = typeof window === "undefined"`), " and show different content based on it:", Ts('p(() => `👋Hello (from ${fromServer ? "server" : "client"})'), "This will help us differentiate whether the component is rendered from server or from client."),
     ),
-    p("To help with typechecking if you're working with TypeScript, you can import the ", Symbol("VanObj"), " type from ", Symbol("mini-van-plate/shared"), " (part of the ", MiniVan(), " package: ", Link("source file", "https://github.com/vanjs-org/mini-van/blob/main/src/shared.ts"), ")."),
-    p(b("Limitations: "), i("The typechecking for tag functions and ", Symbol("van.add"), " is quite limited. This is because it's hard to unify the type system across the common types between server-side and client-side.")),
+    p(b("Limitations: "), i("For the abstract ", Symbol("van"), " object, the typechecking for tag functions and ", Symbol("van.add"), " is quite limited. This is because it's hard to unify the type system across the common types between server-side and client-side.")),
     H3("Reactive Component"),
     p("Next, let's take a look at a reactive component - ", Symbol("Counter"), ":"),
     TsFile("../hydration-example/src/components/counter.ts"),
     p("Notable differences from the ", SymLink("Counter", "/demo#counter"), " component in the \"VanJS by Example\" page:"),
     ul(
-      li("Similar to the ", Symbol("Hello"), " component, it takes a ", Symbol("van"), " object as its input property to make the component environment-agnostic."),
+      li("Similar to the ", Symbol("Hello"), " component, it uses ", Symbol("env.van"), " imported from ", Symbol("mini-van-plate/shared"), " to make the component environment-agnostic."),
       li("You can define states and bind states to DOM nodes as you normally do on the client-side. This is because in ", MiniVan(), " ", Symbol("0.4.0"), " release, we adjusted its implementation to make it compatible to states and state-bindings related API, though with the absence of reactively (i.e.: changing a state won't lead to the update of the DOM tree), which is only possible on the client-side after hydration."),
       li("You can optionally specify the ID of the component with the ", Symbol("id"), " property. This is helpful to locate the component while hydrating."),
       li("You can optionally specify the initial counter value (default: ", Symbol("0"), ") with the ", Symbol("init"), " property."),
@@ -92,8 +94,11 @@ export default (doc: HTMLDocument) => {
     p("Now, let's build the server-side script that enables SSR:"),
     TsFile("../hydration-example/src/server.ts"),
     p("The script implements a basic HTTP server with the built-in ", Symbol("node:http"), " module (no web framework needed). You will probably first notice this line:"),
+    Ts("registerEnv({van})"),
+    p("This is to tell all shared components to use the ", Symbol("van"), " object from this file, which is imported from the ", Link(Symbol("van-plate"), " mode", "/minivan#npm-van-plate"), " of ", MiniVan(), "."),
+    p("Then for this line:"),
     Ts('if (req.url?.endsWith(".js")) return serveFile(req, res, finalhandler(req, res))'),
-    p("This is to tell the HTTP server to serve the file statically if any ", Symbol(".js"), " file is requested."),
+    p("It tells the HTTP server to serve the file statically if any ", Symbol(".js"), " file is requested."),
     p("The bulk of the script is declaring the DOM structure of the page that is enclosed in ", InlineTs("van.html(...)"), ". As you can see, the expressiveness of tag functions enable us to declare the entire HTML page, including everything in the ", InlineHtml("<head>"), " section and ", InlineHtml("<body>"), " section."),
     p("The code declares an HTML page with one ", Symbol("Hello"), " component and two ", Symbol("Counter"), " components - one with the default button style, and the other whose button style can be selected by the user. Here are a few interesting things to note:"),
     ul(
@@ -103,14 +108,16 @@ export default (doc: HTMLDocument) => {
     ),
     H2("Client-Side Script: CSR and Hydration"),
     p("The final step is to complete the client-side script file."),
+    H3("Registering the ", Symbol("van"), " Object"),
+    p("First, let's register the ", Symbol("van"), " object from ", VanJS(), " so that it can be used by all shared components."),
+    Ts(`registerEnv({van})`),
     H3("Client-Side Component"),
-    p("First, let's try to add a client-side component:"),
-    Ts(`van.add(document.getElementById("hello-container")!, Hello({van}))`),
+    p("Then, let's add a client-side component:"),
+    Ts(`van.add(document.getElementById("hello-container")!, Hello())`),
     p("This will append a CSR ", Symbol("Hello"), " component right after the SSR ", Symbol("Hello"), " component. You can tell whether the component is rendered on the server-side or on the client-side by checking whether the text is ", Symbol("👋Hello (from server)"), " or ", Symbol("👋Hello (from client)"), "."),
     H3("Hydration"),
     p("Next, let's hydrate the counter components rendered on the server side to add the reactivity. We can use ", Symbol("van.hydrate"), " to achieve that:"),
     Ts(`van.hydrate(document.getElementById("basic-counter")!, dom => Counter({
-  van,
   id: dom.id,
   init: Number(dom.getAttribute("data-counter")),
 }))
@@ -162,6 +169,9 @@ styleSelectDom.oninput = e => buttonStyle.val = (<HTMLSelectElement>e.target).va
     p("As a result, the second part of the demo will look like this:"),
     img({src: "/code/hydration-counter-screenshot.png", width: "300px"}),
     p("You can verified that all the ", Symbol("Counter"), " components are non-reactive before the ", Symbol("Hydrate"), " button is clicked and can be turned reactive upon clicking the ", Symbol("Hydrate"), " button."),
+    H2("Fullstack Rendering for VanX"),
+    p("Fullstack rendering for ", Link(VanX(), "/x"), "-based UI components is also supported. To enable this, ", Symbol("env"), " in ", Symbol("mini-van-plate/shared"), " provides an abstract ", Symbol("vanX"), " object as well, and you can register the concrete ", Symbol("vanX"), " object via ", Symbol("registerEnv"), " in the client-side and server-side scripts. In addition, ", Symbol("mini-van-plate/shared"), " provides a ", Symbol("dummyVanX"), " object which allows you to register ", Symbol("vanX"), " on the server-side."),
+    p("A sample application (a ", VanX(), "-based TODO list) can be found ", Link("here", vanXCodeUrlBase), " (preview via ", Link("CodeSandbox", vanXPreviewUrl), ")."),
     H2("The End"),
     p("🎉 Congratulations! You have completed the walkthrough for fullstack rendering. With the knowledge you have learned, you will be able to build sophisticated applications that take advantage of SSR, CSR and hydration."),
   )

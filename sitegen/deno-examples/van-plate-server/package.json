@@ -8,6 +8,6 @@
   },
   "devDependencies": {
     "deno-bin": "^1.36.0",
-    "mini-van-plate": "^0.5.7"
+    "mini-van-plate": "^0.6.0"
   }
 }
