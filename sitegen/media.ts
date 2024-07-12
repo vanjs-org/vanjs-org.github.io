@@ -77,6 +77,8 @@ export default (doc: HTMLDocument) => {
       li(Url("https://juejin.cn/post/7239148708699865144"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://juejin.cn/post/7256397479646117947"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://juejin.cn/post/7329424129997127716"), " (", i("in Simplified Chinese"), ")"),
+      li(Url("https://juejin.cn/post/7345105846341910582"), " (", i("in Simplified Chinese"), ")"),
+      li(Url("https://juejin.cn/post/7314519123177750540"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://www.qinshenxue.com/article/vanjs-the-worlds-smallest-responsive-ui-framework.html"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://www.toutiao.com/article/7235535718448202301"), " (", i("in Simplified Chinese"), ")"),
       li(Url("https://zhuanlan.zhihu.com/p/633510308"), " (", i("in Simplified Chinese"), ")"),
