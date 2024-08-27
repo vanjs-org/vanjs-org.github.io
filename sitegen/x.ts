@@ -9,9 +9,9 @@ export default (doc: HTMLDocument) => {
   const version = Deno.readTextFileSync("code/van-x.version")
 
   return div({id: "content"},
-    H1(VanX(), ": The 1.1 kB Official VanJS Extension"),
+    H1(VanX(), ": The 1.2kB Official VanJS Extension"),
     div("📣 ", Link(VanX(), " 0.4.0 brings lots of new features →", "https://github.com/vanjs-org/van/discussions/292")),
-    p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.1kB in the gzipped minified bundle."),
+    p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.2kB in the gzipped minified bundle."),
     H2("Installation"),
     p(VanX(), " is published as NPM package ", Link("vanjs-ext", "https://www.npmjs.com/package/vanjs-ext"), ". Run the following command to install the package:"),
     Shell("npm install vanjs-ext"),
