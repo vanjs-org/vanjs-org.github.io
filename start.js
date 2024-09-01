@@ -72,7 +72,7 @@ const {a, button, code, div, option, p, pre, select, span, table, tbody, td, th,
     "0.12.0": "https://github.com/vanjs-org/van/discussions/53",
     "0.11.11": "https://github.com/vanjs-org/van/discussions/44",
     "0.11.10": "https://github.com/vanjs-org/van/discussions/6",
-    "0.11.9": "https://www.linkedin.com/posts/tao-xin-64234920_github-vanjs-orgvan-vanjs-an-ultra-lightweight-activity-7062813716383219713-CI4O",
+    "0.11.9": "https://www.linkedin.com/posts/taoxin_github-vanjs-orgvan-vanjs-an-ultra-lightweight-activity-7062813716383219713-wPGd",
   }
 
   const DownloadTable = ({version}) => div(

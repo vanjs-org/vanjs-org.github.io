@@ -211,7 +211,7 @@ van.add(document.body, Counter())
     ),
     blockquote(i("In the name of ", b("Van"), "illa of the House ", b("J"), "ava", b("S"), "cript, ", Link("the First of its name", "/about#name"), ", Smallest Reactive UI Framework, 1.0kB JSX-free Grab 'n Go Library, ", Link("Scripting Language", "https://vanjs.org/about#story"), " for GUI, ", Link("GPT-Empowered", "https://chat.openai.com/g/g-7tcSHUu27-vanjs-app-builder"), " Toolkit, by the word of Tao of the House Xin, Founder and Maintainer of ", VanJS(), ", I do hereby grant you the permission of ", VanJS(), " under ", Link("MIT License", "https://github.com/vanjs-org/van/blob/main/LICENSE"), ".")),
     p({class: "contact"},
-      "Contact us: ", xIcon, Link("@taoxin", "https://x.com/intent/follow?region=follow_link&screen_name=taoxin"), " / ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedInIcon, Link("Tao Xin", "https://www.linkedin.com/in/tao-xin-64234920/"),
+      "Contact us: ", xIcon, Link("@taoxin", "https://x.com/intent/follow?region=follow_link&screen_name=taoxin"), " / ", GithubIcon({}), Link("Tao Xin", "https://github.com/Tao-VanJS"), " / ", mailIcon, Link("tao@vanjs.org", "mailto:tao@vanjs.org"), " / ", linkedInIcon, Link("Tao Xin", "https://www.linkedin.com/in/taoxin/"),
     ),
   )
 }
