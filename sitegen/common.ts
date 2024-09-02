@@ -110,6 +110,7 @@ export default (doc: HTMLDocument) => {
     VanJS: () => b("VanJS"),
     VanUI: () => b("VanUI"),
     VanX: () => b("VanX"),
+    VanGraph: () => b("VanGraph"),
     MiniVan: () => b("Mini-Van"),
     Demo: () => b("Demo:"),
     Caveat: () => ["⚠️ ", b("Caveat"), ": "],

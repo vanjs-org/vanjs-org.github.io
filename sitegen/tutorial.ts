@@ -4,7 +4,7 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {b, br, div, i, li, p, span, ul}} = van.vanWithDoc(doc)
-  const {ApiTable, Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, Quote, Symbol, SymLink, VanJS} = common(doc)
+  const {ApiTable, Demo, H1, H2, H3, InlineHtml, InlineJs, Js, JsFile, Link, Quote, SymLink, Symbol, VanGraph, VanJS, VanX} = common(doc)
 
   return div({id: "content"},
     H1(VanJS(), ": Tutorial and API Reference"),
@@ -335,6 +335,8 @@ const val = v => {
       li("check out a list of ", Link("sample applications", "/demo"), " built with ", VanJS(), "."),
       li("read the in-depth discussion of a few ", Link("advanced topics", "/advanced"), "."),
       li("check out how to build a ", Link("fullstack app", "/ssr"), " with SSR, CSR and hydration."),
+      li("check out ", Link(VanX(), "/x"), " for more features: reactive list, global app state, server-driven UI, serialization, etc."),
+      li("debug complex dependencies in your app via ", Link(VanGraph(), "https://github.com/vanjs-org/van/tree/main/graph"), ".")
     ),
     H2("API Index"),
     p("Below is the list of all top-level APIs in ", VanJS(), ":"),
