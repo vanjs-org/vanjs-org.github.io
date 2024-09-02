@@ -16,6 +16,7 @@ import media from "./media.ts"
 import about from "./about.ts"
 
 import converterLib from "./convert-lib.ts"
+import graph from "./graph.ts"
 
 import notFound from "./not-found.ts"
 
@@ -44,6 +45,7 @@ const pageToScripts = {
   media: [],
   about: [scripts.prism],
   "converter-lib": [scripts.prism],
+  graph: [scripts.prism],
   "not-found": [],
 }
 
@@ -122,6 +124,8 @@ const renderPage = (page: (doc: HTMLDocument) => Element, path: Path, file: stri
     doc.querySelector("title")!.innerText = "VanUI - A Collection of Grab 'n Go Reusable UI Components for VanJS"
   else if (title === "VanX")
     doc.querySelector("title")!.innerText = "VanX - The 1.2kB Official VanJS Extension"
+  else if (title === "VanGraph")
+    doc.querySelector("title")!.innerText = "VanGraph - Visualize Dependencies in Your App"
   else
     doc.querySelector("title")!.innerText += " - " + docTitle
   let shortTitle = shortTitleToPath?.find(([_, p]) => p === path)?.[0] ?? ""
@@ -166,4 +170,5 @@ renderPage(media, "media", "media.html", "Media Coverage")
 renderPage(about, "about", "about.html", "About")
 
 renderPage(converterLib, "converter-lib", "converter-lib.html", "MD and HTML to VanJS Code Converter")
+renderPage(graph, "graph", "graph.html", "VanGraph")
 renderPage(notFound, "not-found", "404.html", "Not Found")
