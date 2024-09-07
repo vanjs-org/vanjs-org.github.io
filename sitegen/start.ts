@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {div, p}} = van.vanWithDoc(doc)
+  const {tags: {div, i, p}} = van.vanWithDoc(doc)
   const {Demo, Download, H1, H2, H3, Html, InlineHtml, Js, Link, Shell, SymLink, Symbol, Ts, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
@@ -62,6 +62,7 @@ van.add(document.body, Hello())
     p(Demo()),
     p({id: "demo-hello-fun"}),
     p({id: "jsfiddle-hello-fun"}),
+    p(i("If you encounter problems after pasting the code above to your HTML file, be mindful of where to place your script. See ", Link("#9", "https://github.com/vanjs-org/vanjs-org.github.io/pull/9"), " for a detailed discussion.")),
     H2({id: "download-table"}, "Download Table"),
     div({id: "download-table-div"}),
   )
