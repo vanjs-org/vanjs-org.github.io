@@ -182,6 +182,12 @@ van.add(document.body, Table({
       },
       returns: ["The created derived ", Symbol("State"), " object."],
     }),
+    p("Note that: Since ", Link(VanJS(), " 1.5.0", "https://github.com/vanjs-org/van/discussions/290"), ", we have changed the execution of state derivation from synchronous to asynchronous as an optimization to avoid potentially unnecessary derivations. That is, instead of executing state derivations immediately, the derivations are scheduled to execute as soon as the next event cycle of browser context (i.e.: after the current call stack is cleared, which is equivalent to ", InlineJs("setTimeout(..., 0)"), "). The effect of the asynchronous derivation can be illustrated by the code below:"),
+    Js(`const a = van.state(1)
+const b = van.derive(() => a.val * 2)
+a.val = 2
+console.log("b.val =", b.val) // Expecting 2
+setTimeout(() => console.log("b.val =", b.val), 10) // Expecting 4`),
     H3("Side effect"),
     p(Symbol("van.derive"), " can be used to declare side effects as well. You can discard the return value of ", Symbol("van.derive"), " if you are not interested. The code below is a modified ", Symbol("Counter App"), " which logs the counter to console whenever it changes:"),
     JsFile("effect.code.js"),
