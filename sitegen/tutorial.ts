@@ -273,6 +273,7 @@ van.add(document.body, SortedList())
     p(Demo()),
     p({id: "demo-sorted-list"}),
     p({id: "jsfiddle-sorted-list"}),
+    p("Note that: Due to the limit of DOM API, the result of the binding function can't be an array of elements. You can wrap the result into a pass-through container (", InlineHtml("<span>"), " for inline elements and ", InlineHtml("<div>"), " for block elements) if multiple elements need to be returned."),
     H3("Removing a DOM node"),
     p("For ", Symbol("State"), "-derived child nodes, if the binding function returns ", Symbol("null"), " or ", Symbol("undefined"), ", the DOM node will removed. Removed DOM node will never be brought back, even when the binding function would return a non-", Symbol("null"), "/", Symbol("undefined"), " value based on future values of the dependencies."),
     p("The following code illustrates how to build an editable list with this features:"),
