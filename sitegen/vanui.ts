@@ -1489,7 +1489,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "van.add(document.body, Toggle({\n  size: 2,\n  onColor: \"#4CAF50\"\n}))\n",
+        "van.add(document.body, Toggle({\n  on: true,\n  size: 2,\n  onColor: \"#4CAF50\"\n}))\n",
       ),
     ),
     H4(
