@@ -514,6 +514,11 @@ google.charts.setOnLoadCallback(() =>
           td(Link("link", "https://codesandbox.io/p/devbox/github/sirenkovladd/vanjs-leaflet-example/tree/main/?file=%2Fsrc%2Fmain.js")),
         ),
         tr(
+          td(Link("kangaroolab", "https://github.com/kangaroolab")),
+          td(Link("tippy: a local first note app", "https://github.com/kangaroolab/tippy")),
+          td(Link("link", "https://kangaroolab.github.io/tippy/")),
+        ),
+        tr(
           td(Link("FredericHeem", "https://github.com/FredericHeem")),
           td(Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
           td(),
