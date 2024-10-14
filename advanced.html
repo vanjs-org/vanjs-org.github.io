@@ -142,10 +142,11 @@ const streamOf = s =&gt; {
   return div(
     div(
       "formula: ",
-      select({value: formula, oninput: e =&gt; formula.val = e.target.value},
-        option("a + b"), option("c + d"),
+      select({oninput: e =&gt; formula.val = e.target.value},
+        option({selected: () =&gt; formula.val === "a + b"}, "a + b"),
+        option({selected: () =&gt; formula.val === "c + d"}, "c + d"),
       ),
-      " a: ",
+    " a: ",
       input({type: "number", min: 0, max: 9, value: a, oninput: e =&gt; a.val = Number(e.target.value)}),
       " b: ",
       input({type: "number", min: 0, max: 9, value: b, oninput: e =&gt; b.val = Number(e.target.value)}),
@@ -173,10 +174,11 @@ const streamOf = s =&gt; {
   return div(
     div(
       "formula: ",
-      select({value: formula, oninput: e =&gt; formula.val = e.target.value},
-        option("a + b"), option("c + d"),
+      select({oninput: e =&gt; formula.val = e.target.value},
+        option({selected: () =&gt; formula.val === "a + b"}, "a + b"),
+        option({selected: () =&gt; formula.val === "c + d"}, "c + d"),
       ),
-      " a: ",
+    " a: ",
       input({type: "number", min: 0, max: 9, value: a, oninput: e =&gt; a.val = Number(e.target.value)}),
       " b: ",
       input({type: "number", min: 0, max: 9, value: b, oninput: e =&gt; b.val = Number(e.target.value)}),

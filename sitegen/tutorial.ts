@@ -257,9 +257,9 @@ const SortedList = () => {
     "Comma-separated list: ",
     input({oninput: e => items.val = e.target.value,
       type: "text", value: items}), " ",
-    select({oninput: e => sortedBy.val = e.target.value, value: sortedBy},
-      option({value: "Ascending"}, "Ascending"),
-      option({value: "Descending"}, "Descending"),
+    select({oninput: e => sortedBy.val = e.target.value},
+      option({selected: () => sortedBy.val === "Ascending", value: "Ascending"}, "Ascending"),
+      option({selected: () => sortedBy.val === "Descending", value: "Descending"}, "Descending"),
     ),
     // A State-derived child node
     () => sortedBy.val === "Ascending" ?

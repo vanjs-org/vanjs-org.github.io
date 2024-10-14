@@ -113,9 +113,9 @@
       input({type: "range", min: 10, max: 36, value: size,
         oninput: e => size.val = e.target.value}),
       " Color: ",
-      select({oninput: e => color.val = e.target.value, value: color},
+      select({oninput: e => color.val = e.target.value},
         ["black", "blue", "green", "red", "brown"]
-          .map(c => option({value: c}, c)),
+          .map(c => option({selected: () => color.val === c}, c)),
       ),
       // The <span> element below has a state-derived property `style`
       span({style: () => `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
@@ -133,8 +133,9 @@
     const action = van.state("👍")
     return span(
       "❤️ ", counter, " ",
-      select({oninput: e => action.val = e.target.value, value: action},
-        option({value: "👍"}, "👍"), option({value: "👎"}, "👎"),
+      select({oninput: e => action.val = e.target.value},
+        option({selected: () => action.val === "👍"}, "👍"),
+        option({selected: () => action.val === "👎"}, "👎"),
       ), " ",
       button({onclick: van.derive(() => action.val === "👍" ?
         () => ++counter.val : () => --counter.val)}, "Run"),
@@ -153,11 +154,11 @@
       "Comma-separated list: ",
       input({oninput: e => items.val = e.target.value,
         type: "text", value: items}), " ",
-      select({oninput: e => sortedBy.val = e.target.value, value: sortedBy},
-        option({value: "Ascending"}, "Ascending"),
-        option({value: "Descending"}, "Descending"),
+      select({oninput: e => sortedBy.val = e.target.value},
+        option({selected: () => sortedBy.val === "Ascending", }, "Ascending"),
+        option({selected: () => sortedBy.val === "Descending", }, "Descending"),
       ),
-      // A State-derived child node
+          // A State-derived child node
       () => sortedBy.val === "Ascending" ?
         ul(items.val.split(",").sort().map(i => li(i))) :
         ul(items.val.split(",").sort().reverse().map(i => li(i))),

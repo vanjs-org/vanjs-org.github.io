@@ -6,10 +6,11 @@ const ConditionalBinding = () => {
   return div(
     div(
       "formula: ",
-      select({value: formula, oninput: e => formula.val = e.target.value},
-        option("a + b"), option("c + d"),
+      select({oninput: e => formula.val = e.target.value},
+        option({selected: () => formula.val === "a + b"}, "a + b"),
+        option({selected: () => formula.val === "c + d"}, "c + d"),
       ),
-      " a: ",
+    " a: ",
       input({type: "number", min: 0, max: 9, value: a, oninput: e => a.val = Number(e.target.value)}),
       " b: ",
       input({type: "number", min: 0, max: 9, value: b, oninput: e => b.val = Number(e.target.value)}),

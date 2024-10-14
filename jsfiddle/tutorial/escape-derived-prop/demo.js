@@ -5,8 +5,9 @@ const Counter = () => {
   const action = van.state("👍")
   return span(
     "❤️ ", counter, " ",
-    select({oninput: e => action.val = e.target.value, value: action},
-      option({value: "👍"}, "👍"), option({value: "👎"}, "👎"),
+    select({oninput: e => action.val = e.target.value},
+      option({selected: () => action.val === "👍"}, "👍"),
+      option({selected: () => action.val === "👎"}, "👎"),
     ), " ",
     button({onclick: van.derive(() => action.val === "👍" ?
       () => ++counter.val : () => --counter.val)}, "Run"),
