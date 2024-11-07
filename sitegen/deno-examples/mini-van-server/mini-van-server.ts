@@ -1,5 +1,5 @@
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import van from "https://deno.land/x/minivan@0.6.0/src/mini-van.js"
+import van from "https://deno.land/x/minivan@0.6.1/src/mini-van.js"
 
 const document = new DOMParser().parseFromString("", "text/html")!
 const {tags: {a, body, button, input, li, p, ul}, html} = van.vanWithDoc(document)

@@ -57,7 +57,7 @@ export default (doc: HTMLDocument) => {
     p("Dependencies are declared in ", SymLink("package.json", codeUrlBase + "/package.json"), " file:"),
     Json(`  "dependencies": {
     "finalhandler": "^1.2.0",
-    "mini-van-plate": "^0.6.0",
+    "mini-van-plate": "^0.6.1",
     "serve-static": "^1.15.0",
     "vanjs-core": "^1.5.2"
   }
