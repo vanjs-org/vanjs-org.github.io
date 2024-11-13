@@ -4,12 +4,13 @@ import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm
 
 export default (doc: HTMLDocument) => {
   const {tags: {div, i, p}} = van.vanWithDoc(doc)
-  const {Demo, Download, H1, H2, H3, Html, InlineHtml, Js, Link, Shell, SymLink, Symbol, Ts, VanJS} = common(doc)
+  const {Demo, Download, H1, H2, H3, Html, InlineHtml, Js, Link, Quote, Shell, SymLink, Symbol, Ts, VanJS} = common(doc)
 
   const version = Deno.readTextFileSync("code/van.version")
 
   return div({id: "content"},
     H1(VanJS(), ": Getting Started"),
+    Quote({text: "Truth is ever to be found in the simplicity, and not in the multiplicity and confusion of things.", source: "Isaac Newton"}),
     p("To get started, add the line below to your script:"),
     Js(`import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-${version}.min.js"`),
     p("To code without ES6 modules, add the following line to your HTML file instead:"),
