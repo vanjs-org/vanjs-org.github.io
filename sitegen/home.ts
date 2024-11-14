@@ -119,7 +119,7 @@ van.add(document.body, Counter())
       li("Want server-side rendering? Check out ", Link(MiniVan(), "/minivan"), " and ", Link("Hydration", "/ssr"), " (the entire vanjs.org site is built on top of ", MiniVan(), ")"),
       li("Debugging complex dependencies in your app? checkout ", Link(VanGraph(), "/graph")),
       li("For questions, feedback or general discussions, visit our ", Link("Discussions", "https://github.com/vanjs-org/van/discussions"), " page"),
-      li("✨ You can ", Link("Ask ", VanJS(), " Guru", "https://gurubase.io/g/vanjs"), ", it is a ", VanJS(), "-focused AI to answer your questions"),
+      li("✨ ", Link("Ask ", VanJS(), " Guru", "https://gurubase.io/g/vanjs"), ", a ", VanJS(), "-focused AI to answer your questions"),
     ),
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},
