@@ -2823,6 +2823,7 @@ export default (doc: HTMLDocument) => {
         "CodeSandbox",
         "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/choose?file=%2Fsrc%2Fmain.ts%3A1%2C1",
       ),
+      ".",
     ),
     p(
       "Example 1:",
@@ -2862,7 +2863,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "string[]",
         ),
-        ". Required. The option of the choice.",
+        ". Required. The options of the choice.",
       ),
       li(
         Symbol(
@@ -2882,7 +2883,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "customModalProps",
         ),
-        ": Type property bags for the ",
+        ": Type: property bags for the ",
         Link(
           "Modal",
           "#modal",
@@ -3022,7 +3023,7 @@ export default (doc: HTMLDocument) => {
           "property bag",
           "#property-bag-for-style-overrides",
         ),
-        " for the styles you want to override for an individual option",
+        " for the styles you want to override for an individual option.",
       ),
       li(
         Symbol(
