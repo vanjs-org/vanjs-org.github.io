@@ -2800,7 +2800,11 @@ export default (doc: HTMLDocument) => {
       Symbol(
         "Promise",
       ),
-      " that resolves when user makes (or cancels) the choice.",
+      " that resolves when user makes the choice (resolves to the selected string), or cancels (resolves to ",
+      Symbol(
+        "undefined",
+      ),
+      ").",
     ),
     H4(
       "Signature",
