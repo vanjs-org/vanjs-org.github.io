@@ -443,3 +443,10 @@ textarea {
     height: calc(100vh - 80px);
   }
 }
+
+@media (max-width: 1460px) {
+  .guru-widget-container {
+    left: unset!important;
+    right: 1rem!important;
+  }
+}
