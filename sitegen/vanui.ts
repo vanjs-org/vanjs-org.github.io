@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.10.1/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.0/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.10.1/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.0/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -241,11 +241,6 @@ export default (doc: HTMLDocument) => {
             ")",
           ),
           li(
-            span({style: "color:red; padding-right: 0.3rem;"},
-              strong(
-                "New!",
-              ),
-            ),
             Link(
               "FloatingWindow",
               "#floatingwindow",
@@ -254,6 +249,23 @@ export default (doc: HTMLDocument) => {
             Link(
               "preview",
               "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/window?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+            ),
+            ")",
+          ),
+          li(
+            span({style: "color:red; padding-right: 0.3rem;"},
+              strong(
+                "New!",
+              ),
+            ),
+            Link(
+              "choose",
+              "#choose",
+            ),
+            " (",
+            Link(
+              "preview",
+              "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/choose?file=%2Fsrc%2Fmain.ts%3A1%2C1",
             ),
             ")",
           ),
@@ -2778,6 +2790,276 @@ export default (doc: HTMLDocument) => {
           "#property-bag-for-style-overrides",
         ),
         " for the styles you want to override for the close button when it's hovered over.",
+      ),
+    ),
+    H3(
+      "choose",
+    ),
+    p(
+      "Creates a modal that lets the user choose among given options, returns a ",
+      Symbol(
+        "Promise",
+      ),
+      " that resolves when user makes (or cancels) the choice.",
+    ),
+    H4(
+      "Signature",
+    ),
+    pre(
+      code({class: "language-js"},
+        "choose({...props}) => Promise<string | undefined>\n",
+      ),
+    ),
+    H4(
+      "Examples",
+    ),
+    p(
+      "Preview with ",
+      Link(
+        "CodeSandbox",
+        "https://codesandbox.io/p/sandbox/github/vanjs-org/van/tree/main/components/examples/choose?file=%2Fsrc%2Fmain.ts%3A1%2C1",
+      ),
+    ),
+    p(
+      "Example 1:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const selected = await choose({\n  label: \"Choose a color:\",\n  options: [\"Red\", \"Green\", \"Blue\"],\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
+      ),
+    ),
+    p(
+      "Example 2:",
+    ),
+    pre(
+      code({class: "language-ts"},
+        "const selected = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
+      ),
+    ),
+    H4(
+      "Property Reference",
+    ),
+    ul(
+      li(
+        Symbol(
+          "label",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Required. The label you want to show.",
+      ),
+      li(
+        Symbol(
+          "options",
+        ),
+        ": Type ",
+        Symbol(
+          "string[]",
+        ),
+        ". Required. The option of the choice.",
+      ),
+      li(
+        Symbol(
+          "selectedColor",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "#f5f5f5",
+        ),
+        ". Optional. The background color of the currently selected option.",
+      ),
+      li(
+        Symbol(
+          "customModalProps",
+        ),
+        ": Type property bags for the ",
+        Link(
+          "Modal",
+          "#modal",
+        ),
+        " component (except the ",
+        Symbol(
+          "closed",
+        ),
+        " field). Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. The custom properties for the ",
+        Symbol(
+          "Modal",
+        ),
+        " component you want to specify.",
+      ),
+      li(
+        Symbol(
+          "textFilterClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the text filter. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "textFilterStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the text filter.",
+      ),
+      li(
+        Symbol(
+          "optionsContainerClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the container of all options. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "optionsContainerStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the container of all options.",
+      ),
+      li(
+        Symbol(
+          "optionClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of an individual option. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "optionStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for an individual option",
+      ),
+      li(
+        Symbol(
+          "selectedClass",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "class",
+        ),
+        " attribute of the selected option. You can specify multiple CSS classes separated by ",
+        Symbol(
+          "\" \"",
+        ),
+        ".",
+      ),
+      li(
+        Symbol(
+          "selectedStyleOverrides",
+        ),
+        ": Type ",
+        Symbol(
+          "Record<string, string | number>",
+        ),
+        ". Default ",
+        Symbol(
+          "{}",
+        ),
+        ". Optional. A ",
+        Link(
+          "property bag",
+          "#property-bag-for-style-overrides",
+        ),
+        " for the styles you want to override for the selected option.",
       ),
     ),
     H3(
