@@ -450,3 +450,7 @@ textarea {
     right: 1rem!important;
   }
 }
+
+body .guru-widget-icon-wrapper {
+  background-color: unset!important;
+}
