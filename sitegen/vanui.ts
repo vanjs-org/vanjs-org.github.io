@@ -2796,9 +2796,19 @@ export default (doc: HTMLDocument) => {
       "choose",
     ),
     p(
-      "Creates a modal that lets the user choose among given options, returns a ",
-      Symbol(
-        "Promise",
+      "Creates a ",
+      Link(
+        Symbol(
+          "Modal",
+        ),
+        "#modal",
+      ),
+      " component that lets the user choose among given options, returns a ",
+      Link(
+        Symbol(
+          "Promise",
+        ),
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
       ),
       " that resolves when user makes the choice (resolves to the selected string), or cancels (resolves to ",
       Symbol(
@@ -2885,7 +2895,9 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type: property bags for the ",
         Link(
-          "Modal",
+          Symbol(
+            "Modal",
+          ),
           "#modal",
         ),
         " component (except the ",
