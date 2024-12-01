@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.2/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.2/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -2848,7 +2848,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const selected = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
+        "const selected = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  showTextFilter: true,\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
       ),
     ),
     H4(
@@ -2877,6 +2877,20 @@ export default (doc: HTMLDocument) => {
       ),
       li(
         Symbol(
+          "showTextFilter",
+        ),
+        ": Type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. Whether to show a text filter for the options.",
+      ),
+      li(
+        Symbol(
           "selectedColor",
         ),
         ": Type ",
@@ -2885,7 +2899,7 @@ export default (doc: HTMLDocument) => {
         ),
         ". Default ",
         Symbol(
-          "#f5f5f5",
+          "\"#f5f5f5\"",
         ),
         ". Optional. The background color of the currently selected option.",
       ),

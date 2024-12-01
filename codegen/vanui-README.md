@@ -23,10 +23,10 @@ import { <components you want to import> } from "vanjs-ui"
 Alternatively, you can import **VanUI** from CDN via a `<script type="text/javascript">` tag:
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.2/dist/van-ui.nomodule.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.min.js"></script>
 ```
 
-`https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.2/dist/van-ui.nomodule.js` can be used for the non-minified version.
+`https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.js` can be used for the non-minified version.
 
 Note that: **VanJS** needs to be imported via a `<script type="text/javascript">` tag for **VanUI** to work properly.
 
@@ -772,6 +772,7 @@ const selected = await choose({
     "🇦🇷 Argentina", "🇧🇴 Bolivia", "🇧🇷 Brazil", "🇨🇱 Chile", "🇨🇴 Colombia", "🇪🇨 Ecuador",
     "🇬🇾 Guyana", "🇵🇾 Paraguay", "🇵🇪 Peru", "🇸🇷 Suriname", "🇺🇾 Uruguay", "🇻🇪 Venezuela",
   ],
+  showTextFilter: true,
   customModalProps: {
     blurBackground: true,
     modalStyleOverrides: {height: "300px"},
@@ -786,7 +787,8 @@ selected && van.add(document.body, div("You chose: ", b(selected)))
 
 * `label`: Type `string`. Required. The label you want to show.
 * `options`: Type `string[]`. Required. The options of the choice.
-* `selectedColor`: Type `string`. Default `#f5f5f5`. Optional. The background color of the currently selected option.
+* `showTextFilter`: Type `boolean`. Default `false`. Optional. Whether to show a text filter for the options.
+* `selectedColor`: Type `string`. Default `"#f5f5f5"`. Optional. The background color of the currently selected option.
 * `customModalProps`: Type: property bags for the [`Modal`](#modal) component (except the `closed` field). Default `{}`. Optional. The custom properties for the `Modal` component you want to specify.
 * `textFilterClass`: Type `string`. Default `""`. Optional. The `class` attribute of the text filter. You can specify multiple CSS classes separated by `" "`.
 * `textFilterStyleOverrides`: Type `Record<string, string | number>`. Default `{}`. Optional. A [property bag](#property-bag-for-style-overrides) for the styles you want to override for the text filter.
