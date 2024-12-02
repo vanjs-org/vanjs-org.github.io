@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.4/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.5/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.4/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.5/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -2848,7 +2848,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const choice = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  showTextFilter: true,\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nchoice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
+        "  const choice = await choose({\n    label: \"Choose a South American country:\",\n    options: [\n      \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n      \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n    ],\n    showTextFilter: true,\n    selectedColor: \"blue\",\n    cyclicalNav: true,\n    customModalProps: {\n      blurBackground: true,\n      modalStyleOverrides: {height: \"300px\"},\n    },\n    selectedStyleOverrides: {color: \"white\"},\n  })\n  choice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
       ),
     ),
     H4(
@@ -2902,6 +2902,24 @@ export default (doc: HTMLDocument) => {
           "\"#f5f5f5\"",
         ),
         ". Optional. The background color of the currently selected option.",
+      ),
+      li(
+        Symbol(
+          "cyclicalNav",
+        ),
+        ": Type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. Whether to navigate through the options via arrow keys in a cyclical manner. That is, if ",
+        Symbol(
+          "cyclicalNav",
+        ),
+        " is on, when you reach the end of the list, pressing the down arrow key will take you back to the beginning, and vice versa for going up the list with the up arrow key.",
       ),
       li(
         Symbol(
