@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.4/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.3/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.4/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -2810,9 +2810,9 @@ export default (doc: HTMLDocument) => {
         ),
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
       ),
-      " that resolves when user makes the choice (resolves to the selected string), or cancels (resolves to ",
+      " that resolves when user makes the choice (resolves to the chosen string), or cancels (resolves to ",
       Symbol(
-        "undefined",
+        "null",
       ),
       ").",
     ),
@@ -2821,7 +2821,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-js"},
-        "choose({...props}) => Promise<string | undefined>\n",
+        "choose({...props}) => Promise<string | null>\n",
       ),
     ),
     H4(
@@ -2840,7 +2840,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const selected = await choose({\n  label: \"Choose a color:\",\n  options: [\"Red\", \"Green\", \"Blue\"],\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
+        "const choice = await choose({\n  label: \"Choose a color:\",\n  options: [\"Red\", \"Green\", \"Blue\"],\n})\nchoice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
       ),
     ),
     p(
@@ -2848,7 +2848,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const selected = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  showTextFilter: true,\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nselected && van.add(document.body, div(\"You chose: \", b(selected)))\n",
+        "const choice = await choose({\n  label: \"Choose a South American country:\",\n  options: [\n    \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n    \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n  ],\n  showTextFilter: true,\n  customModalProps: {\n    blurBackground: true,\n    modalStyleOverrides: {height: \"300px\"},\n  },\n  selectedColor: \"blue\",\n  selectedStyleOverrides: {color: \"white\"},\n})\nchoice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
       ),
     ),
     H4(
@@ -3067,7 +3067,7 @@ export default (doc: HTMLDocument) => {
         Symbol(
           "class",
         ),
-        " attribute of the selected option. You can specify multiple CSS classes separated by ",
+        " attribute of the currently selected option. You can specify multiple CSS classes separated by ",
         Symbol(
           "\" \"",
         ),
@@ -3090,7 +3090,7 @@ export default (doc: HTMLDocument) => {
           "property bag",
           "#property-bag-for-style-overrides",
         ),
-        " for the styles you want to override for the selected option.",
+        " for the styles you want to override for the currently selected option.",
       ),
     ),
     H3(
