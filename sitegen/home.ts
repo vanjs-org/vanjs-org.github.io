@@ -189,6 +189,11 @@ van.add(document.body, Counter())
           td("1:1 bindings from F# to ", VanJS()),
           td(Link("Ken Okabe", "https://github.com/ken-okabe")),
         ),
+        tr(
+          td(Link("van-wrapper", "https://github.com/zakarialaoui10/van-wrapper")),
+          td("Seamlessly render VanJS elements within popular frameworks such as React, Svelte, Vue, and more.", VanJS()),
+          td(Link("zakarialaoui10", "https://github.com/zakarialaoui10")),
+        ),
       ),
     ),
     H2("Support & Feedback"),
