@@ -81,6 +81,11 @@ van.add(document.body, Euler())
       parameters: {namespaceURI: ["a string for the ", Symbol("namespaceURI"), " property of elements created via tag functions."]},
       returns: "The created tags object.",
     }),
+    H3("Specifying ", Symbol("options"), " of ", Symbol("createElement"), " or ", Symbol("createElementNS")),
+    p(i("Requires ", VanJS(), " 1.5.3 or later.")),
+    p("You can also specify ", SymLink("options", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement#options"), " of the function ", SymLink("document.createElement", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement"), " or ", SymLink("document.createElementNS", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS"), " in the ", Symbol("props"), " argument of tag functions. Below is an example where ", SymLink("is", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement#is"), " option is specified to create an element with custom behavior:"),
+    JsFile("custom-button.code.js"),
+    p(Demo(), " ", span({id: "demo-custom-button"})),
     H3({id: "api-add"}, "API reference: ", Symbol("van.add")),
     p(Symbol("van.add"), " function is similar to tag functions described above. Instead of creating a new HTML element with specified properties and children, ", Symbol("van.add"), " function mutates its first argument (which is an existing ", SymLink("Element node", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement"), ") by appending 0 or more children with ", SymLink("appendChild", "https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild"), " calls:"),
     ApiTable({
