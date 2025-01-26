@@ -42,7 +42,7 @@ export default (doc: HTMLDocument) => {
     ul(
       li("A browser-based test suite, with 60 test cases, covering different versions of ", MiniVan(), " files (", Symbol(".min.js"), ", ", Symbol(".nomodule.min.js"), ", etc.)."),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
-      li("A Deno test suite for ", Symbol("van-plate"), " mode, covering Deno integration."),
+      li("A Deno test suite for ", Symbol("van-plate"), " mode with 20 test cases, covering Deno integration."),
       li("The entire site of vanjs.org was generated with ", MiniVan(), " with TypeScript files defining all web pages. Source code can be found ", Link("here", "https://github.com/vanjs-org/vanjs-org.github.io/tree/master/sitegen"), "."),
     ),
     p("For every single release of ", VanX(), ", below is the list of tests that we will run through:"),
