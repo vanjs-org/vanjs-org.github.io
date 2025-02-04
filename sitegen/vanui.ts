@@ -512,6 +512,24 @@ export default (doc: HTMLDocument) => {
       ),
       li(
         Symbol(
+          "clickBackgroundToClose",
+        ),
+        ": Type ",
+        Symbol(
+          "boolean",
+        ),
+        ". Default ",
+        Symbol(
+          "false",
+        ),
+        ". Optional. If ",
+        Symbol(
+          "true",
+        ),
+        ", clicking the background will close the created modal.",
+      ),
+      li(
+        Symbol(
           "backgroundClass",
         ),
         ": Type ",
