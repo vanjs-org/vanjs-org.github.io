@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.5/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.6/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.5/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.6/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -450,7 +450,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const closed = van.state(false)\nconst formDom = form(\n  div(input({type: \"radio\", name: \"lang\", value: \"Zig\", checked: true}), \"Zig\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Rust\"}), \"Rust\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Kotlin\"}), \"Kotlin\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"TypeScript\"}), \"TypeScript\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"JavaScript\"}), \"JavaScript\"),\n)\n\nconst onOk = () => {\n  const lang = (<HTMLInputElement>formDom.querySelector(\"input:checked\")).value\n  alert(lang + \" is a good language 😀\")\n  closed.val = true\n}\n\nvan.add(document.body, Modal({closed, blurBackground: true},\n  p(\"What's your favorite programming language?\"),\n  formDom,\n  p({style: \"display: flex; justify-content: space-evenly;\"},\n    button({onclick: onOk}, \"Ok\"),\n    button({onclick: () => closed.val = true}, \"Cancel\"),\n  )\n))\n",
+        "const closed = van.state(false)\nconst formDom = form(\n  div(input({type: \"radio\", name: \"lang\", value: \"Zig\", checked: true}), \"Zig\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Rust\"}), \"Rust\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"Kotlin\"}), \"Kotlin\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"TypeScript\"}), \"TypeScript\"),\n  div(input({type: \"radio\", name: \"lang\", value: \"JavaScript\"}), \"JavaScript\"),\n)\n\nconst onOk = () => {\n  const lang = (<HTMLInputElement>formDom.querySelector(\"input:checked\")).value\n  alert(lang + \" is a good language 😀\")\n  closed.val = true\n}\n\nvan.add(document.body, Modal({closed, blurBackground: true, clickBackgroundToClose: true},\n  p(\"What's your favorite programming language?\"),\n  formDom,\n  p({style: \"display: flex; justify-content: space-evenly;\"},\n    button({onclick: onOk}, \"Ok\"),\n    button({onclick: () => closed.val = true}, \"Cancel\"),\n  )\n))\n",
       ),
     ),
     H4(
@@ -2848,7 +2848,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "  const choice = await choose({\n    label: \"Choose a South American country:\",\n    options: [\n      \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n      \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n    ],\n    showTextFilter: true,\n    selectedColor: \"blue\",\n    cyclicalNav: true,\n    customModalProps: {\n      blurBackground: true,\n      modalStyleOverrides: {height: \"300px\"},\n    },\n    selectedStyleOverrides: {color: \"white\"},\n  })\n  choice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
+        "  const choice = await choose({\n    label: \"Choose a South American country:\",\n    options: [\n      \"🇦🇷 Argentina\", \"🇧🇴 Bolivia\", \"🇧🇷 Brazil\", \"🇨🇱 Chile\", \"🇨🇴 Colombia\", \"🇪🇨 Ecuador\",\n      \"🇬🇾 Guyana\", \"🇵🇾 Paraguay\", \"🇵🇪 Peru\", \"🇸🇷 Suriname\", \"🇺🇾 Uruguay\", \"🇻🇪 Venezuela\",\n    ],\n    showTextFilter: true,\n    selectedColor: \"blue\",\n    cyclicalNav: true,\n    customModalProps: {\n      blurBackground: true,\n      modalStyleOverrides: {height: \"300px\"},\n      clickBackgroundToClose: true,\n    },\n    selectedStyleOverrides: {color: \"white\"},\n  })\n  choice && van.add(document.body, div(\"You chose: \", b(choice)))\n",
       ),
     ),
     H4(
