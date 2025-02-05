@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.6/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.7/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.6/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.7/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
