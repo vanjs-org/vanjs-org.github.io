@@ -519,6 +519,11 @@ google.charts.setOnLoadCallback(() =>
           td(Link("link", "https://kangaroolab.github.io/tippy/")),
         ),
         tr(
+          td(Link("Jeremy R. Travis", "https://github.com/JTravis76")),
+          td(Link("Budget Dashboard", "https://github.com/JTravis76/budget-dashboard")),
+          td(Link("link", "https://jtravis76.github.io/budget-dashboard/")),
+        ),
+        tr(
           td(Link("FredericHeem", "https://github.com/FredericHeem")),
           td(Link("Multi-Page App Starter Kit under 5kB", "https://github.com/FredericHeem/van-kit")),
           td(),
