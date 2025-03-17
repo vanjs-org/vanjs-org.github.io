@@ -201,12 +201,12 @@ van.add(document.body, Counter())
         ),
         tr(
           td(Link("Vite Plugin for VanJS", "https://github.com/thednp/vite-plugin-vanjs")),
-          td("A mini meta-framework for ", VanJS(), " featuring routing, metadata, isomorphic rendering and JSX transformation."),
+          td("A mini meta-framework for ", VanJS(), " featuring routing, metadata, isomorphic rendering and JSX transformation"),
           td(Link("thednp", "https://github.com/thednp")),
         ),
         tr(
           td(Link("Vite VanJS SVG", "https://github.com/thednp/vite-vanjs-svg")),
-          td("A Vite plugin to transform SVG files to ", VanJS(), " components on the fly."),
+          td("A Vite plugin to transform SVG files to ", VanJS(), " components on the fly"),
           td(Link("thednp", "https://github.com/thednp")),
         ),
         tr(
