@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, blockquote, clipPath, defs, div, g, i, img, input, label, li, p, path, rect, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, blockquote, clipPath, code, defs, div, g, i, img, input, label, li, p, path, rect, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanGraph, VanJS, VanUI, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
@@ -193,6 +193,26 @@ van.add(document.body, Counter())
           td(Link("Van-wrapper", "https://github.com/zakarialaoui10/van-wrapper")),
           td("A tool that facilitates the rendering of ", VanJS(), " elements within other popular frameworks"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
+        tr(
+          td(Link("Create VanJS", "https://github.com/thednp/create-vanjs")),
+          td("The fastest way to kickstart your first ", VanJS(), " Project: ", code("npm create vanjs@latest")),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("Vite Plugin for VanJS", "https://github.com/thednp/vite-plugin-vanjs")),
+          td("A mini meta-framework for ", VanJS(), " featuring routing, metadata, isomorphic rendering and JSX transformation."),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("Vite VanJS SVG", "https://github.com/thednp/vite-vanjs-svg")),
+          td("A Vite plugin to transform SVG files to ", VanJS(), " components on the fly."),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("VanJS Lucide", "https://thednp.github.io/vanjs-lucide")),
+          td("Lucide Icons for ", VanJS()),
+          td(Link("thednp", "https://github.com/thednp")),
         ),
       ),
     ),
