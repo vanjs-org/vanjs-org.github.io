@@ -3,7 +3,7 @@ import common from "./common.ts"
 import { HTMLDocument } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 
 export default (doc: HTMLDocument) => {
-  const {tags: {a, b, blockquote, clipPath, defs, div, g, i, img, input, label, li, p, path, rect, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
+  const {tags: {a, b, blockquote, clipPath, defs, div, g, i, img, input, label, li, p, code, path, rect, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanGraph, VanJS, VanUI, VanX} = common(doc)
 
   const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
@@ -135,6 +135,31 @@ van.add(document.body, Counter())
       thead(tr(th("Add-on"), th("Description"), th("Author"))),
       tbody(
         tr(
+          td(Link("Create VanJS", "https://github.com/thednp/create-vanjs")),
+          td("The fastest way to kickstart your first ", VanJS(), " Project: ", code("npm create vanjs@latest")),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("Vite Plugin for VanJS", "https://github.com/thednp/vite-plugin-vanjs")),
+          td("A mini meta-framework for ", VanJS(), " featuring routing, metadata, isomorphic rendering and JSX transformation."),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("Vite VanJS SVG", "https://github.com/thednp/vite-vanjs-svg")),
+          td("A Vite plugin to transform SVG files to ", VanJS(), " components on the fly."),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("VanJS Lucide", "https://thednp.github.io/vanjs-lucide")),
+          td("Lucide Icons for ", VanJS()),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
+          td(Link("VanJS Feather", "https://thednp.github.io/vanjs-feather")),
+          td("Feather Icons for ", VanJS()),
+          td(Link("thednp", "https://github.com/thednp")),
+        ),
+        tr(
           td(Link("Van Cone", "https://medium-tech.github.io/van-cone-website/")),
           td("An SPA framework add-on for ", VanJS()),
           td(Link("b-rad-c", "https://github.com/b-rad-c")),
@@ -143,11 +168,6 @@ van.add(document.body, Counter())
           td(Link("van_element", "https://van-element.pages.dev/")),
           td("Web Components with ", VanJS()),
           td(Link("Atmos4", "https://github.com/Atmos4")),
-        ),
-        tr(
-          td(Link("VanJS Feather", "https://thednp.github.io/vanjs-feather/")),
-          td("Feather Icons for ", VanJS()),
-          td(Link("thednp", "https://github.com/thednp")),
         ),
         tr(
           td(Link("van_dml.js", "https://github.com/vanjs-org/van/blob/main/addons/van_dml")),
