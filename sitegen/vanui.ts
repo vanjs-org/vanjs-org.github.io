@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.10/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.11/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.10/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.11/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -2879,9 +2879,21 @@ export default (doc: HTMLDocument) => {
         ),
         ": Type ",
         Symbol(
-          "string",
+          "ChildDom",
         ),
-        ". Required. The label you want to show.",
+        ". Required. One ",
+        Symbol(
+          "ChildDom",
+        ),
+        " or multiple ",
+        Symbol(
+          "ChildDom",
+        ),
+        " as an ",
+        Symbol(
+          "Array",
+        ),
+        " for the label you want to show.",
       ),
       li(
         Symbol(
