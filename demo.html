@@ -13,7 +13,7 @@
       }
     </style>
     <link rel="stylesheet" href="/code/w3-v1.css">
-    <link rel="stylesheet" href="/code/prism-v1.css">
+    <link id="prism-css" rel="stylesheet" href="">
     <link rel="stylesheet" href="/vanjs.css">
   </head>
   <body class="line-numbers" data-prismjs-copy="📋">
@@ -49,6 +49,11 @@
 
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Dark‑/light‑mode toggle button -->
+    <button id="theme-toggle" title="Toggle dark / light mode" style="position:fixed;top:15px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;z-index:30;">
+      🌙
+    </button>
 
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;">
@@ -912,6 +917,45 @@ const Console = () =&gt; div({class: "console"}, Input({id: 1}))
       trackToc()
       document.addEventListener("scroll", trackToc)
       addEventListener("resize", trackToc)
+
+      /* --------------------------------------------------------
+         Dark / light theme handling
+         -------------------------------------------------------- */
+
+      const prefersDarkMq = window.matchMedia("(prefers-color-scheme: dark)")
+      const root = document.documentElement
+      const btn = document.getElementById("theme-toggle")
+
+      const applyTheme = theme => {
+        if (theme === "dark") {
+          root.setAttribute("data-theme", "dark")
+          document.getElementById("prism-css").href = "/code/prism-v2-dark.css"
+          btn.textContent = "☀️"
+        } else {
+          root.removeAttribute("data-theme")
+          document.getElementById("prism-css").href = "/code/prism-v2.css"
+          btn.textContent = "🌙"
+        }
+      }
+
+      const stored = localStorage.getItem("theme")
+
+      if (stored === "light" || stored === "dark")
+        applyTheme(stored)
+      else
+        applyTheme(prefersDarkMq.matches ? "dark" : "light")
+
+      btn.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light"
+        const next = current === "dark" ? "light" : "dark"
+        localStorage.setItem("theme", next)
+        applyTheme(next)
+      })
+
+      prefersDarkMq.addEventListener("change", e => {
+        if (!localStorage.getItem("theme"))
+          applyTheme(e.matches ? "dark" : "light")
+      })
 
       const copy = e => {
         const file = e.previousElementSibling.innerText

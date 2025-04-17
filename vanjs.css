@@ -443,3 +443,94 @@ textarea {
     height: calc(100vh - 80px);
   }
 }
+
+/* ======================
+   Dark theme overrides
+   ======================
+   The dark theme is enabled by putting the attribute
+   `data-theme="dark"` on the <html> element.  This attribute
+   is set / cleared by the client‑side script injected from
+   template.html.  Styles below only take effect when the
+   attribute is present so that they do not interfere with the
+   default light color scheme.
+*/
+
+[data-theme="dark"] body {
+  /* Layout base colours */
+  background-color: #000;
+  color: #e0e0e0;
+}
+
+/* Links */
+[data-theme="dark"] a {
+  color: #7aa2ff;
+}
+
+/* Navigation entries */
+[data-theme="dark"] #nav .current {
+  color: #fff !important;
+  background-color: #444 !important;
+}
+
+/* Hover state inside sidebar */
+[data-theme="dark"] #nav a:hover {
+  color: #fff !important;
+  background-color: #333 !important;
+}
+
+/* Alternate table row color */
+[data-theme="dark"] tr:nth-child(2n) {
+  background-color: #111;
+}
+
+/* Code blocks */
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] pre[class*="language-"].line-numbers>code {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Inline code symbol */
+[data-theme="dark"] .symbol {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+/* Contact icon */
+[data-theme="dark"] .contact svg {
+  color: white;
+  fill: white;
+}
+
+/* Diff demos */
+[data-theme="dark"] #demo-diff-simple .add,
+[data-theme="dark"] #demo-diff .add {
+  background-color: #294b3c;
+}
+
+[data-theme="dark"] #demo-diff-simple .remove,
+[data-theme="dark"] #demo-diff .remove {
+  background-color: #603333;
+}
+
+/* Simple diff demo strike‑through already exists, keep it visible */
+[data-theme="dark"] #demo-diff-simple .remove,
+[data-theme="dark"] #demo-diff .remove {
+  text-decoration: line-through;
+}
+
+/* Tooltip background */
+[data-theme="dark"] .copy .tooltip {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Sidebar & top bar (classes from W3CSS) */
+[data-theme="dark"] #mySidebar {
+  background-color: #111 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] #nav a {
+  color: #f44336 !important;
+}
