@@ -225,7 +225,7 @@ const FontPreview = () =&gt; {
     select({oninput: e =&gt; color.val = e.target.value},
       ["blue", "green", "red", "brown"].map(c =&gt; option({selected: () =&gt; color.val === c}, c)),
     ),
-  // The &lt;span&gt; element below has a state-derived property `style`
+    // The &lt;span&gt; element below has a state-derived property `style`
     span({style: () =&gt; `font-size: ${size.val}px; color: ${color.val};`}, " Hello 🍦VanJS"),
   )
 }
