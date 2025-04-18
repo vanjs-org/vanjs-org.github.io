@@ -10,6 +10,33 @@ const libs = [
 ]
 
 const renderSizeCompChart = gz => {
+  const darkTheme = document.documentElement.getAttribute("data-theme") === "dark"
+  const opts = {
+    title: `Bundle Size Comparison (Minified${gz ? " + Gzipped" : ""})`,
+    legend: { position: "none" },
+    backgroundColor: darkTheme ? "#000" : undefined,
+    chartArea: { backgroundColor: darkTheme ? "#000" : undefined },
+    titleTextStyle: darkTheme ? { color: "#e0e0e0" } : undefined,
+    vAxis: darkTheme ? {
+      textStyle: { color: "#e0e0e0" },
+      baselineColor: "#e0e0e0",
+      gridlines: { color: '#333' }
+    } : undefined,
+    hAxis: {
+      gridlines: { count: 0, color: darkTheme ? '#333' : undefined },
+      textPosition: 'none',
+      baselineColor: darkTheme ? "#e0e0e0" : undefined
+    },
+    annotations: {
+      alwaysOutside: true,
+      textStyle: darkTheme ? { color: "#e0e0e0", fontSize: 12 } : undefined
+    },
+    tooltip: darkTheme ? {
+      isHtml: true,
+      textStyle: { color: "#e0e0e0", fontSize: 12 }
+    } : {},
+  }
+
   new google.visualization.BarChart(document.getElementById("size-comp")).draw(
     google.visualization.arrayToDataTable(
       [["Framework", "Size", {role: "style"}, {role: "annotation"}]].concat(
@@ -19,12 +46,7 @@ const renderSizeCompChart = gz => {
         })
       )
     ),
-    {
-      title: `Bundle Size Comparison (Minified${gz ? " + Gzipped" : ""})`,
-      legend: {position: "none"},
-      hAxis: {gridlines: {count: 0}, textPosition: "none"},
-      annotations: {alwaysOutside: true},
-    },
+    opts,
   )
 }
 

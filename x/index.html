@@ -361,10 +361,7 @@ const duplicateItems = () =&gt; vanX.replace(todoItems,
       document.addEventListener("scroll", trackToc)
       addEventListener("resize", trackToc)
 
-      /* --------------------------------------------------------
-         Dark / light theme handling
-         -------------------------------------------------------- */
-
+      // Dark / light theme handling
       const prefersDarkMq = window.matchMedia("(prefers-color-scheme: dark)")
       const root = document.documentElement
       const btn = document.getElementById("theme-toggle")
@@ -379,6 +376,7 @@ const duplicateItems = () =&gt; vanX.replace(todoItems,
           document.getElementById("prism-css").href = "/code/prism-v2.css"
           btn.textContent = "🌙"
         }
+        if (typeof updateChart === "function") updateChart()
       }
 
       const stored = localStorage.getItem("theme")
