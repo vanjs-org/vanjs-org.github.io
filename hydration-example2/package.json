@@ -11,7 +11,7 @@
     "@types/finalhandler": "^1.2.0",
     "@types/node": "^20.5.7",
     "@types/serve-static": "^1.15.2",
-    "esbuild": "^0.19.2",
+    "esbuild": "^0.25.3",
     "terser": "^5.19.2",
     "typescript": "^5.0.4"
   },
@@ -19,7 +19,7 @@
     "finalhandler": "^1.2.0",
     "mini-van-plate": "^0.6.3",
     "serve-static": "^1.15.0",
-    "vanjs-core": "^1.5.3",
+    "vanjs-core": "^1.5.5",
     "vanjs-ext": "^0.6.0"
   }
 }

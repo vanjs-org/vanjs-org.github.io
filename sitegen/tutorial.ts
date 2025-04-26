@@ -49,7 +49,7 @@ van.add(document.body, Hello())
       returns: ["The ", SymLink("HTMLDivElement", "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement"), " object just created."],
     }),
     H3("SVG and MathML Support"),
-    p("To create HTML elements with custom ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), ", you can declare tag functions via ", InlineJs("van.tags(<namespaceURI>)"), " (or ", InlineJs("van.tagsNS(<namespaceURI>)"), " before ", VanJS(), " ", Link("1.4.0", "https://github.com/vanjs-org/van/discussions/280"), "). Here is an example of composing the SVG DOM tree:"),
+    p("To create HTML elements with custom ", SymLink("namespace URI", "https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/glossary.html#dt-namespaceURI"), ", you can declare tag functions via ", InlineJs("van.tags(<namespaceURI>)"), " (or ", InlineJs("van.tagsNS(<namespaceURI>)"), " ", i("before ", VanJS(), " ", Link("1.4.0", "https://github.com/vanjs-org/van/discussions/280")), "). Here is an example of composing the SVG DOM tree:"),
     Js(`const {circle, path, svg} = van.tags("http://www.w3.org/2000/svg")
 
 const Smiley = () => svg({width: "16px", viewBox: "0 0 50 50"},
@@ -82,7 +82,7 @@ van.add(document.body, Euler())
       returns: "The created tags object.",
     }),
     H3("Specifying ", Symbol("options"), " of ", Symbol("createElement"), " or ", Symbol("createElementNS")),
-    p(i("Requires ", VanJS(), " 1.5.3 or later.")),
+    p(i("Requires ", VanJS(), " ", Link("1.5.3", "https://github.com/vanjs-org/van/discussions/290#discussioncomment-11744512"), " or later.")),
     p("You can also specify ", SymLink("options", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement#options"), " of the function ", SymLink("document.createElement", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement"), " or ", SymLink("document.createElementNS", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS"), " in the ", Symbol("props"), " argument of tag functions. Below is an example where ", SymLink("is", "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement#is"), " option is specified to create an element with custom behavior:"),
     JsFile("custom-button.code.js"),
     p(Demo(), " ", span({id: "demo-custom-button"})),
@@ -92,7 +92,7 @@ van.add(document.body, Euler())
       signature: "van.add(dom, ...children) => dom",
       description: ["Mutates ", Symbol("dom"), " by appending 0 or more child nodes to it. Returns  ", Symbol("dom"), " for possibly further chaining."],
       parameters: {
-        dom: "an existing DOM element that we want to append children to.",
+        dom: ["an existing DOM element (or ", SymLink("DocumentFragment", "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment"), " ", i("since ", VanJS(), " ", Link("1.5.5", "https://github.com/vanjs-org/van/discussions/290#discussioncomment-12956581")), ") that we want to append children to."],
         children: ["caller can provide 0 or more ", Symbol("children"), " as arguments to represent the child nodes we want to append to ", Symbol("dom"), ". Each child can be a valid DOM node, a primitive, ", Symbol("null"), ", ", Symbol("undefined"), ", a primitive-valued or ", Symbol("null"), "/", Symbol("undefined"), "-valued ", Symbol("State"), " object, a ", Symbol("function"), " for a ", Symbol("State"), "-derived child, or an ", SymLink("Array", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"), " of children. ", Symbol("null"), "/", Symbol("undefined"), "-valued children will be ignored. A ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " will be created for each primitive-typed argument. ", Link(Symbol("State"), "-typed child", "#state-typed-child"), " and ", Link(Symbol("State"), "-derived child", "#state-derived-child"), " behave the same way as in tag function. For DOM node, it shouldn't be already connected to a document tree (", SymLink("isConnected", "https://developer.mozilla.org/en-US/docs/Web/API/Node/isConnected"), " property should be ", Symbol("false"), "). i.e.: You should not append an existing DOM node in the current document to ", Symbol("dom"), ". If 0 children is provided, this function is a no-op."],
       },
       returns: Symbol("dom"),
