@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.11/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.12/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.11/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.12/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -344,7 +344,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-ts"},
-        "const Example1 = () => {\n  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))\n\n  const fetchWithDelay = (url: string, waitMs: number) =>\n    sleep(waitMs).then(() => fetch(url)).then(r => r.json())\n\n  const fetchStar = () =>\n    fetchWithDelay(\"https://api.github.com/repos/vanjs-org/van\", 1000)\n      .then(data => data.stargazers_count)\n\n  const data = van.state(fetchStar())\n\n  return [\n    () => h2(\n      \"Github Star: \",\n      Await({\n        value: data.val, container: span,\n        Loading: () => \"🌀 Loading...\",\n        Error: () => \"🙀 Request failed.\",\n      }, starNumber => `⭐️ ${starNumber}!`)\n    ),\n    () => Await({\n      value: data.val,\n      Loading: () => '',\n    }, () => button({onclick: () => (data.val = fetchStar())}, \"Refetch\")),\n  ]\n}\n",
+        "const Example1 = () => {\n  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))\n\n  const fetchWithDelay = (url: string, waitMs: number) =>\n    sleep(waitMs).then(() => fetch(url)).then(r => r.json())\n\n  const fetchStar = () =>\n    fetchWithDelay(\"https://api.github.com/repos/vanjs-org/van\", 1000)\n      .then(data => data.stargazers_count)\n\n  const data = van.state(fetchStar())\n\n  return [\n    () => h2(\n      \"GitHub Stars: \",\n      Await({\n        value: data.val, container: span,\n        Loading: () => \"🌀 Loading...\",\n        Error: () => \"🙀 Request failed.\",\n      }, starNumber => `⭐️ ${starNumber}!`)\n    ),\n    () => Await({\n      value: data.val,\n      Loading: () => '',\n    }, () => button({onclick: () => (data.val = fetchStar())}, \"Refetch\")),\n  ]\n}\n",
       ),
     ),
     p(
