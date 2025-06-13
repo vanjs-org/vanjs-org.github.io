@@ -145,6 +145,11 @@ van.add(document.body, Counter())
           td(Link("Atmos4", "https://github.com/Atmos4")),
         ),
         tr(
+          td(Link("VanJS Prerender", "https://github.com/vanjs-org/van/blob/main/addons/van_prerender")),
+          td("SSR support for ", VanJS(), " (alternative to ", MiniVan(), ")"),
+          td(Link("Binh Tran", "https://github.com/binhtran432k")),
+        ),
+        tr(
           td(Link("VanJS Feather", "https://thednp.github.io/vanjs-feather/")),
           td("Feather Icons for ", VanJS()),
           td(Link("thednp", "https://github.com/thednp")),
