@@ -68,7 +68,7 @@ const process = (file: string) => {
     const htmlStr = Deno.readTextFileSync("jsfiddle/" + htmlFile)
     Deno.writeTextFileSync(join(dir, "demo.html"),
       htmlStr
-        .replace("van-latest.", `van-${vanVersionOverride ?? (detailFile.includes("mini-van") ? miniVanVersion : vanVersion)}.`)
+        .replace("van-latest.", `van-${vanVersionOverride ?? (htmlFile.includes("mini-van") ? miniVanVersion : vanVersion)}.`)
         .replace("@latest", "@" + vanXVersion)
     )
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
