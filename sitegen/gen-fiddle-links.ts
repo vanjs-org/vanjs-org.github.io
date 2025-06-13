@@ -63,11 +63,14 @@ const process = (file: string) => {
     mkdirIfNotExist(dir)
     const detailFile = dom.getAttribute("data-details") ?? "demo.details"
     const detailStr = Deno.readTextFileSync("jsfiddle/" + detailFile)
-    Deno.writeTextFileSync(join(dir, "demo.details"),
-      detailStr
+    Deno.writeTextFileSync(join(dir, "demo.details"), detailStr)
+    const htmlFile = dom.getAttribute("data-html-file") ?? "demo.html"
+    const htmlStr = Deno.readTextFileSync("jsfiddle/" + htmlFile)
+    Deno.writeTextFileSync(join(dir, "demo.html"),
+      htmlStr
         .replace("van-latest.", `van-${vanVersionOverride ?? (detailFile.includes("mini-van") ? miniVanVersion : vanVersion)}.`)
         .replace("@latest", "@" + vanXVersion)
-      )
+    )
     Deno.writeTextFileSync(join(dir, "demo.js"), code)
     const css = dom.getAttribute("data-css")
     if (css) Deno.writeTextFileSync(join(dir, "demo.css"), css)

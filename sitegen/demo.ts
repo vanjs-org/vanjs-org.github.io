@@ -252,7 +252,7 @@ const TodoList = () => {
     p({id: "demo-todo-fully-reactive-vanx"}),
     p({
       id: "jsfiddle-todo-fully-reactive-vanx",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
     }),
@@ -264,7 +264,7 @@ const TodoList = () => {
     p(Link("🎮 Let's play!", "/code/game"), " (you can share your score here: ", Link("#174", "https://github.com/vanjs-org/van/discussions/174"), ")"),
     p({
       id: "jsfiddle-game",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, b, button, div, h1, li, p, span, ul} = van.tags",
       "data-suffix": `van.add(document.body,
   h1("Emoji Pops"),
@@ -321,7 +321,7 @@ const TodoList = () => {
     p({id: "demo-diff-simple"}),
     p({
       id: "jsfiddle-diff-simple",
-      "data-details": "demo-diff.details",
+      "data-html-file": "demo-diff.html",
       "data-prefix": "const {button, div, span, textarea} = van.tags",
       "data-suffix": "document.body.appendChild(DiffApp())",
       "data-css-file": "code/diff-simple.html",
@@ -332,7 +332,7 @@ const TodoList = () => {
     p({id: "demo-diff"}),
     p({
       id: "jsfiddle-diff",
-      "data-details": "demo-diff.details",
+      "data-html-file": "demo-diff.html",
       "data-prefix": "const {button, div, input, span, textarea} = van.tags",
       "data-suffix": "document.body.appendChild(DiffApp())",
       "data-css-file": "code/diff.html",
@@ -451,7 +451,7 @@ google.charts.setOnLoadCallback(() =>
     Console()
   ).querySelector("textarea").focus()
 )`,
-      "data-details": "demo-js-console.details",
+      "data-html-file": "demo-js-console.html",
       "data-css-file": "code/console.html",
     }),
     p("You can also try out the JavaScript console in ", Link("this standalone page", "/code/console.html"), "."),

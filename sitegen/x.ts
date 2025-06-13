@@ -56,7 +56,7 @@ declare const vanX: typeof vanXType
     p(Demo(), " ", span({id: "demo-name"})),
     p({
       id: "jsfiddle-name",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {button, input, span} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
@@ -81,7 +81,7 @@ declare const vanX: typeof vanXType
     p(Demo(), " ", span({id: "demo-name-calc"})),
     p({
       id: "jsfiddle-name-calc",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {button, input, span} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
@@ -108,7 +108,7 @@ declare const vanX: typeof vanXType
     p({id: "demo-name-state-fields"}),
     p({
       id: "jsfiddle-name-state-fields",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {button, div, input} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
@@ -146,7 +146,7 @@ declare const vanX: typeof vanXType
     p({id: "demo-name-existing-class"}),
     p({
       id: "jsfiddle-name-existing-class",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {button, div, input} = van.tags",
       "data-suffix": "van.add(document.body, Name())",
       "data-css": "input { width: 90px; }\n",
@@ -165,7 +165,7 @@ declare const vanX: typeof vanXType
     JsFile("noreactive.code.js"),
     p({
       id: "jsfiddle-noreactive",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {button, div} = van.tags",
       "data-suffix": "van.add(document.body, App())",
     }),
@@ -239,7 +239,7 @@ items.splice(1, 1, 5)
     p({id: "demo-todo-list"}),
     p({
       id: "jsfiddle-todo-list",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n",
@@ -315,7 +315,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     p({id: "demo-example-list1"}),
     p({
       id: "jsfiddle-example-list1",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, button, div, input, li, ul} = van.tags",
       "data-suffix": "van.add(document.body, List())",
       "data-css": "a { cursor: pointer; }\n",
@@ -327,7 +327,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     p({id: "demo-example-list2"}),
     p({
       id: "jsfiddle-example-list2",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, button, div, input} = van.tags",
       "data-suffix": "van.add(document.body, TodoList())",
       "data-css": "a { cursor: pointer; }\n",
@@ -338,7 +338,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     JsFile("calc-list.code.js"),
     p({
       id: "jsfiddle-calc-list",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {div, input, li, ul} = van.tags",
       "data-suffix": "van.add(document.body, FilteredCountries())",
     }),
@@ -350,7 +350,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     p({id: "demo-todo-list-plus"}),
     p({
       id: "jsfiddle-todo-list-plus",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": "const {a, button, del, div, input, span} = van.tags",
       "data-suffix": "van.add(document.body, TodoListPlus())",
       "data-css": "a { cursor: pointer; }\n",
@@ -387,7 +387,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     JsFile("chat-app.code.js"),
     p({
       id: "jsfiddle-chat-app",
-      "data-details": "demo-van-x.details",
+      "data-html-file": "demo-van-x.html",
       "data-prefix": `const {div, li, span, ul} = van.tags
 
 const serverState = {

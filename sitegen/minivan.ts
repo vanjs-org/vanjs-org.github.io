@@ -58,7 +58,7 @@ van.add(document.body, Hello())
     p({
       id: "jsfiddle-hello",
       "data-prefix": "const {a, div, li, p, ul} = van.tags",
-      "data-details": "demo-mini-van.details",
+      "data-html-file": "demo-mini-van.html",
     }),
     p("You can convert any HTML snippet into ", MiniVan(), " code with our online ", Link("converter", "/convert"), "."),
     p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.5kB and (", i("more importantly"), ") can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
