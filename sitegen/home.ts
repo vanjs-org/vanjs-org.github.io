@@ -219,6 +219,11 @@ van.add(document.body, Counter())
           td("Lucide Icons for ", VanJS()),
           td(Link("thednp", "https://github.com/thednp")),
         ),
+        tr(
+          td(Link("P5.wrapper", "https://github.com/zakarialaoui10/p5.wrapper")),
+          td("A p5.js wrapper for ", VanJS(), " built on top of ZikoJS"),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
       ),
     ),
     H2("Support & Feedback"),
