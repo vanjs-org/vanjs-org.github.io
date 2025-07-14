@@ -224,6 +224,16 @@ van.add(document.body, Counter())
           td("A p5.js wrapper for ", VanJS(), " built on top of ZikoJS"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         ),
+         tr(
+          td(Link("Mdzjs", "https://github.com/zakarialaoui10/mdz")),
+          td("A Zikojs-based Markdown preprocessor fully compatible with ", VanJS()),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
+        tr(
+          td(Link("Zikojs", "https://github.com/zakarialaoui10/ziko.js")),
+          td("A standalone Hyperscript-based framework, fully compatible with ",VanJS(),". It's the core of Mdzjs, P5.wrapper, and other compatible plugins."),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
       ),
     ),
     H2("Support & Feedback"),
