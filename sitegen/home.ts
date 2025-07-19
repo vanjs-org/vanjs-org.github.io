@@ -224,6 +224,11 @@ van.add(document.body, Counter())
           td("A p5.js wrapper for ", VanJS(), " built on top of ZikoJS"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         ),
+         tr(
+          td(Link("Van-Mdx", "https://github.com/zakarialaoui10/van-mdx")),
+          td("A Markdown preprocessor for ", VanJS()),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        )
       ),
     ),
     H2("Support & Feedback"),
