@@ -228,6 +228,11 @@ van.add(document.body, Counter())
           td(Link("Van-Mdx", "https://github.com/zakarialaoui10/van-mdx")),
           td("A Markdown preprocessor for ", VanJS()),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
+        tr(
+          td(Link("Van-Server", "https://github.com/zakarialaoui10/van-server")),
+          td("server-side rendering for ", VanJS(), " with file-based routing and client-side hydration."),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         )
       ),
     ),
