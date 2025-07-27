@@ -231,7 +231,7 @@ van.add(document.body, Counter())
         ),
         tr(
           td(Link("Van-Server", "https://github.com/zakarialaoui10/van-server")),
-          td("server-side rendering for ", VanJS(), " with file-based routing and client-side hydration."),
+          td("Server-side rendering for ", VanJS(), " with file-based routing and client-side hydration"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         )
       ),
