@@ -66,12 +66,12 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.12/dist/van-ui.nomodule.min.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.13/dist/van-ui.nomodule.min.js\"></script>\n",
       ),
     ),
     p(
       Symbol(
-        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.12/dist/van-ui.nomodule.js",
+        "https://cdn.jsdelivr.net/npm/vanjs-ui@0.11.13/dist/van-ui.nomodule.js",
       ),
       " can be used for the non-minified version.",
     ),
@@ -680,6 +680,24 @@ export default (doc: HTMLDocument) => {
           "https://vanjs.org/tutorial#api-derive",
         ),
         ".",
+      ),
+      li(
+        Symbol(
+          "activeTabDisplay",
+        ),
+        ": Type ",
+        Symbol(
+          "string",
+        ),
+        ". Default ",
+        Symbol(
+          "\"block\"",
+        ),
+        ". Optional. The ",
+        Symbol(
+          "display",
+        ),
+        " CSS property for the content of the active tab.",
       ),
       li(
         Symbol(
