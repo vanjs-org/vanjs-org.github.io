@@ -233,6 +233,11 @@ van.add(document.body, Counter())
           td(Link("Van-Server", "https://github.com/zakarialaoui10/van-server")),
           td("Server-side rendering for ", VanJS(), " with file-based routing and client-side hydration"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ),
+        tr(
+          td(Link("Themes-Provider", "https://github.com/zakarialaoui10/themes-provider")),
+          td("Tree-shakeable, framework-agnostic theme manager for ", VanJS(), " and beyond — converts JavaScript objects into :root CSS variables, with optional namespacing"),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         )
       ),
     ),
