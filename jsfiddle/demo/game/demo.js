@@ -36,7 +36,7 @@ const Game = () => {
     setInterval(() => {
       if (!inGame.val) return
       for (const fn of frameFns[curFrame]) fn()
-      ++curFrame % 60 === 0 && --time.val
+      ++curFrame % fps === 0 && --time.val
       curFrame === frameFns.length && end()
     }, 1000 / fps)
     inGame.val = true

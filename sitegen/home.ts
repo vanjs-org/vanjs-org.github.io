@@ -111,7 +111,7 @@ van.add(document.body, Counter())
       li(Link("Get Started", "/start"), " (CDN, NPM or local download)"),
       li("Learn from the ", Link("Tutorial", "/tutorial")),
       li("Learn by ", Link("Examples", "/demo"), " (and also ", Link("Community Examples", "/demo#community-examples"), ")"),
-      li("Get bored? ", Link("Play a fun game", "/demo#game"), " built with ", VanJS(), " under 60 lines"),
+      li("Get bored? ", Link("🎮 Play a fun game", "/demo#game"), " built with ", VanJS(), " under 60 lines"),
       li("Convert HTML or MD snippet to ", VanJS(), " code with our online ", Link("HTML/MD to ", VanJS(), " Converter", "/convert")),
       li("Check out ", Link(VanUI(), "/vanui"), " - A collection of grab 'n go reusable utility and UI components for ", VanJS()),
       li("Want reactive list, global app state, server-driven UI, serialization and more? Check out ", Link(VanX(), "/x"), " - The 1.2kB official ", VanJS(), " extension"),

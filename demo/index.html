@@ -305,7 +305,7 @@ const TodoList = () =&gt; {
     setInterval(() =&gt; {
       if (!inGame.val) return
       for (const fn of frameFns[curFrame]) fn()
-      ++curFrame % 60 === 0 &amp;&amp; --time.val
+      ++curFrame % fps === 0 &amp;&amp; --time.val
       curFrame === frameFns.length &amp;&amp; end()
     }, 1000 / fps)
     inGame.val = true
