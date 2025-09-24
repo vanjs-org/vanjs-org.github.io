@@ -63,7 +63,7 @@
     "finalhandler": "^1.2.0",
     "mini-van-plate": "^0.6.3",
     "serve-static": "^1.15.0",
-    "vanjs-core": "^1.5.5"
+    "vanjs-core": "^1.6.0"
   }
 </code></pre><ul><li><a href="https://www.npmjs.com/package/finalhandler" class="w3-hover-opacity">finalhandler</a> and <a href="https://www.npmjs.com/package/serve-static" class="w3-hover-opacity">serve-static</a>: Server-side packages for serving static files (primarily used for serving <code class="symbol">.js</code> files).</li><li><a href="https://www.npmjs.com/package/mini-van-plate" class="w3-hover-opacity">mini-van-plate</a>: The <b>Mini-Van</b> package used for SSR.</li><li><a href="https://www.npmjs.com/package/vanjs-core" class="w3-hover-opacity">vanjs-core</a>: The <b>VanJS</b> package used for CSR.</li></ul><h2 class="w3-xxlarge w3-text-red" id="shared-ui-components"><a class="self-link" href="#shared-ui-components">Shared UI Components</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>Now, let's build some shared UI components that can run on both server-side and client-side.</p><h3 class="w3-large w3-text-red" id="static-component"><a class="self-link" href="#static-component">Static Component</a></h3><p>First, let's take a look at a static (non-reactive) component - <code class="symbol">Hello</code>:</p><pre><code class="language-ts">import { env } from "mini-van-plate/shared"
 
@@ -288,4 +288,4 @@ export default ({id, init = 0, buttonStyle = "👍👎"}: Props) =&gt; {
     <script async src="https://buttons.github.io/buttons.js"></script>
   
 
-<link rel="prefetch" href="/code/prism-v1.js" as="script"><link rel="prefetch" href="https://www.gstatic.com/charts/loader.js" as="script"><link rel="prefetch" href="/code/diff.min.js" as="script"><link rel="prefetch" href="/code/van-1.5.5.nomodule.min.js" as="script"><link rel="prefetch" href="/code/van-x-0.6.3.nomodule.min.js" as="script"></body></html>
+<link rel="prefetch" href="/code/prism-v1.js" as="script"><link rel="prefetch" href="https://www.gstatic.com/charts/loader.js" as="script"><link rel="prefetch" href="/code/diff.min.js" as="script"><link rel="prefetch" href="/code/van-1.6.0.nomodule.min.js" as="script"><link rel="prefetch" href="/code/van-x-0.6.3.nomodule.min.js" as="script"></body></html>

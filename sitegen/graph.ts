@@ -108,7 +108,7 @@ export default (doc: HTMLDocument) => {
     ),
     pre(
       code({class: "language-html"},
-        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.5.5.nomodule.min.js\"></script>\n<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/@viz-js/viz@3.8.0/lib/viz-standalone.js\"></script>\n",
+        "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.6.0.nomodule.min.js\"></script>\n<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/npm/@viz-js/viz@3.8.0/lib/viz-standalone.js\"></script>\n",
       ),
     ),
     p(

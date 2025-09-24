@@ -10,9 +10,9 @@
   },
   "devDependencies": {
     "terser": "^5.20.0",
-    "vite": "^4.3.9"
+    "vite": "^7.1.7"
   },
   "dependencies": {
-    "vanjs-core": "^1.5.5"
+    "vanjs-core": "^1.6.0"
   }
 }
