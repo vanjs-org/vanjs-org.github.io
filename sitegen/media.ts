@@ -46,6 +46,7 @@ export default (doc: HTMLDocument) => {
       li(Url("https://www.linkedin.com/pulse/vanjs-reactive-ui-framework-without-reactjsx-luvimac%3F/")),
       li(Url("https://www.linkedin.com/posts/muneebhussainmodi_javascript-js-webdevelopment-activity-7109226447000469504-hlRg/")),
       li(Url("https://www.linkedin.com/posts/stefanofago_vanjs-a-09kb-grab-n-go-reactive-ui-framework-activity-7092964871117451264-RYnu/")),
+      li(Url("https://www.linkedin.com/posts/activity-7401334284974030849-BQwj/")),
       li(Url("https://javascript.plainenglish.io/vanjs-magic-53734fe52d30")),
       li(Url("https://wp.codingbeautydev.com/blog/web-dev-tools/")),
       li(Url("https://www.smashingmagazine.com/2024/01/top-frontend-tools-2023/#vanjs-https-vanjs-org")),
