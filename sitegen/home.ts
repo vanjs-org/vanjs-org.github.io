@@ -238,7 +238,12 @@ van.add(document.body, Counter())
           td(Link("Ufbr", "https://github.com/zakarialaoui10/ufbr")),
           td("Universal client side file based routing for ", VanJS(), " and others"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
-        ),  
+        ), 
+        tr(
+          td(Link("Van I18n", "https://github.com/zakarialaoui10/van-i18n")),
+          td("reactive i18n provider for ", VanJS(), " apps"),
+          td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
+        ), 
       ),
     ),
     H2("Support & Feedback"),
