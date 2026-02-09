@@ -241,7 +241,7 @@ van.add(document.body, Counter())
         ), 
         tr(
           td(Link("Van I18n", "https://github.com/zakarialaoui10/van-i18n")),
-          td("reactive i18n provider for ", VanJS(), " apps"),
+          td("Reactive i18n provider for ", VanJS(), " apps"),
           td(Link("Zakaria Elalaoui", "https://github.com/zakarialaoui10")),
         ), 
       ),
