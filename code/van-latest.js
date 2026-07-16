@@ -96,12 +96,13 @@ let tag = (ns, name, ...args) => {
   let [{is, ...props}, ...children] = protoOf(args[0] ?? 0) === objProto ? args : [{}, ...args]
   let dom = ns ? document.createElementNS(ns, name, {is}) : document.createElement(name, {is})
   for (let [k, v] of Object.entries(props)) {
-    let getPropDescriptor = proto => proto ?
-      Object.getOwnPropertyDescriptor(proto, k) ?? getPropDescriptor(protoOf(proto)) :
-      _undefined
-    let cacheKey = name + "," + k
-    let propSetter = propSetterCache[cacheKey] ??= getPropDescriptor(protoOf(dom))?.set ?? 0
-    let setter = k.startsWith("on") ?
+    let getPropDescriptor = proto => proto &&
+      (Object.getOwnPropertyDescriptor(proto, k) ?? getPropDescriptor(protoOf(proto)))
+    let propSetter = !ns && !is && !name.includes("-") ?
+      propSetterCache[name + "," + k] ??= getPropDescriptor(protoOf(dom))?.set ?? 0 :
+      getPropDescriptor(protoOf(dom))?.set
+    let isEvent = k.startsWith("on")
+    let setter = isEvent ?
       (v, oldV) => {
         let event = k.slice(2)
         dom.removeEventListener(event, oldV)
@@ -109,7 +110,7 @@ let tag = (ns, name, ...args) => {
       } :
       propSetter ? propSetter.bind(dom) : dom.setAttribute.bind(dom, k)
     let protoOfV = protoOf(v ?? 0)
-    k.startsWith("on") || protoOfV === funcProto && (v = derive(v), protoOfV = stateProto)
+    isEvent || protoOfV === funcProto && (v = derive(v), protoOfV = stateProto)
     protoOfV === stateProto ? bind(() => (setter(v.val, v._oldVal), dom)) : setter(v)
   }
   return add(dom, children)
@@ -120,12 +121,12 @@ let handler = ns => ({get: (_, name) => tag.bind(_undefined, ns, name)})
 let update = (dom, newDom) => newDom ? newDom !== dom && dom.replaceWith(newDom) : dom.remove()
 
 let updateDoms = () => {
-  let iter = 0, derivedStatesArray = [...changedStates].filter(s => s.rawVal !== s._oldVal)
+  let iterationsLeft = 100, derivedStatesArray = [...changedStates].filter(s => s.rawVal !== s._oldVal)
   do {
     derivedStates = new Set
     for (let l of new Set(derivedStatesArray.flatMap(s => s._listeners = keepConnected(s._listeners))))
       derive(l.f, l.s, l._dom), l._dom = _undefined
-  } while (++iter < 100 && (derivedStatesArray = [...derivedStates]).length)
+  } while (--iterationsLeft && (derivedStatesArray = [...derivedStates]).length)
   let changedStatesArray = [...changedStates].filter(s => s.rawVal !== s._oldVal)
   changedStates = _undefined
   for (let b of new Set(changedStatesArray.flatMap(s => s._bindings = keepConnected(s._bindings))))
