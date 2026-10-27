@@ -181,18 +181,19 @@ van.add(document.body, Table({
     H3({id: "api-derive"}, "API reference: ", Symbol("van.derive")),
     ApiTable({
       signature: "van.derive(f) => <the created derived state>",
-      description: ["Creates a derived ", Symbol("State"), " object based on the derivation function ", Symbol("f"), ". The ", Symbol("val"), " of the derived state is always in sync with the result of ", Symbol("f"), ". i.e.: whenever the ", Symbol("val"), " of its dependency changes, ", Symbol("f"), " will be called to update the ", Symbol("val"), " of the derived state, synchronously."],
+      description: ["Creates a derived ", Symbol("State"), " object based on the derivation function ", Symbol("f"), ". ", Symbol("f"), " is called immediately to initialize the ", Symbol("val"), " of the derived state. When the ", Symbol("val"), " of a dependency changes, ", Symbol("f"), " is scheduled to run asynchronously to update the ", Symbol("val"), " of the derived state."],
       parameters: {
         f: "The derivation function, which takes no parameter and returns a single value.",
       },
       returns: ["The created derived ", Symbol("State"), " object."],
     }),
-    p("Note that: Since ", Link(VanJS(), " 1.5.0", "https://github.com/vanjs-org/van/discussions/290"), ", we have changed the execution of state derivation from synchronous to asynchronous as an optimization to avoid potentially unnecessary derivations. That is, instead of executing state derivations immediately, the derivations are scheduled to execute as soon as the next event cycle of browser context (i.e.: after the current call stack is cleared, which is equivalent to ", InlineJs("setTimeout(..., 0)"), "). The effect of the asynchronous derivation can be illustrated by the code below:"),
+    p("Note that: Since ", Link(VanJS(), " 1.5.0", "https://github.com/vanjs-org/van/discussions/290"), ", we have changed the execution of state derivation from synchronous to asynchronous as an optimization to avoid potentially unnecessary derivations. That is, instead of executing state derivations immediately, the derivations are scheduled to execute as a microtask via ", InlineJs("queueMicrotask"), " after the current call stack is cleared, before the next browser repaint (from 1.5.0 until ", Link("1.6.0", "https://github.com/vanjs-org/van/discussions/466"), ", they were scheduled as a macrotask via ", InlineJs("setTimeout(..., 0)"), "). The effect of the asynchronous derivation can be illustrated by the code below:"),
     Js(`const a = van.state(1)
 const b = van.derive(() => a.val * 2)
 a.val = 2
 console.log("b.val =", b.val) // Expecting 2
-setTimeout(() => console.log("b.val =", b.val), 10) // Expecting 4`),
+await Promise.resolve() // Wait for the scheduled update
+console.log("b.val =", b.val) // Expecting 4`),
     H3("Side effect"),
     p(Symbol("van.derive"), " can be used to declare side effects as well. You can discard the return value of ", Symbol("van.derive"), " if you are not interested. The code below is a modified ", Symbol("Counter App"), " which logs the counter to console whenever it changes:"),
     JsFile("effect.code.js"),
@@ -309,6 +310,11 @@ van.add(document.body, EditableList())
       id: "jsfiddle-editable-list",
       "data-css": "a { cursor: pointer; }\n",
     }),
+    p("If you want to hide a child temporarily and potentially bring it back later, return ", InlineJs('""'), " instead of ", Symbol("null"), " or ", Symbol("undefined"), ": the empty ", SymLink("Text node", "https://developer.mozilla.org/en-US/docs/Web/API/Text"), " keeps the binding active. Click ", Symbol("Hide"), ", then ", Symbol("Show"), " in the example below to compare the two behaviors:"),
+    JsFile("conditional-children.code.js"),
+    p(Demo()),
+    p({id: "demo-conditional-children"}),
+    p({id: "jsfiddle-conditional-children"}),
     H3({id: "stateful-binding"}, "Stateful binding"),
     p("While dealing with state updates for ", Symbol("State"), "-derived child node, a user can choose to, instead of regenerating the new version of the DOM node entirely based on new state values, mutate the existing DOM node that is already connected to the document tree based on all the new values and old values of its dependencies. This feature can be used as an optimization to avoid the entire DOM subtree being completely re-rendered."),
     p("The following code is a snippet of the ", Link("auto-complete application", "/demo#auto-complete"), " which leverages this feature to optimize:"),
