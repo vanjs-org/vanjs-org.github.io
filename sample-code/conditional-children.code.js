@@ -3,13 +3,10 @@ const {button, div, span} = van.tags
 const ConditionalChildren = () => {
   const visible = van.state(true)
   return div(
-    button({onclick: () => visible.val = !visible.val},
-      () => visible.val ? "Hide" : "Show"),
+    button({onclick: () => visible.val = !visible.val}, () => visible.val ? "Hide" : "Show"),
     div({style: "display: flex; gap: 2em;"},
-      div("Return null:",
-        div(() => visible.val ? span("👋Hello") : null)),
-      div('Return "":',
-        div(() => visible.val ? span("👋Hello") : "")),
+      div("Return null:", div(() => visible.val ? span("👋Hello") : null)),
+      div('Return "":', div(() => visible.val ? span("👋Hello") : "")),
     ),
   )
 }

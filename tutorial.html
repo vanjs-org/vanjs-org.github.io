@@ -292,13 +292,10 @@ van.add(document.body, EditableList())
 const ConditionalChildren = () =&gt; {
   const visible = van.state(true)
   return div(
-    button({onclick: () =&gt; visible.val = !visible.val},
-      () =&gt; visible.val ? "Hide" : "Show"),
+    button({onclick: () =&gt; visible.val = !visible.val}, () =&gt; visible.val ? "Hide" : "Show"),
     div({style: "display: flex; gap: 2em;"},
-      div("Return null:",
-        div(() =&gt; visible.val ? span("👋Hello") : null)),
-      div('Return "":',
-        div(() =&gt; visible.val ? span("👋Hello") : "")),
+      div("Return null:", div(() =&gt; visible.val ? span("👋Hello") : null)),
+      div('Return "":', div(() =&gt; visible.val ? span("👋Hello") : "")),
     ),
   )
 }
