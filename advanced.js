@@ -84,6 +84,51 @@
 }
 
 {
+  const {button, div, li, p, ul} = van.tags
+
+  const EditableSheet = () => {
+    const input = vanX.reactive({A1: 10}), formulas = vanX.reactive({})
+    const runs = van.state(0)
+    const twiceA1 = () => { ++runs.val; return 2 * input.A1 }
+    return div(
+      button({onclick: () => formulas.B1 ??= vanX.calc(twiceA1)}, "Set B1 = 2 × A1"), " ",
+      button({onclick: () => ++input.A1}, "Increase A1"),
+      p("A1: ", () => input.A1),
+      vanX.list(ul, formulas, (value, clear, cell) => li(
+        cell, ": ", value, " ", button({onclick: clear}, "Clear"),
+      )),
+      p("Formula runs: ", runs),
+    )
+  }
+
+  van.add(document.getElementById("demo-editable-sheet"), EditableSheet())
+}
+
+{
+  const {button, div, li, p, ul} = van.tags
+
+  const StableSheet = () => {
+    const input = vanX.reactive({A1: 10}), filled = van.state(false)
+    const runs = van.state(0)
+    const twiceA1 = () => { ++runs.val; return 2 * input.A1 }
+    const sheet = vanX.reactive({
+      cells: vanX.calc(() => filled.val ? {B1: twiceA1()} : {}),
+    })
+    return div(
+      button({onclick: () => filled.val = true}, "Set B1 = 2 × A1"), " ",
+      button({onclick: () => ++input.A1}, "Increase A1"),
+      p("A1: ", () => input.A1),
+      vanX.list(ul, sheet.cells, (value, _, cell) => li(
+        cell, ": ", value, " ", button({onclick: () => filled.val = false}, "Clear"),
+      )),
+      p("Formula runs: ", runs),
+    )
+  }
+
+  van.add(document.getElementById("demo-stable-sheet"), StableSheet())
+}
+
+{
   const {button, div} = van.tags
 
   const Label = ({text, onmount}) => {

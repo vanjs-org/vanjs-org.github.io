@@ -49,7 +49,7 @@ const Converter = ({initInput}) => {
     const sortedTags = [...tagsUsed].sort()
     tagsCode.val = `const {${sortedTags.join(", ")}} = van.tags`
     domCode.val = lines.join("\n")
-    setTimeout(() => Prism.highlightAll(), 5)
+    setTimeout(() => Prism.highlightAll(), 0)
   }
 
   const textareaDom = textarea({oninput, style: "width: 100%;"}, initInput)

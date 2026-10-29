@@ -323,21 +323,25 @@ const TodoList = () =&gt; {
     ),
   )
 }
-</code></pre><p><a href="/code/game" class="w3-hover-opacity">🎮 Let's play!</a> (you can share your score here: <a href="https://github.com/vanjs-org/van/discussions/174" class="w3-hover-opacity">#174</a>)</p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/game">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const Browser = () =&gt; {
+</code></pre><p><a href="/code/game" class="w3-hover-opacity">🎮 Let's play!</a> (you can share your score here: <a href="https://github.com/vanjs-org/van/discussions/174" class="w3-hover-opacity">#174</a>)</p><p><a href="https://jsfiddle.net/gh/get/library/pure/vanjs-org/vanjs-org.github.io/tree/master/jsfiddle/demo/game">Try on jsfiddle</a></p><h2 class="w3-xxlarge w3-text-red" id="code-browser"><a class="self-link" href="#code-browser">SPA w/ Client-Side Routing: Code Browser</a></h2><hr style="width:50px;border:5px solid red" class="w3-round"><p>With <b>VanJS</b>, you can built a single-page application with client-side routing support, thanks to <b>VanJS</b>'s powerful builtin state management and state derivation:</p><pre><code class="language-ts">const fetchJson = async url =&gt; {
+  const response = await fetch(url), json = await response.json()
+  if (!response.ok) throw new Error(`GitHub API (${response.status}): ${json.message}`)
+  return json
+}
+
+const Browser = () =&gt; {
   const file = van.state(location.hash.slice(1))
   window.addEventListener("hashchange", () =&gt; file.val = location.hash.slice(1))
 
   const text = van.derive(() =&gt; file.val ? (
-    fetch("https://api.github.com/repos/vanjs-org/van/contents/src/" + file.val)
-      .then(r =&gt; r.json())
+    fetchJson("https://api.github.com/repos/vanjs-org/van/contents/src/" + file.val)
       .then(json =&gt; text.val = {lang: file.val.split(".").at(-1), str: atob(json.content)})
       .catch(e =&gt; text.val = {str: e.toString()}),
     {str: "Loading"}
   ) : {str: "Select a file to browse"})
 
   const files = van.state([])
-  fetch("https://api.github.com/repos/vanjs-org/van/contents/src")
-    .then(r =&gt; r.json())
+  fetchJson("https://api.github.com/repos/vanjs-org/van/contents/src")
     .then(json =&gt; files.val = json.map(f =&gt; f.name).filter(n =&gt; /\.(ts|js)$/.test(n)))
     .catch(e =&gt; text.val = {str: e.toString()})
 
@@ -357,7 +361,7 @@ const TodoList = () =&gt; {
       const codeDom = dom.querySelector("code")
       codeDom.textContent = text.val.str
       codeDom.className = text.val.lang ? "language-" + text.val.lang : ""
-      if (text.val.lang) setTimeout(() =&gt; Prism.highlightAll(), 5)
+      if (text.val.lang) setTimeout(() =&gt; Prism.highlightAll(), 0)
       return dom
     },
   )
@@ -558,7 +562,7 @@ const DiffApp = () =&gt; {
     e.style.height = (e.scrollHeight + 5) + "px"
   }
   const textareaDom = textarea({oninput: e =&gt; autoGrow(e.target)}, inputText)
-  setTimeout(() =&gt; autoGrow(textareaDom), 10)
+  setTimeout(() =&gt; autoGrow(textareaDom), 0)
 
   const text = van.state("")
 
@@ -649,7 +653,7 @@ const JsonInspector = ({initInput}) =&gt; {
     e.style.height = (e.scrollHeight + 5) + "px"
   }
   const textareaDom = textarea({oninput: e =&gt; autoGrow(e.target)}, initInput)
-  setTimeout(() =&gt; autoGrow(textareaDom), 10)
+  setTimeout(() =&gt; autoGrow(textareaDom), 0)
   const errmsg = van.state(""), json = van.state(null)
 
   const inspect = () =&gt; {
@@ -856,7 +860,7 @@ const Input = ({id}) =&gt; {
       .appendChild(Input({id: id + 1}))
       .querySelector("textarea")
     newTextDom.focus()
-    setTimeout(() =&gt; newTextDom.scrollIntoView(), 10)
+    setTimeout(() =&gt; newTextDom.scrollIntoView(), 0)
   }
   const runDom = button({class: "run", onclick: run}, "Run")
   const onkeydown = async e =&gt; {

@@ -41,7 +41,7 @@ const pageToScripts = {
   minivan: [scripts.prism],
   ssr: [scripts.prism],
   x: [scripts.prism, scripts.van, scripts.vanX],
-  advanced: [scripts.prism, scripts.van],
+  advanced: [scripts.prism, scripts.van, scripts.vanX],
   media: [],
   about: [scripts.prism],
   "converter-lib": [scripts.prism],

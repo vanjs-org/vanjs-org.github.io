@@ -26,7 +26,7 @@ const Converter = () => {
     oninput: e => (isHtml.val ? htmlInput : mdInput).val = e.target.value,
     value: currentInput,
   })
-  derive(() => (currentInput.val, setTimeout(autogrow.bind(null, inputDom), 5)))
+  derive(() => (currentInput.val, setTimeout(autogrow.bind(null, inputDom), 0)))
 
   const fromStorage = JSON.parse(localStorage.getItem('ui-states') ?? '{}');
   const indent = state(fromStorage.indent ?? 2)
@@ -86,7 +86,7 @@ const Converter = () => {
       tagsDom.textContent = tags.length ? `const {${space}${tags.join(", ")}${space}} = van.tags
 ` : ""
       codeDom.textContent = lines.map(l => l + "\n").join("")
-      setTimeout(() => Prism.highlightAll(), 5)
+      setTimeout(() => Prism.highlightAll(), 0)
 
       return dom
     }

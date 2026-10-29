@@ -10,7 +10,7 @@ const TableViewer = ({inputText, inputType}) => {
     e.style.height = (e.scrollHeight + 5) + "px"
   }
   const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
-  setTimeout(() => autoGrow(textareaDom), 10)
+  setTimeout(() => autoGrow(textareaDom), 0)
 
   const text = van.state("")
 

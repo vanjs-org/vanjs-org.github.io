@@ -23,7 +23,7 @@ const JsonInspector = ({initInput}) => {
     e.style.height = (e.scrollHeight + 5) + "px"
   }
   const textareaDom = textarea({oninput: e => autoGrow(e.target)}, initInput)
-  setTimeout(() => autoGrow(textareaDom), 10)
+  setTimeout(() => autoGrow(textareaDom), 0)
   const errmsg = van.state(""), json = van.state(null)
 
   const inspect = () => {

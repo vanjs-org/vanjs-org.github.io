@@ -410,7 +410,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
       e.style.height = (e.scrollHeight + 5) + "px"
     }
     const textareaDom = textarea({oninput: e => autoGrow(e.target)}, inputText)
-    setTimeout(() => autoGrow(textareaDom), 10)
+    setTimeout(() => autoGrow(textareaDom), 0)
 
     const text = van.state("")
 
@@ -481,7 +481,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
       e.style.height = (e.scrollHeight + 5) + "px"
     }
     const textareaDom = textarea({oninput: e => autoGrow(e.target)}, initInput)
-    setTimeout(() => autoGrow(textareaDom), 10)
+    setTimeout(() => autoGrow(textareaDom), 0)
     const errmsg = van.state(""), json = van.state(null)
 
     const inspect = () => {
@@ -697,7 +697,7 @@ document.getElementById("random-demo").addEventListener("click", () => {
         .appendChild(Input({id: id + 1}))
         .querySelector("textarea")
       newTextDom.focus()
-      setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 10)
+      setTimeout(() => newTextDom.scrollIntoView({block: "center", inline: "nearest"}), 0)
     }
     const runDom = button({class: "run", onclick: run}, "Run")
     const onkeydown = async e => {
