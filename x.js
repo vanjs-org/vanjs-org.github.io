@@ -86,6 +86,36 @@
 }
 
 {
+  const {button, div, li, ul} = van.tags
+
+  const Directory = () => {
+    const users = vanX.reactive({20: "Bob"})
+
+    return div(
+      vanX.list(ul, users, name => li(name)),
+      button({onclick: () => vanX.replace(users, {10: "Alice", 20: "Bob"})}, "Refresh"),
+    )
+  }
+
+  van.add(document.getElementById("demo-list-numeric-keys"), Directory())
+}
+
+{
+  const {button, div, li, ul} = van.tags
+
+  const Directory = () => {
+    const users = vanX.reactive({k20: "Bob"})
+
+    return div(
+      vanX.list(ul, users, name => li(name)),
+      button({onclick: () => vanX.replace(users, {k10: "Alice", k20: "Bob"})}, "Refresh"),
+    )
+  }
+
+  van.add(document.getElementById("demo-list-prefixed-keys"), Directory())
+}
+
+{
   const {a, button, del, div, input, span} = van.tags
 
   const TodoList = () => {
