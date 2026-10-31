@@ -561,17 +561,25 @@ textarea {
   border-color: #444;
 }
 
-[data-theme="dark"] button:hover,
-[data-theme="dark"] input:hover,
-[data-theme="dark"] textarea:hover,
-[data-theme="dark"] button:focus,
-[data-theme="dark"] input:focus,
-[data-theme="dark"] textarea:focus,
-[data-theme="dark"] select:hover,
-[data-theme="dark"] select:focus {
+[data-theme="dark"] button:enabled:hover,
+[data-theme="dark"] input:enabled:hover,
+[data-theme="dark"] textarea:enabled:hover,
+[data-theme="dark"] button:enabled:focus,
+[data-theme="dark"] input:enabled:focus,
+[data-theme="dark"] textarea:enabled:focus,
+[data-theme="dark"] select:enabled:hover,
+[data-theme="dark"] select:enabled:focus {
   background-color: #333;
   border-color: #f44336;
   outline: none;
+}
+
+[data-theme="dark"] button:disabled,
+[data-theme="dark"] input:disabled,
+[data-theme="dark"] textarea:disabled,
+[data-theme="dark"] select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 [data-theme="dark"] input::placeholder,

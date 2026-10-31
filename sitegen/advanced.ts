@@ -119,6 +119,30 @@ export default (doc: HTMLDocument) => {
         "data-link-text": "After 1.3.0 update"
       }),
     ),
+    H2("The Mental Model of a ", VanJS(), " App"),
+    p("A ", VanJS(), " app keeps its domain model and UI in sync through state bindings. The typical flow is:"),
+    ol(
+      li("Define the domain model. Use state for values that can change."),
+      li("Build the DOM from the model. Bind the parts of the UI that should follow those values."),
+      li("Later, event handlers update the model. ", VanJS(), " updates the DOM bindings that depend on the changed state."),
+    ),
+    p(b("Before building a view, set the initial values of the states it reads."), " For example, a counter can create its local state with ", InlineJs("const count = van.state(0)"), ", then display it with ", InlineJs("span(count)"), ". The same rule applies when an event handler creates new DOM. Finish the related state changes before creating bindings that read those states."),
+    p("The example below shows what can go wrong when you create a button between two writes to the same state. Both buttons bind ", Symbol("disabled"), " to ", Symbol("busy"), ". Since ", Symbol("busy"), " ends at ", Symbol("false"), ", you would expect both buttons to be enabled. Yet Retry stays disabled."),
+    JsFile("bind-between-state-writes.code.js"),
+    p(Demo()),
+    p({id: "demo-bind-between-state-writes"}),
+    p({
+      id: "jsfiddle-bind-between-state-writes",
+      "data-prefix": "const {button} = van.tags",
+    }),
+    p("Each button reads ", Symbol("busy"), " when it is created. Save reads ", Symbol("false"), ", but Retry reads ", Symbol("true"), " and starts disabled. ", VanJS(), " batches subsequent DOM updates. By the time it processes these two writes, ", Symbol("busy"), " is back to its starting value of ", Symbol("false"), ", so ", VanJS(), " skips the update and Retry stays disabled. In the next example, we set ", Symbol("busy"), " before creating either button, so both start enabled."),
+    JsFile("init-before-binding.code.js"),
+    p(Demo()),
+    p({id: "demo-init-before-binding"}),
+    p({
+      id: "jsfiddle-init-before-binding",
+      "data-prefix": "const {button} = van.tags",
+    }),
     H2({id: "gc"}, "Garbage Collection"),
     p("There is garbage collection mechanism implemented in ", VanJS(), " to recycle obsolete state bindings. To illustrate the necessity of garbage collection, let's take a look at the code below:"),
     Js(`const renderPre = van.state(false)

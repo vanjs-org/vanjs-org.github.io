@@ -84,6 +84,27 @@
 }
 
 {
+  const {button} = van.tags
+
+  const busy = van.state(false)
+  van.add(document.getElementById("demo-bind-between-state-writes"), button({disabled: busy}, "Save"))
+
+  busy.val = true
+  van.add(document.getElementById("demo-bind-between-state-writes"), button({disabled: busy}, "Retry"))
+  busy.val = false
+}
+
+{
+  const {button} = van.tags
+
+  const busy = van.state(false)
+  van.add(document.getElementById("demo-init-before-binding"),
+    button({disabled: busy}, "Save"),
+    button({disabled: busy}, "Retry"),
+  )
+}
+
+{
   const {button, div, li, p, ul} = van.tags
 
   const EditableSheet = () => {
