@@ -6,7 +6,7 @@ export default (doc: HTMLDocument) => {
   const {tags: {a, b, blockquote, clipPath, code, defs, div, g, i, img, input, label, li, p, path, rect, span, svg, table, tbody, td, th, thead, title, tr, ul}} = van.vanWithDoc(doc)
   const {BI, Demo, H1, H2, H3, Js, Link, MiniVan, Quote, Symbol, VanGraph, VanJS, VanUI, VanX} = common(doc)
 
-  const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": true},
+  const mailIcon = svg({viewBox: "0 0 16 16", version: "1.1", width: 16, height: 16, "aria-hidden": "true"},
     path({"d": "M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"}),
   )
 
@@ -33,11 +33,11 @@ export default (doc: HTMLDocument) => {
     ),
   )
 
-  const GithubIcon = ({style}: {style?: string}) => svg({...(style ? {style} : {}), height: 16, "aria-hidden": true, viewBox: "0 0 16 16", version: "1.1", width: 16, "data-view-component": true},
+  const GithubIcon = ({style}: {style?: string}) => svg({...(style ? {style} : {}), height: 16, "aria-hidden": "true", viewBox: "0 0 16 16", version: "1.1", width: 16, "data-view-component": "true"},
     path({"d": "M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"}),
   )
 
-  const VSCodeIcon = ({style}: {style?: string}) => img({...(style ? {style} : {}), src: "/vs-code-16x16.png", height: "16", width: "16", "aria-hidden": true})
+  const VSCodeIcon = ({style}: {style?: string}) => img({...(style ? {style} : {}), src: "/vs-code-16x16.png", height: "16", width: "16", "aria-hidden": "true"})
 
   return div({id: "content"},
     H1(VanJS(), ": A 1.0kB Grab 'n Go Reactive UI Framework without React/JSX"),
@@ -248,16 +248,16 @@ van.add(document.body, Counter())
     H2("Support & Feedback"),
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier of UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
     p(
-      a({class: "github-button", href: "https://github.com/vanjs-org/van", "data-icon": "octicon-star", "data-show-count": true, "aria-label": "Star vanjs-org/van on GitHub"},
+      a({class: "github-button", href: "https://github.com/vanjs-org/van", "data-icon": "octicon-star", "data-show-count": "true", "aria-label": "Star vanjs-org/van on GitHub"},
         "Star",
       ), " ",
-      a({class: "github-button", href: "https://github.com/vanjs-org/van/subscription", "data-icon": "octicon-eye", "data-show-count": false, "aria-label": "Watch vanjs-org/van on GitHub"},
+      a({class: "github-button", href: "https://github.com/vanjs-org/van/subscription", "data-icon": "octicon-eye", "data-show-count": "false", "aria-label": "Watch vanjs-org/van on GitHub"},
         "Watch",
       ), " ",
       a({class: "github-button", href: "https://github.com/vanjs-org/van/discussions", "data-icon": "octicon-comment-discussion", "aria-label": "Discuss buttons/github-buttons on GitHub"},
         "Discuss",
       ), " ",
-      a({class: "github-button", href: "https://github.com/vanjs-org/van/issues", "data-icon": "octicon-issue-opened", "data-show-count": false, "aria-label": "Issue vanjs-org/van on GitHub"},
+      a({class: "github-button", href: "https://github.com/vanjs-org/van/issues", "data-icon": "octicon-issue-opened", "data-show-count": "false", "aria-label": "Issue vanjs-org/van on GitHub"},
         "Issue",
       ), " ",
       a({class: "github-button", href: "https://github.com/vanjs-org", "aria-label": "Follow @vanjs-org on GitHub"},

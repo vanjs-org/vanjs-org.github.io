@@ -27,11 +27,13 @@ export default (doc: HTMLDocument) => {
       }),
       DownloadRow({
         version,
+        prefix: "mini-",
         suffix: ".nomodule.min",
         description: ["Similar to ", Symbol(`mini-van-${version}.min.js`), ", but designed to work in non-module context, such as inline JavaScript or ", Symbol('<script type="text/javascript">'), "."],
       }),
       DownloadRow({
         version,
+        prefix: "mini-",
         suffix: ".nomodule",
         description: ["Similar to ", Symbol(`mini-van-${version}.js`), ", but designed to work in non-module context, such as inline JavaScript or ", Symbol('<script type="text/javascript">'), "."],
       }),
@@ -62,6 +64,11 @@ van.add(document.body, Hello())
     }),
     p("You can convert any HTML snippet into ", MiniVan(), " code with our online ", Link("converter", "/convert"), "."),
     p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.5kB and (", i("more importantly"), ") can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
+    H2("Attribute Values and Children"),
+    p("In both rendering modes, a boolean ", Symbol("false"), " omits the attribute, while ", Symbol("true"), " includes it without a value. This applies to all attribute names. For attributes such as ", Symbol("aria-expanded"), " or ", Symbol("data-*"), ' that need the text "true" or "false", pass a string:'),
+    Js(`button({disabled: false}, "Save")
+button({"aria-expanded": String(false)}, "Details")`),
+    p("These rules also apply to attribute values supplied by functions or states. Child functions and states that return ", Symbol("null"), " or ", Symbol("undefined"), " are ignored; other primitive values, including ", Symbol("0"), " and ", Symbol("false"), ", are rendered as text."),
     H2("Server-Side: NPM Integration"),
     p(MiniVan(), " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ", Link("www.npmjs.com/package/mini-van-plate", "https://www.npmjs.com/package/mini-van-plate"), ". Thus it can be used in ", Link("Node.js", "https://nodejs.org/"), " or ", Link("Bun", "https://bun.sh/"), "."),
     p("There are 2 modes for server-side integration: ", Symbol("van-plate"), " mode (based on text templating, thus doesn't need the DOM dependency), and ", Symbol("mini-van"), " mode (based on DOM, thus needs the DOM dependency)."),
@@ -108,7 +115,7 @@ van.add(document.body, Hello())
     div("Click the link to download the file, or 📋 to copy the import line from CDN."),
     DownloadTable({version}),
     H2("API Reference"),
-    p(MiniVan(), " exposes the same set of APIs as ", VanJS(), " for DOM composition and manipulation. Thus for API reference, you can refer to ", Link("DOM Composition and Manipulation", "/tutorial#dom"), " section of ", VanJS(), " tutorial. Note that: state and state binding are not supported in ", MiniVan(), "."),
+    p(MiniVan(), " exposes the same set of APIs as ", VanJS(), " for DOM composition and manipulation. Thus for API reference, you can refer to ", Link("DOM Composition and Manipulation", "/tutorial#dom"), " section of ", VanJS(), " tutorial. Note that: reactive updates are not supported in ", MiniVan(), "."),
     H2("Source Code"),
     p({style: "display: flex; align-items: center;"},
       svg({height: "16", "aria-hidden": "true", viewBox: "0 0 16 16", version: "1.1", width: "16", "data-view-component": "true", class: "octicon octicon-mark-github v-align-middle", style: "margin-right: 6px;"},
@@ -120,7 +127,7 @@ van.add(document.body, Hello())
     p("🙏 ", VanJS(), " aims to build a better world by reducing the entry barrier of UI programming, with no intention or plan on commercialization whatsoever. If you find ", VanJS(), " interesting, or could be useful for you some day, please consider starring the project on ", Link("GitHub", "https://github.com/vanjs-org/mini-van"), ". It takes just a few seconds but your support means the world to us and helps spread ", VanJS(), " to a wider audience."),
     p("We're looking for the 1.0 milestone (commitment to API stability) soon, your precious feedback will be greatly appreciated. You can submit your feedback by creating issues with the link below:"),
     p(
-      a({class: "github-button", href: "https://github.com/vanjs-org/mini-van", "data-icon": "octicon-star", "data-show-count": true, "aria-label": "Star vanjs-org/van on GitHub"},
+      a({class: "github-button", href: "https://github.com/vanjs-org/mini-van", "data-icon": "octicon-star", "data-show-count": "true", "aria-label": "Star vanjs-org/van on GitHub"},
         "Star",
       ), " ",
       a({class: "github-button", href: "https://github.com/vanjs-org/mini-van/subscription", "data-icon": "octicon-eye", "aria-label": "Watch vanjs-org/van on GitHub"},
