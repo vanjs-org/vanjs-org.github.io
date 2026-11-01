@@ -64,11 +64,6 @@ van.add(document.body, Hello())
     }),
     p("You can convert any HTML snippet into ", MiniVan(), " code with our online ", Link("converter", "/convert"), "."),
     p(MiniVan(), " is the slimmed-down version of ", Link(VanJS(), "/"), ", which aims to provide an ", BI("ultra-lightweight"), ", ", BI("zero-dependency"), ", and ", BI("unopinionated"), " Reactive UI framework based on pure vanilla JavaScript and DOM. Compared to ", VanJS(), ", ", MiniVan(), " further reduces the gzipped minified bundle size to 0.5kB and (", i("more importantly"), ") can be used on the server-side as a ", Link("template engine", "https://en.wikipedia.org/wiki/Web_template_system"), "."),
-    H2("Attribute Values and Children"),
-    p("In both rendering modes, a boolean ", Symbol("false"), " omits the attribute, while ", Symbol("true"), " includes it without a value. This applies to all attribute names. For attributes such as ", Symbol("aria-expanded"), " or ", Symbol("data-*"), ' that need the text "true" or "false", pass a string:'),
-    Js(`button({disabled: false}, "Save")
-button({"aria-expanded": String(false)}, "Details")`),
-    p("These rules also apply to attribute values supplied by functions or states. Child functions and states that return ", Symbol("null"), " or ", Symbol("undefined"), " are ignored; other primitive values, including ", Symbol("0"), " and ", Symbol("false"), ", are rendered as text."),
     H2("Server-Side: NPM Integration"),
     p(MiniVan(), " can be used on the server side as a template engine to render dynamic web content for HTTP servers. An NPM package was published here: ", Link("www.npmjs.com/package/mini-van-plate", "https://www.npmjs.com/package/mini-van-plate"), ". Thus it can be used in ", Link("Node.js", "https://nodejs.org/"), " or ", Link("Bun", "https://bun.sh/"), "."),
     p("There are 2 modes for server-side integration: ", Symbol("van-plate"), " mode (based on text templating, thus doesn't need the DOM dependency), and ", Symbol("mini-van"), " mode (based on DOM, thus needs the DOM dependency)."),
