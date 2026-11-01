@@ -20,6 +20,6 @@
     "mini-van-plate": "^0.6.3",
     "serve-static": "^1.15.0",
     "vanjs-core": "^1.6.2",
-    "vanjs-ext": "^0.6.0"
+    "vanjs-ext": "^0.6.4"
   }
 }
