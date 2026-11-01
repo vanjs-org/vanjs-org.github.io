@@ -298,12 +298,13 @@ const appendText = () =>
 
 // To reorder items in batch
 const sortItems = () =>
-  vanX.replace(todoItems, l => l.toSorted((a, b) => a.localeCompare(b)))
+  vanX.replace(todoItems, l => l.toSorted((a, b) => a.text.localeCompare(b.text)))
 
 // To insert items in batch
 const duplicateItems = () => vanX.replace(todoItems,
   l => l.flatMap(v => [v, {text: v.text + " copy", done: v.done}]))
 `),
+    p("Since ", VanX(), " 0.6.4, when a replacement reuses existing objects, ", Symbol("vanX.replace"), " preserves their identity and contents as they move. Sorting or filtering the TODO items above therefore keeps the original TODO objects. When you supply fresh objects instead, ", Symbol("vanX.replace"), " continues to update existing objects in place, changing only the fields that differ."),
     H4({id: "api-replace"}, "API reference: ", Symbol("vanX.replace")),
     ApiTable({
       signature: "vanX.replace(obj, replacement) => obj",
@@ -392,7 +393,7 @@ const duplicateItems = () => vanX.replace(todoItems,
     }),
     p("Note that ", Link("calculated fields", "#calculated-fields"), " are still recommended to be stored separately, to avoid issues like ", Link("self referencing", "#caveat-no-self-ref"), " or ", Link("calculated fields being replaced", "#caveat-no-calc-fields-in-replace"), "."),
     H3("Smart diff / update in ", Symbol("vanX.replace")),
-    p("When ", Symbol("vanX.replace"), " updates the reactive object ", Symbol("obj"), ", it will traverse the entire object tree, do a diff between ", Symbol("replacement"), " and ", Symbol("obj"), ", and only update leaf-level fields with different values. Thus, you can call ", Symbol("vanX.replace"), " to replace the entire app state object, and ", VanX(), " guarantees at the framework level that the minimum amount updates are applied to the reactive object and thus the DOM tree bound to it."),
+    p("When ", Symbol("replacement"), " supplies fresh data, ", Symbol("vanX.replace"), " recursively compares it with the reactive object ", Symbol("obj"), " and only updates leaf-level fields with different values. Objects that the replacement reuses from the current data are instead preserved and moved by reference. This lets you refresh the entire app state while limiting updates to the reactive object and the DOM tree bound to it."),
     p("For instance, if ", Symbol("appState"), " in the example above has the following value:"),
     Json(`{
   "input": "New Item",
