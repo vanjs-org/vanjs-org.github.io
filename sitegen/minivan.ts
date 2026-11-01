@@ -88,7 +88,7 @@ van.add(document.body, Hello())
     p("Similar to ", Symbol("van-plate"), " mode, we have a helper function ", Symbol("html"), " defined in ", Symbol("mini-van.js"), " which is equivalent to:"),
     Js(`(...args) => "<!DOCTYPE html>" + tags.html(...args).outerHTML`),
     H2("Server-Side: Deno Integration"),
-    p("Similarly, ", MiniVan(), " can work with Deno as well, in both ", Symbol("van-plate"), " mode and ", Symbol("mini-van"), " mode. A Deno module  was published here: ", SymLink("deno.land/x/minivan", "https://deno.land/x/minivan"), "."),
+    p("Similarly, ", MiniVan(), " can work with Deno as well, in both ", Symbol("van-plate"), " mode and ", Symbol("mini-van"), " mode. The examples below import ", MiniVan(), " directly from a versioned GitHub tag."),
     H3({id: "deno-van-plate"}, Symbol("van-plate"), " mode"),
     p("Sample code:"),
     div({style: "font-size: 0.9em;"}, i("Requires Deno ", Symbol("1.35"), " or later.")),
