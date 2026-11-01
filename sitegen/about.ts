@@ -33,7 +33,7 @@ export default (doc: HTMLDocument) => {
     H2({id: "reliability"}, "How Do We Ensure the Reliability of VanJS?"),
     p("As a new UI framework, we put heavy focus on the reliability of the framework. For every single release of ", VanJS(), ", below is the list of tests that we will run through:"),
     ul(
-      li("A browser-based test suite, with 500+ test cases, covering different versions of ", VanJS(), " files (", Symbol(".min.js"), ", ", Symbol(".debug.js"), ", ", Symbol(".nomodule.min.js"), ", etc.), including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), ", as well as error messages shown in the debug mode."),
+      li("A browser-based test suite, with ~600 test cases, covering different versions of ", VanJS(), " files (", Symbol(".min.js"), ", ", Symbol(".debug.js"), ", ", Symbol(".nomodule.min.js"), ", etc.), including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), ", as well as error messages shown in the debug mode."),
       li("Examples used in ", Link("VanJS tutorial", "/tutorial"), " are also covered in the browser-based test suite."),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li(Link("Sample applications", "/demo"), " will keep working in every single ", VanJS(), " release, including applications implemented in TypeScript (which covers TypeScript integration)."),
@@ -47,7 +47,7 @@ export default (doc: HTMLDocument) => {
     ),
     p("For every single release of ", VanX(), ", below is the list of tests that we will run through:"),
     ul(
-      li("A browser-based test suite, with 100+ test cases, covering different versions of ", VanX(), " files, including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), "."),
+      li("A browser-based test suite, with 150+ test cases, covering different versions of ", VanX(), " files, including the coverage of advanced behavior such as ", Link("garbage collection", "/advanced#gc"), "."),
       li("The browser-based test suite was implemented in TypeScript, thus TypeScript integration is covered."),
       li("Sample applications in ", Url("https://vanjs.org/x"), " will keep working in every single ", VanX(), " release."),
     ),
