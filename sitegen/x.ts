@@ -9,9 +9,9 @@ export default (doc: HTMLDocument) => {
   const version = Deno.readTextFileSync("code/van-x.version")
 
   return div({id: "content"},
-    H1(VanX(), ": The 1.2kB Official VanJS Extension"),
+    H1(VanX(), ": The 1.3kB Official VanJS Extension"),
     div("📣 ", Link(VanX(), " 0.4.0 brings lots of new features →", "https://github.com/vanjs-org/van/discussions/292")),
-    p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.2kB in the gzipped minified bundle."),
+    p(VanX(), " is the official extension of ", VanJS(), ", which provides handy utility functions. ", VanX(), " makes ", VanJS(), " more ergonomic for certain use cases and its developer experience closer to other popular UI frameworks. Like ", VanJS(), ", ", VanX(), " is also ultra-lightweight, with just 1.3kB in the gzipped minified bundle."),
     H2("Installation"),
     p(VanX(), " is published as NPM package ", Link("vanjs-ext", "https://www.npmjs.com/package/vanjs-ext"), ". Run the following command to install the package:"),
     Shell("npm install vanjs-ext"),
@@ -212,6 +212,7 @@ items.unshift(4)
 items.splice(1, 1, 5)
 `),
     p(Symbol("dom"), " will become ", InlineHtml("<ul><li>4</li><li>5</li><li>3</li></ul>"), "."),
+    p("Since ", VanX(), " 0.6.4, shortening an array's ", Symbol("length"), " also removes the corresponding rows from every mounted list. For example, ", InlineJs("items.length = 0"), " clears both the array and its lists. Increasing ", Symbol("length"), " creates empty slots without adding rows."),
     H4({id: "api-list"}, "API Reference: ", Symbol("vanX.list")),
     ApiTable({
       signature: "vanX.list(container, items, itemFunc) => <the root element of the created DOM tree>",
